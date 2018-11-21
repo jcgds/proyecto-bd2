@@ -3,7 +3,7 @@
 create or replace type tipo_valor as object (
     anio number(4, 0),
     valor number,
-    unidad varchar(30)
+    unidad varchar2(30)
 );
 /
 create or replace type distribucion_exp as object (
@@ -12,24 +12,24 @@ create or replace type distribucion_exp as object (
 );
 /
 CREATE OR REPLACE TYPE valoracion as object (
-    nombreElemento varchar(50),
+    nombreElemento varchar2(50),
     valor number,
-    observacion varchar(100)
+    observacion varchar2(100)
 );
 /
 CREATE OR REPLACE TYPE lugar as object (
-    ciudad varchar(50),
-    pais varchar(50)
+    ciudad varchar2(50),
+    pais varchar2(50)
 );
 /
 CREATE OR REPLACE TYPE hechos_hist as object (
-    año number(10),
-    hechos varchar(100)
+    anio number(10),
+    hechos varchar2(100)
 );
 /
 CREATE OR REPLACE TYPE valoracion_nt as TABLE OF valoracion;
 /
-CREATE OR REPLACE TYPE publicaciones_nt as TABLE OF varchar(50);
+CREATE OR REPLACE TYPE publicaciones_nt as TABLE OF varchar2(50);
 /
 CREATE OR REPLACE TYPE hechos_hist_nt as TABLE OF hechos_hist;
 /
@@ -51,21 +51,21 @@ create table DenominacionDeOrigen (
     constraint pk_denominacion_de_origen primary key (id, FK_VariedadVid)
 );
 /
-CREATE OR REPLACE TABLE CatadroAprendiz(
+CREATE TABLE CatadorAprendiz(
     pasaporte number,
-    nombre varchar(50) NOT NULL,
-    apellido varchar(50) NOT NULL,
+    nombre varchar2(50) NOT NULL,
+    apellido varchar2(50) NOT NULL,
     fechaDeNacimiento date NOT NULL,
-    genero varchar(1) NOT NULL,
-    lugarNacimiento lugar NOT NULL,
+    genero varchar2(1) NOT NULL,
+    lugarNacimiento lugar,
     CONSTRAINT tipo_genero CHECK (genero in ('M','F','O')),
-    CONSTRAINT pk_catadoraprendiz PRIMARY KEY (id)
+    CONSTRAINT pk_catadoraprendiz PRIMARY KEY (pasaporte)
 );
 /
-CREATE OR REPLACE TABLE Cata (
+CREATE TABLE Cata (
     id number,
     fecha date NOT NULL,
-    valoraciones valoracion_nt
+    valoraciones valoracion_nt,
     fk_catadoraprendiz number,
     fk_catadorexperto number,
     fk_muestra number,
@@ -73,21 +73,21 @@ CREATE OR REPLACE TABLE Cata (
 )
 NESTED TABLE valoraciones STORE AS valoracion_nt_1;
 /
-CREATE OR REPLACE TABLE CatadroExperto (
+CREATE TABLE CatadorExperto (
     id number,
-    nombre varchar(50) NOT NULL,
-    apellido varchar(50) NO NULL,
+    nombre varchar2(50) NOT NULL,
+    apellido varchar2(50) NOT NULL,
     fechaDeNacimiento date NOT NULL,
-    descripcion varchar(100),
+    descripcion varchar2(100),
     hechosCurriculum hechos_hist_nt,
-    lugarNacimiento lugar NOT NULL,
+    lugarNacimiento lugar,
     publicaciones publicaciones_nt,
-    genero varchar(1) NOT NULL,
+    genero varchar2(1) NOT NULL,
     fk_pais number NOT NULL,
     CONSTRAINT tipo_genero_CE CHECK (genero in ('M','F','O')),
     CONSTRAINT pk_catadorexperto PRIMARY KEY (id)
 )
-NESTED TABLE hechosCurriculum STORE AS hechosCurriculum_nt_1
+NESTED TABLE hechosCurriculum STORE AS hechosCurriculum_nt_1,
 NESTED TABLE publicaciones STORE AS publicaciones_nt_1;
 /
 CREATE TABLE Jueces (
