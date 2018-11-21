@@ -51,7 +51,7 @@ create table DenominacionDeOrigen (
     constraint pk_denominacion_de_origen primary key (id, FK_VariedadVid)
 );
 /
-CREATE OR REPLACE TABLE CatadroAprendiz(
+CREATE OR REPLACE TABLE CatadorAprendiz(
     pasaporte number,
     nombre varchar(50) NOT NULL,
     apellido varchar(50) NOT NULL,
@@ -73,10 +73,10 @@ CREATE OR REPLACE TABLE Cata (
 )
 NESTED TABLE valoraciones STORE AS valoracion_nt_1;
 /
-CREATE OR REPLACE TABLE CatadroExperto (
+CREATE OR REPLACE TABLE CatadorExperto (
     id number,
     nombre varchar(50) NOT NULL,
-    apellido varchar(50) NO NULL,
+    apellido varchar(50) NOT NULL,
     fechaDeNacimiento date NOT NULL,
     descripcion varchar(100),
     hechosCurriculum hechos_hist_nt,
@@ -90,10 +90,11 @@ CREATE OR REPLACE TABLE CatadroExperto (
 NESTED TABLE hechosCurriculum STORE AS hechosCurriculum_nt_1
 NESTED TABLE publicaciones STORE AS publicaciones_nt_1;
 /
+/* TODO: Faltan los contrainsts de Foreign key */
 CREATE TABLE Jueces (
     id number,
     fk_catadorexperto number,
     fk_edicion number,
-    CONSTRAINT pk_jueces PRIMARY KEY (id, fk_catadorexperto,fk_edicion)
+    CONSTRAINT pk_jueces PRIMARY KEY (id, fk_catadorexperto, fk_edicion)
 );
 /
