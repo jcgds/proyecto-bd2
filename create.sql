@@ -90,10 +90,11 @@ CREATE TABLE CatadorExperto (
 NESTED TABLE hechosCurriculum STORE AS hechosCurriculum_nt_1,
 NESTED TABLE publicaciones STORE AS publicaciones_nt_1;
 /
+/* TODO: Faltan los contrainsts de Foreign key */
 CREATE TABLE Jueces (
     id number,
     fk_catadorexperto number,
     fk_edicion number,
-    CONSTRAINT pk_jueces PRIMARY KEY (id, fk_catadorexperto,fk_edicion)
+    CONSTRAINT pk_jueces PRIMARY KEY (id, fk_catadorexperto, fk_edicion)
 );
 /
