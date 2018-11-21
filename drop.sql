@@ -1,4 +1,21 @@
 drop type tipo_valor force;
 drop type distribucion_exp force;
+drop type valoracion force;
+drop type lugar force;
+drop type hechos_hist force;
+drop type valoracion_nt force;
+drop type publicaciones_nt force;
+drop type conj_telefonos force;
+drop type direccion force;
+drop type personaDeContacto force;
+drop type personasDeContacto force;
+drop type datosDeContacto force;
+drop type tipo_valor_nt force;
+drop type distribucion_exp_nt force;
+
 drop table VariedadVid cascade constraints;
 drop table DenominacionDeOrigen cascade constraints;
+drop table CatadorAprendiz cascade constraints;
+drop table Cata cascade constraints;
+drop table CatadorExperto cascade constraints;
+drop table Jueces cascade constraints;

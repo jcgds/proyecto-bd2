@@ -23,7 +23,7 @@ CREATE OR REPLACE TYPE lugar as object (
 );
 /
 CREATE OR REPLACE TYPE hechos_hist as object (
-    año number(10),
+    anio number(10),
     hechos varchar(100)
 );
 /
@@ -33,8 +33,40 @@ CREATE OR REPLACE TYPE publicaciones_nt as TABLE OF varchar(50);
 /
 CREATE OR REPLACE TYPE hechos_hist_nt as TABLE OF hechos_hist;
 /
+-- TODO: Decidir size del varray
+create or replace type conj_telefonos is varray(5) of number(14);
+/
+create or replace type direccion as object (
+    estado varchar2(100),
+    codigoPostal varchar2(15),
+    lineaDireccion1 varchar2(100),
+    lineaDireccion2 varchar2(100)
+);
+/
+create or replace type personaDeContacto as object (
+    nombre varchar2(50),
+    apellido varchar2(50),
+    cargo varchar2(50),
+    email varchar2(50)
+);
+/
+create or replace type personasDeContacto_nt as table of personaDeContacto;
+/
+create or replace type datosDeContacto as object (
+    telefonos conj_telefonos,
+    fax number(14),
+    email varchar2(50),
+    direccionWeb varchar2(100),
+    dir direccion,
+    personasDeContacto personasDeContacto_nt
+);
+/
+create or replace type tipo_valor_nt as table of tipo_valor;
+/
+create or replace type distribucion_exp_nt as table of distribucion_exp;
+/
 /* Creacion de tablas */
-
+-- Tablas Juan
 create table VariedadVid (
     id number(10),
     nombre varchar2(50) not null,
@@ -51,7 +83,30 @@ create table DenominacionDeOrigen (
     constraint pk_denominacion_de_origen primary key (id, FK_VariedadVid)
 );
 /
-CREATE OR REPLACE TABLE CatadorAprendiz(
+create table Bodega (
+    id number(10),
+    nombre varchar2(50) not null,
+    historia hechos_hist_nt,
+    fechaFundacion date not null,
+    datosDeContacto datosDeContacto,
+    descripcionMision varchar2(200) not null,
+    descripcionGeneralVinos varchar2(200) not null,
+    produccionAnual tipo_valor_nt,
+    exportacionAnual distribucion_exp_nt,
+    propietario number,
+    constraint pk_bodega primary key (id)
+)
+NESTED TABLE historia STORE AS historia_nt_bodega,
+NESTED TABLE produccionAnual STORE AS produccionAnual_nt_bodega,
+NESTED TABLE exportacionAnual STORE AS exportacionAnual_nt_bodega,
+NESTED TABLE datosDeContacto.personasDeContacto STORE AS personasDeContacto_nt_bodega;
+-- TODO: Mover a alter.sql?
+-- alter table Bodega add constraint fk_bodega_bodega foreign key (propietario) references Bodega;
+
+
+-- Tablas Cagua
+/
+CREATE TABLE CatadorAprendiz(
     pasaporte number,
     nombre varchar(50) NOT NULL,
     apellido varchar(50) NOT NULL,
@@ -59,13 +114,13 @@ CREATE OR REPLACE TABLE CatadorAprendiz(
     genero varchar(1) NOT NULL,
     lugarNacimiento lugar NOT NULL,
     CONSTRAINT tipo_genero CHECK (genero in ('M','F','O')),
-    CONSTRAINT pk_catadoraprendiz PRIMARY KEY (id)
+    CONSTRAINT pk_catadoraprendiz PRIMARY KEY (pasaporte)
 );
 /
-CREATE OR REPLACE TABLE Cata (
+CREATE TABLE Cata (
     id number,
     fecha date NOT NULL,
-    valoraciones valoracion_nt
+    valoraciones valoracion_nt,
     fk_catadoraprendiz number,
     fk_catadorexperto number,
     fk_muestra number,
@@ -73,7 +128,7 @@ CREATE OR REPLACE TABLE Cata (
 )
 NESTED TABLE valoraciones STORE AS valoracion_nt_1;
 /
-CREATE OR REPLACE TABLE CatadorExperto (
+CREATE TABLE CatadorExperto (
     id number,
     nombre varchar(50) NOT NULL,
     apellido varchar(50) NOT NULL,
