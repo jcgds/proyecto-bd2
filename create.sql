@@ -1,3 +1,4 @@
+ALTER SESSION SET CURRENT_SCHEMA = WINE_SCHEMA;
 /* Definicion de TDAs */
 
 create or replace type tipo_valor as object (
@@ -49,7 +50,7 @@ create or replace type personaDeContacto as object (
     email varchar2(50)
 );
 /
-create or replace type personasDeContacto_var as vararray(2) of personaDeContacto;
+create or replace type personasDeContacto_nt as TABLE of personaDeContacto;
 /
 create or replace type datosDeContacto as object (
     telefonos conj_telefonos,
@@ -57,7 +58,7 @@ create or replace type datosDeContacto as object (
     email varchar2(50),
     direccionWeb varchar2(100),
     dir direccion,
-    personasDeContacto personasDeContacto_var
+    personasDeContacto personasDeContacto_nt
 );
 /
 create or replace type premio as object(
@@ -95,6 +96,11 @@ create or replace type datosBancarios as object(
     codigoSucursal varchar2(50)
 );
 /
+create or replace type unidadMonetaria as object(
+    nombre varchar2(50),
+    simbolo varchar2(5)
+);
+/
 /* Creacion de tablas */
 
 create table VariedadVid (
@@ -124,14 +130,14 @@ CREATE TABLE CatadorAprendiz(
     CONSTRAINT pk_catadoraprendiz PRIMARY KEY (pasaporte)
 );
 /
-CREATE TABLE Cata (
+CREATE TABLE CataAprendiz (
     id number,
     fecha date NOT NULL,
     valoraciones valoracion_nt,
+    sumatoria number(20) NOT NULL,
     fk_catadoraprendiz number,
-    fk_catadorexperto number,
     fk_muestra number,
-    CONSTRAINT pk_cata PRIMARY KEY (id)
+    CONSTRAINT pk_cataaprendiz PRIMARY KEY (id)
 )
 NESTED TABLE valoraciones STORE AS valoracion_nt_1;
 /
@@ -152,12 +158,23 @@ CREATE TABLE CatadorExperto (
 NESTED TABLE hechosCurriculum STORE AS hechosCurriculum_nt_1,
 NESTED TABLE publicaciones STORE AS publicaciones_nt_1;
 /
+CREATE TABLE CataExperto (
+    id number,
+    fecha date NOT NULL,
+    valoraciones valoracion_nt,
+    sumatoria number(20) NOT NULL,
+    fk_catadorexperto number,
+    fk_muestracompite number,
+    CONSTRAINT pk_cataexperto PRIMARY KEY (id)
+)
+NESTED TABLE valoraciones STORE AS valoracion_nt_2;
+/
 /* TODO: Faltan los contrainsts de Foreign key */
-CREATE TABLE Jueces (
+CREATE TABLE Juez (
     id number,
     fk_catadorexperto number,
     fk_edicion number,
-    CONSTRAINT pk_jueces PRIMARY KEY (id, fk_catadorexperto, fk_edicion)
+    CONSTRAINT pk_juez PRIMARY KEY (id, fk_catadorexperto, fk_edicion)
 );
 /
 CREATE TABLE Concurso (
@@ -172,7 +189,8 @@ CREATE TABLE Concurso (
     CONSTRAINT pk_concurso PRIMARY KEY (id)
 )
 NESTED TABLE premios STORE AS premio_nt_1,
-NESTED TABLE escalas STORE AS escala_nt_1;
+NESTED TABLE escalas STORE AS escala_nt_1,
+NESTED TABLE datosDeContacto.personasDeContacto STORE AS personaDeContacto_nt_2;
 /
 CREATE TABLE Organizador (
     id number,
@@ -203,14 +221,16 @@ CREATE TABLE Edicion(
     fechaInicio date NOT NULL,
     fechaFin date NOT NULL,
     precioEstandarPorMuestra number(10),
-    direccionE direccion NOT NULL,
+    direccionEnvioMuestras direccion NOT NULL,
     costos costoInscripcion_nt,
     lugarRealizar lugar NOT NULL,
-    unidadMonetaria varchar2(20) NOT NULL,
+    unidadMonetaria unidadMonetaria NOT NULL,
     emailEnvioInscripcion varchar2(50),
+    datosDeContacto datosDeContacto NOT NULL,
     CONSTRAINT pk_edicion PRIMARY KEY (id)
 )
-NESTED TABLE costos STORE AS costoInscripcion_nt_1;
+NESTED TABLE costos STORE AS costoInscripcion_nt_1,
+NESTED TABLE datosDeContacto.personasDeContacto STORE AS personaDeContacto_nt_3;
 /
 CREATE TABLE Inscripcion (
     id number,
