@@ -1,3 +1,5 @@
+ALTER SESSION SET CURRENT_SCHEMA=WINE_SCHEMA;
+
 /* Definicion de TDAs */
 
 create or replace type tipo_valor as object (
@@ -25,6 +27,11 @@ CREATE OR REPLACE TYPE lugar as object (
 CREATE OR REPLACE TYPE hechos_hist as object (
     anio number(10),
     hechos varchar(100)
+);
+/
+CREATE OR REPLACE TYPE unidadMonetaria as object (
+    nombre varchar2(30),
+    simbolo varchar2(10)
 );
 /
 CREATE OR REPLACE TYPE valoracion_nt as TABLE OF valoracion;
@@ -65,8 +72,34 @@ create or replace type tipo_valor_nt as table of tipo_valor;
 /
 create or replace type distribucion_exp_nt as table of distribucion_exp;
 /
+
+CREATE OR REPLACE DIRECTORY mapas_regionales AS 'C:\WINE_DB\mapas_regionales';
 /* Creacion de tablas */
 -- Tablas Juan
+CREATE TABLE Pais (
+    id number,
+    nombre varchar2(50) not null,
+    continente varchar2(9) not null CHECK (continente IN ('Asia', 'Europa', 'África', 'América', 'Oceanía', 'Antártida')),
+    superficieVinedo tipo_valor_nt,
+    produccionAnual tipo_valor_nt,
+    exportacionAnual distribucion_exp_nt,
+    unidadMonetaria unidadMonetaria,
+    mapaRegional BFILE,
+    descripcion varchar2(200),
+    constraint pk_pais primary key (id)
+)
+NESTED TABLE superficieVinedo STORE AS superficieVinedo_nt_pais,
+NESTED TABLE produccionAnual STORE AS produccionAnual_nt_pais,
+NESTED TABLE exportacionAnual STORE AS exportacionAnual_nt_pais;
+/
+create table Region (
+    id number,
+    nombre varchar2(50) not null,
+    descripcion varchar2(100),
+    FK_Pais number not null,
+    constraint pk_region primary key (id)
+);
+/
 create table VariedadVid (
     id number(10),
     nombre varchar2(50) not null,
@@ -78,9 +111,9 @@ create table DenominacionDeOrigen (
     id number(10),
     nombre varchar2(50) not null,
     descripcion varchar2(250),
-    FK_VariedadVid number(10),
-    constraint fk_variedadvid_DO foreign key (FK_VariedadVid) references VariedadVid (id),
-    constraint pk_denominacion_de_origen primary key (id, FK_VariedadVid)
+    FK_VariedadVid number(10) not null,
+    FK_Region number not null,
+    constraint pk_denominacion_de_origen primary key (id, FK_VariedadVid, FK_Region)
 );
 /
 create table Bodega (
@@ -100,9 +133,7 @@ NESTED TABLE historia STORE AS historia_nt_bodega,
 NESTED TABLE produccionAnual STORE AS produccionAnual_nt_bodega,
 NESTED TABLE exportacionAnual STORE AS exportacionAnual_nt_bodega,
 NESTED TABLE datosDeContacto.personasDeContacto STORE AS personasDeContacto_nt_bodega;
--- TODO: Mover a alter.sql?
--- alter table Bodega add constraint fk_bodega_bodega foreign key (propietario) references Bodega;
-
+/
 
 -- Tablas Cagua
 /
