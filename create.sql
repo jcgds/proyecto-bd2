@@ -50,15 +50,14 @@ create or replace type personaDeContacto as object (
     email varchar2(50)
 );
 /
-create or replace type personasDeContacto_nt as TABLE of personaDeContacto;
-/
+
 create or replace type datosDeContacto as object (
     telefonos conj_telefonos,
     fax number(14),
     email varchar2(50),
     direccionWeb varchar2(100),
     dir direccion,
-    personasDeContacto personasDeContacto_nt
+    personasDeContacto personaDeContacto
 );
 /
 create or replace type premio as object(
@@ -189,8 +188,7 @@ CREATE TABLE Concurso (
     CONSTRAINT pk_concurso PRIMARY KEY (id)
 )
 NESTED TABLE premios STORE AS premio_nt_1,
-NESTED TABLE escalas STORE AS escala_nt_1,
-NESTED TABLE datosDeContacto.personasDeContacto STORE AS personaDeContacto_nt_2;
+NESTED TABLE escalas STORE AS escala_nt_1;
 /
 CREATE TABLE Organizador (
     id number,
@@ -227,10 +225,10 @@ CREATE TABLE Edicion(
     unidadMonetaria unidadMonetaria NOT NULL,
     emailEnvioInscripcion varchar2(50),
     datosDeContacto datosDeContacto NOT NULL,
+    fk_concurso number NOT NULL,
     CONSTRAINT pk_edicion PRIMARY KEY (id)
 )
-NESTED TABLE costos STORE AS costoInscripcion_nt_1,
-NESTED TABLE datosDeContacto.personasDeContacto STORE AS personaDeContacto_nt_3;
+NESTED TABLE costos STORE AS costoInscripcion_nt_1;
 /
 CREATE TABLE Inscripcion (
     id number,
