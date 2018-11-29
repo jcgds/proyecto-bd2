@@ -1,5 +1,5 @@
 ALTER SESSION SET CURRENT_SCHEMA=WINE_SCHEMA;
-
+/
 /* Definicion de TDAs */
 
 create or replace type tipo_valor as object (
@@ -134,6 +134,36 @@ NESTED TABLE produccionAnual STORE AS produccionAnual_nt_bodega,
 NESTED TABLE exportacionAnual STORE AS exportacionAnual_nt_bodega,
 NESTED TABLE datosDeContacto.personasDeContacto STORE AS personasDeContacto_nt_bodega;
 /
+
+create table B_DO (
+    id number,
+    -- PK de DenominacionDeOrigen --
+    fk_do_id number(10),
+    fk_do_VariedadVid number(10),
+    fk_do_region number(10),
+    --------------------------------
+    fk_bodega number(10),
+    constraint pk_B_DO primary key (id, fk_do_id, fk_do_VariedadVid, fk_do_region, fk_bodega)
+);
+/
+create table Cosecha (
+    id number,
+    anio number(4, 0) not null,
+    clasificacion varchar2(2) not null,
+    -- PK de B_DO ------------------------
+    fk_bdo_id number,
+        -- PK de DenominacionDeOrigen --
+        fk_bdo_do_id number(10),
+        fk_bdo_do_VariedadVid number(10),
+        fk_bdo_do_region number(10),
+        --------------------------------
+        -- PK de Bodega ----------------
+        fk_bdo_bodega number(10),
+        --------------------------------
+    --------------------------------------
+    constraint clasificacion_valida check (clasificacion in ('E', 'MB', 'R', 'D')),
+    constraint pk_cosecha primary key (id, fk_bdo_id, fk_bdo_do_id, fk_bdo_do_VariedadVid, fk_bdo_do_region, fk_bdo_bodega)
+);
 
 -- Tablas Cagua
 /

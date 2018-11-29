@@ -8,6 +8,15 @@ alter table DenominacionDeOrigen add (
     constraint fk_region_DO foreign key (FK_Region) references Region (id)
 );
 
+ALTER TABLE B_DO add (
+    constraint  fk_bdo_do FOREIGN KEY (fk_do_id, fk_do_VariedadVid, fk_do_region) REFERENCES DenominacionDeOrigen (id, FK_VariedadVid, FK_Region),
+    constraint  fk_bdo_bodega FOREIGN KEY (fk_Bodega) REFERENCES Bodega (id)
+);
+
+alter table Cosecha add
+    constraint fk_cosecha_bdo foreign key (fk_bdo_id, fk_bdo_do_id, fk_bdo_do_VariedadVid, fk_bdo_do_region, fk_bdo_bodega) 
+    references B_DO (id, fk_do_id, fk_do_VariedadVid, fk_do_region, fk_bodega);
+
 ALTER TABLE Cata ADD CONSTRAINT fk_CA FOREIGN KEY (fk_catadoraprendiz) 
     REFERENCES CatadorAprendiz (pasaporte);
 
