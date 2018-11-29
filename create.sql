@@ -64,8 +64,9 @@ create or replace type datosDeContacto as object (
     fax number(14),
     email varchar2(50),
     direccionWeb varchar2(100),
-    dir direccion,
-    personasDeContacto personasDeContacto_nt
+    dir direccion--,
+    -- TODO: Poner varray
+    -- personasDeContacto personasDeContacto_nt
 );
 /
 create or replace type tipo_valor_nt as table of tipo_valor;
@@ -83,8 +84,8 @@ CREATE TABLE Pais (
     superficieVinedo tipo_valor_nt,
     produccionAnual tipo_valor_nt,
     exportacionAnual distribucion_exp_nt,
-    unidadMonetaria unidadMonetaria,
-    mapaRegional BFILE,
+    unidadMonetaria unidadMonetaria not null,
+    mapaRegional BFILE not null,
     descripcion varchar2(200),
     constraint pk_pais primary key (id)
 )
@@ -111,8 +112,8 @@ create table DenominacionDeOrigen (
     id number(10),
     nombre varchar2(50) not null,
     descripcion varchar2(250),
-    FK_VariedadVid number(10) not null,
-    FK_Region number not null,
+    FK_VariedadVid number(10),
+    FK_Region number,
     constraint pk_denominacion_de_origen primary key (id, FK_VariedadVid, FK_Region)
 );
 /
@@ -121,7 +122,7 @@ create table Bodega (
     nombre varchar2(50) not null,
     historia hechos_hist_nt,
     fechaFundacion date not null,
-    datosDeContacto datosDeContacto,
+    datosDeContacto datosDeContacto not null,
     descripcionMision varchar2(200) not null,
     descripcionGeneralVinos varchar2(200) not null,
     produccionAnual tipo_valor_nt,

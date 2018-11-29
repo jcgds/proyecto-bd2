@@ -1,5 +1,5 @@
 insert into Pais values (1, 'Portugal', 'Europa', tipo_valor_nt(), tipo_valor_nt(), distribucion_exp_nt(), 
-    unidadMonetaria('Euro', 'EUR'), null, null);
+    unidadMonetaria('Euro', 'EUR'), bfilename('mapas_regionales', 'portugal.jpg'), null);
 
 insert into Region values (1, 'Douro', null, 1);
 
