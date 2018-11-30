@@ -21,3 +21,11 @@ drop type hechos_hist_nt force;
 drop type premio_nt force;
 drop type escala_nt force;
 drop type costoInscripcion_nt force;
+
+drop table MuestraCompite cascade constraints purge;
+drop table HistoricoPrecio cascade constraints purge;
+drop table Presentacion cascade constraints purge;
+drop table MarcaVino_B_DO cascade constraints purge;
+drop table ClasificacionVinos cascade constraints purge;
+drop table MarcaVino cascade constraints purge;
+drop table MuestraCatador cascade constraints purge;
