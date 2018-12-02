@@ -146,7 +146,7 @@ create table Region (
 create table VariedadVid (
     id number(10),
     nombre varchar2(50) not null,
-    tipo varchar2(6) check (tipo in ('tinta','blanca')) not null,
+    --tipo varchar2(6) check (tipo in ('tinta','blanca')) not null,
     constraint pk_variedadvid primary key (id)
 );
 /
@@ -165,8 +165,8 @@ create table Bodega (
     historia hechos_hist_nt,
     fechaFundacion date not null,
     datosDeContacto datosDeContacto not null,
-    descripcionMision varchar2(200) not null,
-    descripcionGeneralVinos varchar2(200) not null,
+    descripcionMision varchar2(400) not null,
+    descripcionGeneralVinos varchar2(400) not null,
     produccionAnual tipo_valor_nt,
     exportacionAnual distribucion_exp_nt,
     propietario number,
@@ -395,8 +395,8 @@ CREATE TABLE MarcaVino_B_DO(
 CREATE TABLE ClasificacionVinos(
     id number,
     fk_clasificacionvinos number,
-    nombre varchar(25) NOT NULL,
-    nivel varchar(25) NOT NULL,
+    nombre varchar(50) NOT NULL,
+    nivel number NOT NULL,
     porcentajeVol number NOT NULL,
     CONSTRAINT pk_clasificacionvinos PRIMARY KEY(id)
 );
