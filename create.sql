@@ -1,4 +1,5 @@
 ALTER SESSION SET CURRENT_SCHEMA = WINE_SCHEMA;
+
 /* Definicion de TDAs */
 
 create or replace type tipo_valor as object (
@@ -34,6 +35,7 @@ CREATE OR REPLACE TYPE publicaciones_nt as TABLE OF varchar2(50);
 /
 CREATE OR REPLACE TYPE hechos_hist_nt as TABLE OF hechos_hist;
 /
+-- TODO: Decidir size del varray
 create or replace type conj_telefonos is varray(5) of number(14);
 /
 create or replace type direccion as object (
@@ -50,15 +52,23 @@ create or replace type personaDeContacto as object (
     email varchar2(50)
 );
 /
+-- TODO: Borrar esta NT, deberia ser un varray
+create or replace type personasDeContacto_nt as table of personaDeContacto;
+/
 
 create or replace type datosDeContacto as object (
     telefonos conj_telefonos,
     fax number(14),
     email varchar2(50),
     direccionWeb varchar2(100),
-    dir direccion,
-    personasDeContacto personaDeContacto
+    dir direccion--,
+    -- TODO: Poner varray
+    -- personasDeContacto personasDeContacto_nt
 );
+/
+create or replace type tipo_valor_nt as table of tipo_valor;
+/
+create or replace type distribucion_exp_nt as table of distribucion_exp;
 /
 create or replace type premio as object(
     nombre varchar2(50),
@@ -100,8 +110,34 @@ create or replace type unidadMonetaria as object(
     simbolo varchar2(5)
 );
 /
-/* Creacion de tablas */
+CREATE OR REPLACE DIRECTORY mapas_regionales AS 'C:\WINE_DB\mapas_regionales';
 
+/* Creacion de tablas */
+-- Tablas Juan
+CREATE TABLE Pais (
+    id number,
+    nombre varchar2(50) not null,
+    continente varchar2(9) not null CHECK (continente IN ('Asia', 'Europa', 'África', 'América', 'Oceanía', 'Antártida')),
+    superficieVinedo tipo_valor_nt,
+    produccionAnual tipo_valor_nt,
+    exportacionAnual distribucion_exp_nt,
+    unidadMonetaria unidadMonetaria not null,
+    mapaRegional BFILE not null,
+    descripcion varchar2(200),
+    constraint pk_pais primary key (id)
+)
+NESTED TABLE superficieVinedo STORE AS superficieVinedo_nt_pais,
+NESTED TABLE produccionAnual STORE AS produccionAnual_nt_pais,
+NESTED TABLE exportacionAnual STORE AS exportacionAnual_nt_pais;
+/
+create table Region (
+    id number,
+    nombre varchar2(50) not null,
+    descripcion varchar2(100),
+    FK_Pais number not null,
+    constraint pk_region primary key (id)
+);
+/
 create table VariedadVid (
     id number(10),
     nombre varchar2(50) not null,
@@ -114,9 +150,60 @@ create table DenominacionDeOrigen (
     nombre varchar2(50) not null,
     descripcion varchar2(250),
     FK_VariedadVid number(10),
-    constraint fk_variedadvid_DO foreign key (FK_VariedadVid) references VariedadVid (id),
-    constraint pk_denominacion_de_origen primary key (id, FK_VariedadVid)
+    FK_Region number,
+    constraint pk_denominacion_de_origen primary key (id, FK_VariedadVid, FK_Region)
 );
+/
+create table Bodega (
+    id number(10),
+    nombre varchar2(50) not null,
+    historia hechos_hist_nt,
+    fechaFundacion date not null,
+    datosDeContacto datosDeContacto not null,
+    descripcionMision varchar2(200) not null,
+    descripcionGeneralVinos varchar2(200) not null,
+    produccionAnual tipo_valor_nt,
+    exportacionAnual distribucion_exp_nt,
+    propietario number,
+    constraint pk_bodega primary key (id)
+)
+NESTED TABLE historia STORE AS historia_nt_bodega,
+NESTED TABLE produccionAnual STORE AS produccionAnual_nt_bodega,
+NESTED TABLE exportacionAnual STORE AS exportacionAnual_nt_bodega;
+--NESTED TABLE datosDeContacto.personasDeContacto STORE AS personasDeContacto_nt_bodega;
+/
+
+create table B_DO (
+    id number,
+    -- PK de DenominacionDeOrigen --
+    fk_do_id number(10),
+    fk_do_VariedadVid number(10),
+    fk_do_region number(10),
+    --------------------------------
+    fk_bodega number(10),
+    constraint pk_B_DO primary key (id, fk_do_id, fk_do_VariedadVid, fk_do_region, fk_bodega)
+);
+/
+create table Cosecha (
+    id number,
+    anio number(4, 0) not null,
+    clasificacion varchar2(2) not null,
+    -- PK de B_DO ------------------------
+    fk_bdo_id number,
+        -- PK de DenominacionDeOrigen --
+        fk_bdo_do_id number(10),
+        fk_bdo_do_VariedadVid number(10),
+        fk_bdo_do_region number(10),
+        --------------------------------
+        -- PK de Bodega ----------------
+        fk_bdo_bodega number(10),
+        --------------------------------
+    --------------------------------------
+    constraint clasificacion_valida check (clasificacion in ('E', 'MB', 'R', 'D')),
+    constraint pk_cosecha primary key (id, fk_bdo_id, fk_bdo_do_id, fk_bdo_do_VariedadVid, fk_bdo_do_region, fk_bdo_bodega)
+);
+
+-- Tablas Cagua
 /
 CREATE TABLE CatadorAprendiz(
     pasaporte number,
