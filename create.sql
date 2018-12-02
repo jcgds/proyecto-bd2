@@ -328,11 +328,12 @@ CREATE TABLE Inscripcion (
 );
 /
 CREATE TABLE HistoricoPrecio(
-    año date,
+    anio date,
     fk_presentacion number,
     fk_marcavino number,
+    fk_clasificacionvinos number,
     precio number NOT NULL,
-    CONSTRAINT pk_historicoprecio PRIMARY KEY(año, fk_presentacion, fk_marcavino)
+    CONSTRAINT pk_historicoprecio PRIMARY KEY(anio, fk_presentacion, fk_marcavino,fk_clasificacionvinos)
 );
 /
 CREATE TABLE Presentacion(
@@ -349,7 +350,7 @@ CREATE TABLE MuestraCompite(
     fk_marcavino number,
     fk_inscripcion number,
     fk_clasificacionvinos number,
-    añada number NOT NULL,
+    anada number NOT NULL,
     premio premio_nt,
     CONSTRAINT pk_muestracompite PRIMARY KEY(id, fk_inscripcion)
 )
@@ -362,6 +363,8 @@ CREATE TABLE MarcaVino_B_DO(
     fk_b_do number,
     fk_bodega number,
     fk_denominaciondeorigen number,
+    fk_do_VariedadVid number,
+    fk_do_region number,
     CONSTRAINT pk_marcavino_b_do PRIMARY KEY(id, fk_marcavino, fk_b_do)
 );
 /
@@ -405,7 +408,7 @@ CREATE TABLE MuestraCatador(
   fk_juez number,
   fk_edicion number,
   fk_catadorexperto number,
-  añada number NOT NULL,
+  anada number NOT NULL,
   sumatoriaExperto number NOT null,
   CONSTRAINT pk_muestracatador PRIMARY KEY (id, fk_marcavino, fk_clasificacionvinos, fk_juez, fk_edicion, fk_catadorexperto)
 );
