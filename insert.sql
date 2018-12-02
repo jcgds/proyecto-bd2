@@ -1,42 +1,42 @@
 -- Clasificaciones de Vino ------------------------------------------------------------------------------
-insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-(1, null, 'Tinto', 1, 0);
-insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-(2, null, 'Blanco', 1, 0);
+insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+(1, null, 'Tinto', 1, rangoPorcentajeVol(0,0));
+insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+(2, null, 'Blanco', 1, rangoPorcentajeVol(0,0));
 
     -- Clasificacion de vinos blancos -------------------------------------------------------------------
-    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-    (4, 2, 'Ligeros y Secos', 2, 12);
-    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-    (5, 2, 'Secos y amplios', 2, 13);
-    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-    (6, 2, 'Secos y concentrados', 2, 14);
-    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-    (7, 2, 'Aromaticos', 2, 13);
-    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-    (8, 2, 'Semisecos', 2, 13);
-    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-    (9, 2, 'Dulces y Licorosos', 2, 18);
+    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+    (4, 2, 'Ligeros y Secos', 2, rangoPorcentajeVol(9,12));
+    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+    (5, 2, 'Secos y amplios', 2, rangoPorcentajeVol(10,13));
+    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+    (6, 2, 'Secos y concentrados', 2, rangoPorcentajeVol(11,14));
+    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+    (7, 2, 'Aromaticos', 2, rangoPorcentajeVol(11,13));
+    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+    (8, 2, 'Semisecos', 2, rangoPorcentajeVol(6,14));
+    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+    (9, 2, 'Dulces y Licorosos', 2, rangoPorcentajeVol(9,18));
     -- Clasificacion de vinos tintos --------------------------------------------------------------------
-    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-    (10, 1, 'Rosados', 2, 14);
-    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-    (11, 1, 'Ligeros, afrutados, no envejecidos', 2, 12);
-    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-    (12, 1, 'De cuerpo medio', 2, 13);
-    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-    (13, 1, 'Concentrados, Intensos', 2, 14);
-    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-    (14, 1, 'De Guarda', 2, 13);
-    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-    (15, 1, 'Especiales', 2, 17);
+    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+    (10, 1, 'Rosados', 2, rangoPorcentajeVol(10,14));
+    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+    (11, 1, 'Ligeros, afrutados, no envejecidos', 2, rangoPorcentajeVol(10,12));
+    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+    (12, 1, 'De cuerpo medio', 2, rangoPorcentajeVol(12,13));
+    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+    (13, 1, 'Concentrados, Intensos', 2, rangoPorcentajeVol(12,14));
+    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+    (14, 1, 'De Guarda', 2, rangoPorcentajeVol(12, 13));
+    insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+    (15, 1, 'Especiales', 2, rangoPorcentajeVol(14,17));
         -- Clasificacion tintos especiales -------------------------------------------------------------
-        insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-        (16, 15, 'Secos', 3, 17);
-        insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-        (17, 15, 'Semisecos', 3, 17);
-        insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajeVol) values 
-        (18, 15, 'Dulces', 3, 17);
+        insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+        (16, 15, 'Secos', 3, rangoPorcentajeVol(14,17));
+        insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+        (17, 15, 'Semisecos', 3, rangoPorcentajeVol(14,17));
+        insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
+        (18, 15, 'Dulces', 3, rangoPorcentajeVol(14,17));
 --------------------------------------------------------------------------------------------------------
 
 insert into Pais values (1, 'Portugal', 'Europa', tipo_valor_nt(), tipo_valor_nt(), distribucion_exp_nt(), 

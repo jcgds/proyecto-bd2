@@ -115,6 +115,11 @@ create or replace type calificacion_nt as table of calificacion;
 /
 create or replace type maridajes as varray(5) of varchar2(50);
 /
+create or replace type rangoPorcentajeVol as object(
+    desde number,
+    hasta number
+);
+/
 CREATE OR REPLACE DIRECTORY mapas_regionales AS 'C:\WINE_DB\mapas_regionales';
 
 /* Creacion de tablas */
@@ -397,7 +402,7 @@ CREATE TABLE ClasificacionVinos(
     fk_clasificacionvinos number,
     nombre varchar(50) NOT NULL,
     nivel number NOT NULL,
-    porcentajeVol number NOT NULL,
+    porcentajes rangoPorcentajeVol NOT NULL,
     CONSTRAINT pk_clasificacionvinos PRIMARY KEY(id)
 );
 /

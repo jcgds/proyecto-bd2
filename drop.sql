@@ -26,6 +26,7 @@ drop type costoInscripcion_nt force;
 drop type calificacion force;
 drop type calificacion_nt force;
 drop type maridajes force;
+drop type rangoPorcentajeVol force;
 
 drop table CatadorAprendiz cascade constraints purge;
 drop table CataAprendiz cascade constraints purge;
