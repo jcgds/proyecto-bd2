@@ -327,3 +327,88 @@ CREATE TABLE Inscripcion (
     CONSTRAINT pk_inscripcion PRIMARY KEY (id)
 );
 /
+CREATE TABLE HistoricoPrecio(
+    anio date,
+    fk_presentacion number,
+    fk_marcavino number,
+    fk_clasificacionvinos number,
+    precio number NOT NULL,
+    CONSTRAINT pk_historicoprecio PRIMARY KEY(anio, fk_presentacion, fk_marcavino,fk_clasificacionvinos)
+);
+/
+CREATE TABLE Presentacion(
+    id number,
+    fk_marcavino number,
+    fk_clasificacionvinos number,
+    tipo varchar(50) NOT NULL,
+    unidadesEnCaja number,
+    CONSTRAINT pk_presentacion PRIMARY KEY(id, fk_marcavino, fk_clasificacionvinos)
+);
+/
+CREATE TABLE MuestraCompite(
+    id number,
+    fk_marcavino number,
+    fk_inscripcion number,
+    fk_clasificacionvinos number,
+    anada number NOT NULL,
+    premio premio_nt,
+    CONSTRAINT pk_muestracompite PRIMARY KEY(id, fk_inscripcion)
+)
+NESTED TABLE premio STORE AS premio_nt_muestracompite;
+/
+CREATE TABLE MarcaVino_B_DO(
+    id number,
+    fk_marcavino number,
+    fk_clasificacionvinos number,
+    fk_b_do number,
+    fk_bodega number,
+    fk_denominaciondeorigen number,
+    fk_do_VariedadVid number,
+    fk_do_region number,
+    CONSTRAINT pk_marcavino_b_do PRIMARY KEY(id, fk_marcavino, fk_b_do)
+);
+/
+CREATE TABLE ClasificacionVinos(
+    id number,
+    fk_clasificacionvinos number,
+    nombre varchar(25) NOT NULL,
+    nivel varchar(25) NOT NULL,
+    porcentajeVol number NOT NULL,
+    CONSTRAINT pk_clasificacionvinos PRIMARY KEY(id)
+);
+/
+CREATE TABLE MarcaVino(
+    id number,
+    fk_clasificacionvinos number,
+    nombre varchar(25) NOT NULL,
+    descripcionElaboracion varchar(200) NOT NULL,
+    descripcionCata varchar(200) NOT NULL,
+    temperaturaDeServocop number NOT NULL,
+    contactoConMadera CHAR(1),
+    gramosDeAzucarPorLitro number NOT NULL,
+    gradoAlcohol number NOT NULL,
+    produccionAnual number NOT NULL,
+    exportacionAnual number NOT NULL,
+    criticas varchar(200) NOT NULL,
+    tiempoDeMaduracionMeses number NOT NULL,
+    ventanaDeConsumo number NOT NULL,
+    maridaje CHAR(1) NOT NULL,
+    acidez number NOT NULL,
+    tipoTapon varchar(25) NOT NULL,
+    foto BLOB,
+    CONSTRAINT pk_marcavino PRIMARY KEY(id, fk_clasificacionvinos),
+    CONSTRAINT contacto_madera CHECK (contactoConMadera in ('S', 'N')),
+    CONSTRAINT uso_maridaje CHECK (maridaje in ('S', 'N'))
+);
+/
+CREATE TABLE MuestraCatador(
+  id number,
+  fk_marcavino number,
+  fk_clasificacionvinos number,
+  fk_juez number,
+  fk_edicion number,
+  fk_catadorexperto number,
+  anada number NOT NULL,
+  sumatoriaExperto number NOT null,
+  CONSTRAINT pk_muestracatador PRIMARY KEY (id, fk_marcavino, fk_clasificacionvinos, fk_juez, fk_edicion, fk_catadorexperto)
+);
