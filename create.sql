@@ -1,5 +1,5 @@
-ALTER SESSION SET CURRENT_SCHEMA = WINE_SCHEMA;
-
+--ALTER SESSION SET CURRENT_SCHEMA = WINE_SCHEMA;
+-- /
 /* Definicion de TDAs */
 
 create or replace type tipo_valor as object (
@@ -52,18 +52,15 @@ create or replace type personaDeContacto as object (
     email varchar2(50)
 );
 /
--- TODO: Borrar esta NT, deberia ser un varray
-create or replace type personasDeContacto_nt as table of personaDeContacto;
+create or replace type personasDeContacto as varray(3) of personaDeContacto;
 /
-
 create or replace type datosDeContacto as object (
     telefonos conj_telefonos,
     fax number(14),
     email varchar2(50),
     direccionWeb varchar2(100),
-    dir direccion--,
-    -- TODO: Poner varray
-    -- personasDeContacto personasDeContacto_nt
+    dir direccion,
+    contactos personasDeContacto
 );
 /
 create or replace type tipo_valor_nt as table of tipo_valor;
@@ -117,7 +114,7 @@ CREATE OR REPLACE DIRECTORY mapas_regionales AS 'C:\WINE_DB\mapas_regionales';
 CREATE TABLE Pais (
     id number,
     nombre varchar2(50) not null,
-    continente varchar2(9) not null CHECK (continente IN ('Asia', 'Europa', '√Åfrica', 'Am√©rica', 'Ocean√≠a', 'Ant√°rtida')),
+    continente varchar2(9) not null CHECK (continente IN ('Asia', 'Europa', '¡frica', 'AmÈrica', 'OceanÌa', 'Ant·rtida')),
     superficieVinedo tipo_valor_nt,
     produccionAnual tipo_valor_nt,
     exportacionAnual distribucion_exp_nt,
@@ -126,8 +123,8 @@ CREATE TABLE Pais (
     descripcion varchar2(200),
     constraint pk_pais primary key (id)
 )
-NESTED TABLE superficieVinedo STORE AS superficieVinedo_nt_pais,
-NESTED TABLE produccionAnual STORE AS produccionAnual_nt_pais,
+NESTED TABLE superficieVinedo STORE AS superficieVinedo_nt_pais
+NESTED TABLE produccionAnual STORE AS produccionAnual_nt_pais
 NESTED TABLE exportacionAnual STORE AS exportacionAnual_nt_pais;
 /
 create table Region (
@@ -167,8 +164,8 @@ create table Bodega (
     propietario number,
     constraint pk_bodega primary key (id)
 )
-NESTED TABLE historia STORE AS historia_nt_bodega,
-NESTED TABLE produccionAnual STORE AS produccionAnual_nt_bodega,
+NESTED TABLE historia STORE AS historia_nt_bodega
+NESTED TABLE produccionAnual STORE AS produccionAnual_nt_bodega
 NESTED TABLE exportacionAnual STORE AS exportacionAnual_nt_bodega;
 --NESTED TABLE datosDeContacto.personasDeContacto STORE AS personasDeContacto_nt_bodega;
 /
@@ -241,7 +238,7 @@ CREATE TABLE CatadorExperto (
     CONSTRAINT tipo_genero_CE CHECK (genero in ('M','F','O')),
     CONSTRAINT pk_catadorexperto PRIMARY KEY (id)
 )
-NESTED TABLE hechosCurriculum STORE AS hechosCurriculum_nt_1,
+NESTED TABLE hechosCurriculum STORE AS hechosCurriculum_nt_1
 NESTED TABLE publicaciones STORE AS publicaciones_nt_1;
 /
 CREATE TABLE CataExperto (
@@ -274,7 +271,7 @@ CREATE TABLE Concurso (
     caracteristicas varchar2(200),
     CONSTRAINT pk_concurso PRIMARY KEY (id)
 )
-NESTED TABLE premios STORE AS premio_nt_1,
+NESTED TABLE premios STORE AS premio_nt_1
 NESTED TABLE escalas STORE AS escala_nt_1;
 /
 CREATE TABLE Organizador (
