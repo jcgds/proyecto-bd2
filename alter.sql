@@ -21,8 +21,8 @@ ALTER TABLE CataAprendiz ADD CONSTRAINT fk_CA FOREIGN KEY (fk_catadoraprendiz)
     REFERENCES CatadorAprendiz (pasaporte);
 /
 ALTER TABLE CataAprendiz ADD CONSTRAINT fk_M FOREIGN KEY (fk_muestra_id, fk_muestra_marcavino_id, 
-                                                          fk_muestra_marcavino_clasif, fk_muestra_juez)
-    REFERENCES MuestraCatador (id, fk_marcavino_id, fk_marcavino_clasificacion, fk_juez);
+                                                          fk_muestra_marcavino_clasif, fk_juez_id, fk_edicion, fk_catadorexperto)
+    REFERENCES MuestraCatador (id, fk_marcavino_id, fk_marcavino_clasificacion, fk_juez, fk_edicion, fk_catadorexperto);
 /
 ALTER TABLE CataExperto ADD CONSTRAINT fk_CE FOREIGN KEY (fk_catadorexperto)
     REFERENCES CatadorExperto (id);

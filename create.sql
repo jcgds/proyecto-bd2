@@ -223,7 +223,11 @@ CREATE TABLE CataAprendiz (
     fk_muestra_id number,
     fk_muestra_marcavino_id number,
     fk_muestra_marcavino_clasif number,
-    fk_muestra_juez number,
+        -- FK Juez --------------------
+        fk_juez_id number,
+        fk_edicion number,
+        fk_catadorexperto number,
+        -------------------------------
     -------------------------------------------------
     CONSTRAINT pk_cataaprendiz PRIMARY KEY (id)
 )
@@ -409,10 +413,12 @@ CREATE TABLE MuestraCatador(
   fk_marcavino_id number,
   fk_marcavino_clasificacion number,
   -----------------------------------
+  -- PK Juez ------------------------
   fk_juez number,
   fk_edicion number,
   fk_catadorexperto number,
+  -----------------------------------
   anada number NOT NULL,
   sumatoriaExperto number NOT null,
-  CONSTRAINT pk_muestracatador PRIMARY KEY (id, fk_marcavino_id, fk_marcavino_clasificacion, fk_juez)
+  CONSTRAINT pk_muestracatador PRIMARY KEY (id, fk_marcavino_id, fk_marcavino_clasificacion, fk_juez, fk_edicion, fk_catadorexperto)
 );
