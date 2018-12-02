@@ -23,6 +23,10 @@ drop type hechos_hist_nt force;
 drop type premio_nt force;
 drop type escala_nt force;
 drop type costoInscripcion_nt force;
+drop type calificacion force;
+drop type calificacion_nt force;
+drop type maridajes force;
+
 drop table CatadorAprendiz cascade constraints purge;
 drop table CataAprendiz cascade constraints purge;
 drop table CatadorExperto cascade constraints purge;

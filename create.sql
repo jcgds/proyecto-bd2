@@ -35,7 +35,6 @@ CREATE OR REPLACE TYPE publicaciones_nt as TABLE OF varchar2(50);
 /
 CREATE OR REPLACE TYPE hechos_hist_nt as TABLE OF hechos_hist;
 /
--- TODO: Decidir size del varray
 create or replace type conj_telefonos is varray(5) of number(14);
 /
 create or replace type direccion as object (
@@ -106,6 +105,15 @@ create or replace type unidadMonetaria as object(
     nombre varchar2(50),
     simbolo varchar2(5)
 );
+/
+create or replace type calificacion as object(
+    nombreCritica varchar2(50),
+    valor tipo_valor
+);
+/
+create or replace type calificacion_nt as table of calificacion;
+/
+create or replace type maridajes as varray(5) of varchar2(50);
 /
 CREATE OR REPLACE DIRECTORY mapas_regionales AS 'C:\WINE_DB\mapas_regionales';
 
@@ -261,7 +269,6 @@ CREATE TABLE CataExperto (
 )
 NESTED TABLE valoraciones STORE AS valoracion_nt_2;
 /
-/* TODO: Faltan los contrainsts de Foreign key */
 CREATE TABLE Juez (
     id number,
     fk_catadorexperto number,
@@ -335,43 +342,54 @@ CREATE TABLE Inscripcion (
 /
 CREATE TABLE HistoricoPrecio(
     anio date,
+    -- PK Presentacion -----------
     fk_presentacion number,
     fk_marcavino number,
     fk_clasificacionvinos number,
+    ------------------------------
     precio number NOT NULL,
     CONSTRAINT pk_historicoprecio PRIMARY KEY(anio, fk_presentacion, fk_marcavino,fk_clasificacionvinos)
 );
 /
 CREATE TABLE Presentacion(
     id number,
+    -- PK MarcaVino --------------
     fk_marcavino number,
     fk_clasificacionvinos number,
+    ------------------------------
     tipo varchar(50) NOT NULL,
     unidadesEnCaja number,
-    CONSTRAINT pk_presentacion PRIMARY KEY(id, fk_marcavino, fk_clasificacionvinos)
+    CONSTRAINT pk_presentacion PRIMARY KEY(id, fk_marcavino, fk_clasificacionvinos),
+    CHECK (tipo IN ('Botella', 'Caja'))
 );
 /
 CREATE TABLE MuestraCompite(
     id number,
-    fk_marcavino number,
+    -- PK MarcaVino -------------
+    fk_marcavino number not null,
+    fk_clasificacionvinos number not null,
+    -----------------------------
     fk_inscripcion number,
-    fk_clasificacionvinos number,
     anada number NOT NULL,
-    premio premio_nt,
+    premio premio_nt, -- TODO: Creo que es un unico premio no varios (Verificar con profesora)
     CONSTRAINT pk_muestracompite PRIMARY KEY(id, fk_inscripcion)
 )
 NESTED TABLE premio STORE AS premio_nt_muestracompite;
 /
 CREATE TABLE MarcaVino_B_DO(
     id number,
+    -- PK MarcaVino ---------------
     fk_marcavino number,
     fk_clasificacionvinos number,
+    -------------------------------
+    -- PK B_DO --------------------
     fk_b_do number,
     fk_bodega number,
     fk_denominaciondeorigen number,
     fk_do_VariedadVid number,
     fk_do_region number,
-    CONSTRAINT pk_marcavino_b_do PRIMARY KEY(id, fk_marcavino, fk_b_do)
+    -------------------------------
+    CONSTRAINT pk_marcavino_b_do PRIMARY KEY(id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_denominaciondeorigen, fk_do_VariedadVid, fk_do_region, fk_bodega)
 );
 /
 CREATE TABLE ClasificacionVinos(
@@ -389,23 +407,25 @@ CREATE TABLE MarcaVino(
     nombre varchar(25) NOT NULL,
     descripcionElaboracion varchar(200) NOT NULL,
     descripcionCata varchar(200) NOT NULL,
-    temperaturaDeServocop number NOT NULL,
+    temperaturaDeServicio number NOT NULL,
     contactoConMadera CHAR(1),
     gramosDeAzucarPorLitro number NOT NULL,
     gradoAlcohol number NOT NULL,
-    produccionAnual number NOT NULL,
-    exportacionAnual number NOT NULL,
-    criticas varchar(200) NOT NULL,
+    produccionAnual tipo_valor_nt,
+    exportacionAnual distribucion_exp_nt,
+    criticas calificacion_nt,
     tiempoDeMaduracionMeses number NOT NULL,
     ventanaDeConsumo number NOT NULL,
-    maridaje CHAR(1) NOT NULL,
+    maridaje maridajes NOT NULL,
     acidez number NOT NULL,
     tipoTapon varchar(25) NOT NULL,
     foto BLOB,
     CONSTRAINT pk_marcavino PRIMARY KEY(id, fk_clasificacionvinos),
-    CONSTRAINT contacto_madera CHECK (contactoConMadera in ('S', 'N')),
-    CONSTRAINT uso_maridaje CHECK (maridaje in ('S', 'N'))
-);
+    CONSTRAINT contacto_madera CHECK (contactoConMadera in ('S', 'N'))
+)
+NESTED TABLE produccionAnual STORE AS produccionAnual_MarcaVino
+NESTED TABLE exportacionAnual STORE AS exportacionAnual_MarcaVino
+NESTED TABLE criticas STORE AS criticas_MarcaVino;
 /
 CREATE TABLE MuestraCatador(
   id number,
