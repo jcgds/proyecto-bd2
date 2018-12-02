@@ -20,9 +20,10 @@ alter table Cosecha add
 ALTER TABLE CataAprendiz ADD CONSTRAINT fk_CA FOREIGN KEY (fk_catadoraprendiz) 
     REFERENCES CatadorAprendiz (pasaporte);
 /
-ALTER TABLE CataAprendiz ADD CONSTRAINT fk_M FOREIGN KEY (fk_muestra)
-    REFERENCES MuestraCatador (id);
-
+ALTER TABLE CataAprendiz ADD CONSTRAINT fk_M FOREIGN KEY (fk_muestra_id, fk_muestra_marcavino_id, 
+                                                          fk_muestra_marcavino_clasif, fk_muestra_juez)
+    REFERENCES MuestraCatador (id, fk_marcavino_id, fk_marcavino_clasificacion, fk_juez);
+/
 ALTER TABLE CataExperto ADD CONSTRAINT fk_CE FOREIGN KEY (fk_catadorexperto)
     REFERENCES CatadorExperto (id);
 /
@@ -71,7 +72,7 @@ ALTER TABLE MuestraCompite ADD CONSTRAINT fk_muestra_marca FOREIGN KEY (fk_marca
 ALTER TABLE MuestraCompite ADD CONSTRAINT fk_muestra_inscripcion FOREIGN KEY (fk_inscripcion)
     REFERENCES Inscripcion (id);
 /
-ALTER TABLE MuestraCatador ADD CONSTRAINT fk_muestraCom_marca FOREIGN KEY (fk_marcavino, fk_clasificacionvinos)
+ALTER TABLE MuestraCatador ADD CONSTRAINT fk_muestraCom_marca FOREIGN KEY (fk_marcavino_id, fk_marcavino_clasificacion)
     REFERENCES MarcaVino (id, fk_clasificacionvinos);
 /
 ALTER TABLE MuestraCatador ADD CONSTRAINT fk_muestraCom_juez FOREIGN KEY (fk_juez, fk_edicion, fk_catadorexperto)

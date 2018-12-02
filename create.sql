@@ -219,7 +219,12 @@ CREATE TABLE CataAprendiz (
     valoraciones valoracion_nt,
     sumatoria number(20) NOT NULL,
     fk_catadoraprendiz number,
-    fk_muestra number,
+    -- FK MuestraCatador ----------------------------
+    fk_muestra_id number,
+    fk_muestra_marcavino_id number,
+    fk_muestra_marcavino_clasif number,
+    fk_muestra_juez number,
+    -------------------------------------------------
     CONSTRAINT pk_cataaprendiz PRIMARY KEY (id)
 )
 NESTED TABLE valoraciones STORE AS valoracion_nt_1;
@@ -400,12 +405,14 @@ CREATE TABLE MarcaVino(
 /
 CREATE TABLE MuestraCatador(
   id number,
-  fk_marcavino number,
-  fk_clasificacionvinos number,
+  -- PK Marca Vino ------------------
+  fk_marcavino_id number,
+  fk_marcavino_clasificacion number,
+  -----------------------------------
   fk_juez number,
   fk_edicion number,
   fk_catadorexperto number,
   anada number NOT NULL,
   sumatoriaExperto number NOT null,
-  CONSTRAINT pk_muestracatador PRIMARY KEY (id, fk_marcavino, fk_clasificacionvinos, fk_juez, fk_edicion, fk_catadorexperto)
+  CONSTRAINT pk_muestracatador PRIMARY KEY (id, fk_marcavino_id, fk_marcavino_clasificacion, fk_juez)
 );
