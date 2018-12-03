@@ -72,7 +72,30 @@ insert into Bodega values (
     null
 );
 
-
+insert into MarcaVino values (
+    1,
+    17,
+    'Quinta Da Fronteira Reserva Tinto',
+    'Grapes were handpicked to 16 kg cases and carefully selected at the winery. The fermentation and maceration were made in conical vats and were adapted to each grape variety as well as the malolatic. Tinta Roriz has done the malolactic fermentation in oak barrels; Touriga Franca has done on skins (sulphited and racked directly to barrel);and Touriga Nacional in vats. The wines were racked to the barrels before spring time. They aged for 18 months in French oak barrels (20% new).',
+    'Deep ruby colour, with complex aromas of black ripe fruit, spices, mocha, orange blossom and rockrose hints. In the mouth it reveals a good balance between acidity and soft layered tannins. A long-lasting aromatic taste.',
+    17,
+    'S',
+    1.2,
+    15,
+    tipo_valor_nt(tipo_valor(2011, 15348, 'litros'), tipo_valor(2012, 15348, 'litros'), tipo_valor(2013, 21126, 'litros')),
+    distribucion_exp_nt(), -- TODO: Conseguir o inventar datos de exportacion
+    calificacion_nt(
+        calificacion('Wine Enthusiast Magazine', tipo_valor(2012, 91, 'puntos')),
+        calificacion('Wine Enthusiast Magazine', tipo_valor(2011, 92, 'puntos')),
+        calificacion('Wine Advocate/Robert Parker', tipo_valor(2011, 90, 'puntos'))
+    ),
+    18,
+    20,
+    maridajes('Carnes rojas', 'Asados', 'Quesos de sabor intenso'),
+    5.1,
+    'Corcho',
+    null -- TODO: Ver como se sube un BLOB
+);
 -----------------------------------------------------------------------------
 
 

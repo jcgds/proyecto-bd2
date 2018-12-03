@@ -409,9 +409,9 @@ CREATE TABLE ClasificacionVinos(
 CREATE TABLE MarcaVino(
     id number,
     fk_clasificacionvinos number,
-    nombre varchar(25) NOT NULL,
-    descripcionElaboracion varchar(200) NOT NULL,
-    descripcionCata varchar(200) NOT NULL,
+    nombre varchar(70) NOT NULL,
+    descripcionElaboracion varchar(1000) NOT NULL,
+    descripcionCata varchar(1000) NOT NULL,
     temperaturaDeServicio number NOT NULL,
     contactoConMadera CHAR(1),
     gramosDeAzucarPorLitro number NOT NULL,
@@ -423,7 +423,7 @@ CREATE TABLE MarcaVino(
     ventanaDeConsumo number NOT NULL,
     maridaje maridajes NOT NULL,
     acidez number NOT NULL,
-    tipoTapon varchar(25) NOT NULL,
+    tipoTapon varchar(70) NOT NULL,
     foto BLOB,
     CONSTRAINT pk_marcavino PRIMARY KEY(id, fk_clasificacionvinos),
     CONSTRAINT contacto_madera CHECK (contactoConMadera in ('S', 'N'))
