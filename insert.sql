@@ -97,5 +97,63 @@ insert into MarcaVino values (
     null -- TODO: Ver como se sube un BLOB
 );
 -----------------------------------------------------------------------------
+insert into Pais values (4, 'Estados Unidos', 'América', tipo_valor_nt(), tipo_valor_nt(tipo_valor(2016,26900000,'hl')), distribucion_exp_nt(), 
+    unidadMonetaria('Dolar', 'US'), bfilename('mapas_regionales', 'usa.jpg'), null);
+-- Bodega OPUS ONE -----------------------------------------------    
+insert into Region values (2, 'Oakville AVA', null, 4);
+
+insert into VariedadVid values (4,'Zinfandel');
+insert into VariedadVid values (5,'Gamay');
+insert into VariedadVid values (6,'Chemin blanc');
+
+insert into DenominacionDeOrigen values (2,'American Viticultural Area', null, 4, 2);
+
+insert into Bodega values (
+    2, 
+    'Opus One',
+    hechos_hist_nt(hechos_hist(1980, 'Fundacion por Baron Philippe y Robert Mondavi')),
+    TO_DATE('12-06-1980', 'DD-MM-YYYY'), 
+    DATOSDECONTACTO(
+        conj_telefonos(18002926787,17009449442), 
+        null, 
+        'info@opuswinery.com', 
+        'https://es.opusonewinery.com/',
+        direccion('Oakville, CA', '94562', '7900 St. Helena Highway', null),
+        personasDeContacto(personaDeContacto('John','Cena','Winemaker','johnc@opuswinery.com'))
+    ),
+    'En Opus One la esencia del tiempo se expresa por el carácter de cada cosecha.' || 
+    'El lugar, a menudo definido como "terroir", representa la geografía, el clima y el elemento humano esencial que se captura en el equilibrio 
+     del vino entre la fuerza y la finura, la estructura y la textura.',
+    'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
+    tipo_valor_nt(),  -- TODO: Conseguir y llenar esta tabla con 3 anios
+    distribucion_exp_nt(), -- TODO: Conseguir y llenar esta tabla con 3 anios
+    null
+);
+insert into MarcaVino values (
+    2,
+    16,
+    'Overture',
+    'Overture es una expresión atemporal de los viñedos de nuestra finca, con cuerpo pero accesible en su juventud. Overture muestra una abundancia de aromas y sabores de frutas silvestres con un paladar medio suave y sutil.',
+    'Deep dark fruits and cherries. Leather, black pepper. Light but long lasting taste of grapes at the end. Paired with garlic roasted lamb rack',
+    14,
+    'N',
+    1.1,
+    14,
+    tipo_valor_nt(tipo_valor(2011, 26654, 'litros'), tipo_valor(2012, 36225, 'litros'), tipo_valor(2013, 14562, 'litros')),
+    distribucion_exp_nt(), -- TODO: Conseguir o inventar datos de exportacion
+    calificacion_nt(
+        calificacion('Robert Parker Wine Advocate', tipo_valor(2014, 98, 'puntos')),
+        calificacion('James Suckling', tipo_valor(2014, 98, 'puntos')),
+        calificacion('Wine Spectator', tipo_valor(2014, 93, 'puntos'))
+    ),
+    18,
+    20,
+    maridajes('Carnes rojas', 'Asados', 'Quesos de sabor intenso'),
+    4.1,
+    'Corcho',
+    null -- TODO: Ver como se sube un BLOB
+);
+
+
 
 
