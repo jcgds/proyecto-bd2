@@ -48,7 +48,8 @@ insert into VariedadVid values (1,'Touriga Nacional');
 insert into VariedadVid values (2,'Touriga Franca');
 insert into VariedadVid values (3,'Tinta Roriz');
 
-insert into DenominacionDeOrigen values (1,'DOC Douro', null, 1, 1);
+insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
+(1,'DOC Douro', null, 1, 1);
 
 insert into Bodega values (
     1, 
@@ -96,6 +97,13 @@ insert into MarcaVino values (
     'Corcho',
     null -- TODO: Ver como se sube un BLOB
 );
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(1, 1, 1, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la DOC Douro 
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(1, 1, 17, 1, 1, 1, 1, 1); -- Quinta Da Fronteira - DOC Douro - Reserva Tinto
+
 -----------------------------------------------------------------------------
 insert into Pais values (4, 'Estados Unidos', 'América', tipo_valor_nt(), tipo_valor_nt(tipo_valor(2016,26900000,'hl')), distribucion_exp_nt(), 
     unidadMonetaria('Dolar', 'US'), bfilename('mapas_regionales', 'usa.jpg'), null);
