@@ -440,7 +440,7 @@ CREATE TABLE MarcaVino(
     exportacionAnual distribucion_exp_nt,
     criticas calificacion_nt,
     tiempoDeMaduracionMeses number NOT NULL,
-    ventanaDeConsumo number NOT NULL,
+    ventanaDeConsumoAnios number NOT NULL,
     maridaje maridajes NOT NULL,
     acidez number NOT NULL,
     tipoTapon varchar(70) NOT NULL,
