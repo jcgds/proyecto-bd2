@@ -198,20 +198,20 @@ insert into Bodega values (
 -- TODO: UTILIZAR IDs [51,100] para cada tabla. 
 -- Ej: Estados Unidos en vez de ser 4 que sea 51
 --     Oakville en vez de ser 2 que sea 41 etc
-/*
+
 insert into Pais values (4, 'Estados Unidos', 'America', tipo_valor_nt(), tipo_valor_nt(tipo_valor(2016,26900000,'hl')), distribucion_exp_nt(), 
     unidadMonetaria('Dolar', 'USD'), bfilename('mapas_regionales', 'usa.jpg'), null);
 -- Bodega OPUS ONE -----------------------------------------------    
-insert into Region values (2, 'Oakville AVA', null, 4);
+insert into Region values (41, 'Oakville AVA', null, 4);
 
-insert into VariedadVid values (4,'Zinfandel');
-insert into VariedadVid values (5,'Gamay');
-insert into VariedadVid values (6,'Chemin blanc');
+insert into VariedadVid values (51,'Zinfandel');
+insert into VariedadVid values (52,'Gamay');
+insert into VariedadVid values (53,'Chemin blanc');
 
-insert into DenominacionDeOrigen values (2,'American Viticultural Area', null, 4, 2);
+insert into DenominacionDeOrigen values (51,'American Viticultural Area', null, 4, 2);
 
 insert into Bodega values (
-    2, 
+    51, 
     'Opus One',
     hechos_hist_nt(hechos_hist(1980, 'Fundacion por Baron Philippe y Robert Mondavi')),
     TO_DATE('12-06-1980', 'DD-MM-YYYY'), 
@@ -232,7 +232,7 @@ insert into Bodega values (
     null
 );
 insert into MarcaVino values (
-    2,
+    51,
     16,
     'Overture',
     'Overture es una expresi�n atemporal de los vi�edos de nuestra finca, con cuerpo pero accesible en su juventud. Overture muestra una abundancia de aromas y sabores de frutas silvestres con un paladar medio suave y sutil.',
@@ -255,7 +255,7 @@ insert into MarcaVino values (
     'Corcho',
     null -- TODO: Ver como se sube un BLOB
 );
-*/
+
 
 
 
