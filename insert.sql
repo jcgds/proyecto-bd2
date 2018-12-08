@@ -108,7 +108,7 @@ insert into MarcaVino values (
         calificacion('Wine Enthusiast Magazine', tipo_valor(2011, 92, 'puntos')),
         calificacion('Wine Advocate/Robert Parker', tipo_valor(2011, 90, 'puntos'))
     ),
-    18,
+    6,
     20,
     maridajes('Carnes rojas', 'Asados', 'Quesos de sabor intenso'),
     5.1,
@@ -172,7 +172,7 @@ insert into MarcaVino values (
         calificacion('Wine Enthusiast Magazine', tipo_valor(2015, 88, 'puntos'))
     ),
     5,
-    10,
+    8,
     maridajes('Pescados', 'Ensaladas', 'Pastas', 'Carnes blancas'),
     6.75,
     'Corcho 1+1',
@@ -195,7 +195,6 @@ insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
 (5, 3, 9, 5, 1, 5, 4, 1); -- Quinta Da Fronteira - Douro Codega do Lorinho - Fronteira White
 -- / Fin Bodega Quinta Da Fronteira ------------------------------------------------------------------------------------------------------------------------
-
 
 -- Bodega Herdade Da Farizoa --------------------------------------------------------------------------------------------------------------------
 insert into Region values (3, 'Alentejo', null, 1);
@@ -260,7 +259,71 @@ insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
 (7, 4, 13, 7, 3, 7, 6, 3); -- Herdade Da Farizoa - IG Alentejano Aragonez - Portas Da Herdade Reserva
 
-----------------------------------------------------------------------------------------------------------------------------------------------
+---- / Fin Bodega Herdade Da Farizoa ------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Bodega Justino's Madeira --------------------------------------------------------------------------------------------------------------------
+insert into Region values (4, 'Madeira', null, 1);
+insert into VariedadVid values (7, 'Tinta negra');
+insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
+(8,'Madeira - Tinta negra', null, 7, 4);
+
+insert into Bodega values (
+    4, 
+    'Justino''s Madeira',
+    hechos_hist_nt(
+        hechos_hist(1870, 'Establecimiento de la bodega'),
+        hechos_hist(1953, 'Fundacion como empresa familiar'),
+        hechos_hist(1993, 'Asociacion con uno de las mayores asociaciones francesas de bebidas alcoholicas, La Martiniquaise'),
+        hechos_hist(1994, 'Inauguracion de una nueva bodega con tecnologia de punta en el Parque Industrial da Cancela'),
+        hechos_hist(1995, 'Finalizacion de mudanza de la ubicacion inicial en el centro de Funchal al Parque Industrial da Cancela')
+    ),
+    TO_DATE('10-02-1870', 'DD-MM-YYYY'), 
+    DATOSDECONTACTO(
+        conj_telefonos(351291934257), 
+        351291934049, 
+        'justinos@justinosmadeira.com', 
+        'http://www.justinosmadeira.com',
+        direccion('Madeira', '9125-042', 'Parque Industrial da Cancela', 'Caniço, Madeira'),
+        personasDeContacto()
+    ),
+    -- TODO: En este caso como son sub bodegas de Companhia Das Quintas la mision deberia ser la misma?
+    'Durante toda a sua história a Justino''s Madeira tem vindo, gradualmente, a conquistar e a confirmar a sua presença, um pouco por todo o mundo, com especial destaque para a França, Alemanha, Inglaterra, Áustria, Suíça, Polónia, Benelux, Espanha e Escandinávia, e também E.U.A., Canadá, Brasil e Japão.',
+    'A empresa dispõe actualmente de um dos maiores stocks de vinhos na Ilha da Madeira, constituído por vinhos de elevada qualidade, envelhecidos em cascos de carvalho, que lhe permitem dar resposta às solicitações dos mercados mais exigentes e selectivos.',
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(8, 8, 7, 4, 4); -- B_DO Entre bodega Justino's Madeira y la DO Madeira
+
+insert into MarcaVino values (
+    5,
+    18,
+    'Colombo Madeira Tinta Negra',
+    'Desengaçe total, esmagamento e prensagem. Vinificação em bica-aberta. Fermentado totalmente em cuba de aço inoxidável com controlo de temperatura e tempos de remontagem. Interrupção da fermentação pela adição de álcool vínico 96º. Adição de álcool vínico feita após 2 - 3 dias de fermentação de forma a manter a quantidade de açúcares desejada. Vinificação feita de acordo com os métodos tradicionais.',
+    'Atrativa e brilhante cor âmbar medianamente carregada. Elegante e complexo aroma, rico e com notas de melaço, bolo de mel, caramelo, noz e mel quente. Elegante em boca, intenso com pronunciadas notas de caramelo de fruta.',
+    19,
+    'S',
+    121.3,
+    19,
+    tipo_valor_nt(), --1999, 1998
+    distribucion_exp_nt(), -- TODO: Conseguir o inventar datos de exportacion
+    calificacion_nt(),
+    4,
+    5,
+    maridajes('Fruta tropical', 'Chocolate negro', 'Tortas de frutas', 'Cafe'),
+    5.45,
+    'Natural',
+    EMPTY_BLOB()
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(8, 5, 18, 8, 4, 8, 7, 4); -- Justino's Madeira - DO Madeira Tinta Negra - Colombo Madeira Tinta Negra
+
+
+---- / Fin Bodega Justino's Madeira ------------------------------------------------------------------------------------------------------------------------------------------
+
 
 insert into Pais values (4, 'Estados Unidos', 'America', tipo_valor_nt(), tipo_valor_nt(tipo_valor(2016,26900000,'hl')), distribucion_exp_nt(), 
     unidadMonetaria('Dolar', 'USD'), bfilename('mapas_regionales', 'usa.jpg'), null);
@@ -316,7 +379,7 @@ insert into MarcaVino values (
     maridajes('Carnes rojas', 'Asados', 'Quesos de sabor intenso'),
     4.1,
     'Corcho',
-    null -- TODO: Ver como se sube un BLOB
+    EMPTY_BLOB() -- TODO: Ver como se sube un BLOB
 );
 
 
