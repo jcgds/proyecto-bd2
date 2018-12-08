@@ -45,12 +45,16 @@ insert into Pais values (1, 'Portugal', 'Europa', tipo_valor_nt(), tipo_valor_nt
 -- Bodega Quinta Da Fronteira -----------------------------------------------
 insert into Region values (1, 'Douro', null, 1);
 insert into VariedadVid values (1,'Touriga Nacional');
-insert into VariedadVid values (2,'Touriga Franca');
-insert into VariedadVid values (3,'Viosinho');
-insert into VariedadVid values (4,'Códega do Lorinho');
-
 insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
-(1,'DOC Douro', null, 1, 1);
+(1,'Douro Touriga Nacional', null, 1, 1);
+
+insert into VariedadVid values (2,'Touriga Franca');
+insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
+(2,'Douro Touriga Franca', null, 2, 1);
+
+insert into VariedadVid values (5,'Tinta Roriz');
+insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
+(3,'Douro Tinta Roriz', null, 5, 1);
 
 insert into Bodega values (
     1, 
@@ -77,7 +81,7 @@ insert into Bodega values (
 insert into MarcaVino values (
     1,
     17,
-    'Reserva Tinto',
+    'Reserva',
     'Grapes were handpicked to 16 kg cases and carefully selected at the winery. The fermentation and maceration were made in conical vats and were adapted to each grape variety as well as the malolatic. Tinta Roriz has done the malolactic fermentation in oak barrels; Touriga Franca has done on skins (sulphited and racked directly to barrel);and Touriga Nacional in vats. The wines were racked to the barrels before spring time. They aged for 18 months in French oak barrels (20% new).',
     'Deep ruby colour, with complex aromas of black ripe fruit, spices, mocha, orange blossom and rockrose hints. In the mouth it reveals a good balance between acidity and soft layered tannins. A long-lasting aromatic taste.',
     17,
@@ -100,10 +104,34 @@ insert into MarcaVino values (
 );
 
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
-(1, 1, 1, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la DOC Douro 
+(1, 1, 1, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Touriga Nacional
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(2, 2, 2, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Touriga Franca
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(3, 3, 5, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Tinta Roriz
 
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
-(1, 1, 17, 1, 1, 1, 1, 1); -- Quinta Da Fronteira - DOC Douro - Reserva Tinto
+(1, 1, 17, 1, 1, 1, 1, 1); -- Quinta Da Fronteira - Douro Touriga Nacional - Reserva Tinto
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(2, 1, 17, 2, 1, 2, 2, 1); -- Quinta Da Fronteira - Douro Touriga Franca - Reserva Tinto
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(3, 1, 17, 3, 1, 3, 5, 1); -- Quinta Da Fronteira - Douro Tinta Roriz - Reserva Tinto
+
+insert into VariedadVid values (3,'Viosinho');
+insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
+(4,'Douro Viosinho', null, 3, 1);
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(4, 4, 3, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Viosinho
+
+insert into VariedadVid values (4,'Codega do Lorinho');
+insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
+(5,'Douro Codega do Lorinho', null, 4, 1);
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(5, 5, 4, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Codega do Lorinho
 
 insert into MarcaVino values (
     3,
@@ -118,7 +146,7 @@ insert into MarcaVino values (
     tipo_valor_nt(tipo_valor(2011, 585000, 'litros'), tipo_valor(2012, 635000, 'litros'), tipo_valor(2013, 675000, 'litros')),
     distribucion_exp_nt(), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
-        calificacion('Wine Enthusiast Magazine', tipo_valor(2015, 88, 'puntos')),
+        calificacion('Wine Enthusiast Magazine', tipo_valor(2015, 88, 'puntos'))
     ),
     5,
     10,
@@ -129,12 +157,12 @@ insert into MarcaVino values (
 );
 
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
--- TODO: Preguntar a la profe qlq con lo de VariedadVid porque este vino usa dos variedades en la misma DOC
---       De hecho como esta ahorita me esta guardando la variedad de vid que no corresponde a este vino.
-(1, 3, 9, 1, 1, 1, 1, 1); -- Quinta Da Fronteira - DOC Douro - Fronteira White
+(4, 3, 9, 4, 1, 4, 3, 1); -- Quinta Da Fronteira - Douro Viosinho - Fronteira White
 
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(5, 3, 9, 5, 1, 5, 4, 1); -- Quinta Da Fronteira - Douro Codega do Lorinho - Fronteira White
+-- / Fin Bodega Quinta Da Fronteira ------------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Bodega Herade Da Farizoa --------------------------------------------------------------------------------------------------------------------
 insert into Region values (3, 'Alentejo', null, 1);
@@ -167,7 +195,11 @@ insert into Bodega values (
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
-insert into Pais values (4, 'Estados Unidos', 'Am�rica', tipo_valor_nt(), tipo_valor_nt(tipo_valor(2016,26900000,'hl')), distribucion_exp_nt(), 
+-- TODO: UTILIZAR IDs [51,100] para cada tabla. 
+-- Ej: Estados Unidos en vez de ser 4 que sea 51
+--     Oakville en vez de ser 2 que sea 41 etc
+/*
+insert into Pais values (4, 'Estados Unidos', 'America', tipo_valor_nt(), tipo_valor_nt(tipo_valor(2016,26900000,'hl')), distribucion_exp_nt(), 
     unidadMonetaria('Dolar', 'USD'), bfilename('mapas_regionales', 'usa.jpg'), null);
 -- Bodega OPUS ONE -----------------------------------------------    
 insert into Region values (2, 'Oakville AVA', null, 4);
@@ -223,7 +255,7 @@ insert into MarcaVino values (
     'Corcho',
     null -- TODO: Ver como se sube un BLOB
 );
-
+*/
 
 
 
