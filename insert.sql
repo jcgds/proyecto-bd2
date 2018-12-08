@@ -39,8 +39,21 @@ insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcen
         (18, 15, 'Dulces', 3, rangoPorcentajeVol(14,17));
 --------------------------------------------------------------------------------------------------------
 
-insert into Pais values (1, 'Portugal', 'Europa', tipo_valor_nt(), tipo_valor_nt(), distribucion_exp_nt(), 
-    unidadMonetaria('Euro', 'EUR'), bfilename('mapas_regionales', 'portugal.jpg'), null);
+insert into Pais values (
+    1, 
+    'Portugal', 
+    'Europa', 
+    tipo_valor_nt(), -- superficie viñedo
+    tipo_valor_nt(
+        tipo_valor(2011, 5609000, 'litros'),
+        tipo_valor(2012, 6140000, 'litros'),
+        tipo_valor(2013, 6740000, 'litros')
+    ), 
+    distribucion_exp_nt(), 
+    unidadMonetaria('Euro', 'EUR'), 
+    bfilename('mapas_regionales', 'portugal.jpg'), 
+    null
+);
 
 -- Bodega Quinta Da Fronteira -----------------------------------------------
 insert into Region values (1, 'Douro', null, 1);
@@ -103,6 +116,16 @@ insert into MarcaVino values (
     null -- TODO: Ver como se sube un BLOB
 );
 
+insert into Presentacion values (1, 1, 17, 'Botella', null);
+insert into HistoricoPrecio values (2016, 1, 1, 17, 25);
+insert into HistoricoPrecio values (2017, 1, 1, 17, 34);
+insert into HistoricoPrecio values (2018, 1, 1, 17, 18);
+
+insert into Presentacion values (2, 1, 17, 'Caja', 6);
+insert into HistoricoPrecio values (2016, 2, 1, 17, 139.99);
+insert into HistoricoPrecio values (2017, 2, 1, 17, 195.99);
+insert into HistoricoPrecio values (2018, 2, 1, 17, 99.99);
+
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
 (1, 1, 1, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Touriga Nacional
 
@@ -143,7 +166,7 @@ insert into MarcaVino values (
     'N',
     3,
     12.5,
-    tipo_valor_nt(tipo_valor(2011, 585000, 'litros'), tipo_valor(2012, 635000, 'litros'), tipo_valor(2013, 675000, 'litros')),
+    tipo_valor_nt(tipo_valor(2011, 58500, 'litros'), tipo_valor(2012, 63500, 'litros'), tipo_valor(2013, 67500, 'litros')),
     distribucion_exp_nt(), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
         calificacion('Wine Enthusiast Magazine', tipo_valor(2015, 88, 'puntos'))
@@ -156,6 +179,16 @@ insert into MarcaVino values (
     null -- TODO: Ver como se sube un BLOB
 );
 
+insert into Presentacion values (3, 3, 9, 'Botella', null);
+insert into HistoricoPrecio values (2016, 3, 3, 9, 10);
+insert into HistoricoPrecio values (2017, 3, 3, 9, 12);
+insert into HistoricoPrecio values (2018, 3, 3, 9, 13);
+
+insert into Presentacion values (4, 3, 9, 'Caja', 6);
+insert into HistoricoPrecio values (2016, 4, 3, 9, 55.2);
+insert into HistoricoPrecio values (2017, 4, 3, 9, 67.35);
+insert into HistoricoPrecio values (2018, 4, 3, 9, 73.5);
+
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
 (4, 3, 9, 4, 1, 4, 3, 1); -- Quinta Da Fronteira - Douro Viosinho - Fronteira White
 
@@ -164,7 +197,7 @@ insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk
 -- / Fin Bodega Quinta Da Fronteira ------------------------------------------------------------------------------------------------------------------------
 
 
--- Bodega Herade Da Farizoa --------------------------------------------------------------------------------------------------------------------
+-- Bodega Herdade Da Farizoa --------------------------------------------------------------------------------------------------------------------
 insert into Region values (3, 'Alentejo', null, 1);
 
 insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
@@ -256,6 +289,7 @@ insert into MarcaVino values (
     null -- TODO: Ver como se sube un BLOB
 );
 */
+
 
 
 
