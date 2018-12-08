@@ -59,15 +59,15 @@ insert into Pais values (
 insert into Region values (1, 'Douro', null, 1);
 insert into VariedadVid values (1,'Touriga Nacional');
 insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
-(1,'Douro Touriga Nacional', null, 1, 1);
+(1,'Douro - Touriga Nacional', null, 1, 1);
 
 insert into VariedadVid values (2,'Touriga Franca');
 insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
-(2,'Douro Touriga Franca', null, 2, 1);
+(2,'Douro - Touriga Franca', null, 2, 1);
 
 insert into VariedadVid values (5,'Tinta Roriz');
 insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
-(3,'Douro Tinta Roriz', null, 5, 1);
+(3,'Douro - Tinta Roriz', null, 5, 1);
 
 insert into Bodega values (
     1, 
@@ -146,13 +146,13 @@ insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk
 
 insert into VariedadVid values (3,'Viosinho');
 insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
-(4,'Douro Viosinho', null, 3, 1);
+(4,'Douro - Viosinho', null, 3, 1);
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
 (4, 4, 3, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Viosinho
 
 insert into VariedadVid values (4,'Codega do Lorinho');
 insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
-(5,'Douro Codega do Lorinho', null, 4, 1);
+(5,'Douro - Codega do Lorinho', null, 4, 1);
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
 (5, 5, 4, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Codega do Lorinho
 
@@ -199,14 +199,17 @@ insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk
 
 -- Bodega Herdade Da Farizoa --------------------------------------------------------------------------------------------------------------------
 insert into Region values (3, 'Alentejo', null, 1);
+insert into VariedadVid values (6, 'Aragonez');
 
 insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
-(1,'Regional Alentejo', 'Borba', 1, 3);
+(6,'IG Alentejano - Touriga Nacional', null, 1, 3);
+insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
+(7,'IG Alentejano - Aragonez', null, 6, 3);
 
 insert into Bodega values (
     3, 
     'Herdade Da Farizoa',
-    hechos_hist_nt(hechos_hist(1958, 'Fundaci√≥n de la bodega')),
+    hechos_hist_nt(hechos_hist(1958, 'Fundacionn de la bodega')),
     TO_DATE('22-06-1958', 'DD-MM-YYYY'), 
     DATOSDECONTACTO(
         conj_telefonos(351268657552), 
@@ -225,6 +228,37 @@ insert into Bodega values (
     distribucion_exp_nt(),
     null -- TODO: Crear bodega Companhia Das Quintas y colocar su id
 );
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(6, 6, 1, 3, 3); -- B_DO Entre bodega Herdade Da Farizoa y la IG Alentejano Touriga Nacional
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(7, 7, 6, 3, 3); -- B_DO Entre bodega Herdade Da Farizoa y la IG Alentejano Aragonez
+
+insert into MarcaVino values (
+    4,
+    13,
+    'Portas Da Herdade Reserva',
+    'Grapes were de-stemmed without crushing, followed by 3 days cold maceration. Fermentation was done at 24 ∞ C with one daily riddle. Malolactic fermentation was done in vats. The final blend aged in French oak barrels for 9 months.',
+    'Intense ruby colour and complex aromas with outstanding notes of violet, cherry and chocolate. In the mouth it is full and elegant, with good structure and concentration. Long after-taste confirming its aromatic notes.',
+    16,
+    'S',
+    0.3,
+    13.5,
+    tipo_valor_nt(tipo_valor(2011, 26500, 'litros'), tipo_valor(2012, 34250, 'litros'), tipo_valor(2013, 30750, 'litros')),
+    distribucion_exp_nt(), -- TODO: Conseguir o inventar datos de exportacion
+    calificacion_nt(),
+    9,
+    10,
+    maridajes('Carnes ahumadas', 'Pastas', 'Quesos surtidos'),
+    5.2,
+    'Natural',
+    EMPTY_BLOB()
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(6, 4, 13, 6, 3, 6, 1, 3); -- Herdade Da Farizoa - IG Alentejano Touriga Nacional - Portas Da Herdade Reserva
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(7, 4, 13, 7, 3, 7, 6, 3); -- Herdade Da Farizoa - IG Alentejano Aragonez - Portas Da Herdade Reserva
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
