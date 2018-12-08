@@ -43,7 +43,7 @@ insert into Pais values (
     1, 
     'Portugal', 
     'Europa', 
-    tipo_valor_nt(), -- superficie viñedo
+    tipo_valor_nt(), -- superficie viï¿½edo
     tipo_valor_nt(
         tipo_valor(2011, 5609000, 'litros'),
         tipo_valor(2012, 6140000, 'litros'),
@@ -227,10 +227,6 @@ insert into Bodega values (
 );
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
-
--- TODO: UTILIZAR IDs [51,100] para cada tabla. 
--- Ej: Estados Unidos en vez de ser 4 que sea 51
---     Oakville en vez de ser 2 que sea 41 etc
 
 insert into Pais values (4, 'Estados Unidos', 'America', tipo_valor_nt(), tipo_valor_nt(tipo_valor(2016,26900000,'hl')), distribucion_exp_nt(), 
     unidadMonetaria('Dolar', 'USD'), bfilename('mapas_regionales', 'usa.jpg'), null);
