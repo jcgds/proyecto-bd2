@@ -293,9 +293,9 @@ CREATE TABLE Juez (
 CREATE TABLE Concurso (
     id number,
     nombre varchar2(50) NOT NULL,
-    datosDeContacto datosDeContacto,
+    datosDeContacto datosDeContacto NOT NULL,
     tipoDeCata varchar2(20) NOT NULL,
-    deCatadores varchar2(2),
+    deCatadores char(1) CHECK (deCatadores IN ('S', 'N')) NOT NULL,
     premios premio_nt,
     escalas escala_nt,
     caracteristicas varchar2(200),
@@ -468,4 +468,11 @@ CREATE TABLE MuestraCatador(
   sumatoriaExperto number NOT null,
   CONSTRAINT pk_muestracatador PRIMARY KEY (id, fk_marcavino_id, fk_marcavino_clasificacion, fk_juez, fk_edicion, fk_catadorexperto)
 )
+/
+
+CREATE SEQUENCE ids_seq
+ START WITH     1000
+ INCREMENT BY   1
+ NOCACHE
+ NOCYCLE
 /
