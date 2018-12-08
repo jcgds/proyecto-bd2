@@ -5,6 +5,23 @@ begin
     DBMS_OUTPUT.PUT_LINE('Hola ' || nombre || '!');
 end;
 /
+create or replace procedure insertar_concurso(nombre varchar2, dc datosDeContacto, tipoCata varchar2, deCatadores char, caracteristicas varchar2) as
+begin
+  INSERT INTO Concurso VALUES (
+      ids_seq.nextval,
+      nombre, 
+      dc, 
+      tipoCata,
+      deCatadores,
+      premio_nt(),
+      escala_nt(),
+      caracteristicas
+  );
+end;
+/
+
+
+
 create or replace function produccion_bodega_en (idBodega IN number, anioDeseado IN number)
 return number is 
     produccion number := 0;
