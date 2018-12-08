@@ -24,7 +24,7 @@ CREATE OR REPLACE TYPE lugar as object (
 /
 CREATE OR REPLACE TYPE hechos_hist as object (
     anio number(10),
-    hechos varchar2(100)
+    hechos varchar2(500)
 )
 /
 CREATE OR REPLACE TYPE valoracion_nt as TABLE OF valoracion
@@ -441,7 +441,7 @@ CREATE TABLE MarcaVino(
     exportacionAnual distribucion_exp_nt,
     criticas calificacion_nt,
     tiempoDeMaduracionMeses number NOT NULL,
-    ventanaDeConsumoAnios number NOT NULL,
+    ventanaDeConsumoMeses number NOT NULL,
     maridaje maridajes NOT NULL,
     acidez number NOT NULL,
     tipoTapon varchar(70) NOT NULL,
