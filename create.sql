@@ -362,7 +362,7 @@ CREATE TABLE Inscripcion (
 /
 
 CREATE TABLE HistoricoPrecio(
-    anio date,
+    anio number(5,0),
     -- PK Presentacion -----------
     fk_presentacion number,
     fk_marcavino number,
