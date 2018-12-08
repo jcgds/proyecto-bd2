@@ -126,14 +126,15 @@ CREATE OR REPLACE DIRECTORY mapas_regionales AS 'C:\WINE_DB\mapas_regionales'
 CREATE TABLE Pais (
     id number,
     nombre varchar2(50) not null,
-    continente varchar2(9) not null CHECK (continente IN ('Asia', 'Europa', '�frica', 'Am�rica', 'Ocean�a', 'Ant�rtida')),
+    continente varchar2(9) not null,
     superficieVinedo tipo_valor_nt,
     produccionAnual tipo_valor_nt,
     exportacionAnual distribucion_exp_nt,
     unidadMonetaria unidadMonetaria not null,
     mapaRegional BFILE not null,
     descripcion varchar2(200),
-    constraint pk_pais primary key (id)
+    constraint pk_pais primary key (id),
+    constraint validar_continente CHECK (continente IN ('Asia', 'Europa', 'Africa', 'America', 'Oceania', 'Antartida'))
 )
 NESTED TABLE superficieVinedo STORE AS superficieVinedo_nt_pais
 NESTED TABLE produccionAnual STORE AS produccionAnual_nt_pais
