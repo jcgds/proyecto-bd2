@@ -86,7 +86,7 @@ insert into Bodega values (
     ' Its strategy is based on the development of high quality estate wines from 250 hectares of own vineyards,' || 
     ' planted in the major Portuguese wine regions. The company aims to achieve sustained growth, with main focus on foreign markets.',
     'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
-    tipo_valor_nt(),  -- TODO: Conseguir y llenar esta tabla con 3 anios
+    tipo_valor_nt(tipo_valor(2011, 3500000, 'litros')),  -- TODO: Conseguir y llenar esta tabla con 3 anios
     distribucion_exp_nt(), -- TODO: Conseguir y llenar esta tabla con 3 anios
     null -- TODO: Crear bodega Companhia Das Quintas y colocar su id
 );
@@ -223,7 +223,7 @@ insert into Bodega values (
     ' Its strategy is based on the development of high quality estate wines from 250 hectares of own vineyards,' || 
     ' planted in the major Portuguese wine regions. The company aims to achieve sustained growth, with main focus on foreign markets.',
     'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
-    tipo_valor_nt(),
+    tipo_valor_nt(tipo_valor(2011, 2000000, 'litros')),
     distribucion_exp_nt(),
     null -- TODO: Crear bodega Companhia Das Quintas y colocar su id
 );
