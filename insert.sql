@@ -331,10 +331,11 @@ insert into Pais values (4, 'Estados Unidos', 'America', tipo_valor_nt(), tipo_v
 insert into Region values (41, 'Oakville AVA', null, 4);
 
 insert into VariedadVid values (51,'Zinfandel');
+insert into DenominacionDeOrigen values (51,'American Viticultural Area Zinfandel', null, 51, 41);
 insert into VariedadVid values (52,'Gamay');
+insert into DenominacionDeOrigen values (52,'American Viticultural Area Gamay', null, 52, 41);
 insert into VariedadVid values (53,'Chemin blanc');
-
-insert into DenominacionDeOrigen values (51,'American Viticultural Area', null, 4, 2);
+insert into DenominacionDeOrigen values (53,'American Viticultural Area Chemin Blanc', null, 53, 41);
 
 insert into Bodega values (
     51, 
@@ -357,6 +358,8 @@ insert into Bodega values (
     distribucion_exp_nt(), -- TODO: Conseguir y llenar esta tabla con 3 anios
     null
 );
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(51, 51, 51, 41, 51);
 insert into MarcaVino values (
     51,
     16,
@@ -368,7 +371,7 @@ insert into MarcaVino values (
     1.1,
     14,
     tipo_valor_nt(tipo_valor(2011, 26654, 'litros'), tipo_valor(2012, 36225, 'litros'), tipo_valor(2013, 14562, 'litros')),
-    distribucion_exp_nt(), -- TODO: Conseguir o inventar datos de exportacion
+    distribucion_exp_nt(distribucion_exp('Portugal',tipo_valor(2012,23432,'litros')),distribucion_exp('Mexico',tipo_valor(2013,23432,'litros')),distribucion_exp('Colombia',tipo_valor(2014,23432,'litros'))), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
         calificacion('Robert Parker Wine Advocate', tipo_valor(2014, 98, 'puntos')),
         calificacion('James Suckling', tipo_valor(2014, 98, 'puntos')),
@@ -381,6 +384,103 @@ insert into MarcaVino values (
     'Corcho',
     EMPTY_BLOB() -- TODO: Ver como se sube un BLOB
 );
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(51, 51, 16, 51, 51, 51, 51, 41);
+---------Bodega Joseph Phelps--------
+
+insert into Region values (42, 'St Helena AVA', null, 4);
+
+insert into VariedadVid values (54,'Merlot');
+insert into DenominacionDeOrigen values (54,'American Viticultural Area Merlot', null, 54, 42);
+insert into VariedadVid values (55,'Cabernet Sauvignon');
+insert into DenominacionDeOrigen values (55,'American Viticultural Area Cabernet', null, 55, 42);
+insert into VariedadVid values (56,'Syrah');
+insert into DenominacionDeOrigen values (56,'American Viticultural Area Syrah', null, 56, 42);
+
+insert into Bodega values (
+    52, 
+    'Joseph Phelps',
+    hechos_hist_nt(hechos_hist(1973, 'Fundacion por Joe Phelps')),
+    TO_DATE('12-06-1973', 'DD-MM-YYYY'), 
+    DATOSDECONTACTO(
+        conj_telefonos(8007075789,17009449442), 
+        null, 
+        'info@josephphelps.com', 
+        'https://www.josephphelps.com/',
+        direccion('St Helena, CA', '94574', '200 Taplin Rd', null),
+        personasDeContacto(personaDeContacto('John','Wick','Winemaker','johnc@josephphelps.com'))
+    ),
+    'Today all of Joseph Phelps Napa Valley wines, including the flagship Insignia,' || 
+    'are made with 100% estate grown grapes. The Home Ranch in St. Helena that Joe fell in love with so many years ago 
+    features 130 acres of wine grapes, olive orchards, fruit trees, bee hives, and a hillside winery offering incomparable hospitality and panoramic vineyard views.',
+    'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
+    tipo_valor_nt(),  -- TODO: Conseguir y llenar esta tabla con 3 anios
+    distribucion_exp_nt(), -- TODO: Conseguir y llenar esta tabla con 3 anios
+    null
+);
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(52, 54, 54, 42, 52);
+insert into MarcaVino values (
+    52,
+    16,
+    'Cabernet Sauvignon',
+    'The Cabernet Sauvignon from the 2015 vintage is inky purple in color with aromas of dense blackberry jam, cassis and balsamic followed by a layering complexity throughout the mouthfeel of supple, 
+    sweet tannins with expressive ripe plum, vanilla and rich black fruit.',
+    'Grapes were sorted and cold soaked prior to fermentation. The wine was aged for eighteen months in 40% new oak barrels (65% French, 35% American) and 60% one- to two-year-old French and American oak barrels before bottling. The barrel coopers used included Ermitage, François Frères, Demptos (French & American), 
+    Canton (American), Barrel Associates (American) and Orion',
+    14,
+    'N',
+    1.1,
+    14,
+    tipo_valor_nt(tipo_valor(2011, 26654, 'litros'), tipo_valor(2012, 36225, 'litros'), tipo_valor(2013, 14562, 'litros')),
+    distribucion_exp_nt(distribucion_exp('Portugal',tipo_valor(2012,23432,'litros')),distribucion_exp('Mexico',tipo_valor(2013,23432,'litros')),distribucion_exp('Colombia',tipo_valor(2014,23432,'litros'))), -- TODO: Conseguir o inventar datos de exportacion
+    calificacion_nt(
+        calificacion('Robert Parker Wine Advocate', tipo_valor(2015, 91, 'puntos')),
+        calificacion('Jeb Dunnuck', tipo_valor(2015, 93, 'puntos')),
+        calificacion('Wine Spectator', tipo_valor(2015, 92, 'puntos'))
+    ),
+    18,
+    20,
+    maridajes('Carnes rojas', 'Asados'),
+    3.1,
+    'Corcho',
+    null -- TODO: Ver como se sube un BLOB
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(52, 52, 16, 52, 52, 54, 54, 42);
+
+insert into MarcaVino values (
+    53,
+    16,
+    'Insignia',
+    'Optimum, even ripening for Insignia designated blocks was achieved by careful vineyard management throughout the growing season. Grapes were held separate during picking, sorting and fermentation.',
+    'The 2015 Insignia is densely hued with rich dark fruit, cocoa powder and fragrant dried flower notes. Velvety texture and weight on the palate with layers of juicy black plum, Madagascar vanilla and bergamot.
+     Bold, creamy and supple with integrated tannin structure and a lengthy finish.',
+    14,
+    'N',
+    1.1,
+    14,
+    tipo_valor_nt(tipo_valor(2011, 26654, 'litros'), tipo_valor(2012, 36225, 'litros'), tipo_valor(2013, 14562, 'litros')),
+    distribucion_exp_nt(distribucion_exp('Portugal',tipo_valor(2012,23432,'litros')),distribucion_exp('Mexico',tipo_valor(2013,23432,'litros')),distribucion_exp('Colombia',tipo_valor(2014,23432,'litros'))), -- TODO: Conseguir o inventar datos de exportacion
+    calificacion_nt(
+        calificacion('Robert Parker Wine Advocate', tipo_valor(2015, 97, 'puntos')),
+        calificacion('James Suckling', tipo_valor(2015, 96, 'puntos')),
+        calificacion('Connoisseurs Guide to California Wine', tipo_valor(2015, 97, 'puntos'))
+    ),
+    24,
+    19,
+    maridajes('Carnes rojas'),
+    3.1,
+    'Corcho',
+    null -- TODO: Ver como se sube un BLOB
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(53, 53, 16, 52, 52, 55, 55, 42);
+
+
 
 
 
