@@ -19,14 +19,11 @@ begin
   );
 end;
 /
-
-
-
 create or replace function produccion_bodega_en (idBodega IN number, anioDeseado IN number)
 return number is 
     produccion number := 0;
 BEGIN
-   
+   -- TODO: Rehcaer este metodo para que solo use su NT de produccionAnual
     FOR rec IN (select t.anio anio, t.valor valor
         from the (
             select mv.produccionAnual 
@@ -40,6 +37,26 @@ BEGIN
         -- DBMS_OUTPUT.PUT_LINE ('Anio: ' || TO_CHAR(rec.anio) || ' Prod: ' || TO_CHAR(rec.valor));
         produccion := produccion + rec.valor;
     END LOOP;
+    
+    return produccion;
+END;
+/
+create or replace function produccion_pais_en (idPais IN number, anioDeseado IN number)
+return number is 
+    produccion number := 0;
+BEGIN
+   
+    select t.valor into produccion
+        from the (
+            select produccionAnual 
+            from Pais
+            where pais.id = idPais
+        ) t
+        where t.anio = anioDeseado;
+        
+    if produccion IS NULL then
+        produccion := 0;
+    end if;
     
     return produccion;
 END;
