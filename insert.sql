@@ -237,7 +237,7 @@ insert into MarcaVino values (
     4,
     13,
     'Portas Da Herdade Reserva',
-    'Grapes were de-stemmed without crushing, followed by 3 days cold maceration. Fermentation was done at 24 ° C with one daily riddle. Malolactic fermentation was done in vats. The final blend aged in French oak barrels for 9 months.',
+    'Grapes were de-stemmed without crushing, followed by 3 days cold maceration. Fermentation was done at 24 ï¿½ C with one daily riddle. Malolactic fermentation was done in vats. The final blend aged in French oak barrels for 9 months.',
     'Intense ruby colour and complex aromas with outstanding notes of violet, cherry and chocolate. In the mouth it is full and elegant, with good structure and concentration. Long after-taste confirming its aromatic notes.',
     16,
     'S',
@@ -283,12 +283,12 @@ insert into Bodega values (
         351291934049, 
         'justinos@justinosmadeira.com', 
         'http://www.justinosmadeira.com',
-        direccion('Madeira', '9125-042', 'Parque Industrial da Cancela', 'Caniço, Madeira'),
+        direccion('Madeira', '9125-042', 'Parque Industrial da Cancela', 'Caniï¿½o, Madeira'),
         personasDeContacto()
     ),
     -- TODO: En este caso como son sub bodegas de Companhia Das Quintas la mision deberia ser la misma?
-    'Durante toda a sua história a Justino''s Madeira tem vindo, gradualmente, a conquistar e a confirmar a sua presença, um pouco por todo o mundo, com especial destaque para a França, Alemanha, Inglaterra, Áustria, Suíça, Polónia, Benelux, Espanha e Escandinávia, e também E.U.A., Canadá, Brasil e Japão.',
-    'A empresa dispõe actualmente de um dos maiores stocks de vinhos na Ilha da Madeira, constituído por vinhos de elevada qualidade, envelhecidos em cascos de carvalho, que lhe permitem dar resposta às solicitações dos mercados mais exigentes e selectivos.',
+    'Durante toda a sua histï¿½ria a Justino''s Madeira tem vindo, gradualmente, a conquistar e a confirmar a sua presenï¿½a, um pouco por todo o mundo, com especial destaque para a Franï¿½a, Alemanha, Inglaterra, ï¿½ustria, Suï¿½ï¿½a, Polï¿½nia, Benelux, Espanha e Escandinï¿½via, e tambï¿½m E.U.A., Canadï¿½, Brasil e Japï¿½o.',
+    'A empresa dispï¿½e actualmente de um dos maiores stocks de vinhos na Ilha da Madeira, constituï¿½do por vinhos de elevada qualidade, envelhecidos em cascos de carvalho, que lhe permitem dar resposta ï¿½s solicitaï¿½ï¿½es dos mercados mais exigentes e selectivos.',
     tipo_valor_nt(),
     distribucion_exp_nt(),
     null
@@ -301,8 +301,8 @@ insert into MarcaVino values (
     5,
     18,
     'Colombo Madeira Tinta Negra',
-    'Desengaçe total, esmagamento e prensagem. Vinificação em bica-aberta. Fermentado totalmente em cuba de aço inoxidável com controlo de temperatura e tempos de remontagem. Interrupção da fermentação pela adição de álcool vínico 96º. Adição de álcool vínico feita após 2 - 3 dias de fermentação de forma a manter a quantidade de açúcares desejada. Vinificação feita de acordo com os métodos tradicionais.',
-    'Atrativa e brilhante cor âmbar medianamente carregada. Elegante e complexo aroma, rico e com notas de melaço, bolo de mel, caramelo, noz e mel quente. Elegante em boca, intenso com pronunciadas notas de caramelo de fruta.',
+    'Desengaï¿½e total, esmagamento e prensagem. Vinificaï¿½ï¿½o em bica-aberta. Fermentado totalmente em cuba de aï¿½o inoxidï¿½vel com controlo de temperatura e tempos de remontagem. Interrupï¿½ï¿½o da fermentaï¿½ï¿½o pela adiï¿½ï¿½o de ï¿½lcool vï¿½nico 96ï¿½. Adiï¿½ï¿½o de ï¿½lcool vï¿½nico feita apï¿½s 2 - 3 dias de fermentaï¿½ï¿½o de forma a manter a quantidade de aï¿½ï¿½cares desejada. Vinificaï¿½ï¿½o feita de acordo com os mï¿½todos tradicionais.',
+    'Atrativa e brilhante cor ï¿½mbar medianamente carregada. Elegante e complexo aroma, rico e com notas de melaï¿½o, bolo de mel, caramelo, noz e mel quente. Elegante em boca, intenso com pronunciadas notas de caramelo de fruta.',
     19,
     'S',
     121.3,
@@ -371,7 +371,7 @@ insert into MarcaVino values (
     1.1,
     14,
     tipo_valor_nt(tipo_valor(2011, 26654, 'litros'), tipo_valor(2012, 36225, 'litros'), tipo_valor(2013, 14562, 'litros')),
-    distribucion_exp_nt(distribucion_exp('Portugal',tipo_valor(2012,23432,'litros')),distribucion_exp('Mexico',tipo_valor(2013,23432,'litros')),distribucion_exp('Colombia',tipo_valor(2014,23432,'litros'))), -- TODO: Conseguir o inventar datos de exportacion
+    distribucion_exp_nt(distribucion_exp(tipo_valor(2012,23432,'litros'),'Portugal'),distribucion_exp(tipo_valor(2013,23432,'litros'),'Mexico'),distribucion_exp(tipo_valor(2014,23432,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
         calificacion('Robert Parker Wine Advocate', tipo_valor(2014, 98, 'puntos')),
         calificacion('James Suckling', tipo_valor(2014, 98, 'puntos')),
@@ -421,6 +421,10 @@ insert into Bodega values (
 );
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
 (52, 54, 54, 42, 52);
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(53, 55, 55, 42, 52);
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(54, 56, 56, 42, 52);
 insert into MarcaVino values (
     52,
     16,
@@ -434,7 +438,7 @@ insert into MarcaVino values (
     1.1,
     14,
     tipo_valor_nt(tipo_valor(2011, 26654, 'litros'), tipo_valor(2012, 36225, 'litros'), tipo_valor(2013, 14562, 'litros')),
-    distribucion_exp_nt(distribucion_exp('Portugal',tipo_valor(2012,23432,'litros')),distribucion_exp('Mexico',tipo_valor(2013,23432,'litros')),distribucion_exp('Colombia',tipo_valor(2014,23432,'litros'))), -- TODO: Conseguir o inventar datos de exportacion
+    distribucion_exp_nt(distribucion_exp(tipo_valor(2012,23432,'litros'),'Portugal'),distribucion_exp(tipo_valor(2013,23432,'litros'),'Mexico'),distribucion_exp(tipo_valor(2014,23432,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
         calificacion('Robert Parker Wine Advocate', tipo_valor(2015, 91, 'puntos')),
         calificacion('Jeb Dunnuck', tipo_valor(2015, 93, 'puntos')),
@@ -463,7 +467,7 @@ insert into MarcaVino values (
     1.1,
     14,
     tipo_valor_nt(tipo_valor(2011, 26654, 'litros'), tipo_valor(2012, 36225, 'litros'), tipo_valor(2013, 14562, 'litros')),
-    distribucion_exp_nt(distribucion_exp('Portugal',tipo_valor(2012,23432,'litros')),distribucion_exp('Mexico',tipo_valor(2013,23432,'litros')),distribucion_exp('Colombia',tipo_valor(2014,23432,'litros'))), -- TODO: Conseguir o inventar datos de exportacion
+    distribucion_exp_nt(distribucion_exp(tipo_valor(2012,23432,'litros'),'Portugal'),distribucion_exp(tipo_valor(2013,23432,'litros'),'Mexico'),distribucion_exp(tipo_valor(2014,23432,'litros'),'Colombia')),
     calificacion_nt(
         calificacion('Robert Parker Wine Advocate', tipo_valor(2015, 97, 'puntos')),
         calificacion('James Suckling', tipo_valor(2015, 96, 'puntos')),
@@ -478,9 +482,35 @@ insert into MarcaVino values (
 );
 
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
-(53, 53, 16, 52, 52, 55, 55, 42);
+(53, 53, 16, 53, 52, 55, 55, 42);
 
+insert into MarcaVino values (
+    54,
+    4,
+    'Delice',
+    'One of the few Scheurebe plantings in California, grapes were handpicked and frozen, followed by a partial thawing before a long, gentle pressing. The juice was fermented in stainless steel at a cool temperature to retain the subtle aromatics of this variety.',
+    'The 2017 Delice is brimming with ripe pear, fragrant white flowers and chamomile followed by intense layers of peach nectar, lemon meringue and candied pineapple. Nicely textured with bright acidity and a honeyed finish.',
+    11,
+    'N',
+    1.4,
+    10,
+    tipo_valor_nt(tipo_valor(2011, 22654, 'litros'), tipo_valor(2012, 38225, 'litros'), tipo_valor(2013, 34562, 'litros')),
+    distribucion_exp_nt(distribucion_exp(tipo_valor(2012,23432,'litros'),'Portugal'),distribucion_exp(tipo_valor(2013,23432,'litros'),'Mexico'),distribucion_exp(tipo_valor(2014,23432,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
+    calificacion_nt(
+        calificacion('Robert Parker Wine Advocate', tipo_valor(2015, 90, 'puntos')),
+        calificacion('James Suckling', tipo_valor(2015, 91, 'puntos')),
+        calificacion('Connoisseurs Guide to California Wine', tipo_valor(2015, 89, 'puntos'))
+    ),
+    21,
+    15,
+    maridajes('Dulces','Pescado'),
+    2.1,
+    'Corcho',
+    null -- TODO: Ver como se sube un BLOB
+);
 
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(54, 54, 4, 54, 52, 56, 56, 42);
 
 
 
