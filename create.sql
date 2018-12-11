@@ -33,7 +33,7 @@ CREATE OR REPLACE TYPE publicaciones_nt as TABLE OF varchar2(50)
 /
 CREATE OR REPLACE TYPE hechos_hist_nt as TABLE OF hechos_hist
 /
-create or replace type conj_telefonos is varray(5) of number(14)
+create or replace type conj_telefonos is varray(3) of number(14)
 /
 create or replace type direccion as object (
     estado varchar2(100),
