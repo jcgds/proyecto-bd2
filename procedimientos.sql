@@ -113,9 +113,10 @@ end;
 */
 create or replace procedure calcular_produccion_bodegas as
 anio_min number := conseguir_anio_minimo();
-anio_max number := select to_char(sysdate, 'YYYY') from dual;
+anio_max number;
 acumulador1 number := 0;
 begin    
+    select to_char(sysdate, 'YYYY') into anio_max from dual;
     << bodegas_loop >>
     for bodega in (select id, nombre from Bodega)
     loop
