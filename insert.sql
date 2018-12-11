@@ -655,5 +655,162 @@ insert into HistoricoPrecio values (2016, 61, 56, 7, 800);
 insert into HistoricoPrecio values (2017, 61, 56, 7, 835);
 insert into HistoricoPrecio values (2018, 61, 56, 7, 890);
 
+---------- Sudafrica ----------------
+insert into Pais values (2, 'Sudafrica', 'Africa', tipo_valor_nt(), tipo_valor_nt(), distribucion_exp_nt(), 
+    unidadMonetaria('Rand Sudafricano', 'R'), bfilename('mapas_regionales', 'sudafrica.jpg'), null);
+
+----------Bodega Crsytallum----------
+insert into Region values (44, 'Wlker Bay', null, 2);
+
+insert into VariedadVid values (58,'Pinot Nior');
+insert into VariedadVid values (59,'Chardonnay');
+insert into VariedadVid values (60,'Sauvignon Blanc');
+insert into DenominacionDeOrigen values (58,'Wine of Origin Pinot Nior', null, 58, 44);
+insert into DenominacionDeOrigen values (59,'Wine of Origin Chardonnay', null, 59, 44);
+insert into DenominacionDeOrigen values (60,'Wine of Origin Sauvignon Blanc', null, 60, 44);
+
+insert into Bodega values (
+    54, 
+    'Crystallum',
+    hechos_hist_nt(hechos_hist(2007, 'The company was started in 2007 with 4134 bottles of Sauvignon Blanc produced')),
+    TO_DATE('12-06-2007', 'DD-MM-YYYY'), 
+    DATOSDECONTACTO(
+        conj_telefonos(270832355748,4740000787), 
+        null, 
+        'customerservice@crystallumwines.com', 
+        'http://www.crystallumwines.com/',
+        direccion('Hermanus', '7200', '2 Harbour Rd', null),
+        personasDeContacto(personaDeContacto('David','Nel','Sales','steele.nel@gmail.com'))
+    ),
+    'Crystallum wines is a small, family run and privately owned winery based in the Walker Bay region of South Africa.',
+    null,
+    tipo_valor_nt(),  -- TODO: Conseguir y llenar esta tabla con 3 anios
+    distribucion_exp_nt(), -- TODO: Conseguir y llenar esta tabla con 3 anios
+    null
+);
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(56, 58, 58, 44, 54);
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(57, 59, 59, 44, 54);
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(58, 60, 60, 44, 54);
+
+insert into MarcaVino values (
+    57,
+    13,
+    'The Agnes Chardonnay',
+    'The Agnes is produced using the traditional method of transferring the whole grape clusters straight from harvesting into the press and running the juice off into a settling tank. The juice is then transferred the next day into 228-litre French oak barrels, 10% new. 
+    Fermentation occurs naturally in barrel, where it remains for 9 months before bottling. No SO2 or enzymes are added prior to fermentation.',
+    'The sixth vintage of The Agnes is concentrated and beautifully balanced. The nose is wonderfully expressive with notes of lime, grapefruit, nectarine and ripe peach. 
+    The palate is intense and layered with a strong fruit core and lovely fresh acidity.',
+    11,
+    'S',
+    1.9,
+    13,
+    tipo_valor_nt(tipo_valor(2014, 5733, 'litros'), tipo_valor(2015, 13938, 'litros'), tipo_valor(2016, 13912, 'litros')),
+    distribucion_exp_nt(distribucion_exp(tipo_valor(2012,23432,'litros'),'Portugal'),distribucion_exp(tipo_valor(2013,23432,'litros'),'Mexico'),distribucion_exp(tipo_valor(2014,23432,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
+    calificacion_nt(
+        calificacion('Platters Wine Guide', tipo_valor(2008, 90, 'puntos')),
+        calificacion('Platters Wine Guide', tipo_valor(2009, 91, 'puntos')),
+        calificacion('Platters Wine Guide', tipo_valor(2010, 88, 'puntos'))
+    ),
+    9,
+    16,
+    maridajes('Ensaldas','Postres'),
+    5.6,
+    'Corcho',
+    null -- TODO: Ver como se sube un BLOB
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(57, 57, 13, 57, 54, 59, 59, 44);
+
+insert into Presentacion values (62, 57, 13, 'Botella', null);
+insert into HistoricoPrecio values (2016, 62, 57, 13, 150);
+insert into HistoricoPrecio values (2017, 62, 57, 13, 162);
+insert into HistoricoPrecio values (2018, 62, 57, 13, 173);
+
+insert into Presentacion values (63, 57, 13, 'Caja', 6);
+insert into HistoricoPrecio values (2016, 63, 57, 13, 800);
+insert into HistoricoPrecio values (2017, 63, 57, 13, 835);
+insert into HistoricoPrecio values (2018, 63, 57, 13, 890);
+
+insert into MarcaVino values (
+    58,
+    13,
+    'Bona Fide',
+    'Fermentation occurs spontaneously with no commercial yeasts added. There was a 40% whole bunch component with the rest de-stemmed but left intact as whole berries. T
+    otal time on skins was 4 weeks where after the wine spent 11 months in French Oak barriques.',
+    'Darker and more intense than any other Crystallum Pinot. The heavy soils create stress for the vines resulting in a wine of great concentration and flavour while maintaining freshness and elegance typical of the Hemel en Aarde area.
+     Bright cassis and cherry notes, with spice and a slight smokiness lead to a rich and generous palate with supple fruit and full grippy tannins',
+    11,
+    'S',
+    2.7,
+    14,
+    tipo_valor_nt(tipo_valor(2013, 2189, 'litros'), tipo_valor(2014, 2136, 'litros'), tipo_valor(2015, 3036, 'litros')),
+    distribucion_exp_nt(distribucion_exp(tipo_valor(2012,432,'litros'),'Portugal'),distribucion_exp(tipo_valor(2013,432,'litros'),'Mexico'),distribucion_exp(tipo_valor(2014,332,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
+    calificacion_nt(
+        calificacion('Wine Advocate', tipo_valor(2012, 93, 'puntos')),
+        calificacion('Platters Wine Guide', tipo_valor(2014, 88, 'puntos'))
+    ),
+    11,
+    16,
+    maridajes('Ensaldas','Postres'),
+    5.5,
+    'Corcho',
+    null -- TODO: Ver como se sube un BLOB
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(58, 58, 13, 56, 54, 58, 58, 44);
+
+insert into Presentacion values (64, 58, 13, 'Botella', null);
+insert into HistoricoPrecio values (2016, 64, 58, 13, 150);
+insert into HistoricoPrecio values (2017, 64, 58, 13, 164);
+insert into HistoricoPrecio values (2018, 64, 58, 13, 173);
+
+insert into Presentacion values (65, 58, 13, 'Caja', 6);
+insert into HistoricoPrecio values (2016, 65, 58, 13, 800);
+insert into HistoricoPrecio values (2017, 65, 58, 13, 835);
+insert into HistoricoPrecio values (2018, 65, 58, 13, 890);
+
+insert into MarcaVino values (
+    59,
+    13,
+    'Mabalel',
+    'Mabalel 2013 was fermented using only native yeasts and unlike the other Crystallum Cuvees, the fruit was completely de-stemmed. The total time in tank was 28 days with a 14 day post maceration. The wine was then transferred to barrel where it remained for 11 months before bottling. 
+    Minimal sulphates were used in the making of this wine.',
+    'Lighter and more feminine than the other Crystallum Pinot’s. 
+    Dried petals, violets and bright cherry notes lead to an elegant and refined palate with very fine tannins and a fresh finish.',
+    11,
+    'S',
+    2.5,
+    13,
+    tipo_valor_nt(tipo_valor(2013, 2112, 'litros'), tipo_valor(2014, 3267, 'litros'), tipo_valor(2015, 4338, 'litros')),
+    distribucion_exp_nt(distribucion_exp(tipo_valor(2012,432,'litros'),'Portugal'),distribucion_exp(tipo_valor(2013,432,'litros'),'Mexico'),distribucion_exp(tipo_valor(2014,332,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
+    calificacion_nt(
+        calificacion('Wine Advocate', tipo_valor(2014, 91, 'puntos')),
+        calificacion('TREVE RING', tipo_valor(2015, 92, 'puntos'))
+    ),
+    8,
+    16,
+    maridajes('Carnes','Pollos'),
+    5.3,
+    'Metal',
+    null -- TODO: Ver como se sube un BLOB
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(59, 59, 13, 56, 54, 58, 58, 44);
+
+insert into Presentacion values (65, 59, 13, 'Botella', null);
+insert into HistoricoPrecio values (2016, 65, 59, 13, 150);
+insert into HistoricoPrecio values (2017, 65, 59, 13, 165);
+insert into HistoricoPrecio values (2018, 65, 59, 13, 173);
+
+insert into Presentacion values (66, 59, 13, 'Caja', 6);
+insert into HistoricoPrecio values (2016, 66, 59, 13, 800);
+insert into HistoricoPrecio values (2017, 66, 59, 13, 835);
+insert into HistoricoPrecio values (2018, 66, 59, 13, 890);
 
 
