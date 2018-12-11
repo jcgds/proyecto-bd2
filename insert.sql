@@ -387,6 +387,12 @@ insert into MarcaVino values (
 
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
 (51, 51, 16, 51, 51, 51, 51, 41);
+
+insert into Presentacion values (51, 51, 16, 'Botella', null);
+insert into HistoricoPrecio values (2016, 51, 51, 16, 200);
+insert into HistoricoPrecio values (2017, 51, 51, 16, 210);
+insert into HistoricoPrecio values (2018, 51, 51, 16, 195);
+
 ---------Bodega Joseph Phelps--------
 
 insert into Region values (42, 'St Helena AVA', null, 4);
@@ -455,6 +461,16 @@ insert into MarcaVino values (
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
 (52, 52, 16, 52, 52, 54, 54, 42);
 
+insert into Presentacion values (52, 52, 16, 'Botella', null);
+insert into HistoricoPrecio values (2016, 52, 52, 16, 167);
+insert into HistoricoPrecio values (2017, 52, 52, 16, 189);
+insert into HistoricoPrecio values (2018, 52, 52, 16, 152);
+
+insert into Presentacion values (53, 52, 16, 'Caja', 6);
+insert into HistoricoPrecio values (2016, 53, 52, 16, 1005);
+insert into HistoricoPrecio values (2017, 53, 52, 16, 1100);
+insert into HistoricoPrecio values (2018, 53, 52, 16, 950);
+
 insert into MarcaVino values (
     53,
     16,
@@ -484,6 +500,16 @@ insert into MarcaVino values (
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
 (53, 53, 16, 53, 52, 55, 55, 42);
 
+insert into Presentacion values (54, 53, 16, 'Botella', null);
+insert into HistoricoPrecio values (2016, 54, 53, 16, 110);
+insert into HistoricoPrecio values (2017, 54, 53, 16, 112);
+insert into HistoricoPrecio values (2018, 54, 53, 16, 113);
+
+insert into Presentacion values (55, 53, 16, 'Caja', 6);
+insert into HistoricoPrecio values (2016, 55, 53, 16, 600);
+insert into HistoricoPrecio values (2017, 55, 53, 16, 635);
+insert into HistoricoPrecio values (2018, 55, 53, 16, 590);
+
 insert into MarcaVino values (
     54,
     4,
@@ -512,7 +538,122 @@ insert into MarcaVino values (
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
 (54, 54, 4, 54, 52, 56, 56, 42);
 
+insert into Presentacion values (56, 54, 4, 'Botella', null);
+insert into HistoricoPrecio values (2016, 56, 54, 4, 110);
+insert into HistoricoPrecio values (2017, 56, 54, 4, 112);
+insert into HistoricoPrecio values (2018, 56, 54, 4, 113);
 
+insert into Presentacion values (57, 54, 4, 'Caja', 6);
+insert into HistoricoPrecio values (2016, 57, 54, 4, 600);
+insert into HistoricoPrecio values (2017, 57, 54, 4, 635);
+insert into HistoricoPrecio values (2018, 57, 54, 4, 590);
+
+
+---------- Bodega Ravenswood----------
+
+insert into Region values (43, 'Carneros Valley', null, 4);
+
+insert into VariedadVid values (57,'Zinfandel');
+insert into DenominacionDeOrigen values (57,'American Viticultural Area Zinfandel', null, 57, 43);
+
+insert into Bodega values (
+    53, 
+    'Ravenswood',
+    hechos_hist_nt(hechos_hist(1976, 'Fundacion por Joel Peterson ')),
+    TO_DATE('12-06-1976', 'DD-MM-YYYY'), 
+    DATOSDECONTACTO(
+        conj_telefonos(7079332332,8665683946), 
+        null, 
+        'customerservice@ravenswoodwinery.com', 
+        'https://www.ravenswoodwinery.com/',
+        direccion('Sonoma, CA', '95476', '18701 Gehricke Road', null),
+        personasDeContacto(personaDeContacto('Ben','Shapiro','Winemaker','bshapiro@ravenswoodwinery.com'))
+    ),
+    'The fruit he crushed that night was used for one of two single-vineyard Sonoma County Zins – the first wines to bear Ravenswood’s signature ring of ravens. ' || 
+    'Ravenswood’s “No Wimpy Wines” credo says it all – embrace the bold, abhor the bland.',
+    'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
+    tipo_valor_nt(),  -- TODO: Conseguir y llenar esta tabla con 3 anios
+    distribucion_exp_nt(), -- TODO: Conseguir y llenar esta tabla con 3 anios
+    null
+);
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
+(55, 57, 57, 43, 53);
+
+insert into MarcaVino values (
+    55,
+    6,
+    'Teldeschi ',
+    'One of the few Scheurebe plantings in California, grapes were handpicked and frozen, followed by a partial thawing before a long, gentle pressing. The juice was fermented in stainless steel at a cool temperature to retain the subtle aromatics of this variety.',
+    'The powerful aromas of black cherries, coffee, caramel, and vanilla as well as other sweet dark fruit scents, combine to create the classic character of a great Dry Creek Zinfandel. Rich flavors of sweet cherry liqueur, vanilla, 
+    and smoke lead to a ripe, dense, long, and bright fruit finish. Pairs well with grilled meats, even Teriyaki.',
+    13,
+    'N',
+    1.4,
+    11,
+    tipo_valor_nt(tipo_valor(2011, 22654, 'litros'), tipo_valor(2012, 38225, 'litros'), tipo_valor(2013, 34562, 'litros')),
+    distribucion_exp_nt(distribucion_exp(tipo_valor(2012,23432,'litros'),'Portugal'),distribucion_exp(tipo_valor(2013,23432,'litros'),'Mexico'),distribucion_exp(tipo_valor(2014,23432,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
+    calificacion_nt(
+        calificacion('Wine and Spirits', tipo_valor(2013, 94, 'puntos')),
+        calificacion('Wine Enthusiast', tipo_valor(2011, 90, 'puntos')),
+        calificacion('Connoisseurs Guide to California Wine', tipo_valor(2015, 89, 'puntos'))
+    ),
+    20,
+    16,
+    maridajes('Carnes','Asados'),
+    2.1,
+    'Corcho',
+    null -- TODO: Ver como se sube un BLOB
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(55, 55, 6, 55, 53, 57, 57, 43);
+
+insert into Presentacion values (58, 55, 6, 'Botella', null);
+insert into HistoricoPrecio values (2016, 58, 55, 6, 110);
+insert into HistoricoPrecio values (2017, 58, 55, 6, 112);
+insert into HistoricoPrecio values (2018, 58, 55, 6, 113);
+
+insert into Presentacion values (59, 55, 6, 'Caja', 6);
+insert into HistoricoPrecio values (2016, 59, 55, 6, 600);
+insert into HistoricoPrecio values (2017, 59, 55, 6, 635);
+insert into HistoricoPrecio values (2018, 59, 55, 6, 590);
+
+insert into MarcaVino values (
+    56,
+    7,
+    'Icon',
+    'Ravenswood’s ICON is a revival of this traditional native Sonoma Mixed Blacks blend produced from old, low-production vineyards planted before Prohibition, and is a tribute to Sonoma County’s incredible ancient vines. ',
+    'The 2012 ICON displays alluring blackberry, mulberry, and blueberry with exciting hints of anise and pie spice. Lively and weighty, this wine has wonderful tannins and texture, offering structure and grip without being aggressive. 
+    Its generous finish is a blend of fruit and spice that carries on long after the wine has left your mouth. ',
+    11,
+    'S',
+    1.4,
+    15,
+    tipo_valor_nt(tipo_valor(2011, 22654, 'litros'), tipo_valor(2012, 38225, 'litros'), tipo_valor(2013, 34562, 'litros')),
+    distribucion_exp_nt(distribucion_exp(tipo_valor(2012,23432,'litros'),'Portugal'),distribucion_exp(tipo_valor(2013,23432,'litros'),'Mexico'),distribucion_exp(tipo_valor(2014,23432,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
+    calificacion_nt(
+        calificacion('Wine Enthusiast', tipo_valor(2011, 90, 'puntos'))
+    ),
+    19,
+    16,
+    maridajes('Ensaldas','Postres'),
+    6.1,
+    'Corcho',
+    null -- TODO: Ver como se sube un BLOB
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+(56, 56, 7, 55, 53, 57, 57, 43);
+
+insert into Presentacion values (60, 56, 7, 'Botella', null);
+insert into HistoricoPrecio values (2016, 60, 56, 7, 150);
+insert into HistoricoPrecio values (2017, 60, 56, 7, 162);
+insert into HistoricoPrecio values (2018, 60, 56, 7, 173);
+
+insert into Presentacion values (61, 56, 7, 'Caja', 6);
+insert into HistoricoPrecio values (2016, 61, 56, 7, 800);
+insert into HistoricoPrecio values (2017, 61, 56, 7, 835);
+insert into HistoricoPrecio values (2018, 61, 56, 7, 890);
 
 
 
