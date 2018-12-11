@@ -175,7 +175,7 @@ create table Bodega (
     fechaFundacion date not null,
     datosDeContacto datosDeContacto not null,
     descripcionMision varchar2(1000) not null,
-    descripcionGeneralVinos varchar2(1000) not null,
+    descripcionGeneralVinos varchar2(1000),
     produccionAnual tipo_valor_nt,
     exportacionAnual distribucion_exp_nt,
     propietario number,
