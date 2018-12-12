@@ -1,10 +1,5 @@
 ALTER SESSION SET CURRENT_SCHEMA=WINE_SCHEMA;
-/
-create or replace procedure saludar(nombre varchar2) as
-begin
-    DBMS_OUTPUT.PUT_LINE('Hola ' || nombre || '!');
-end;
-/
+
 create or replace procedure insertar_concurso(nombre varchar2, dc datosDeContacto, tipoCata varchar2, deCatadores char, caracteristicas varchar2) as
 begin
   INSERT INTO Concurso VALUES (
@@ -104,6 +99,21 @@ begin
 end;
 /
 
+create or replace function exportacion_marca_en (idMarca IN number, anioDeseado IN number)
+return number is 
+    exportacion number := 0;
+BEGIN
+   
+    select SUM(t.tipovalor.valor) into exportacion
+    from the (select z.exportacionAnual from MarcaVino z where z.id = idMarca) t
+    where t.tipovalor.anio = anioDeseado;
+        
+    return exportacion;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        return 0;
+END;
+/
 /*
     Este procedimiento se encarga de calcular y actualizar los valores de produccion
     segun la produccion de sus marcas de vino.
@@ -115,6 +125,9 @@ create or replace procedure calcular_produccion_bodegas as
 anio_min number := conseguir_anio_minimo();
 anio_max number;
 acumulador1 number := 0;
+type pais_exportacion is table of number index by varchar2(50);
+distribucionExp pais_exportacion;
+paisIndex varchar2(50);
 begin    
     select to_char(sysdate, 'YYYY') into anio_max from dual;
     << bodegas_loop >>
@@ -123,27 +136,58 @@ begin
         DBMS_OUTPUT.PUT_LINE('Bodega ' || bodega.nombre || ' | ' || to_char(bodega.id));
         -- Limpiar produccionAnual de la bodega pues la vamos a calcular de cero
         DELETE FROM THE (select vv.produccionAnual from Bodega vv where vv.id = bodega.id);
-        
+        DELETE FROM THE (select vv.exportacionAnual from Bodega vv where vv.id = bodega.id);
+
          -- Loop entre esos años
         -- Ir sumando la produccion de las marcas de vino de la bodega en ese año
         << year_loop >>
         for i in anio_min .. anio_max loop
             acumulador1 := 0;
+            distribucionExp.Delete();
             << marcas_loop >>
             for marca in (
-                    select distinct mv.id
+                    select distinct mv.id, mv.nombre
                     from MarcaVino_B_DO mvbdo, MarcaVino mv
                     where mvbdo.fk_bodega = bodega.id
                         and mvbdo.fk_marcavino = mv.id
                         and mvbdo.fk_clasificacionvinos = mv.fk_clasificacionvinos)
             loop
+                DBMS_OUTPUT.PUT_LINE('Marca ' || marca.nombre);
                 acumulador1 := acumulador1 + produccion_marca_en(marca.id, i);
+                
+                << distribucion_loop >>
+                for dist in (select nt.tipovalor.valor valor, nt.pais pais from the 
+                            (select mv.exportacionAnual from MarcaVino mv 
+                            where mv.id = marca.id) nt 
+                            where nt.tipovalor.anio = i)
+                loop
+                    --DBMS_OUTPUT.PUT_LINE('Pais: ' || dist.pais || ' Valor: ' || to_char(dist.valor) || ' Anio: ' || to_char(i));
+                    begin
+                         distribucionExp(dist.pais) := distribucionExp(dist.pais) + dist.valor;
+                    exception
+                        when NO_DATA_FOUND then
+                            distribucionExp(dist.pais) := dist.valor;
+                    end;
+                end loop distribucion_loop;
+                              
             end loop marcas_loop;
             
             DBMS_OUTPUT.PUT_LINE('Produccion year ' || TO_CHAR(i) || ' es: ' || to_char(acumulador1));
+              
             -- Guardar en produccionAnual de la Bodega este valor
             INSERT INTO THE (select vv.produccionAnual from Bodega vv where vv.id = bodega.id)
             values (tipo_valor(i, acumulador1, 'litros'));
+            
+            paisIndex := distribucionExp.first;
+            << assoc_array_loop >>
+            while (paisIndex is not null) loop
+                DBMS_OUTPUT.PUT_LINE('Anio: ' || to_char(i) || ' Pais: ' || paisIndex || ' Valor: ' || to_char(distribucionExp(paisIndex)));
+                
+                INSERT INTO THE (select vv.exportacionAnual from Bodega vv where vv.id = bodega.id)
+                values (distribucion_exp(tipo_valor(i, distribucionExp(paisIndex), 'litros'), paisIndex));
+                
+                paisIndex := distribucionExp.next(paisIndex);
+            end loop assoc_array_loop;
             
         end loop year_loop;  
     end loop bodegas_loop;  
