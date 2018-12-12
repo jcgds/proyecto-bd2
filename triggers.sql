@@ -17,6 +17,19 @@ BEGIN
 END;
 /
 
+CREATE OR REPLACE TRIGGER validar_presentacion
+BEFORE INSERT OR UPDATE OF tipo, unidadesEnCaja ON Presentacion
+FOR EACH ROW
+BEGIN
+    if :new.unidadesEnCaja is not null and :new.tipo not like 'Caja' then
+        RAISE_APPLICATION_ERROR(-20003, 'Para tener unidades en caja el tipo debe ser Caja');
+    end if;
+    
+    if :new.unidadesEnCaja is null and :new.tipo not like 'Botella' then
+        RAISE_APPLICATION_ERROR(-20004, 'Si no hay unidades en caja debe ser botella');
+    end if;
+END;
+/
 
 CREATE OR REPLACE TRIGGER sumatoria_cataaprendiz
 BEFORE INSERT OR UPDATE ON CataAprendiz
