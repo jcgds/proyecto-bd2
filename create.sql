@@ -236,7 +236,7 @@ CREATE TABLE CataAprendiz (
     id number,
     fecha date NOT NULL,
     valoraciones valoracion_nt,
-    sumatoria number(20) NOT NULL,
+    sumatoria number(20),
     fk_catadoraprendiz number,
     -- FK MuestraCatador ----------------------------
     fk_muestra_id number,
@@ -275,7 +275,7 @@ CREATE TABLE CataExperto (
     id number,
     fecha date NOT NULL,
     valoraciones valoracion_nt,
-    sumatoria number(20) NOT NULL,
+    sumatoria number(20),
     fk_catadorexperto number,
     fk_muestracompite number,
     CONSTRAINT pk_cataexperto PRIMARY KEY (id)
