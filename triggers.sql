@@ -1,5 +1,5 @@
-CREATE OR REPLACE TRIGGER validar__jerarquia
-BEFORE INSERT OR UPDATE OF nivel ON ClasificacionVinos
+CREATE OR REPLACE TRIGGER validar_jerarquia
+BEFORE INSERT ON ClasificacionVinos
 FOR EACH ROW
 DECLARE
     nivelPadre clasificacionvinos.nivel%type;
