@@ -102,7 +102,11 @@ insert into MarcaVino values (
     1.2,
     15,
     tipo_valor_nt(tipo_valor(2011, 15348, 'litros'), tipo_valor(2012, 15348, 'litros'), tipo_valor(2013, 21126, 'litros')),
-    distribucion_exp_nt(), -- TODO: Conseguir o inventar datos de exportacion
+    distribucion_exp_nt(
+        distribucion_exp(tipo_valor(2011, 4, 'litros'), 'Canada'),
+        distribucion_exp(tipo_valor(2011, 5, 'litros'), 'Italia'),
+        distribucion_exp(tipo_valor(2012, 10, 'litros'), 'Alemania')
+    ),
     calificacion_nt(
         calificacion('Wine Enthusiast Magazine', tipo_valor(2012, 91, 'puntos')),
         calificacion('Wine Enthusiast Magazine', tipo_valor(2011, 92, 'puntos')),
@@ -167,7 +171,11 @@ insert into MarcaVino values (
     3,
     12.5,
     tipo_valor_nt(tipo_valor(2011, 58500, 'litros'), tipo_valor(2012, 63500, 'litros'), tipo_valor(2013, 67500, 'litros')),
-    distribucion_exp_nt(), -- TODO: Conseguir o inventar datos de exportacion
+    distribucion_exp_nt(
+        distribucion_exp(tipo_valor(2011, 6, 'litros'), 'Canada'),
+        distribucion_exp(tipo_valor(2011, 5, 'litros'), 'Italia'),
+        distribucion_exp(tipo_valor(2012, 10, 'litros'), 'Alemania')
+    ),
     calificacion_nt(
         calificacion('Wine Enthusiast Magazine', tipo_valor(2015, 88, 'puntos'))
     ),
@@ -570,7 +578,7 @@ insert into Bodega values (
         personasDeContacto(personaDeContacto('Ben','Shapiro','Winemaker','bshapiro@ravenswoodwinery.com'))
     ),
     'The fruit he crushed that night was used for one of two single-vineyard Sonoma County Zins – the first wines to bear Ravenswood’s signature ring of ravens. ' || 
-    'Ravenswood’s “No Wimpy Wines” credo says it all – embrace the bold, abhor the bland.',
+    'Ravenswood’s “No Wimpy Wines�? credo says it all – embrace the bold, abhor the bland.',
     'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
     tipo_valor_nt(),  -- TODO: Conseguir y llenar esta tabla con 3 anios
     distribucion_exp_nt(), -- TODO: Conseguir y llenar esta tabla con 3 anios
@@ -748,7 +756,7 @@ insert into MarcaVino values (
     2.7,
     14,
     tipo_valor_nt(tipo_valor(2013, 2189, 'litros'), tipo_valor(2014, 2136, 'litros'), tipo_valor(2015, 3036, 'litros')),
-    distribucion_exp_nt(distribucion_exp(tipo_valor(2012,432,'litros'),'Portugal'),distribucion_exp(tipo_valor(2013,432,'litros'),'Mexico'),distribucion_exp(tipo_valor(2014,332,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
+    distribucion_exp_nt(distribucion_exp(tipo_valor(2012,432,'litros'),'Portugal'),distribucion_exp(tipo_valor(2012,432,'litros'),'Mexico'),distribucion_exp(tipo_valor(2014,332,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
         calificacion('Wine Advocate', tipo_valor(2012, 93, 'puntos')),
         calificacion('Platters Wine Guide', tipo_valor(2014, 88, 'puntos'))
@@ -814,3 +822,4 @@ insert into HistoricoPrecio values (2017, 66, 59, 13, 835);
 insert into HistoricoPrecio values (2018, 66, 59, 13, 890);
 
 
+commit;
