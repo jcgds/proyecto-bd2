@@ -116,10 +116,11 @@ END;
 /
 /*
     Este procedimiento se encarga de calcular y actualizar los valores de produccion
-    segun la produccion de sus marcas de vino.
-    Al ser ejecutado elimina todos los registros de las NT produccionAnual de las
-    bodegas y los reemplaza calculando de nuevo la produccion segun las marcas de vino
-    entre el año minimo y maximo.
+    y exportacion de todas las bodegas segun la produccion de sus marcas de vino.
+    
+    Al ser ejecutado elimina todos los registros de las NT produccionAnual y exportacionAnual 
+    de las bodegas y los reemplaza calculando de nuevo la produccion y exportacion segun las 
+    marcas de vino entre el año minimo y maximo.
 */
 create or replace procedure calcular_produccion_bodegas as
 anio_min number := conseguir_anio_minimo();
@@ -134,16 +135,16 @@ begin
     for bodega in (select id, nombre from Bodega)
     loop
         DBMS_OUTPUT.PUT_LINE('Bodega ' || bodega.nombre || ' | ' || to_char(bodega.id));
-        -- Limpiar produccionAnual de la bodega pues la vamos a calcular de cero
+
         DELETE FROM THE (select vv.produccionAnual from Bodega vv where vv.id = bodega.id);
         DELETE FROM THE (select vv.exportacionAnual from Bodega vv where vv.id = bodega.id);
 
-         -- Loop entre esos años
-        -- Ir sumando la produccion de las marcas de vino de la bodega en ese año
+        -- Recorremos los años y vamos sumando la produccion de las marcas de vino de la bodega en ese año
         << year_loop >>
         for i in anio_min .. anio_max loop
             acumulador1 := 0;
             distribucionExp.Delete();
+            -- Este query consigue todas las marcas de vino de la Bodega actual en el loop
             << marcas_loop >>
             for marca in (
                     select distinct mv.id, mv.nombre
@@ -153,8 +154,11 @@ begin
                         and mvbdo.fk_clasificacionvinos = mv.fk_clasificacionvinos)
             loop
                 DBMS_OUTPUT.PUT_LINE('Marca ' || marca.nombre);
+                -- Vamos sumando la produccion de las marcas en el acumulador de la bodega
                 acumulador1 := acumulador1 + produccion_marca_en(marca.id, i);
                 
+                -- Este query consigue el valor y pais de las exportaciones de la marca de vino actual
+                -- en el año del loop
                 << distribucion_loop >>
                 for dist in (select nt.tipovalor.valor valor, nt.pais pais from the 
                             (select mv.exportacionAnual from MarcaVino mv 
@@ -162,6 +166,7 @@ begin
                             where nt.tipovalor.anio = i)
                 loop
                     --DBMS_OUTPUT.PUT_LINE('Pais: ' || dist.pais || ' Valor: ' || to_char(dist.valor) || ' Anio: ' || to_char(i));
+                    -- Capturamos la excepcion NO_DATA_FOUND pues si en el hashmap no existe el valor esta se dispara
                     begin
                          distribucionExp(dist.pais) := distribucionExp(dist.pais) + dist.valor;
                     exception
@@ -178,6 +183,7 @@ begin
             INSERT INTO THE (select vv.produccionAnual from Bodega vv where vv.id = bodega.id)
             values (tipo_valor(i, acumulador1, 'litros'));
             
+            -- Recorremos los valores en el hashmap y vamos guardando en la exportacionAnual de la bodega
             paisIndex := distribucionExp.first;
             << assoc_array_loop >>
             while (paisIndex is not null) loop
