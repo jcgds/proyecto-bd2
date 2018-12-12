@@ -3,6 +3,6 @@
 @drop
 @create
 @alter
---@triggers
+@triggers
 @procedimientos
 @insert
