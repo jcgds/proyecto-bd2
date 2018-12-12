@@ -3,7 +3,7 @@ insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcen
 (1, null, 'Tinto', 1, rangoPorcentajeVol(0,0));
 insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
 (2, null, 'Blanco', 1, rangoPorcentajeVol(0,0));
-
+commit;
     -- Clasificacion de vinos blancos -------------------------------------------------------------------
     insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
     (4, 2, 'Ligeros y Secos', 2, rangoPorcentajeVol(9,12));
@@ -17,6 +17,7 @@ insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcen
     (8, 2, 'Semisecos', 2, rangoPorcentajeVol(6,14));
     insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
     (9, 2, 'Dulces y Licorosos', 2, rangoPorcentajeVol(9,18));
+    commit;
     -- Clasificacion de vinos tintos --------------------------------------------------------------------
     insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
     (10, 1, 'Rosados', 2, rangoPorcentajeVol(10,14));
@@ -30,6 +31,7 @@ insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcen
     (14, 1, 'De Guarda', 2, rangoPorcentajeVol(12, 13));
     insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
     (15, 1, 'Especiales', 2, rangoPorcentajeVol(14,17));
+    commit;
         -- Clasificacion tintos especiales -------------------------------------------------------------
         insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
         (16, 15, 'Secos', 3, rangoPorcentajeVol(14,17));
@@ -37,6 +39,7 @@ insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcen
         (17, 15, 'Semisecos', 3, rangoPorcentajeVol(14,17));
         insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
         (18, 15, 'Dulces', 3, rangoPorcentajeVol(14,17));
+        commit;
 --------------------------------------------------------------------------------------------------------
 
 insert into Pais values (
