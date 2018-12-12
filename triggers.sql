@@ -15,3 +15,41 @@ BEGIN
         end if;
     end if;
 END;
+/
+
+
+CREATE OR REPLACE TRIGGER sumatoria_cataaprendiz
+BEFORE INSERT OR UPDATE ON CataAprendiz
+FOR EACH ROW
+DECLARE
+    suma number := 0;
+    
+BEGIN
+    IF :NEW.valoraciones IS NOT NULL THEN
+        FOR i IN :NEW.valoraciones.FIRST..:NEW.valoraciones.LAST LOOP
+            suma := suma + :NEW.valoraciones(i).valor;
+        END LOOP;
+    END IF;
+
+    :new.sumatoria := suma;
+    
+END; 
+/
+
+CREATE OR REPLACE TRIGGER sumatoria_cataexperto
+BEFORE INSERT OR UPDATE ON CataExperto
+FOR EACH ROW
+DECLARE
+    suma number := 0;
+    
+BEGIN
+    IF :NEW.valoraciones IS NOT NULL THEN
+        FOR i IN :NEW.valoraciones.FIRST..:NEW.valoraciones.LAST LOOP
+            suma := suma + :NEW.valoraciones(i).valor;
+        END LOOP;
+    END IF;
+
+    :new.sumatoria := suma;
+    
+END; 
+/
