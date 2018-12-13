@@ -279,3 +279,63 @@ begin
     
 end;
 /
+
+create or replace procedure CalcularExportacionTotal as
+anio_min number := conseguir_anio_minimo();
+anio_max number;
+type pais_exportacion is table of number index by varchar2(50);
+distribucionExp pais_exportacion;
+paisIndex varchar2(50);
+begin
+    select to_char(sysdate, 'YYYY') into anio_max from dual;
+    CalcExportacionTotalBodegas();
+    
+    << pais_loop >>
+    for PAIS in (select p.id, p.nombre from Pais p)
+    loop     
+        DELETE FROM THE (select vv.exportacionAnual from Pais vv where vv.id = PAIS.id);
+        
+         << year_loop >>
+        for ANIO in anio_min .. anio_max loop
+            distribucionExp.Delete();
+            
+            << bodega_loop >>
+            for BODEGA in (
+                select distinct bo.id, bo.nombre  
+                from Bodega bo, Region rg, DenominacionDeOrigen do, B_DO bdo
+                where rg.fk_pais = PAIS.id
+                and bdo.fk_do_region = rg.id
+                and bo.id = bdo.fk_bodega)
+            loop
+            
+                << distribucion_loop >>
+                for dist in (select nt.tipovalor.valor valor, nt.pais pais from the 
+                            (select bo.exportacionAnual from Bodega bo 
+                            where bo.id = BODEGA.id) nt 
+                            where nt.tipovalor.anio = ANIO)
+                loop
+                    begin
+                         distribucionExp(dist.pais) := distribucionExp(dist.pais) + dist.valor;
+                    exception
+                        when NO_DATA_FOUND then
+                            distribucionExp(dist.pais) := dist.valor;
+                    end;
+                end loop distribucion_loop;
+                
+            end loop bodega_loop;     
+
+            paisIndex := distribucionExp.first;
+            << assoc_array_loop >>
+            while (paisIndex is not null) loop
+                DBMS_OUTPUT.PUT_LINE('Anio: ' || to_char(ANIO) || ' Pais: ' || paisIndex || ' Valor: ' || to_char(distribucionExp(paisIndex)));
+                
+                INSERT INTO THE (select vv.exportacionAnual from Pais vv where vv.id = PAIS.id)
+                values (distribucion_exp(tipo_valor(ANIO, distribucionExp(paisIndex), 'litros'), paisIndex));
+                
+                paisIndex := distribucionExp.next(paisIndex);
+            end loop assoc_array_loop;
+            
+        end loop year_loop;
+        
+    end loop pais_loop;
+end;
