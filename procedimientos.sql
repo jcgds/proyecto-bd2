@@ -339,3 +339,29 @@ begin
         
     end loop pais_loop;
 end;
+/
+
+create or replace procedure CalcularConsumoInterno(p_idPais number, p_anio number) as
+produccionEnElAnio number := 0;
+exportacionEnElAnio number := 0;
+nombrePais varchar2(50);
+begin
+    select nombre into nombrePais
+    from Pais where id = p_idPais;
+
+    select t.valor into produccionEnElAnio
+    from the (select produccionAnual from Pais where id = p_idPais) t
+    where t.anio = p_anio;
+    
+    select SUM(t.tipovalor.valor) into exportacionEnElAnio
+    from the (select exportacionAnual from Pais where id = p_idPais) t
+    where t.tipovalor.anio = p_anio;
+    
+    DBMS_OUTPUT.PUT_LINE('-- ' || nombrePais || ' -------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Produccion en ' || to_char(p_anio) || ': ' || to_char(produccionEnElAnio));
+    DBMS_OUTPUT.PUT_LINE('Exportacion en ' || to_char(p_anio) || ': ' || to_char(exportacionEnElAnio));   
+    DBMS_OUTPUT.PUT_LINE('Consumo interno en ' || to_char(p_anio) || ': ' || to_char(produccionEnElAnio - exportacionEnElAnio));
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+end;
+
+
