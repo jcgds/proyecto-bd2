@@ -300,7 +300,8 @@ CREATE TABLE Concurso (
     premios premio_nt,
     escalas escala_nt,
     caracteristicas varchar2(200),
-    CONSTRAINT pk_concurso PRIMARY KEY (id)
+    CONSTRAINT pk_concurso PRIMARY KEY (id),
+    CONSTRAINT tipo_cata_in CHECK (tipoDeCata IN ('Comparativa', 'A ciegas', 'Vertical', 'Varietal'))
 )
 NESTED TABLE premios STORE AS premio_nt_1
 NESTED TABLE escalas STORE AS escala_nt_1
