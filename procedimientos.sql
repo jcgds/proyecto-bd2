@@ -440,3 +440,19 @@ begin
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 end;
 /
+
+create or replace procedure insertar_escala_a(idConcurso number, p_elemento varchar2, p_rangoinf number, p_rangosup number, p_clasif varchar2) 
+as
+    premiosDePosExistentes number := 0;
+begin
+
+    -- TODO: Tal vez se deberia bloquear la insersion de valores negativos en los rangos
+    
+    INSERT INTO THE (SELECT escalas from Concurso where id = idConcurso) VALUES
+    (escala(p_elemento, p_rangoinf, p_rangosup, p_clasif));
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Escala insertada');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+end;
+/
