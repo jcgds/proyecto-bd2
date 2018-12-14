@@ -1,9 +1,11 @@
 ALTER SESSION SET CURRENT_SCHEMA=WINE_SCHEMA;
 
 create or replace procedure insertar_concurso(nombre varchar2, dc datosDeContacto, tipoCata varchar2, deCatadores char, caracteristicas varchar2) as
+    seqval number;
 begin
-  INSERT INTO Concurso VALUES (
-      ids_seq.nextval,
+    seqval := ids_seq.nextval;
+    INSERT INTO Concurso VALUES (
+      seqval,
       nombre, 
       dc, 
       tipoCata,
@@ -11,7 +13,10 @@ begin
       premio_nt(),
       escala_nt(),
       caracteristicas
-  );
+    );
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Concurso insertado (id = ' || to_char(seqval) || ')');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 end;
 /
 create or replace function produccion_bodega_en (idBodega IN number, anioDeseado IN number)
@@ -71,7 +76,7 @@ END;
 
 /
 /*
-    Consigue el año más pequeño (más viejo) revisando todos los registros
+    Consigue el aï¿½o mï¿½s pequeï¿½o (mï¿½s viejo) revisando todos los registros
     de produccion anual de las marcas de vino.
 */
 create or replace function conseguir_anio_minimo
@@ -116,7 +121,7 @@ END;
     
     Al ser ejecutado elimina todos los registros de las NT produccionAnual de las bodegas 
     y los reemplaza calculando de nuevo la produccion segun las marcas de 
-    vino entre el año minimo y maximo.
+    vino entre el aï¿½o minimo y maximo.
 */
 create or replace procedure CalcularProduccionTotalBodegas as
 anio_min number := conseguir_anio_minimo();
@@ -130,7 +135,7 @@ begin
         DBMS_OUTPUT.PUT_LINE('Bodega ' || bodega.nombre || ' | ' || to_char(bodega.id));
         DELETE FROM THE (select vv.produccionAnual from Bodega vv where vv.id = bodega.id);
 
-        -- Recorremos los años y vamos sumando la produccion de las marcas de vino de la bodega en ese año
+        -- Recorremos los aï¿½os y vamos sumando la produccion de las marcas de vino de la bodega en ese aï¿½o
         << year_loop >>
         for i in anio_min .. anio_max loop
             acumulador1 := 0;
@@ -165,7 +170,7 @@ end;
     
     Al ser ejecutado elimina todos los registros de las NT exportacionAnual de las bodegas 
     y los reemplaza calculando de nuevo la exportacion segun las marcas de 
-    vino y pais entre el año minimo y maximo.
+    vino y pais entre el aï¿½o minimo y maximo.
 */
 create or replace procedure CalcExportacionTotalBodegas as
 anio_min number := conseguir_anio_minimo();
@@ -181,7 +186,7 @@ begin
         DBMS_OUTPUT.PUT_LINE('Bodega ' || bodega.nombre || ' | ' || to_char(bodega.id));
         DELETE FROM THE (select vv.exportacionAnual from Bodega vv where vv.id = bodega.id);
 
-        -- Recorremos los años y vamos sumando la produccion de las marcas de vino de la bodega en ese año
+        -- Recorremos los aï¿½os y vamos sumando la produccion de las marcas de vino de la bodega en ese aï¿½o
         << year_loop >>
         for i in anio_min .. anio_max loop
             distribucionExp.Delete();
@@ -197,7 +202,7 @@ begin
                 DBMS_OUTPUT.PUT_LINE('Marca ' || marca.nombre);
 
                 -- Este query consigue el valor y pais de las exportaciones de la marca de vino actual
-                -- en el año del loop
+                -- en el aï¿½o del loop
                 << distribucion_loop >>
                 for dist in (select nt.tipovalor.valor valor, nt.pais pais from the 
                             (select mv.exportacionAnual from MarcaVino mv 
@@ -374,7 +379,7 @@ begin
     where id = idMarca;
     
     if holder like 'S' then
-        return 'Sí';
+        return 'Sï¿½';
     else
         return 'No';
     end if;
