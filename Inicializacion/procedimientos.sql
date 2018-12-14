@@ -1,11 +1,9 @@
 ALTER SESSION SET CURRENT_SCHEMA=WINE_SCHEMA;
 
-create or replace procedure insertar_concurso(nombre varchar2, dc datosDeContacto, tipoCata varchar2, deCatadores char, caracteristicas varchar2) as
-    seqval number;
+create or replace procedure insertar_concurso(pid number DEFAULT ids_seq.nextval, nombre varchar2, dc datosDeContacto, tipoCata varchar2, deCatadores char, caracteristicas varchar2) as
 begin
-    seqval := ids_seq.nextval;
     INSERT INTO Concurso VALUES (
-      seqval,
+      pid,
       nombre, 
       dc, 
       tipoCata,
@@ -15,7 +13,7 @@ begin
       caracteristicas
     );
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
-    DBMS_OUTPUT.PUT_LINE('Concurso insertado (id = ' || to_char(seqval) || ')');
+    DBMS_OUTPUT.PUT_LINE('Concurso insertado (id = ' || to_char(pid) || ')');
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 end;
 /
@@ -454,5 +452,25 @@ begin
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
     DBMS_OUTPUT.PUT_LINE('Escala insertada');
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+end;
+/
+
+create or replace procedure agregar_organizador(idConcurso number, p_nombre varchar2, p_descripcion varchar2 DEFAULT null, fk_pais number) 
+as
+    orgId number := ids_seq.nextval;
+    poId number := ids_seq.nextval;
+    orgConcId number := ids_seq.nextval;
+begin
+
+    insert into Organizador values (orgId, p_nombre, p_descripcion);
+
+    insert into P_O values (poId, orgId, fk_pais);
+
+    insert into Organizador_Concurso values (orgConcId, orgId, idConcurso);
+
+    DBMS_OUTPUT.PUT_LINE('---------------------------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Organizador creado y agregado a concurso (id = ' || to_char(orgId) || ')');
+    DBMS_OUTPUT.PUT_LINE('P_O id: ' || to_char(poId) || ' - Organizador_Concurso id: ' || to_char(orgConcId));
+    DBMS_OUTPUT.PUT_LINE('---------------------------------------------------------------------');
 end;
 /
