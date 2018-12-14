@@ -68,7 +68,7 @@ create or replace type premio as object(
     nombre varchar2(50),
     posicion number(10),
     descripcion varchar2(200),
-    tipo varchar2(10),
+    tipo varchar2(50),
     premioMoneda number(20)
 )
 /
