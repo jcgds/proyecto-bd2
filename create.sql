@@ -428,7 +428,7 @@ CREATE TABLE ClasificacionVinos(
 /
 
 CREATE TABLE MarcaVino(
-    id number,
+    id number unique,
     fk_clasificacionvinos number,
     nombre varchar(70) NOT NULL,
     descripcionElaboracion varchar(1000) NOT NULL,
