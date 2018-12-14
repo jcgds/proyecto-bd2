@@ -31,6 +31,16 @@ BEGIN
 END;
 /
 
+create or replace trigger validar_tipo_cata
+before insert or update of tipoDeCata, deCatadores on Concurso
+for each row
+begin
+    if :new.deCatadores like 'N' and :new.tipoDeCata like 'A ciegas' then
+        RAISE_APPLICATION_ERROR(-20020, 'Los concursos ""A ciegas"" solo pueden ser de catadores.');
+    end if;
+end;
+/
+
 CREATE OR REPLACE TRIGGER sumatoria_cataaprendiz
 BEFORE INSERT OR UPDATE ON CataAprendiz
 FOR EACH ROW
