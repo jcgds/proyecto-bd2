@@ -44,8 +44,21 @@ ACCEPT c_caracteristicas PROMPT 'Ingrese las caracteristicas del concurso: ';
     ACCEPT c_persona_cargo PROMPT 'Ingrese el cargo de la persona de contacto: ';
     ACCEPT c_persona_email PROMPT 'Ingrese el email de la persona de contacto: ';
 
+SET FEEDBACK OFF;
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE(' --- Datos para creacion de organizador ---');
+    END;
+    /
+SET FEEDBACK ON;
+ACCEPT org_nombre PROMPT 'Ingrese el nombre del organizador: ';
+ACCEPT org_desc PROMPT 'Ingrese la descripcion del organizador: ';
+ACCEPT org_pais PROMPT 'Ingrese el ID del pais: ';
+
+DECLARE
+    concId number := ids_seq.nextval;
 BEGIN
     WINE_SCHEMA.insertar_concurso(
+        concId,
         '&c_nombre',
         datosDeContacto(
             conj_telefonos(&c_dc_telefono1),
@@ -72,8 +85,10 @@ BEGIN
         '&c_caracteristicas'
     );
 
-    DBMS_OUTPUT.PUT_LINE('Para agregar un premio al concurso ejecute: @insertar_premio');
-    DBMS_OUTPUT.PUT_LINE('Para agregar una escala al concurso ejecute: @insertar_escala');
+    agregar_organizador(concId, '&org_nombre', '&org_desc', &org_pais);
+
+    DBMS_OUTPUT.PUT_LINE('Para agregar un premio al concurso ejecute: @Procedures/Concurso/insertar_premio');
+    DBMS_OUTPUT.PUT_LINE('Para agregar una escala al concurso ejecute: @Procedures/Concurso/insertar_escala');
 END;
 /
 SET VERIFY ON;
