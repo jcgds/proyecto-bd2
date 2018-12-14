@@ -363,5 +363,45 @@ begin
     DBMS_OUTPUT.PUT_LINE('Consumo interno en ' || to_char(p_anio) || ': ' || to_char(produccionEnElAnio - exportacionEnElAnio));
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 end;
+/
 
+create or replace function formatear_ccmadera(idMarca number)
+return varchar2 is
+    holder varchar2(2);
+begin
+    select contactoConMadera into holder
+    from MarcaVino
+    where id = idMarca;
+    
+    if holder like 'S' then
+        return 'Sí';
+    else
+        return 'No';
+    end if;
+end;
+/
 
+create or replace function formatear_maridajes(idMarca number)
+return varchar2 is
+    holder varchar2(1000) := null;
+    mar maridajes;
+    total number;
+begin
+    select maridaje into mar
+    from MarcaVino
+    where id = idMarca;
+    
+    total := mar.count;
+    for i in 1 .. total loop
+        if holder is null then
+            holder := mar(i) || ', ';
+        elsif (i != total) then
+            holder := holder || mar(i) || ', ';
+        else 
+            holder := holder || mar(i);
+        end if;
+    end loop;
+    
+    return holder;
+end;
+/
