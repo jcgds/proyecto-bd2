@@ -410,3 +410,33 @@ begin
     return holder;
 end;
 /
+
+create or replace procedure insertar_premio_a(idConcurso number, nombre varchar2, p_posicion number, descripcion varchar2, tipo varchar2, premioMoneda number) 
+as
+    premiosDePosExistentes number := 0;
+begin
+    
+    if premioMoneda < 0 then
+        RAISE_APPLICATION_ERROR(-20100, 'El valor monetario del premio no puede ser negativo');
+    end if;
+
+    if p_posicion < 1 then
+        RAISE_APPLICATION_ERROR(-20101, 'La posicion del premio no puede ser menor a 1');
+    end if;
+
+    select count(*) into premiosDePosExistentes 
+    from the (select premios from concurso where id = idConcurso) nt
+    where nt.posicion = p_posicion;
+
+    if premiosDePosExistentes > 0 then
+        RAISE_APPLICATION_ERROR(-20102, 'Ya existe un premio para esta posicion');
+    end if;
+
+    INSERT INTO THE (SELECT premios from Concurso where id = idConcurso) VALUES
+    (premio(nombre, p_posicion, descripcion, tipo, premioMoneda));
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Premio insertado');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+end;
+/
