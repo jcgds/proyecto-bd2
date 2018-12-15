@@ -578,7 +578,7 @@ insert into Bodega values (
         personasDeContacto(personaDeContacto('Ben','Shapiro','Winemaker','bshapiro@ravenswoodwinery.com'))
     ),
     'The fruit he crushed that night was used for one of two single-vineyard Sonoma County Zins – the first wines to bear Ravenswood’s signature ring of ravens. ' || 
-    'Ravenswood’s “No Wimpy Wines�? credo says it all – embrace the bold, abhor the bland.',
+    'Ravenswood’s “No Wimpy Wines�? credo says it all – embrace the bold, abhor the bland.',
     'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
     tipo_valor_nt(),  -- TODO: Conseguir y llenar esta tabla con 3 anios
     distribucion_exp_nt(), -- TODO: Conseguir y llenar esta tabla con 3 anios
@@ -821,5 +821,66 @@ insert into HistoricoPrecio values (2016, 66, 59, 13, 800);
 insert into HistoricoPrecio values (2017, 66, 59, 13, 835);
 insert into HistoricoPrecio values (2018, 66, 59, 13, 890);
 
+insert into Concurso values(
+4,
+'test',
+DATOSDECONTACTO(
+        conj_telefonos(270832355748,4740000787), 
+        null, 
+        'customerservice@crystallumwines.com', 
+        'http://www.crystallumwines.com/',
+        direccion('Hermanus', '7200', '2 Harbour Rd', null),
+        personasDeContacto(personaDeContacto('David','Nel','Sales','steele.nel@gmail.com'))
+),
+'test2',
+'N',
+null,
+null,
+null
+);
+
+insert into Edicion values(
+4,
+null,
+TO_DATE('12-06-2007', 'DD-MM-YYYY'),
+null,
+TO_DATE('12-06-2007', 'DD-MM-YYYY'),
+TO_DATE('12-06-2007', 'DD-MM-YYYY'),
+null,
+direccion('Hermanus', '7200', '2 Harbour Rd', null),
+null,
+lugar('test','test2'),
+unidadMonetaria('Rand Sudafricano', 'R'),
+null,
+DATOSDECONTACTO(
+        conj_telefonos(270832355748,4740000787), 
+        null, 
+        'customerservice@crystallumwines.com', 
+        'http://www.crystallumwines.com/',
+        direccion('Hermanus', '7200', '2 Harbour Rd', null),
+        personasDeContacto(personaDeContacto('David','Nel','Sales','steele.nel@gmail.com'))
+),
+3
+);
+commit;
+
+insert into Organizador values (
+1,
+'Jonh',
+null    
+)
+
+insert into P_O values(
+1,
+1,
+1
+);
+
+
+insert into Organizador_Concurso values(
+1,
+1,
+4
+);
 
 commit;
