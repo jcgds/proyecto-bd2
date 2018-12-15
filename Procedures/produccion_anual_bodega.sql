@@ -2,8 +2,9 @@ SET SERVEROUTPUT ON;
 ACCEPT idBodega NUMBER PROMPT 'Introduzca el ID de la bodega: ';
 ACCEPT desde NUMBER PROMPT 'Introduzca el anio inicial: ';
 ACCEPT hasta NUMBER PROMPT 'Introduzca el anio final: ';
+set verify off
 
-create or replace procedure produccion_anual_bodega as
+declare
     produccion number;
     idbod number := &idBodega;
     desde number := &desde;
@@ -15,4 +16,5 @@ begin
     END LOOP;
 end;
 /
-execute produccion_anual_bodega();
+
+set verify on

@@ -68,7 +68,7 @@ create or replace type premio as object(
     nombre varchar2(50),
     posicion number(10),
     descripcion varchar2(200),
-    tipo varchar2(10),
+    tipo varchar2(50),
     premioMoneda number(20)
 )
 /
@@ -300,7 +300,8 @@ CREATE TABLE Concurso (
     premios premio_nt,
     escalas escala_nt,
     caracteristicas varchar2(200),
-    CONSTRAINT pk_concurso PRIMARY KEY (id)
+    CONSTRAINT pk_concurso PRIMARY KEY (id),
+    CONSTRAINT tipo_cata_in CHECK (tipoDeCata IN ('Comparativa', 'A ciegas', 'Vertical', 'Varietal'))
 )
 NESTED TABLE premios STORE AS premio_nt_1
 NESTED TABLE escalas STORE AS escala_nt_1
@@ -428,7 +429,7 @@ CREATE TABLE ClasificacionVinos(
 /
 
 CREATE TABLE MarcaVino(
-    id number,
+    id number unique,
     fk_clasificacionvinos number,
     nombre varchar(70) NOT NULL,
     descripcionElaboracion varchar(1000) NOT NULL,

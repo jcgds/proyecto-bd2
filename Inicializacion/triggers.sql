@@ -1,5 +1,5 @@
-CREATE OR REPLACE TRIGGER validar__jerarquia
-BEFORE INSERT OR UPDATE OF nivel ON ClasificacionVinos
+CREATE OR REPLACE TRIGGER validar_jerarquia
+BEFORE INSERT ON ClasificacionVinos
 FOR EACH ROW
 DECLARE
     nivelPadre clasificacionvinos.nivel%type;
@@ -17,6 +17,29 @@ BEGIN
 END;
 /
 
+CREATE OR REPLACE TRIGGER validar_presentacion
+BEFORE INSERT OR UPDATE OF tipo, unidadesEnCaja ON Presentacion
+FOR EACH ROW
+BEGIN
+    if :new.unidadesEnCaja is not null and :new.tipo not like 'Caja' then
+        RAISE_APPLICATION_ERROR(-20003, 'Para tener unidades en caja el tipo debe ser Caja');
+    end if;
+    
+    if :new.unidadesEnCaja is null and :new.tipo not like 'Botella' then
+        RAISE_APPLICATION_ERROR(-20004, 'Si no hay unidades en caja debe ser botella');
+    end if;
+END;
+/
+
+create or replace trigger validar_tipo_cata
+before insert or update of tipoDeCata, deCatadores on Concurso
+for each row
+begin
+    if :new.deCatadores like 'N' and :new.tipoDeCata like 'A ciegas' then
+        RAISE_APPLICATION_ERROR(-20020, 'Los concursos ""A ciegas"" solo pueden ser de catadores.');
+    end if;
+end;
+/
 
 CREATE OR REPLACE TRIGGER sumatoria_cataaprendiz
 BEFORE INSERT OR UPDATE ON CataAprendiz
