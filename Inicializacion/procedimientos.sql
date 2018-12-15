@@ -616,5 +616,36 @@ begin
         DBMS_OUTPUT.PUT_LINE('Error: Ya existe un historico de precio para este anio');
     end;
 
-    end;
+end;
+/
+
+create or replace procedure insertar_bodega(
+    p_nombre varchar2,
+    p_fechaFundacion date,
+    p_datosDeContacto datosDeContacto,
+    p_descripcionMision varchar2,
+    p_descripcionGeneralVinos varchar2,
+    p_propietario number default null,
+    p_id number DEFAULT ids_seq.nextval
+) as
+begin
+
+    insert into Bodega values (
+        p_id,
+        p_nombre,
+        hechos_hist_nt(),
+        p_fechaFundacion,
+        p_datosDeContacto,
+        p_descripcionMision,
+        p_descripcionGeneralVinos,
+        tipo_valor_nt(),
+        distribucion_exp_nt(),
+        p_propietario
+    );
+    
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Bodega insertada (id = ' || to_char(p_id) || ')');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+
+end;
 /
