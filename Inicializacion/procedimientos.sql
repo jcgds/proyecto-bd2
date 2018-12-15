@@ -495,3 +495,16 @@ BEGIN
     return esInternacional;
 END;
 /
+
+create or replace procedure insertar_costo_a(idEdicion number, p_nroMuestras number, p_valor number, p_unidadValor varchar2, p_pais varchar2) 
+as
+begin
+
+    INSERT INTO THE (SELECT costos from Edicion where id = idEdicion) VALUES
+    (costoInscripcion(p_nroMuestras, p_valor, p_unidadValor, p_pais));
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Costo insertado');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+end;
+/
