@@ -474,3 +474,23 @@ begin
     DBMS_OUTPUT.PUT_LINE('---------------------------------------------------------------------');
 end;
 /
+
+create or replace procedure mostrar_organizadores(idConcurso number) 
+as
+begin
+
+    DBMS_OUTPUT.PUT_LINE('---------------------------------------------------------------------');
+
+    for org in (
+        select og.nombre
+        from Organizador og, Organizador_Concurso oc
+        where oc.fk_concurso = idConcurso
+        and og.id = oc.fk_organizador
+    ) loop
+      
+        DBMS_OUTPUT.PUT_LINE('Nombre organizador: ' || org.nombre);
+    end loop;
+
+    DBMS_OUTPUT.PUT_LINE('---------------------------------------------------------------------');
+end;
+/
