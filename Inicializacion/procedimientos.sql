@@ -529,16 +529,33 @@ create or replace procedure insertar_calendario(
     p_unidadMonetaria unidadMonetaria,
     p_emailEnvioInscripcion varchar2,
     p_datosDeContacto datosDeContacto,
-    p_idConcurso number
+    p_idConcurso number,
+    p_idCatadorExp number
 ) as
+    nombreJuez varchar2(100);
+    idJuezEdicion number := ids_seq.nextval;
 begin
     
-    -- TODO: validar fecha inicio vs fecha fin, y hacer trigger tambien
-    -- TODO: validar fecha envio de inscripcion antes de fecha inicio y fin?
+    if (p_fechaFin < p_fechaInicio) then
+        RAISE_APPLICATION_ERROR(-20106, 'La fecha fin no puede ser antes que la fecha de inicio');
+    end if;
+
+    if (p_fechaLimEnvioDeInsc < p_fechaFin) then
+        RAISE_APPLICATION_ERROR(-20106, 'La fecha de inscripcion no puede ser despues que la fecha final');
+    end if;
 
     if p_precioEstandarPorMuestra < 0 then
         RAISE_APPLICATION_ERROR(-20104, 'El precio estandar no puede ser menor a cero');
     end if;
+
+    begin
+        select ce.nombre || ' ' || ce.apellido into nombreJuez
+        from catadorExperto ce 
+        where ce.id = p_idCatadorExp;
+    exception 
+        when NO_DATA_FOUND then
+            RAISE_APPLICATION_ERROR(-20105, 'El experto indicado no esta registrado.');
+    end;
 
     INSERT INTO Edicion VALUES (
         p_id,
@@ -556,6 +573,14 @@ begin
         p_datosDeContacto,
         p_idConcurso
     );
+
+    INSERT INTO Juez VALUES
+    (idJuezEdicion, p_idCatadorExp, p_id);
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Edicion creada (id = ' || to_char(p_id) || ')');
+    DBMS_OUTPUT.PUT_LINE('Juez ' || nombreJuez || ' asignado a edicion. (id: ' || to_char(idJuezEdicion) || ')');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 
 end;
 /
