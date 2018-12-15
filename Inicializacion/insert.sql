@@ -910,4 +910,19 @@ INSERT INTO Organizador_Concurso VALUES
 INSERT INTO Organizador_Concurso VALUES
 (4, 4, 1);
 
+INSERT INTO CatadorExperto VALUES (
+    1, 
+    'Luis', 
+    'Ramos', 
+    to_date('09-06-1968', 'DD-MM-YYYY'), 
+    null,
+    hechos_hist_nt(),
+    lugar('Lisboa', 'Portugal'),
+    publicaciones_nt(
+        'Revista de Vinhos - A escolha de Luis Lopes'
+    ),
+    'M',
+    1
+);
+
 commit;
