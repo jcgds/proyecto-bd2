@@ -312,6 +312,7 @@ insert into Bodega values (
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
 (8, 8, 7, 4, 4); -- B_DO Entre bodega Justino's Madeira y la DO Madeira
 
+-- TODO: Cambiar a Verdelho Coleita 1997 que gano el baccus de oro
 insert into MarcaVino values (
     5,
     18,
@@ -827,5 +828,86 @@ insert into Presentacion values (66, 59, 13, 'Caja', 6);
 insert into HistoricoPrecio values (2016, 66, 59, 13, 800);
 insert into HistoricoPrecio values (2017, 66, 59, 13, 835);
 insert into HistoricoPrecio values (2018, 66, 59, 13, 890);
+
+-- Concurso de prueba
+INSERT INTO Concurso VALUES (
+    1,
+    'Bacchus',
+    DATOSDECONTACTO(
+        conj_telefonos(34914293477, 34914291238), 
+        null, 
+        'info@uec.es', 
+        'http://www.uec.es/',
+        direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
+        null
+    ),
+    'A ciegas',
+    'N',
+    premio_nt(),
+    escala_nt(),
+    'La práctica totalidad del atlas vinícola escoge a Bacchus como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
+);
+
+insert into Pais values (
+    10,
+    'Espana',
+    'Europa',
+    tipo_valor_nt(),
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    unidadMonetaria('Euro', 'EUR'),
+    bfilename('mapas_regionales', 'espana.jpg'),
+    null
+);
+
+INSERT INTO Organizador VALUES 
+(1, 'Union espanola de catadores', null);
+
+INSERT INTO Organizador VALUES 
+(2, 'VINOFED',  'Federacion de los concursos internacionales del vino');
+
+INSERT INTO Organizador VALUES 
+(3, 'OIV', 'Organizacion internacional del vino');
+
+INSERT INTO Organizador VALUES 
+(4, 'Ministerio de agricultura espanol', null);
+
+commit;
+
+INSERT INTO P_O VALUES
+(1, 1, 10);
+
+INSERT INTO P_O VALUES
+(2, 2, 10);
+
+INSERT INTO P_O VALUES
+(3, 2, 1);
+
+INSERT INTO P_O VALUES
+(4, 2, 2);
+
+INSERT INTO P_O VALUES
+(5, 4, 10);
+
+INSERT INTO P_O VALUES
+(6, 3, 10);
+
+INSERT INTO P_O VALUES
+(7, 3, 1);
+
+INSERT INTO P_O VALUES
+(8, 3, 2);
+
+INSERT INTO Organizador_Concurso VALUES
+(1, 1, 1);
+
+INSERT INTO Organizador_Concurso VALUES
+(2, 2, 1);
+
+INSERT INTO Organizador_Concurso VALUES
+(3, 3, 1);
+
+INSERT INTO Organizador_Concurso VALUES
+(4, 4, 1);
 
 commit;
