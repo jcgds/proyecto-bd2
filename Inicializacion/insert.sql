@@ -3,7 +3,7 @@ insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcen
 (1, null, 'Tinto', 1, rangoPorcentajeVol(0,0));
 insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
 (2, null, 'Blanco', 1, rangoPorcentajeVol(0,0));
-
+commit;
     -- Clasificacion de vinos blancos -------------------------------------------------------------------
     insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
     (4, 2, 'Ligeros y Secos', 2, rangoPorcentajeVol(9,12));
@@ -17,6 +17,7 @@ insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcen
     (8, 2, 'Semisecos', 2, rangoPorcentajeVol(6,14));
     insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
     (9, 2, 'Dulces y Licorosos', 2, rangoPorcentajeVol(9,18));
+    commit;
     -- Clasificacion de vinos tintos --------------------------------------------------------------------
     insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
     (10, 1, 'Rosados', 2, rangoPorcentajeVol(10,14));
@@ -30,6 +31,7 @@ insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcen
     (14, 1, 'De Guarda', 2, rangoPorcentajeVol(12, 13));
     insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
     (15, 1, 'Especiales', 2, rangoPorcentajeVol(14,17));
+    commit;
         -- Clasificacion tintos especiales -------------------------------------------------------------
         insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
         (16, 15, 'Secos', 3, rangoPorcentajeVol(14,17));
@@ -37,6 +39,7 @@ insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcen
         (17, 15, 'Semisecos', 3, rangoPorcentajeVol(14,17));
         insert into ClasificacionVinos (id, fk_clasificacionvinos, nombre, nivel, porcentajes) values 
         (18, 15, 'Dulces', 3, rangoPorcentajeVol(14,17));
+        commit;
 --------------------------------------------------------------------------------------------------------
 
 insert into Pais values (
@@ -44,11 +47,7 @@ insert into Pais values (
     'Portugal', 
     'Europa', 
     tipo_valor_nt(), -- superficie vi�edo
-    tipo_valor_nt(
-        tipo_valor(2011, 5609000, 'litros'),
-        tipo_valor(2012, 6140000, 'litros'),
-        tipo_valor(2013, 6740000, 'litros')
-    ), 
+    tipo_valor_nt(), 
     distribucion_exp_nt(), 
     unidadMonetaria('Euro', 'EUR'), 
     bfilename('mapas_regionales', 'portugal.jpg'), 
@@ -86,8 +85,8 @@ insert into Bodega values (
     ' Its strategy is based on the development of high quality estate wines from 250 hectares of own vineyards,' || 
     ' planted in the major Portuguese wine regions. The company aims to achieve sustained growth, with main focus on foreign markets.',
     'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
-    tipo_valor_nt(tipo_valor(2011, 3500000, 'litros')),  -- TODO: Conseguir y llenar esta tabla con 3 anios
-    distribucion_exp_nt(), -- TODO: Conseguir y llenar esta tabla con 3 anios
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
     null -- TODO: Crear bodega Companhia Das Quintas y colocar su id
 );
 
@@ -101,7 +100,11 @@ insert into MarcaVino values (
     'S',
     1.2,
     15,
-    tipo_valor_nt(tipo_valor(2011, 15348, 'litros'), tipo_valor(2012, 15348, 'litros'), tipo_valor(2013, 21126, 'litros')),
+    tipo_valor_nt(
+        tipo_valor(2011, 15348, 'litros'), 
+        tipo_valor(2012, 15348, 'litros'), 
+        tipo_valor(2013, 21126, 'litros')
+    ),
     distribucion_exp_nt(
         distribucion_exp(tipo_valor(2011, 4, 'litros'), 'Canada'),
         distribucion_exp(tipo_valor(2011, 5, 'litros'), 'Italia'),
@@ -170,7 +173,11 @@ insert into MarcaVino values (
     'N',
     3,
     12.5,
-    tipo_valor_nt(tipo_valor(2011, 58500, 'litros'), tipo_valor(2012, 63500, 'litros'), tipo_valor(2013, 67500, 'litros')),
+    tipo_valor_nt(
+        tipo_valor(2011, 58500, 'litros'), 
+        tipo_valor(2012, 63500, 'litros'), 
+        tipo_valor(2013, 67500, 'litros')
+    ),
     distribucion_exp_nt(
         distribucion_exp(tipo_valor(2011, 6, 'litros'), 'Canada'),
         distribucion_exp(tipo_valor(2011, 5, 'litros'), 'Italia'),
@@ -231,7 +238,7 @@ insert into Bodega values (
     ' Its strategy is based on the development of high quality estate wines from 250 hectares of own vineyards,' || 
     ' planted in the major Portuguese wine regions. The company aims to achieve sustained growth, with main focus on foreign markets.',
     'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
-    tipo_valor_nt(tipo_valor(2011, 2000000, 'litros')),
+    tipo_valor_nt(),
     distribucion_exp_nt(),
     null -- TODO: Crear bodega Companhia Das Quintas y colocar su id
 );
@@ -315,7 +322,7 @@ insert into MarcaVino values (
     'S',
     121.3,
     19,
-    tipo_valor_nt(), --1999, 1998
+    tipo_valor_nt(), -- TODO: 1999, 1998
     distribucion_exp_nt(), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(),
     4,
