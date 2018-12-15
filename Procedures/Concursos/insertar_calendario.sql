@@ -1,7 +1,9 @@
 SET SERVEROUTPUT ON;
 SET VERIFY OFF;
 
+
 ACCEPT concursoid PROMPT 'Ingrese el id del concurso: ';
+ACCEPT primerJuezId PROMPT 'Ingrese el id del CatadorExperto (Juez): ';
 
 -- Datos Bancarios
     SET FEEDBACK OFF;
@@ -9,6 +11,7 @@ ACCEPT concursoid PROMPT 'Ingrese el id del concurso: ';
         DBMS_OUTPUT.PUT_LINE(' --- Datos bancarios ---');
     END;
     /
+    SET FEEDBACK ON;
     ACCEPT recipiente PROMPT 'Ingrese el recipiente: ';
     ACCEPT nombreBanco PROMPT 'Ingrese el nombre del banco: ';
     ACCEPT codigoCuenta PROMPT 'Ingrese el codigo de cuenta: ';
@@ -61,10 +64,12 @@ ACCEPT emailInsc PROMPT 'Ingrese el email para envio de inscripcion: ';
     ACCEPT dc_linea1 PROMPT 'Linea de direccion 1: ';
     ACCEPT dc_linea2 PROMPT 'Linea de direccion 2: ';    
 
+declare
+    edicionId number := ids_seq.nextval;
 begin
 
     insertar_calendario(
-        ids_seq.nextval,
+        edicionId,
         datosBancarios(
             '&recipiente',
             '&nombreBanco',
@@ -104,7 +109,12 @@ begin
             ),
             null
         ),
-        &concursoid
+        &concursoid,
+        &primerJuezId
     );
+
+    DBMS_OUTPUT.PUT_LINE('Para crear y asignar mas jueces al concurso ejecute @Procedures/Concursos/agregar_juez');
 end;
 /
+
+SET VERIFY ON;
