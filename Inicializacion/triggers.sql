@@ -76,3 +76,56 @@ BEGIN
     
 END; 
 /
+
+CREATE OR REPLACE TRIGGER validar_inscripcion
+BEFORE INSERT OR UPDATE ON Inscripcion 
+FOR EACH ROW
+DECLARE 
+    esCatadores char(1);
+BEGIN
+    select C.deCatadores into esCatadores from Concurso C, Edicion E 
+        where E.id = :new.fk_edicion and E.fk_concurso = C.id;
+
+    IF :new.fk_bodega is not null then
+        if esCatadores = 'S' then 
+            RAISE_APPLICATION_ERROR(-20003, 'No se puede inscribir una bodega a un concurso de catadores');
+        end if;
+    elsif :new.fk_catadoraprendiz is not null then
+        if esCatadores = 'N' then 
+            RAISE_APPLICATION_ERROR(-20004, 'No se puede inscribir un catador a un concurso de bodegas');
+        end if;
+    elsif :new.fk_bodega is not null and :new.fk_catadoraprendiz is not null then
+        RAISE_APPLICATION_ERROR(-20005, 'Una inscripcion no puede ser de una bodega y de un catador a la vez');
+    end if; 
+END;
+/
+
+CREATE OR REPLACE TRIGGER concurso_internacional 
+BEFORE INSERT OR UPDATE ON Inscripcion
+FOR EACH ROW 
+DECLARE 
+    idConcurso number;
+    esInternacional varchar2(50) := '';
+    paisBod varchar2(50);
+
+BEGIN 
+    select C.id into idConcurso from Concurso C, Edicion E 
+        where E.id = :new.fk_edicion and E.fk_concurso = C.id;
+
+    esInternacional := validar_concurso_internacional(idConcurso);
+    if esInternacional is null then
+        RAISE_APPLICATION_ERROR(-20007, 'No esta agarrando el nombre del pais');
+    end if;
+
+    if esInternacional <> 'S' and :new.fk_bodega is not null then
+        select distinct P.nombre into paisBod from 
+        B_DO BDO,Pais P, Bodega B,Region R where 
+        P.id = R.fk_pais AND BDO.fk_do_region = R.id AND BDO.fk_bodega = :new.fk_bodega; 
+        if esInternacional <> paisBod then
+            RAISE_APPLICATION_ERROR(-20006, 'No se puede inscribir una bodega extranjera a un concurso nacional');
+        end if;
+    end if;
+
+END;
+/        
+
