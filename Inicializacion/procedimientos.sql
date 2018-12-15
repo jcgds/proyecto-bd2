@@ -515,3 +515,47 @@ BEGIN
     return esInternacional;
 END;
 /
+
+create or replace procedure insertar_calendario(
+    p_id number default ids_seq.nextval,
+    p_datosbanc datosBancarios,
+    p_fechaLimEnvioDeInsc date,
+    p_fechaLimiteRecepcionVinos date,
+    p_fechaInicio date,
+    p_fechaFin date,
+    p_precioEstandarPorMuestra number,
+    p_direccionEnvioMuestras direccion,
+    p_lugarRealizar lugar,
+    p_unidadMonetaria unidadMonetaria,
+    p_emailEnvioInscripcion varchar2,
+    p_datosDeContacto datosDeContacto,
+    p_idConcurso number
+) as
+begin
+    
+    -- TODO: validar fecha inicio vs fecha fin, y hacer trigger tambien
+    -- TODO: validar fecha envio de inscripcion antes de fecha inicio y fin?
+
+    if p_precioEstandarPorMuestra < 0 then
+        RAISE_APPLICATION_ERROR(-20104, 'El precio estandar no puede ser menor a cero');
+    end if;
+
+    INSERT INTO Edicion VALUES (
+        p_id,
+        p_datosbanc,
+        p_fechaLimEnvioDeInsc,
+        p_fechaLimiteRecepcionVinos,
+        p_fechaInicio,
+        p_fechaFin,
+        p_precioEstandarPorMuestra,
+        p_direccionEnvioMuestras,
+        costoInscripcion_nt(),
+        p_lugarRealizar,
+        p_unidadMonetaria,
+        p_emailEnvioInscripcion,
+        p_datosDeContacto,
+        p_idConcurso
+    );
+
+end;
+/
