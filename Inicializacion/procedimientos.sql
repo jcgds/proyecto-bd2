@@ -494,3 +494,24 @@ begin
     DBMS_OUTPUT.PUT_LINE('---------------------------------------------------------------------');
 end;
 /
+
+create or replace function validar_concurso_internacional (idConcurso IN number)
+return varchar2 is 
+    esInternacional varchar2(50);
+    cont number := 0; 
+BEGIN
+    for Pais in (select P.nombre from 
+                        P_O PO, Organizador O,Concurso C, Organizador_Concurso OC,Pais P where 
+                        PO.fk_organizador = O.id and Po.fk_pais = P.id and OC.fk_organizador = O.id 
+                        and OC.fk_concurso = idConcurso) loop
+
+        if cont = 0 then   
+            esInternacional := Pais.nombre;
+        elsif esInternacional <> Pais.nombre then
+            esInternacional := 'S';
+        end if;
+        cont := cont + 1;       
+    end loop;
+    return esInternacional;
+END;
+/

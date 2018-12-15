@@ -585,7 +585,7 @@ insert into Bodega values (
         personasDeContacto(personaDeContacto('Ben','Shapiro','Winemaker','bshapiro@ravenswoodwinery.com'))
     ),
     'The fruit he crushed that night was used for one of two single-vineyard Sonoma County Zins – the first wines to bear Ravenswood’s signature ring of ravens. ' || 
-    'Ravenswood’s “No Wimpy Wines�? credo says it all – embrace the bold, abhor the bland.',
+    'Ravenswood’s “No Wimpy Wines�? credo says it all – embrace the bold, abhor the bland.',
     'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
     tipo_valor_nt(),  -- TODO: Conseguir y llenar esta tabla con 3 anios
     distribucion_exp_nt(), -- TODO: Conseguir y llenar esta tabla con 3 anios
@@ -827,6 +827,5 @@ insert into Presentacion values (66, 59, 13, 'Caja', 6);
 insert into HistoricoPrecio values (2016, 66, 59, 13, 800);
 insert into HistoricoPrecio values (2017, 66, 59, 13, 835);
 insert into HistoricoPrecio values (2018, 66, 59, 13, 890);
-
 
 commit;
