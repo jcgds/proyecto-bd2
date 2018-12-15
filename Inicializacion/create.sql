@@ -299,7 +299,7 @@ CREATE TABLE Concurso (
     deCatadores char(1) CHECK (deCatadores IN ('S', 'N')) NOT NULL,
     premios premio_nt,
     escalas escala_nt,
-    caracteristicas varchar2(200),
+    caracteristicas varchar2(1000),
     CONSTRAINT pk_concurso PRIMARY KEY (id),
     CONSTRAINT tipo_cata_in CHECK (tipoDeCata IN ('Comparativa', 'A ciegas', 'Vertical', 'Varietal'))
 )
