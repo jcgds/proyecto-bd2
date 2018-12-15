@@ -76,4 +76,26 @@ BEGIN
     end if; 
 END;
 /
- 
+
+/*CREATE OR REPLACE TRIGGER concurso_internacional 
+BEFORE INSERT OR UPDATE ON Inscripcion
+FOR EACH ROW 
+DECLARE 
+    idConcurso number;
+    esInternacional varchar2(50);
+    paisBod varchar2(50);
+
+BEGIN 
+    select C.id into idConcurso from Concurso C, Edicion E 
+        where E.id = :new.fk_edicion and E.fk_concurso = C.id;
+
+    esInternacional := validar_concurso_internacional(idConcurso);
+
+    if esInternacional <> 'S' and :new.fk_bodega is not null then
+
+    end if;
+
+END;
+/        
+
+*/

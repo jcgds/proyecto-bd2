@@ -75,7 +75,7 @@ END;
 
 /
 /*
-    Consigue el año más pequeño (más viejo) revisando todos los registros
+    Consigue el aï¿½o mï¿½s pequeï¿½o (mï¿½s viejo) revisando todos los registros
     de produccion anual de las marcas de vino.
 */
 create or replace function conseguir_anio_minimo
@@ -120,7 +120,7 @@ END;
     
     Al ser ejecutado elimina todos los registros de las NT produccionAnual y exportacionAnual 
     de las bodegas y los reemplaza calculando de nuevo la produccion y exportacion segun las 
-    marcas de vino entre el año minimo y maximo.
+    marcas de vino entre el aï¿½o minimo y maximo.
 */
 create or replace procedure calcular_produccion_bodegas as
 anio_min number := conseguir_anio_minimo();
@@ -139,7 +139,7 @@ begin
         DELETE FROM THE (select vv.produccionAnual from Bodega vv where vv.id = bodega.id);
         DELETE FROM THE (select vv.exportacionAnual from Bodega vv where vv.id = bodega.id);
 
-        -- Recorremos los años y vamos sumando la produccion de las marcas de vino de la bodega en ese año
+        -- Recorremos los aï¿½os y vamos sumando la produccion de las marcas de vino de la bodega en ese aï¿½o
         << year_loop >>
         for i in anio_min .. anio_max loop
             acumulador1 := 0;
@@ -158,7 +158,7 @@ begin
                 acumulador1 := acumulador1 + produccion_marca_en(marca.id, i);
                 
                 -- Este query consigue el valor y pais de las exportaciones de la marca de vino actual
-                -- en el año del loop
+                -- en el aï¿½o del loop
                 << distribucion_loop >>
                 for dist in (select nt.tipovalor.valor valor, nt.pais pais from the 
                             (select mv.exportacionAnual from MarcaVino mv 
@@ -200,3 +200,23 @@ begin
 end;
 /
 
+create or replace function validar_concurso_internacional (idConcurso IN number)
+return varchar2 is 
+    esInternacional varchar2(50);
+    cont number := 0; 
+BEGIN
+    for Pais in (select P.nombre from 
+                        P_O PO, Organizador O,Concurso C, Organizador_Concurso OC,Pais P where 
+                        PO.fk_organizador = O.id and Po.fk_pais = P.id and OC.fk_organizador = O.id 
+                        and OC.fk_concurso = idConcurso) loop
+
+        if cont = 0 then   
+            esInternacional := Pais.nombre;
+        elsif esInternacional <> Pais.nombre then
+            esInternacional := 'S';
+        end if;
+        cont := cont + 1;       
+    end loop;
+    return esInternacional;
+END;
+/
