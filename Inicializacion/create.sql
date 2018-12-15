@@ -346,7 +346,8 @@ CREATE TABLE Edicion(
     emailEnvioInscripcion varchar2(50),
     datosDeContacto datosDeContacto NOT NULL,
     fk_concurso number NOT NULL,
-    CONSTRAINT pk_edicion PRIMARY KEY (id)
+    CONSTRAINT pk_edicion PRIMARY KEY (id),
+    CONSTRAINT precio_valido CHECK (precioEstandarPorMuestra >= 0)
 )
 NESTED TABLE costos STORE AS costoInscripcion_nt_1
 /
