@@ -508,3 +508,40 @@ begin
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 end;
 /
+
+create or replace procedure insertar_premio_a_vino(idMuestraC number,idFkInscripcion number,p_nombre varchar2, p_posicion number, p_descripcion varchar2, p_tipo varchar2,p_premioMoneda number) 
+as
+    idConcurso number;
+    existePremio char(1);
+begin
+
+    if p_premioMoneda < 0 then
+        RAISE_APPLICATION_ERROR(-20200, 'El valor monetario del premio no puede ser negativo');
+    end if;
+
+    if p_posicion < 1 then
+        RAISE_APPLICATION_ERROR(-20201, 'La posicion del premio no puede ser menor a 1');
+    end if;
+
+    select C.id into idConcurso from Concurso C, MuestraCompite M, Inscripcion I, Edicion E 
+        where E.id = I.fk_edicion and E.fk_concurso = C.id and M.id = idMuestraC and M.fk_inscripcion = idFkInscripcion 
+        and idFkInscripcion = I.id; 
+
+    for nombrePremio in (select t.nombre from the(select premios from Concurso where id = idConcurso) t ) loop
+        if nombrePremio.nombre = p_nombre then
+            existePremio := 'S';
+        end if;
+    end loop;
+
+    if existePremio is null then 
+        RAISE_APPLICATION_ERROR(-20203, 'El premio no existe en el concurso al que se esta inscribiendo');
+    end if;
+    
+    INSERT INTO THE (SELECT premio from MuestraCompite where id = idMuestraC and fk_inscripcion = idFkInscripcion) VALUES
+    (premio(p_nombre,p_posicion, p_descripcion, p_tipo,p_premioMoneda));
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Premio insertado');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+end;
+/

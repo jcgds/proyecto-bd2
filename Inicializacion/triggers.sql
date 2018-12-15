@@ -113,11 +113,8 @@ BEGIN
         where E.id = :new.fk_edicion and E.fk_concurso = C.id;
 
     esInternacional := validar_concurso_internacional(idConcurso);
-    if esInternacional is null then
-        RAISE_APPLICATION_ERROR(-20008, 'No esta agarrando el nombre del pais');
-    end if;
 
-    if esInternacional <> 'S' and :new.fk_bodega is not null then
+    if esInternacional <> 'S' and esInternacional is not null and :new.fk_bodega is not null then
         select distinct P.nombre into paisBod from 
         B_DO BDO,Pais P, Bodega B,Region R where 
         P.id = R.fk_pais AND BDO.fk_do_region = R.id AND BDO.fk_bodega = :new.fk_bodega; 
