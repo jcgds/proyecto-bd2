@@ -541,7 +541,7 @@ begin
     end if;
 
     if (p_fechaLimEnvioDeInsc < p_fechaFin) then
-        RAISE_APPLICATION_ERROR(-20106, 'La fecha de inscripcion no puede ser despues que la fecha final');
+        RAISE_APPLICATION_ERROR(-20107, 'La fecha de inscripcion no puede ser despues que la fecha final');
     end if;
 
     if p_precioEstandarPorMuestra < 0 then
@@ -583,4 +583,38 @@ begin
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 
 end;
+/
+
+create or replace procedure crear_precio_presentacion (
+    idMarcaVino number,
+    idPresentacion number,
+    anio number,
+    precio number    
+) as
+    clasifVino number;
+begin
+    -- TODO: Validacion de anio vs fecha de cosecha?  
+    begin
+        select fk_clasificacionvinos into clasifVino from MarcaVino where id = idMarcaVino;
+    exception
+      when no_data_found then
+        RAISE_APPLICATION_ERROR(-20109, 'Clasificacion de vino no conseguida (critico, culpa nuestra)');
+    end;
+    if (precio <= 0) then
+        RAISE_APPLICATION_ERROR(-20108, 'El precio de la presentacion no puede ser negativo o cero');
+    end if;
+
+    begin
+        insert into HistoricoPrecio values 
+        (anio, idPresentacion, idMarcaVino, clasifVino, precio);
+
+        DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+        DBMS_OUTPUT.PUT_LINE('Precio agregado exitosamente');
+        DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    exception
+      when DUP_VAL_ON_INDEX then
+        DBMS_OUTPUT.PUT_LINE('Error: Ya existe un historico de precio para este anio');
+    end;
+
+    end;
 /
