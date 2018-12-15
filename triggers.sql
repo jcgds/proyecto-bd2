@@ -77,12 +77,12 @@ BEGIN
 END;
 /
 
-/*CREATE OR REPLACE TRIGGER concurso_internacional 
+CREATE OR REPLACE TRIGGER concurso_internacional 
 BEFORE INSERT OR UPDATE ON Inscripcion
 FOR EACH ROW 
 DECLARE 
     idConcurso number;
-    esInternacional varchar2(50);
+    esInternacional varchar2(50) := '';
     paisBod varchar2(50);
 
 BEGIN 
@@ -90,12 +90,19 @@ BEGIN
         where E.id = :new.fk_edicion and E.fk_concurso = C.id;
 
     esInternacional := validar_concurso_internacional(idConcurso);
+    if esInternacional is null then
+        RAISE_APPLICATION_ERROR(-20007, 'No esta agarrando el nombre del pais');
+    end if;
 
     if esInternacional <> 'S' and :new.fk_bodega is not null then
-
+        select distinct P.nombre into paisBod from 
+        B_DO BDO,Pais P, Bodega B,Region R where 
+        P.id = R.fk_pais AND BDO.fk_do_region = R.id AND BDO.fk_bodega = :new.fk_bodega; 
+        if esInternacional <> paisBod then
+            RAISE_APPLICATION_ERROR(-20006, 'No se puede inscribir una bodega extranjera a un concurso nacional');
+        end if;
     end if;
 
 END;
 /        
 
-*/
