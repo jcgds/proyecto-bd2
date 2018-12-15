@@ -371,7 +371,8 @@ CREATE TABLE HistoricoPrecio(
     fk_clasificacionvinos number,
     ------------------------------
     precio number NOT NULL,
-    CONSTRAINT pk_historicoprecio PRIMARY KEY(anio, fk_presentacion, fk_marcavino,fk_clasificacionvinos)
+    CONSTRAINT pk_historicoprecio PRIMARY KEY(anio, fk_presentacion, fk_marcavino,fk_clasificacionvinos),
+    CONSTRAINT val_precio_positivo CHECK (precio > 0)
 )
 /
 
