@@ -545,3 +545,67 @@ begin
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 end;
 /
+
+create or replace procedure formula_ventana_consumo(idMarcaVino number,idClasificacion number)
+as 
+    ventanaAnio number;
+    anioFinal number (4,0);
+begin
+    for VentanaConsumo in (select M.ventanaDeConsumoMeses , C.anio from 
+                            Cosecha C, MarcaVino_B_DO MB, MarcaVino M
+                            where MB.fk_b_do = C.fk_bdo_id and MB.fk_bodega = C.fk_bdo_bodega and MB.fk_denominaciondeorigen = fk_bdo_do_id 
+                            and MB.fk_do_VariedadVid = C.fk_bdo_do_VariedadVid and MB.fk_do_region = C.fk_bdo_do_region and 
+                            MB.fk_marcavino = idMarcaVino and MB.fk_clasificacionvinos = idClasificacion and 
+                            M.id = MB.fk_marcavino and M.fk_clasificacionvinos = MB.fk_clasificacionvinos) loop
+
+        ventanaAnio := trunc(VentanaConsumo.ventanaDeConsumoMeses/12);
+        anioFinal := VentanaConsumo.anio + ventanaAnio;
+        DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+        DBMS_OUTPUT.PUT_LINE('Anio Incial: ' || to_char(VentanaConsumo.anio) || ' Anio Final : ' || to_char(anioFinal));
+        DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+
+    end loop;
+
+end;
+/
+
+create or replace procedure resultados_concurso (idEdicion number)
+as
+    esDeCatadores char(1);
+    cont number := 1;
+begin
+    select C.deCatadores into esDeCatadores from Concurso C, Edicion E 
+        where E.id = idEdicion and E.fk_concurso = C.id;
+
+    if esDeCatadores = 'N' then
+        for resultado in (select avg(C.sumatoria) RP,M.id Mid, I.id Iid, MV.nombre
+                            from MuestraCompite M,CataExperto C, Inscripcion I,Edicion E,MarcaVino MV
+                            where M.fk_inscripcion = I.id and I.fk_edicion = E.id and C.fk_muestracompite = M.id and E.id = idEdicion and 
+                            M.fk_marcavino = MV.id and M.fk_clasificacionvinos = MV.fk_clasificacionvinos 
+                            group by M.id,I.id,MV.nombre
+                            order by avg(sumatoria) desc)
+        loop
+            if cont <= 3 then
+                DBMS_OUTPUT.PUT_LINE('Resultado Promedio: ' || to_char(resultado.RP) || ' Posicion : ' || to_char(cont)|| ' Nombre del vino: ' || resultado.nombre);
+                DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+            end if;
+            cont := cont+1;
+        end loop;
+    end if;   
+end;
+/
+
+create or replace function litros_a_hectolitros(litros number )
+return number is 
+    hectolitros number;
+begin
+    hectolitros:= litros/100;
+    return hectolitros;
+end;
+/
+
+/* Consulta para sacar la producion en hectolitro por marca
+select t.anio, litros_a_hectolitros(t.valor) as valor 
+from the (select produccionAnual from MarcaVino where id = idMarca)t;
+*/
+
