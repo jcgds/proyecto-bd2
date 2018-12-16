@@ -659,3 +659,31 @@ begin
 
 end;
 /
+create or replace procedure actualizar_premio_inscripcion(idInscripcion number, nombrePremio varchar2)
+as
+idEdicion number;
+verificacion number:=0;
+nombresDePremios varchar2(60);
+begin
+    select e.fk_concurso into idEdicion from Edicion e, Inscripcion i where i.id = idInscripcion and i.fk_edicion = e.id;
+    for nombresDePremios in (select a.nombre from Concurso c CROSS JOIN TABLE(c.premios) a where c.id = idEdicion)
+    loop
+        if nombresDePremios.nombre = nombrePremio then
+            verificacion := 1;
+        end if;
+    end loop;
+
+    if verificacion = 0 then
+        RAISE_APPLICATION_ERROR(-20200, 'El premio no existe en el concurso');
+    end if;
+
+    update Inscripcion set premioCatador = nombrePremio where id = idInscripcion;
+    
+
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Premio insertado');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+
+
+end;
