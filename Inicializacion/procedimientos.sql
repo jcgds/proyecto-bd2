@@ -550,7 +550,21 @@ as
 idEdicion number:= 0;
 idCatadorExperto number:= 0;
 idClasificacionVino number:= 0;
+cosechas number;
+verificacion number := 0;
 begin
+
+    for cosechas in (Select c.anio From Cosecha c, B_DO b, MarcaVino_B_DO a Where c.fk_bdo_id = b.id and a.fk_b_do = b.id and a.fk_marcavino = idMarca )
+    loop
+        if cosechas.anio = anada then
+            verificacion := 1;
+        end if;
+    end loop;
+
+    if verificacion = 0 then
+        RAISE_APPLICATION_ERROR(-20200, 'La cosecha no existe en la marca de vino ingresada');
+    end if;
+
     Select fk_edicion into idEdicion
     From Juez
     Where id = idJuez;
@@ -580,10 +594,24 @@ begin
 
 end;
 /
-create or replace procedure insertar_muestra_compite(pid number DEFAULT ids_seq.nextval, anada number, idMarca number, idInscripcion number, nombrePremio varchar2, posicionPremio number, descripcion varchar2, tipoPremio varchar2, premioMoneda number)
+create or replace procedure insertar_muestra_compite(pid number DEFAULT ids_seq.nextval, anada number, idMarca number, idInscripcion number)
 as
 idClasificacionVino number:= 0;
+cosechas number;
+verificacion number := 0;
 begin
+
+
+    for cosechas in (Select c.anio From Cosecha c, B_DO b, MarcaVino_B_DO a Where c.fk_bdo_id = b.id and a.fk_b_do = b.id and a.fk_marcavino = idMarca )
+    loop
+        if cosechas.anio = anada then
+            verificacion := 1;
+        end if;
+    end loop;
+
+    if verificacion = 0 then
+        RAISE_APPLICATION_ERROR(-20200, 'La cosecha no existe en la marca de vino ingresada');
+    end if;
 
     Select fk_clasificacionvinos into idClasificacionVino
     From MarcaVino
@@ -595,7 +623,7 @@ begin
       idClasificacionVino,
       idInscripcion,
       anada,
-      premio_nt(premio(nombrePremio, posicionPremio, descripcion, tipoPremio, premioMoneda))
+      premio_nt()
     );
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
     DBMS_OUTPUT.PUT_LINE('Muestra insertada (id = ' || to_char(pid) || ')');
