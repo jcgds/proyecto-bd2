@@ -299,7 +299,7 @@ CREATE TABLE Concurso (
     deCatadores char(1) CHECK (deCatadores IN ('S', 'N')) NOT NULL,
     premios premio_nt,
     escalas escala_nt,
-    caracteristicas varchar2(200),
+    caracteristicas varchar2(1000),
     CONSTRAINT pk_concurso PRIMARY KEY (id),
     CONSTRAINT tipo_cata_in CHECK (tipoDeCata IN ('Comparativa', 'A ciegas', 'Vertical', 'Varietal'))
 )
@@ -346,7 +346,8 @@ CREATE TABLE Edicion(
     emailEnvioInscripcion varchar2(50),
     datosDeContacto datosDeContacto NOT NULL,
     fk_concurso number NOT NULL,
-    CONSTRAINT pk_edicion PRIMARY KEY (id)
+    CONSTRAINT pk_edicion PRIMARY KEY (id),
+    CONSTRAINT precio_valido CHECK (precioEstandarPorMuestra >= 0)
 )
 NESTED TABLE costos STORE AS costoInscripcion_nt_1
 /
@@ -370,7 +371,8 @@ CREATE TABLE HistoricoPrecio(
     fk_clasificacionvinos number,
     ------------------------------
     precio number NOT NULL,
-    CONSTRAINT pk_historicoprecio PRIMARY KEY(anio, fk_presentacion, fk_marcavino,fk_clasificacionvinos)
+    CONSTRAINT pk_historicoprecio PRIMARY KEY(anio, fk_presentacion, fk_marcavino,fk_clasificacionvinos),
+    CONSTRAINT val_precio_positivo CHECK (precio > 0)
 )
 /
 
