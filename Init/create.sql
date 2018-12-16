@@ -86,7 +86,6 @@ create or replace type escala_nt as table of escala
 create or replace type costoInscripcion as object(
     nroDeMuestras number(10),
     valor number(20),
-    unidadValor varchar2(50),
     pais varchar2(50)
 )
 /
