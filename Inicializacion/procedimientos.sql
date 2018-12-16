@@ -634,3 +634,28 @@ begin
 
 end;
 /
+create or replace procedure insertar_valoracion_experto(idCata number, nombreVal varchar2, valor number, observacion varchar2)
+as
+catas number;
+begin
+    insert into table (select valoraciones from CataExperto where id = idCata) values (nombreVal, valor, observacion);
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Valoracion de experto insertada');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+
+
+end;
+/
+create or replace procedure insertar_valoracion_aprendiz(idCata number, nombreVal varchar2, valor number, observacion varchar2)
+as
+begin
+    insert into table (select valoraciones from CataAprendiz where id = idCata) values (nombreVal, valor, observacion);
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Valoracion de aprendiz insertada');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+
+
+end;
+/
