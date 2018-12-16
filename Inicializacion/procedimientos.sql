@@ -516,7 +516,6 @@ BEGIN
 END;
 /
 
-<<<<<<< HEAD
 create or replace procedure insertar_calendario(
     p_id number default ids_seq.nextval,
     p_datosbanc datosBancarios,
@@ -650,7 +649,6 @@ begin
 
 end;
 /
-=======
 create or replace procedure insertar_costo_a(idEdicion number, p_nroMuestras number, p_valor number, p_unidadValor varchar2, p_pais varchar2) 
 as
 begin
@@ -700,4 +698,3 @@ begin
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 end;
 /
->>>>>>> master
