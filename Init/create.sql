@@ -243,7 +243,6 @@ CREATE TABLE CataAprendiz (
     fk_muestra_marcavino_id number,
     fk_muestra_marcavino_clasif number,
         -- FK Juez --------------------
-        fk_juez_id number,
         fk_edicion number,
         fk_catadorexperto number,
         -------------------------------
@@ -284,10 +283,9 @@ NESTED TABLE valoraciones STORE AS valoracion_nt_2
 /
 
 CREATE TABLE Juez (
-    id number,
     fk_catadorexperto number,
     fk_edicion number,
-    CONSTRAINT pk_juez PRIMARY KEY (id, fk_catadorexperto, fk_edicion)
+    CONSTRAINT pk_juez PRIMARY KEY (fk_catadorexperto, fk_edicion)
 )
 /
 
@@ -464,13 +462,12 @@ CREATE TABLE MuestraCatador(
   fk_marcavino_clasificacion number,
   -----------------------------------
   -- PK Juez ------------------------
-  fk_juez number,
   fk_edicion number,
   fk_catadorexperto number,
   -----------------------------------
   anada number NOT NULL,
   sumatoriaExperto number NOT null,
-  CONSTRAINT pk_muestracatador PRIMARY KEY (id, fk_marcavino_id, fk_marcavino_clasificacion, fk_juez, fk_edicion, fk_catadorexperto)
+  CONSTRAINT pk_muestracatador PRIMARY KEY (id, fk_marcavino_id, fk_marcavino_clasificacion, fk_edicion, fk_catadorexperto)
 )
 /
 

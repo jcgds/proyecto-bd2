@@ -53,4 +53,4 @@ drop table MarcaVino_B_DO cascade constraints purge;
 drop table ClasificacionVinos cascade constraints purge;
 drop table MarcaVino cascade constraints purge;
 drop table MuestraCatador cascade constraints purge;
-
+drop sequence ids_seq;

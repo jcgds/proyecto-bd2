@@ -533,7 +533,6 @@ create or replace procedure insertar_calendario(
     p_idCatadorExp number
 ) as
     nombreJuez varchar2(100);
-    idJuezEdicion number := ids_seq.nextval;
 begin
     
     if (p_fechaFin < p_fechaInicio) then
@@ -575,11 +574,11 @@ begin
     );
 
     INSERT INTO Juez VALUES
-    (idJuezEdicion, p_idCatadorExp, p_id);
+    (p_idCatadorExp, p_id);
 
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
     DBMS_OUTPUT.PUT_LINE('Edicion creada (id = ' || to_char(p_id) || ')');
-    DBMS_OUTPUT.PUT_LINE('Juez ' || nombreJuez || ' asignado a edicion. (id: ' || to_char(idJuezEdicion) || ')');
+    DBMS_OUTPUT.PUT_LINE('Juez ' || nombreJuez || ' asignado a edicion.');
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 
 end;
@@ -763,11 +762,10 @@ select t.anio, litros_a_hectolitros(t.valor) as valor
 from the (select produccionAnual from MarcaVino where id = idMarca)t;
 */
 
--- TODO: El id del juez es compuesto, y bueno despues de quitar su id propio aqui tendriamos que recibir el id del catador experto y la edicion
-create or replace procedure insertar_muestra_catador(anada number, sumatoriaExperto number, idMarca number, idJuez number)
+create or replace procedure insertar_muestra_catador(anada number, sumatoriaExperto number, idMarca number, idCatadorExperto number, idEdicion number)
 as
-idEdicion number:= 0;
-idCatadorExperto number:= 0;
+--idEdicion number:= 0;
+--idCatadorExperto number:= 0;
 idClasificacionVino number:= 0;
 cosechas number;
 verificacion number := 0;
@@ -787,6 +785,7 @@ begin
         RAISE_APPLICATION_ERROR(-20200, 'La cosecha no existe en la marca de vino ingresada');
     end if;
 
+    /*
     Select fk_edicion into idEdicion
     From Juez
     Where id = idJuez;
@@ -794,6 +793,7 @@ begin
     Select fk_catadorexperto into idCatadorExperto
     From Juez
     Where id = idJuez;
+    */
 
     Select fk_clasificacionvinos into idClasificacionVino
     From MarcaVino
@@ -803,7 +803,6 @@ begin
       pid,
       idMarca,
       idClasificacionVino,
-      idJuez,
       idEdicion,
       idCatadorExperto,
       anada,
@@ -918,12 +917,11 @@ identificadores number;
 verificacion number := 0;
 pid number := ids_seq.nextval;
 begin
-    -- TODO: Quitar esta validacion despues de quitar el ID propio de la tabla Juez
     select count(*) into verificacion from Juez where fk_edicion = idEdicion and fk_catadorexperto = idCatador;
     if verificacion > 0 then
         RAISE_APPLICATION_ERROR(-20200, 'Ese catador ya fue registrado como juez en esa edicion');
     end if;
-    insert into Juez values (pid, idCatador, idEdicion);
+    insert into Juez values (idCatador, idEdicion);
 
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
     DBMS_OUTPUT.PUT_LINE('Juez asignado a edicion');

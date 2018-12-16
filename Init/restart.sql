@@ -1,8 +1,8 @@
 
-@Inicializacion/startup
-@Inicializacion/drop
-@Inicializacion/create
-@Inicializacion/alter
-@Inicializacion/triggers
-@Inicializacion/procedimientos
-@Inicializacion/insert
+@init/startup
+@init/drop
+@init/create
+@init/alter
+@init/triggers
+@init/procedimientos
+@init/insert

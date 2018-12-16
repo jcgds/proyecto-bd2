@@ -21,8 +21,8 @@ ALTER TABLE CataAprendiz ADD CONSTRAINT fk_CA FOREIGN KEY (fk_catadoraprendiz)
     REFERENCES CatadorAprendiz (pasaporte);
 
 ALTER TABLE CataAprendiz ADD CONSTRAINT fk_M FOREIGN KEY (fk_muestra_id, fk_muestra_marcavino_id, 
-                                                          fk_muestra_marcavino_clasif, fk_juez_id, fk_edicion, fk_catadorexperto)
-    REFERENCES MuestraCatador (id, fk_marcavino_id, fk_marcavino_clasificacion, fk_juez, fk_edicion, fk_catadorexperto);
+                                                          fk_muestra_marcavino_clasif, fk_edicion, fk_catadorexperto)
+    REFERENCES MuestraCatador (id, fk_marcavino_id, fk_marcavino_clasificacion, fk_edicion, fk_catadorexperto);
 
 ALTER TABLE CataExperto ADD CONSTRAINT fk_CE FOREIGN KEY (fk_catadorexperto)
     REFERENCES CatadorExperto (id);
@@ -75,8 +75,8 @@ ALTER TABLE MuestraCompite ADD CONSTRAINT fk_muestra_inscripcion FOREIGN KEY (fk
 ALTER TABLE MuestraCatador ADD CONSTRAINT fk_muestraCom_marca FOREIGN KEY (fk_marcavino_id, fk_marcavino_clasificacion)
     REFERENCES MarcaVino (id, fk_clasificacionvinos);
 
-ALTER TABLE MuestraCatador ADD CONSTRAINT fk_muestraCom_juez FOREIGN KEY (fk_juez, fk_edicion, fk_catadorexperto)
-    REFERENCES Juez (id, fk_edicion, fk_catadorexperto);
+ALTER TABLE MuestraCatador ADD CONSTRAINT fk_muestraCom_juez FOREIGN KEY (fk_edicion, fk_catadorexperto)
+    REFERENCES Juez (fk_edicion, fk_catadorexperto);
 
 ALTER TABLE MarcaVino_B_DO ADD CONSTRAINT fk_MarcaBDO_marcavino FOREIGN KEY (fk_marcavino, fk_clasificacionvinos)
     REFERENCES MarcaVino (id, fk_clasificacionvinos);
