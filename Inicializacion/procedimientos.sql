@@ -475,6 +475,26 @@ begin
 end;
 /
 
+create or replace procedure mostrar_organizadores(idConcurso number) 
+as
+begin
+
+    DBMS_OUTPUT.PUT_LINE('---------------------------------------------------------------------');
+
+    for org in (
+        select og.nombre
+        from Organizador og, Organizador_Concurso oc
+        where oc.fk_concurso = idConcurso
+        and og.id = oc.fk_organizador
+    ) loop
+      
+        DBMS_OUTPUT.PUT_LINE('Nombre organizador: ' || org.nombre);
+    end loop;
+
+    DBMS_OUTPUT.PUT_LINE('---------------------------------------------------------------------');
+end;
+/
+
 create or replace function validar_concurso_internacional (idConcurso IN number)
 return varchar2 is 
     esInternacional varchar2(50);
@@ -496,6 +516,139 @@ BEGIN
 END;
 /
 
+create or replace procedure insertar_calendario(
+    p_id number default ids_seq.nextval,
+    p_datosbanc datosBancarios,
+    p_fechaLimEnvioDeInsc date,
+    p_fechaLimiteRecepcionVinos date,
+    p_fechaInicio date,
+    p_fechaFin date,
+    p_precioEstandarPorMuestra number,
+    p_direccionEnvioMuestras direccion,
+    p_lugarRealizar lugar,
+    p_unidadMonetaria unidadMonetaria,
+    p_emailEnvioInscripcion varchar2,
+    p_datosDeContacto datosDeContacto,
+    p_idConcurso number,
+    p_idCatadorExp number
+) as
+    nombreJuez varchar2(100);
+    idJuezEdicion number := ids_seq.nextval;
+begin
+    
+    if (p_fechaFin < p_fechaInicio) then
+        RAISE_APPLICATION_ERROR(-20106, 'La fecha fin no puede ser antes que la fecha de inicio');
+    end if;
+
+    if (p_fechaLimEnvioDeInsc < p_fechaFin) then
+        RAISE_APPLICATION_ERROR(-20107, 'La fecha de inscripcion no puede ser despues que la fecha final');
+    end if;
+
+    if p_precioEstandarPorMuestra < 0 then
+        RAISE_APPLICATION_ERROR(-20104, 'El precio estandar no puede ser menor a cero');
+    end if;
+
+    begin
+        select ce.nombre || ' ' || ce.apellido into nombreJuez
+        from catadorExperto ce 
+        where ce.id = p_idCatadorExp;
+    exception 
+        when NO_DATA_FOUND then
+            RAISE_APPLICATION_ERROR(-20105, 'El experto indicado no esta registrado.');
+    end;
+
+    INSERT INTO Edicion VALUES (
+        p_id,
+        p_datosbanc,
+        p_fechaLimEnvioDeInsc,
+        p_fechaLimiteRecepcionVinos,
+        p_fechaInicio,
+        p_fechaFin,
+        p_precioEstandarPorMuestra,
+        p_direccionEnvioMuestras,
+        costoInscripcion_nt(),
+        p_lugarRealizar,
+        p_unidadMonetaria,
+        p_emailEnvioInscripcion,
+        p_datosDeContacto,
+        p_idConcurso
+    );
+
+    INSERT INTO Juez VALUES
+    (idJuezEdicion, p_idCatadorExp, p_id);
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Edicion creada (id = ' || to_char(p_id) || ')');
+    DBMS_OUTPUT.PUT_LINE('Juez ' || nombreJuez || ' asignado a edicion. (id: ' || to_char(idJuezEdicion) || ')');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+
+end;
+/
+
+create or replace procedure crear_precio_presentacion (
+    idMarcaVino number,
+    idPresentacion number,
+    anio number,
+    precio number    
+) as
+    clasifVino number;
+begin
+    -- TODO: Validacion de anio vs fecha de cosecha?  
+    begin
+        select fk_clasificacionvinos into clasifVino from MarcaVino where id = idMarcaVino;
+    exception
+      when no_data_found then
+        RAISE_APPLICATION_ERROR(-20109, 'Clasificacion de vino no conseguida (critico, culpa nuestra)');
+    end;
+    if (precio <= 0) then
+        RAISE_APPLICATION_ERROR(-20108, 'El precio de la presentacion no puede ser negativo o cero');
+    end if;
+
+    begin
+        insert into HistoricoPrecio values 
+        (anio, idPresentacion, idMarcaVino, clasifVino, precio);
+
+        DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+        DBMS_OUTPUT.PUT_LINE('Precio agregado exitosamente');
+        DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    exception
+      when DUP_VAL_ON_INDEX then
+        DBMS_OUTPUT.PUT_LINE('Error: Ya existe un historico de precio para este anio');
+    end;
+
+end;
+/
+
+create or replace procedure insertar_bodega(
+    p_nombre varchar2,
+    p_fechaFundacion date,
+    p_datosDeContacto datosDeContacto,
+    p_descripcionMision varchar2,
+    p_descripcionGeneralVinos varchar2,
+    p_propietario number default null,
+    p_id number DEFAULT ids_seq.nextval
+) as
+begin
+
+    insert into Bodega values (
+        p_id,
+        p_nombre,
+        hechos_hist_nt(),
+        p_fechaFundacion,
+        p_datosDeContacto,
+        p_descripcionMision,
+        p_descripcionGeneralVinos,
+        tipo_valor_nt(),
+        distribucion_exp_nt(),
+        p_propietario
+    );
+    
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Bodega insertada (id = ' || to_char(p_id) || ')');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+
+end;
+/
 create or replace procedure insertar_costo_a(idEdicion number, p_nroMuestras number, p_valor number, p_unidadValor varchar2, p_pais varchar2) 
 as
 begin

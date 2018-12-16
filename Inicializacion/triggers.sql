@@ -31,6 +31,7 @@ BEGIN
 END;
 /
 
+/* TODO: Esto como que no aplica, el concurso Bacchus es de cata (de muestras) y es a ciegas
 create or replace trigger validar_tipo_cata
 before insert or update of tipoDeCata, deCatadores on Concurso
 for each row
@@ -39,7 +40,7 @@ begin
         RAISE_APPLICATION_ERROR(-20020, 'Los concursos ""A ciegas"" solo pueden ser de catadores.');
     end if;
 end;
-/
+/ */
 
 CREATE OR REPLACE TRIGGER sumatoria_cataaprendiz
 BEFORE INSERT OR UPDATE ON CataAprendiz
