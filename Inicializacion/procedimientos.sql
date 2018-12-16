@@ -678,7 +678,28 @@ begin
     end if;
 
     update Inscripcion set premioCatador = nombrePremio where id = idInscripcion;
-    
+
+
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Premio insertado');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+
+
+end;
+/
+create or replace procedure agregar_juez(idCatador number, idEdicion number)
+as
+identificadores number;
+verificacion number := 0;
+pid number := ids_seq.nextval;
+begin
+    select count(*) into verificacion from Juez where fk_edicion = idEdicion and fk_catadorexperto = idCatador;
+    if verificacion > 0 then
+        RAISE_APPLICATION_ERROR(-20200, 'Ese catador ya fue registrado como juez en esa edicion');
+    end if;
+    insert into Juez values (pid, idCatador, idEdicion);
+
 
 
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
