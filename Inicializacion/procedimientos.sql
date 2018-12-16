@@ -545,13 +545,14 @@ begin
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 end;
 /
-create or replace procedure insertar_muestra_catador(pid number DEFAULT ids_seq.nextval, anada number, sumatoriaExperto number, idMarca number, idJuez number)
+create or replace procedure insertar_muestra_catador(anada number, sumatoriaExperto number, idMarca number, idJuez number)
 as
 idEdicion number:= 0;
 idCatadorExperto number:= 0;
 idClasificacionVino number:= 0;
 cosechas number;
 verificacion number := 0;
+pid number := ids_seq.nextval;
 begin
 
     for cosechas in (Select c.anio From Cosecha c, B_DO b, MarcaVino_B_DO a Where c.fk_bdo_id = b.id and a.fk_b_do = b.id and a.fk_marcavino = idMarca )
@@ -594,11 +595,12 @@ begin
 
 end;
 /
-create or replace procedure insertar_muestra_compite(pid number DEFAULT ids_seq.nextval, anada number, idMarca number, idInscripcion number)
+create or replace procedure insertar_muestra_compite( anada number, idMarca number, idInscripcion number)
 as
 idClasificacionVino number:= 0;
 cosechas number;
 verificacion number := 0;
+pid number := ids_seq.nextval;
 begin
 
 
