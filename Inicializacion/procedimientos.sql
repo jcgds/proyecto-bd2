@@ -579,3 +579,28 @@ begin
 
 
 end;
+/
+create or replace procedure insertar_muestra_compite(pid number DEFAULT ids_seq.nextval, anada number, idMarca number, idInscripcion number, nombrePremio varchar2, posicionPremio number, descripcion varchar2, tipoPremio varchar2, premioMoneda number)
+as
+idClasificacionVino number:= 0;
+begin
+
+    Select fk_clasificacionvinos into idClasificacionVino
+    From MarcaVino
+    Where id = idMarca;
+
+    INSERT INTO MuestraCompite VALUES (
+      pid,
+      idMarca,
+      idClasificacionVino,
+      idInscripcion,
+      anada,
+      premio_nt(premio(nombrePremio, posicionPremio, descripcion, tipoPremio, premioMoneda))
+    );
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Muestra insertada (id = ' || to_char(pid) || ')');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+
+
+end;
+/
