@@ -530,6 +530,7 @@ begin
     for nombrePremio in (select t.nombre from the(select premios from Concurso where id = idConcurso) t ) loop
         if nombrePremio.nombre = p_nombre then
             existePremio := 'S';
+            exit;
         end if;
     end loop;
 
@@ -545,6 +546,7 @@ begin
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 end;
 /
+-- TODO: El id del juez es compuesto, y bueno despues de quitar su id propio aqui tendriamos que recibir el id del catador experto y la edicion
 create or replace procedure insertar_muestra_catador(anada number, sumatoriaExperto number, idMarca number, idJuez number)
 as
 idEdicion number:= 0;
@@ -555,10 +557,12 @@ verificacion number := 0;
 pid number := ids_seq.nextval;
 begin
 
+    -- TODO: Esto se repite un par de veces, hacer una funcion y llamarla en todos lados
     for cosechas in (Select c.anio From Cosecha c, B_DO b, MarcaVino_B_DO a Where c.fk_bdo_id = b.id and a.fk_b_do = b.id and a.fk_marcavino = idMarca )
     loop
         if cosechas.anio = anada then
             verificacion := 1;
+            exit;
         end if;
     end loop;
 
@@ -603,11 +607,12 @@ verificacion number := 0;
 pid number := ids_seq.nextval;
 begin
 
-
     for cosechas in (Select c.anio From Cosecha c, B_DO b, MarcaVino_B_DO a Where c.fk_bdo_id = b.id and a.fk_b_do = b.id and a.fk_marcavino = idMarca )
     loop
         if cosechas.anio = anada then
             verificacion := 1;
+            -- Ya conseguimos el premio, salimos del loop de una vez para no recorrer todos los registros
+            exit;
         end if;
     end loop;
 
@@ -663,6 +668,7 @@ create or replace procedure actualizar_premio_inscripcion(idInscripcion number, 
 as
 idEdicion number;
 verificacion number:=0;
+-- PILLA: Esta variable se llama igual a la del loop, y creo que no se usa
 nombresDePremios varchar2(60);
 begin
     select e.fk_concurso into idEdicion from Edicion e, Inscripcion i where i.id = idInscripcion and i.fk_edicion = e.id;
@@ -670,6 +676,8 @@ begin
     loop
         if nombresDePremios.nombre = nombrePremio then
             verificacion := 1;
+            -- Ya conseguimos el premio, salimos del loop de una vez
+            exit;
         end if;
     end loop;
 
@@ -677,15 +685,14 @@ begin
         RAISE_APPLICATION_ERROR(-20200, 'El premio no existe en el concurso');
     end if;
 
+    -- PILLA: Me parece raro que el premio en la inscripcion sea el nombre nada mas
+    --        Como en muestra compite es un NT de premio, creo que aqui tambien se
+    --        deberia guardar el tipo premio, pero uno solo
     update Inscripcion set premioCatador = nombrePremio where id = idInscripcion;
-
-
 
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
     DBMS_OUTPUT.PUT_LINE('Premio insertado');
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
-
-
 end;
 /
 create or replace procedure agregar_juez(idCatador number, idEdicion number)
@@ -694,17 +701,14 @@ identificadores number;
 verificacion number := 0;
 pid number := ids_seq.nextval;
 begin
+    -- TODO: Quitar esta validacion despues de quitar el ID propio de la tabla Juez
     select count(*) into verificacion from Juez where fk_edicion = idEdicion and fk_catadorexperto = idCatador;
     if verificacion > 0 then
         RAISE_APPLICATION_ERROR(-20200, 'Ese catador ya fue registrado como juez en esa edicion');
     end if;
     insert into Juez values (pid, idCatador, idEdicion);
 
-
-
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
-    DBMS_OUTPUT.PUT_LINE('Premio insertado');
+    DBMS_OUTPUT.PUT_LINE('Juez asignado a edicion');
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
-
-
 end;
