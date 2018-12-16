@@ -133,35 +133,45 @@ insert into HistoricoPrecio values (2016, 2, 1, 17, 139.99);
 insert into HistoricoPrecio values (2017, 2, 1, 17, 195.99);
 insert into HistoricoPrecio values (2018, 2, 1, 17, 99.99);
 
+-- B_DO Entre bodega Quinta Da Fronteira y la Douro Touriga Nacional
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
-(1, 1, 1, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Touriga Nacional
+(1, 1, 1, 1, 1); 
 
+-- B_DO Entre bodega Quinta Da Fronteira y la Douro Touriga Franca
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
-(2, 2, 2, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Touriga Franca
+(2, 2, 2, 1, 1); 
 
+-- B_DO Entre bodega Quinta Da Fronteira y la Douro Tinta Roriz
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
-(3, 3, 5, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Tinta Roriz
+(3, 3, 5, 1, 1); 
 
+-- Quinta Da Fronteira - Douro Touriga Nacional - Reserva Tinto
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
-(1, 1, 17, 1, 1, 1, 1, 1); -- Quinta Da Fronteira - Douro Touriga Nacional - Reserva Tinto
+(1, 1, 17, 1, 1, 1, 1, 1); 
 
+-- Quinta Da Fronteira - Douro Touriga Franca - Reserva Tinto
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
-(2, 1, 17, 2, 1, 2, 2, 1); -- Quinta Da Fronteira - Douro Touriga Franca - Reserva Tinto
+(2, 1, 17, 2, 1, 2, 2, 1); 
 
+-- Quinta Da Fronteira - Douro Tinta Roriz - Reserva Tinto
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
-(3, 1, 17, 3, 1, 3, 5, 1); -- Quinta Da Fronteira - Douro Tinta Roriz - Reserva Tinto
+(3, 1, 17, 3, 1, 3, 5, 1); 
 
 insert into VariedadVid values (3,'Viosinho');
 insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
 (4,'Douro - Viosinho', null, 3, 1);
+
+-- B_DO Entre bodega Quinta Da Fronteira y la Douro Viosinho
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
-(4, 4, 3, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Viosinho
+(4, 4, 3, 1, 1); 
 
 insert into VariedadVid values (4,'Codega do Lorinho');
 insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values 
 (5,'Douro - Codega do Lorinho', null, 4, 1);
+
+-- B_DO Entre bodega Quinta Da Fronteira y la Douro Codega do Lorinho
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
-(5, 5, 4, 1, 1); -- B_DO Entre bodega Quinta Da Fronteira y la Douro Codega do Lorinho
+(5, 5, 4, 1, 1); 
 
 insert into MarcaVino values (
     3,
@@ -204,11 +214,13 @@ insert into HistoricoPrecio values (2016, 4, 3, 9, 55.2);
 insert into HistoricoPrecio values (2017, 4, 3, 9, 67.35);
 insert into HistoricoPrecio values (2018, 4, 3, 9, 73.5);
 
+-- Quinta Da Fronteira - Douro Viosinho - Fronteira White
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
-(4, 3, 9, 4, 1, 4, 3, 1); -- Quinta Da Fronteira - Douro Viosinho - Fronteira White
+(4, 3, 9, 4, 1, 4, 3, 1); 
 
+-- Quinta Da Fronteira - Douro Codega do Lorinho - Fronteira White
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
-(5, 3, 9, 5, 1, 5, 4, 1); -- Quinta Da Fronteira - Douro Codega do Lorinho - Fronteira White
+(5, 3, 9, 5, 1, 5, 4, 1); 
 -- / Fin Bodega Quinta Da Fronteira ------------------------------------------------------------------------------------------------------------------------
 
 -- Bodega Herdade Da Farizoa --------------------------------------------------------------------------------------------------------------------
@@ -243,10 +255,13 @@ insert into Bodega values (
     null -- TODO: Crear bodega Companhia Das Quintas y colocar su id
 );
 
+-- B_DO Entre bodega Herdade Da Farizoa y la IG Alentejano Touriga Nacional
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
-(6, 6, 1, 3, 3); -- B_DO Entre bodega Herdade Da Farizoa y la IG Alentejano Touriga Nacional
+(6, 6, 1, 3, 3); 
+
+-- B_DO Entre bodega Herdade Da Farizoa y la IG Alentejano Aragonez
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
-(7, 7, 6, 3, 3); -- B_DO Entre bodega Herdade Da Farizoa y la IG Alentejano Aragonez
+(7, 7, 6, 3, 3); 
 
 insert into MarcaVino values (
     4,
@@ -269,10 +284,13 @@ insert into MarcaVino values (
     EMPTY_BLOB()
 );
 
+-- Herdade Da Farizoa - IG Alentejano Touriga Nacional - Portas Da Herdade Reserva
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
-(6, 4, 13, 6, 3, 6, 1, 3); -- Herdade Da Farizoa - IG Alentejano Touriga Nacional - Portas Da Herdade Reserva
+(6, 4, 13, 6, 3, 6, 1, 3); 
+
+-- Herdade Da Farizoa - IG Alentejano Aragonez - Portas Da Herdade Reserva
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
-(7, 4, 13, 7, 3, 7, 6, 3); -- Herdade Da Farizoa - IG Alentejano Aragonez - Portas Da Herdade Reserva
+(7, 4, 13, 7, 3, 7, 6, 3); 
 
 ---- / Fin Bodega Herdade Da Farizoa ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -309,8 +327,9 @@ insert into Bodega values (
     null
 );
 
+-- B_DO Entre bodega Justino's Madeira y la DO Madeira
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values 
-(8, 8, 7, 4, 4); -- B_DO Entre bodega Justino's Madeira y la DO Madeira
+(8, 8, 7, 4, 4); 
 
 -- TODO: Cambiar a Verdelho Coleita 1997 que gano el baccus de oro
 insert into MarcaVino values (
@@ -334,8 +353,9 @@ insert into MarcaVino values (
     EMPTY_BLOB()
 );
 
+-- Justino's Madeira - DO Madeira Tinta Negra - Colombo Madeira Tinta Negra
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
-(8, 5, 18, 8, 4, 8, 7, 4); -- Justino's Madeira - DO Madeira Tinta Negra - Colombo Madeira Tinta Negra
+(8, 5, 18, 8, 4, 8, 7, 4); 
 
 
 ---- / Fin Bodega Justino's Madeira ------------------------------------------------------------------------------------------------------------------------------------------
