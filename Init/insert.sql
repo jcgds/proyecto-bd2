@@ -361,7 +361,7 @@ insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk
 ---- / Fin Bodega Justino's Madeira ------------------------------------------------------------------------------------------------------------------------------------------
 
 
-insert into Pais values (4, 'Estados Unidos', 'America', tipo_valor_nt(), tipo_valor_nt(tipo_valor(2016,26900000,'hl')), distribucion_exp_nt(), 
+insert into Pais values (4, 'Estados Unidos', 'America', tipo_valor_nt(), tipo_valor_nt(), distribucion_exp_nt(), 
     unidadMonetaria('Dolar', 'USD'), bfilename('mapas_regionales', 'usa.jpg'), null);
 -- Bodega OPUS ONE -----------------------------------------------    
 insert into Region values (41, 'Oakville AVA', null, 4);

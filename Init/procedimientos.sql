@@ -928,3 +928,25 @@ begin
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 end;
 /
+
+create or replace function calcular_porcentaje_vinedo (idPais number,anioP number)
+return number is 
+    porcentaje number(10,2) := 0;
+    totalsuperficie number := 0;
+    superficie number := 0;
+begin
+    for idP in (select id from Pais) loop
+        select t.valor into superficie from 
+        the(select superficieVinedo from pais where id = idP.id)t where t.anio = anioP;
+
+        if superficie != 0  then
+            totalsuperficie := totalsuperficie + superficie;
+        end if;
+    end loop;
+    select t.valor into superficie from 
+    the(select superficieVinedo from pais where id = idPais)t where t.anio = anioP;
+
+    porcentaje := superficie/totalsuperficie * 100;
+    return porcentaje;
+end;
+/
