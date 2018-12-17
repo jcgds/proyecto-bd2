@@ -13,7 +13,7 @@ prompt  APPLICATION 101 - WINES
 -- Application Export:
 --   Application:     101
 --   Name:            WINES
---   Date and Time:   09:17 Sunday December 16, 2018
+--   Date and Time:   20:07 Sunday December 16, 2018
 --   Exported By:     WINE_USER
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -25,12 +25,12 @@ prompt  APPLICATION 101 - WINES
 --   Using SQL*Plus as the Oracle user APEX_040000 or as the owner (parsing schema) of the application.
  
 -- Application Statistics:
---   Pages:                    5
---     Items:                 40
+--   Pages:                    6
+--     Items:                 46
 --     Computations:           0
 --     Validations:            0
 --     Processes:              5
---     Regions:               22
+--     Regions:               30
 --     Buttons:                0
 --     Dynamic Actions:        0
 --   Shared Components
@@ -41,7 +41,7 @@ prompt  APPLICATION 101 - WINES
 --     Processes:              0
 --     Parent Tabs:            1
 --     Tab Sets:               1
---        Tabs:                5
+--        Tabs:                6
 --     NavBars:                1
 --     Lists:                  0
 --     Shortcuts:              1
@@ -146,7 +146,7 @@ wwv_flow_api.create_flow(
   p_default_region_template=> 4888420064405499 + wwv_flow_api.g_id_offset,
   p_error_template=> 4884712299405483 + wwv_flow_api.g_id_offset,
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20181215152853',
+  p_checksum_salt_last_reset => '20181216200031',
   p_max_session_length_sec=> 28800,
   p_home_link=> 'f?p=&APP_ID.:1:&SESSION.',
   p_flow_language=> 'en',
@@ -189,7 +189,7 @@ wwv_flow_api.create_flow(
   p_default_listr_template => 4887323994405498 + wwv_flow_api.g_id_offset,
   p_default_irr_template => 4888031003405498 + wwv_flow_api.g_id_offset,
   p_last_updated_by => 'WINE_USER',
-  p_last_upd_yyyymmddhh24miss=> '20181215152853',
+  p_last_upd_yyyymmddhh24miss=> '20181216200031',
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
  
@@ -338,6 +338,19 @@ wwv_flow_api.create_tab (
   p_tab_parent_tabset=>'Reportes',
   p_tab_comment  => '');
  
+--application/shared_components/navigation/tabs/standard/t_país
+wwv_flow_api.create_tab (
+  p_id=> 4986210419421305 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_tab_set=> 'Reportes',
+  p_tab_sequence=> 60,
+  p_tab_name=> 'T_PAÍS',
+  p_tab_text => 'País',
+  p_tab_step => 2,
+  p_tab_also_current_for_pages => '',
+  p_tab_parent_tabset=>'Reportes',
+  p_tab_comment  => '');
+ 
  
 end;
 /
@@ -408,7 +421,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'WINE_USER'
- ,p_last_upd_yyyymmddhh24miss => '20181209233941'
+ ,p_last_upd_yyyymmddhh24miss => '20181216190333'
   );
 null;
  
@@ -420,7 +433,7 @@ declare
   l_clob clob;
   l_length number := 1;
 begin
-s:=s||'select null, pt.nombre, pt.produccion'||chr(10)||
+s:=s||'select null, pt.nombre, litros_a_hectolitros(pt.produccion)'||chr(10)||
 'from ('||chr(10)||
 '    select pa.nombre, pa.continente, produccion_pais_en(pa.id, :P1_YEAR) produccion'||chr(10)||
 '    from Pais pa'||chr(10)||
@@ -437,7 +450,7 @@ wwv_flow_api.create_page_plug (
   p_plug_template=> 4887410716405498+ wwv_flow_api.g_id_offset,
   p_plug_display_sequence=> 10,
   p_plug_display_column=> 1,
-  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_display_point=> 'REGION_POSITION_01',
   p_plug_source=> s,
   p_plug_source_type=> 'SIMPLE_CHART',
   p_translate_title=> 'Y',
@@ -449,7 +462,7 @@ wwv_flow_api.create_page_plug (
   p_plug_query_options => 'PARSE_CHART_QUERY',
   p_plug_query_show_nulls_as => ' - ',
   p_plug_display_condition_type => '',
-  p_plug_chart_font_size => '-1',
+  p_plug_chart_font_size => '+0',
   p_plug_chart_max_rows => '20',
   p_plug_chart_num_mask => '999G999G999G990',
   p_plug_chart_scale => '400',
@@ -470,6 +483,185 @@ wwv_flow_api.create_generic_attr(
  p_region_id=>4909215187841486+wwv_flow_api.g_id_offset,
  p_attribute_id=>1,
  p_attribute_value=>a);
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'||chr(10)||
+'    codebase="#HOST_PROTOCOL#://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"'||chr(10)||
+'    width="#WIDTH#"'||chr(10)||
+'    height="#HEIGHT#"'||chr(10)||
+'    id="#CHART_NAME#"'||chr(10)||
+'    align="top">'||chr(10)||
+'<param name="movie" value="#IMAGE_PREFIX#flashchart/anychart_5/swf/#CHART_TYPE#.swf?XMLFile=#HOST#apex_util.flash?p=&APP_ID.:1:&APP_SESSION.:FLOW_FL';
+
+s:=s||'ASH_CHART5_R#REGION_ID#">'||chr(10)||
+'<param name="quality" value="high">'||chr(10)||
+'<param name="allowScriptAccess" value="sameDomain">'||chr(10)||
+'<param name="allowNetworking" value="all">'||chr(10)||
+'<param name="scale" value="noscale">'||chr(10)||
+'<param name="wmode" value="transparent">'||chr(10)||
+'<param name="FlashVars" value="initText=#FLASH_INIT#&xmlLoadingText=#FLASH_LOADING#&resourcesLoadingText=#FLASH_RESOURCES#&noDataText=#FLASH_NO_DATA#&waitingForDataT';
+
+s:=s||'ext=#FLASH_WAITING#&templatesLoadingText=#FLASH_TEMPLATES#">'||chr(10)||
+''||chr(10)||
+'<embed src="#IMAGE_PREFIX#flashchart/anychart_5/swf/#CHART_TYPE#.swf?XMLFile=#HOST#apex_util.flash?p=&APP_ID.:1:&APP_SESSION.:FLOW_FLASH_CHART5_R#REGION_ID#"'||chr(10)||
+'       quality="high"'||chr(10)||
+'       width="#WIDTH#"'||chr(10)||
+'       height="#HEIGHT#"'||chr(10)||
+'       name="#CHART_NAME#"'||chr(10)||
+'       scale="noscale"'||chr(10)||
+'       align=""'||chr(10)||
+'       allowScriptAccess="sameDomain" '||chr(10)||
+'     ';
+
+s:=s||'  allowNetworking="all"'||chr(10)||
+'       type="application/x-shockwave-flash"'||chr(10)||
+'       pluginspage="#HOST_PROTOCOL#://www.macromedia.com/go/getflashplayer"'||chr(10)||
+'       wmode="transparent"'||chr(10)||
+'       FlashVars="initText=#FLASH_INIT#&xmlLoadingText=#FLASH_LOADING#&resourcesLoadingText=#FLASH_RESOURCES#&noDataText=#FLASH_NO_DATA#&waitingForDataText=#FLASH_WAITING#&templatesLoadingText=#FLASH_TEMPLATES#">'||chr(10)||
+'</embed>'||chr(10)||
+'</objec';
+
+s:=s||'t>'||chr(10)||
+'#CHART_REFRESH#';
+
+wwv_flow_api.create_page_plug (
+  p_id=> 4984008639335821 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 1,
+  p_plug_name=> 'Producción Bodega (Hectolitros)',
+  p_region_name=>'',
+  p_plug_template=> 4887410716405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 30,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'FLASH_CHART5',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_plug_query_row_count_max => 500,
+  p_plug_display_condition_type => '',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+ a1 varchar2(32767) := null;
+begin
+a1 := null;
+wwv_flow_api.create_flash_chart5(
+  p_id => 4984211287335821+wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id => 1,
+  p_region_id => 4984008639335821+wwv_flow_api.g_id_offset,
+  p_default_chart_type     =>'2DPie',
+  p_chart_title            =>'',
+  p_chart_name             =>'chart_4984211287335821',
+  p_chart_width            =>500,
+  p_chart_height           =>300,
+  p_chart_animation        =>'ScaleXYCenter',
+  p_display_attr           =>':H:N:V:::N::V:Y:None:::N:::Default',
+  p_dial_tick_attr         =>':::::::::::',
+  p_gantt_attr             =>'Y:Rhomb:Rhomb:Full:Rhomb:Rhomb:Full:Rhomb:Rhomb:Full:30:15:5:Y:I:N:S:E',
+  p_map_attr               =>'Orthographic:RegionBounds:REGION_NAME',
+  p_map_source             =>'',
+  p_margins                =>':::',
+  p_omit_label_interval    => null,
+  p_bgtype                 =>'Trans',
+  p_bgcolor1               =>'',
+  p_bgcolor2               =>'',
+  p_gradient_rotation      =>null,
+  p_grid_bgtype            =>'',
+  p_grid_bgcolor1          =>'',
+  p_grid_bgcolor2          =>'',
+  p_grid_gradient_rotation =>null,
+  p_color_scheme           =>'6',
+  p_custom_colors          =>'',
+  p_map_undef_color_scheme =>'',
+  p_map_undef_custom_colors =>'',
+  p_x_axis_title           =>'',
+  p_x_axis_min             =>null,
+  p_x_axis_max             =>null,
+  p_x_axis_decimal_place   =>null,
+  p_x_axis_prefix          =>'',
+  p_x_axis_postfix         =>'',
+  p_x_axis_label_rotation  =>'',
+  p_x_axis_label_font      =>'::',
+  p_x_axis_major_interval  =>null,
+  p_x_axis_minor_interval  =>null,
+  p_y_axis_title           =>'',
+  p_y_axis_min             =>null,
+  p_y_axis_max             =>null,
+  p_y_axis_decimal_place   =>null,
+  p_y_axis_prefix          =>'',
+  p_y_axis_postfix         =>'',
+  p_y_axis_label_rotation  =>'',
+  p_y_axis_label_font      =>'::',
+  p_y_axis_major_interval  =>null,
+  p_y_axis_minor_interval  =>null,
+  p_async_update           =>'N',
+  p_async_time             =>null,
+  p_legend_title           =>'',
+  p_legend_title_font      =>'',
+  p_names_font             => null,
+  p_names_rotation         => null,
+  p_values_font            =>'Arial:10:#000000',
+  p_values_rotation        =>null,
+  p_values_prefix          =>'',
+  p_values_postfix         =>'',
+  p_hints_font             =>'Tahoma:10:#000000',
+  p_legend_font            =>'Arial:10:#000000',
+  p_grid_labels_font       =>'',
+  p_chart_title_font       =>'Tahoma:14:#000000',
+  p_x_axis_title_font      =>'Tahoma:14:',
+  p_x_axis_title_rotation  =>'',
+  p_y_axis_title_font      =>'Tahoma:14:',
+  p_y_axis_title_rotation  =>'',
+  p_gauge_labels_font      =>'Tahoma:10:',
+  p_use_chart_xml          =>'N',
+  p_chart_xml              => a1);
+end;
+/
+declare
+ a1 varchar2(32767) := null;
+begin
+a1:=a1||'select '||chr(10)||
+'    null link,'||chr(10)||
+'    xx.des label,'||chr(10)||
+'    SUM(litros_a_hectolitros(xx.valor)) value'||chr(10)||
+'from ('||chr(10)||
+'select ''Produccion'' des, produccion_bodega_en(:PPB_BODEGA, :PPB_ANIO) valor'||chr(10)||
+'from dual'||chr(10)||
+'UNION'||chr(10)||
+'select ''Exportacion'' des, exportacion_bodega_en(:PPB_BODEGA, :PPB_ANIO) valor'||chr(10)||
+'from dual'||chr(10)||
+'UNION'||chr(10)||
+'select ''Consumo interno'' des, consumo_int_bodega_en(:PPB_BODEGA, :PPB_ANIO) valor'||chr(10)||
+'from dual ) xx'||chr(10)||
+'group by null, xx.des';
+
+wwv_flow_api.create_flash_chart5_series(
+  p_id => 4984305411335823+wwv_flow_api.g_id_offset,
+  p_chart_id => 4984211287335821+wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_series_seq                =>10,
+  p_series_name               =>'Series 1',
+  p_series_query              => a1,
+  p_series_type               =>'',
+  p_series_query_type         =>'SQL_QUERY',
+  p_series_query_parse_opt    =>'',
+  p_series_query_no_data_found=>'No data found.',
+  p_series_query_row_count_max=>15,
+  p_action_link               =>'',
+  p_show_action_link          =>'',
+  p_action_link_checksum_type =>'');
 end;
 /
  
@@ -554,8 +746,8 @@ wwv_flow_api.create_page_item(
   p_data_type=> 'VARCHAR',
   p_is_required=> false,
   p_accept_processing=> 'REPLACE_EXISTING',
-  p_item_sequence=> 60,
-  p_item_plug_id => 4909215187841486+wwv_flow_api.g_id_offset,
+  p_item_sequence=> 30,
+  p_item_plug_id => 4984008639335821+wwv_flow_api.g_id_offset,
   p_use_cache_before_default=> 'NO',
   p_item_default=> 'Submit',
   p_prompt=>'Go',
@@ -627,11 +819,1239 @@ wwv_flow_api.create_page_item(
 end;
 /
 
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4981801498993091 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 1,
+  p_name=>'P1_UNIDAD',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 110,
+  p_item_plug_id => 4909215187841486+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Unidad',
+  p_source=>'Hectolitros',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892600703405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4984521106339425 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 1,
+  p_name=>'PPB_ANIO',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 20,
+  p_item_plug_id => 4984008639335821+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Año',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_NUMBER_FIELD',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 5,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892803899405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => '1',
+  p_attribute_03 => 'right',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4985102190343355 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 1,
+  p_name=>'PPB_BODEGA',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 10,
+  p_item_plug_id => 4984008639335821+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Bodega',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_SELECT_LIST',
+  p_lov=> 'select nombre, id'||chr(10)||
+'from Bodega',
+  p_lov_display_null=> 'YES',
+  p_lov_translated=> 'N',
+  p_lov_null_text=>'',
+  p_lov_null_value=> '',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892803899405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'NONE',
+  p_attribute_02 => 'N',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
  
 begin
  
 ---------------------------------------
 -- ...updatable report columns for page 1
+--
+ 
+begin
+ 
+null;
+end;
+null;
+ 
+end;
+/
+
+ 
+--application/pages/page_00002
+prompt  ...PAGE 2: País
+--
+ 
+begin
+ 
+wwv_flow_api.create_page (
+  p_flow_id => wwv_flow.g_flow_id
+ ,p_id => 2
+ ,p_tab_set => 'Reportes'
+ ,p_name => 'País'
+ ,p_alias => 'PAIS_GENERAL'
+ ,p_step_title => 'País'
+ ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'NO_FIRST_ITEM'
+ ,p_include_apex_css_js_yn => 'Y'
+ ,p_cache_page_yn => 'N'
+ ,p_last_updated_by => 'WINE_USER'
+ ,p_last_upd_yyyymmddhh24miss => '20181216195640'
+  );
+null;
+ 
+end;
+/
+
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'||chr(10)||
+'    codebase="#HOST_PROTOCOL#://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"'||chr(10)||
+'    width="#WIDTH#"'||chr(10)||
+'    height="#HEIGHT#"'||chr(10)||
+'    id="#CHART_NAME#"'||chr(10)||
+'    align="top">'||chr(10)||
+'<param name="movie" value="#IMAGE_PREFIX#flashchart/anychart_5/swf/#CHART_TYPE#.swf?XMLFile=#HOST#apex_util.flash?p=&APP_ID.:&FLOW_PAGE_ID.:&APP_SES';
+
+s:=s||'SION.:FLOW_FLASH_CHART5_R#REGION_ID#">'||chr(10)||
+'<param name="quality" value="high">'||chr(10)||
+'<param name="allowScriptAccess" value="sameDomain">'||chr(10)||
+'<param name="allowNetworking" value="all">'||chr(10)||
+'<param name="scale" value="noscale">'||chr(10)||
+'<param name="wmode" value="transparent">'||chr(10)||
+'<param name="FlashVars" value="initText=#FLASH_INIT#&xmlLoadingText=#FLASH_LOADING#&resourcesLoadingText=#FLASH_RESOURCES#&noDataText=#FLASH_NO_DATA#&wa';
+
+s:=s||'itingForDataText=#FLASH_WAITING#&templatesLoadingText=#FLASH_TEMPLATES#">'||chr(10)||
+''||chr(10)||
+'<embed src="#IMAGE_PREFIX#flashchart/anychart_5/swf/#CHART_TYPE#.swf?XMLFile=#HOST#apex_util.flash?p=&APP_ID.:&FLOW_PAGE_ID.:&APP_SESSION.:FLOW_FLASH_CHART5_R#REGION_ID#"'||chr(10)||
+'       quality="high"'||chr(10)||
+'       width="#WIDTH#"'||chr(10)||
+'       height="#HEIGHT#"'||chr(10)||
+'       name="#CHART_NAME#"'||chr(10)||
+'       scale="noscale"'||chr(10)||
+'       align=""'||chr(10)||
+'       allowScript';
+
+s:=s||'Access="sameDomain" '||chr(10)||
+'       allowNetworking="all"'||chr(10)||
+'       type="application/x-shockwave-flash"'||chr(10)||
+'       pluginspage="#HOST_PROTOCOL#://www.macromedia.com/go/getflashplayer"'||chr(10)||
+'       wmode="transparent"'||chr(10)||
+'       FlashVars="initText=#FLASH_INIT#&xmlLoadingText=#FLASH_LOADING#&resourcesLoadingText=#FLASH_RESOURCES#&noDataText=#FLASH_NO_DATA#&waitingForDataText=#FLASH_WAITING#&templatesLoadingText=#FLASH_TEM';
+
+s:=s||'PLATES#">'||chr(10)||
+'</embed>'||chr(10)||
+'</object>'||chr(10)||
+'#CHART_REFRESH#';
+
+wwv_flow_api.create_page_plug (
+  p_id=> 4986520207424282 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 2,
+  p_plug_name=> 'Producción, Exportación y Consumo interno (Hectolitros)',
+  p_region_name=>'',
+  p_plug_template=> 4887410716405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 30,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'FLASH_CHART5',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_plug_query_row_count_max => 500,
+  p_plug_display_condition_type => '',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+ a1 varchar2(32767) := null;
+begin
+a1 := null;
+wwv_flow_api.create_flash_chart5(
+  p_id => 4986717036424285+wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id => 2,
+  p_region_id => 4986520207424282+wwv_flow_api.g_id_offset,
+  p_default_chart_type     =>'2DPie',
+  p_chart_title            =>'',
+  p_chart_name             =>'chart_4983018602089281',
+  p_chart_width            =>500,
+  p_chart_height           =>300,
+  p_chart_animation        =>'show',
+  p_display_attr           =>':H:N:V:::N::V:Y:None:::N:::Default',
+  p_dial_tick_attr         =>':::::::::::',
+  p_gantt_attr             =>'Y:Rhomb:Rhomb:Full:Rhomb:Rhomb:Full:Rhomb:Rhomb:Full:30:15:5:Y:I:N:S:E',
+  p_map_attr               =>'Orthographic:RegionBounds:REGION_NAME',
+  p_map_source             =>'',
+  p_margins                =>':::',
+  p_omit_label_interval    => null,
+  p_bgtype                 =>'Trans',
+  p_bgcolor1               =>'',
+  p_bgcolor2               =>'',
+  p_gradient_rotation      =>null,
+  p_grid_bgtype            =>'',
+  p_grid_bgcolor1          =>'',
+  p_grid_bgcolor2          =>'',
+  p_grid_gradient_rotation =>null,
+  p_color_scheme           =>'3',
+  p_custom_colors          =>'',
+  p_map_undef_color_scheme =>'',
+  p_map_undef_custom_colors =>'',
+  p_x_axis_title           =>'',
+  p_x_axis_min             =>null,
+  p_x_axis_max             =>null,
+  p_x_axis_decimal_place   =>null,
+  p_x_axis_prefix          =>'',
+  p_x_axis_postfix         =>'',
+  p_x_axis_label_rotation  =>'',
+  p_x_axis_label_font      =>'::',
+  p_x_axis_major_interval  =>null,
+  p_x_axis_minor_interval  =>null,
+  p_y_axis_title           =>'',
+  p_y_axis_min             =>null,
+  p_y_axis_max             =>null,
+  p_y_axis_decimal_place   =>null,
+  p_y_axis_prefix          =>'',
+  p_y_axis_postfix         =>'',
+  p_y_axis_label_rotation  =>'',
+  p_y_axis_label_font      =>'::',
+  p_y_axis_major_interval  =>null,
+  p_y_axis_minor_interval  =>null,
+  p_async_update           =>'N',
+  p_async_time             =>null,
+  p_legend_title           =>'',
+  p_legend_title_font      =>'',
+  p_names_font             => null,
+  p_names_rotation         => null,
+  p_values_font            =>'Arial:10:#000000',
+  p_values_rotation        =>null,
+  p_values_prefix          =>'',
+  p_values_postfix         =>'',
+  p_hints_font             =>'Tahoma:12:#000000',
+  p_legend_font            =>'Arial:10:#000000',
+  p_grid_labels_font       =>'',
+  p_chart_title_font       =>'Tahoma:14:#000000',
+  p_x_axis_title_font      =>'Tahoma:14:',
+  p_x_axis_title_rotation  =>'',
+  p_y_axis_title_font      =>'Tahoma:14:',
+  p_y_axis_title_rotation  =>'',
+  p_gauge_labels_font      =>'Tahoma:10:',
+  p_use_chart_xml          =>'N',
+  p_chart_xml              => a1);
+end;
+/
+declare
+ a1 varchar2(32767) := null;
+begin
+a1:=a1||'select '||chr(10)||
+'    null link,'||chr(10)||
+'    xx.des label,'||chr(10)||
+'    SUM(litros_a_hectolitros(xx.valor)) value'||chr(10)||
+'from ('||chr(10)||
+'select ''Produccion'' des, calcularproduccionpais(:P2_PAIS, :P2_ANIO) valor'||chr(10)||
+'from dual'||chr(10)||
+'UNION'||chr(10)||
+'select ''Exportacion'' des, calcularexportacionpais(:P2_PAIS, :P2_ANIO) valor'||chr(10)||
+'from dual'||chr(10)||
+'UNION'||chr(10)||
+'select ''Consumo interno'' des, calcularconsumointerno(:P2_PAIS, :P2_ANIO) valor'||chr(10)||
+'from dual ) xx'||chr(10)||
+'group by null, xx.des';
+
+wwv_flow_api.create_flash_chart5_series(
+  p_id => 4986808295424285+wwv_flow_api.g_id_offset,
+  p_chart_id => 4986717036424285+wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_series_seq                =>10,
+  p_series_name               =>'Series 1',
+  p_series_query              => a1,
+  p_series_type               =>'',
+  p_series_query_type         =>'SQL_QUERY',
+  p_series_query_parse_opt    =>'PARSE_CHART_QUERY',
+  p_series_query_no_data_found=>'No data found.',
+  p_series_query_row_count_max=>15,
+  p_action_link               =>'',
+  p_show_action_link          =>'N',
+  p_action_link_checksum_type =>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4987531289427440 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 2,
+  p_plug_name=> 'Container',
+  p_region_name=>'',
+  p_plug_template=> 4886714017405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 20,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'||chr(10)||
+'    codebase="#HOST_PROTOCOL#://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"'||chr(10)||
+'    width="#WIDTH#"'||chr(10)||
+'    height="#HEIGHT#"'||chr(10)||
+'    id="#CHART_NAME#"'||chr(10)||
+'    align="top">'||chr(10)||
+'<param name="movie" value="#IMAGE_PREFIX#flashchart/anychart_5/swf/#CHART_TYPE#.swf?XMLFile=#HOST#apex_util.flash?p=&APP_ID.:2:&APP_SESSION.:FLOW_FL';
+
+s:=s||'ASH_CHART5_R#REGION_ID#">'||chr(10)||
+'<param name="quality" value="high">'||chr(10)||
+'<param name="allowScriptAccess" value="sameDomain">'||chr(10)||
+'<param name="allowNetworking" value="all">'||chr(10)||
+'<param name="scale" value="noscale">'||chr(10)||
+'<param name="wmode" value="transparent">'||chr(10)||
+'<param name="FlashVars" value="initText=#FLASH_INIT#&xmlLoadingText=#FLASH_LOADING#&resourcesLoadingText=#FLASH_RESOURCES#&noDataText=#FLASH_NO_DATA#&waitingForDataT';
+
+s:=s||'ext=#FLASH_WAITING#&templatesLoadingText=#FLASH_TEMPLATES#">'||chr(10)||
+''||chr(10)||
+'<embed src="#IMAGE_PREFIX#flashchart/anychart_5/swf/#CHART_TYPE#.swf?XMLFile=#HOST#apex_util.flash?p=&APP_ID.:2:&APP_SESSION.:FLOW_FLASH_CHART5_R#REGION_ID#"'||chr(10)||
+'       quality="high"'||chr(10)||
+'       width="#WIDTH#"'||chr(10)||
+'       height="#HEIGHT#"'||chr(10)||
+'       name="#CHART_NAME#"'||chr(10)||
+'       scale="noscale"'||chr(10)||
+'       align=""'||chr(10)||
+'       allowScriptAccess="sameDomain" '||chr(10)||
+'     ';
+
+s:=s||'  allowNetworking="all"'||chr(10)||
+'       type="application/x-shockwave-flash"'||chr(10)||
+'       pluginspage="#HOST_PROTOCOL#://www.macromedia.com/go/getflashplayer"'||chr(10)||
+'       wmode="transparent"'||chr(10)||
+'       FlashVars="initText=#FLASH_INIT#&xmlLoadingText=#FLASH_LOADING#&resourcesLoadingText=#FLASH_RESOURCES#&noDataText=#FLASH_NO_DATA#&waitingForDataText=#FLASH_WAITING#&templatesLoadingText=#FLASH_TEMPLATES#">'||chr(10)||
+'</embed>'||chr(10)||
+'</objec';
+
+s:=s||'t>'||chr(10)||
+'#CHART_REFRESH#';
+
+wwv_flow_api.create_page_plug (
+  p_id=> 4990819748566083 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 2,
+  p_plug_name=> 'Desglose de producción por bodega del país (Hectolitros)',
+  p_region_name=>'',
+  p_plug_template=> 4887410716405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 40,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'FLASH_CHART5',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_plug_query_row_count_max => 500,
+  p_plug_display_condition_type => '',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+ a1 varchar2(32767) := null;
+begin
+a1 := null;
+wwv_flow_api.create_flash_chart5(
+  p_id => 4991006142566086+wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id => 2,
+  p_region_id => 4990819748566083+wwv_flow_api.g_id_offset,
+  p_default_chart_type     =>'2DPie',
+  p_chart_title            =>'',
+  p_chart_name             =>'chart_4991006142566086',
+  p_chart_width            =>500,
+  p_chart_height           =>300,
+  p_chart_animation        =>'N',
+  p_display_attr           =>':H:N:V:::N::V:Y:None:::N:::Default',
+  p_dial_tick_attr         =>':::::::::::',
+  p_gantt_attr             =>'Y:Rhomb:Rhomb:Full:Rhomb:Rhomb:Full:Rhomb:Rhomb:Full:30:15:5:Y:I:N:S:E',
+  p_map_attr               =>'Orthographic:RegionBounds:REGION_NAME',
+  p_map_source             =>'',
+  p_margins                =>':::',
+  p_omit_label_interval    => null,
+  p_bgtype                 =>'Trans',
+  p_bgcolor1               =>'',
+  p_bgcolor2               =>'',
+  p_gradient_rotation      =>null,
+  p_grid_bgtype            =>'',
+  p_grid_bgcolor1          =>'',
+  p_grid_bgcolor2          =>'',
+  p_grid_gradient_rotation =>null,
+  p_color_scheme           =>'6',
+  p_custom_colors          =>'',
+  p_map_undef_color_scheme =>'',
+  p_map_undef_custom_colors =>'',
+  p_x_axis_title           =>'',
+  p_x_axis_min             =>null,
+  p_x_axis_max             =>null,
+  p_x_axis_decimal_place   =>null,
+  p_x_axis_prefix          =>'',
+  p_x_axis_postfix         =>'',
+  p_x_axis_label_rotation  =>'',
+  p_x_axis_label_font      =>'::',
+  p_x_axis_major_interval  =>null,
+  p_x_axis_minor_interval  =>null,
+  p_y_axis_title           =>'',
+  p_y_axis_min             =>null,
+  p_y_axis_max             =>null,
+  p_y_axis_decimal_place   =>null,
+  p_y_axis_prefix          =>'',
+  p_y_axis_postfix         =>'',
+  p_y_axis_label_rotation  =>'',
+  p_y_axis_label_font      =>'::',
+  p_y_axis_major_interval  =>null,
+  p_y_axis_minor_interval  =>null,
+  p_async_update           =>'N',
+  p_async_time             =>null,
+  p_legend_title           =>'',
+  p_legend_title_font      =>'',
+  p_names_font             => null,
+  p_names_rotation         => null,
+  p_values_font            =>'Arial:10:#000000',
+  p_values_rotation        =>null,
+  p_values_prefix          =>'',
+  p_values_postfix         =>'',
+  p_hints_font             =>'Tahoma:10:#000000',
+  p_legend_font            =>'Arial:10:#000000',
+  p_grid_labels_font       =>'',
+  p_chart_title_font       =>'Tahoma:14:#000000',
+  p_x_axis_title_font      =>'Tahoma:14:',
+  p_x_axis_title_rotation  =>'',
+  p_y_axis_title_font      =>'Tahoma:14:',
+  p_y_axis_title_rotation  =>'',
+  p_gauge_labels_font      =>'Tahoma:10:',
+  p_use_chart_xml          =>'N',
+  p_chart_xml              => a1);
+end;
+/
+declare
+ a1 varchar2(32767) := null;
+begin
+a1:=a1||'select null LINK, b.nombre LABEL, litros_a_hectolitros(produccion_bodega_en(b.id, :P2_ANIO)) VALUE'||chr(10)||
+'from Bodega b, B_DO bdo, Region r'||chr(10)||
+'where r.fk_pais = :P2_PAIS'||chr(10)||
+'and bdo.fk_do_region = r.id'||chr(10)||
+'and b.id = bdo.fk_bodega'||chr(10)||
+'group by b.id, b.nombre';
+
+wwv_flow_api.create_flash_chart5_series(
+  p_id => 4991128059566087+wwv_flow_api.g_id_offset,
+  p_chart_id => 4991006142566086+wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_series_seq                =>10,
+  p_series_name               =>'Series 1',
+  p_series_query              => a1,
+  p_series_type               =>'',
+  p_series_query_type         =>'SQL_QUERY',
+  p_series_query_parse_opt    =>'PARSE_CHART_QUERY',
+  p_series_query_no_data_found=>'No data found.',
+  p_series_query_row_count_max=>15,
+  p_action_link               =>'',
+  p_show_action_link          =>'N',
+  p_action_link_checksum_type =>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'||chr(10)||
+'    codebase="#HOST_PROTOCOL#://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"'||chr(10)||
+'    width="#WIDTH#"'||chr(10)||
+'    height="#HEIGHT#"'||chr(10)||
+'    id="#CHART_NAME#"'||chr(10)||
+'    align="top">'||chr(10)||
+'<param name="movie" value="#IMAGE_PREFIX#flashchart/anychart_5/swf/#CHART_TYPE#.swf?XMLFile=#HOST#apex_util.flash?p=&APP_ID.:&FLOW_PAGE_ID.:&APP_SES';
+
+s:=s||'SION.:FLOW_FLASH_CHART5_R#REGION_ID#">'||chr(10)||
+'<param name="quality" value="high">'||chr(10)||
+'<param name="allowScriptAccess" value="sameDomain">'||chr(10)||
+'<param name="allowNetworking" value="all">'||chr(10)||
+'<param name="scale" value="noscale">'||chr(10)||
+'<param name="wmode" value="transparent">'||chr(10)||
+'<param name="FlashVars" value="initText=#FLASH_INIT#&xmlLoadingText=#FLASH_LOADING#&resourcesLoadingText=#FLASH_RESOURCES#&noDataText=#FLASH_NO_DATA#&wa';
+
+s:=s||'itingForDataText=#FLASH_WAITING#&templatesLoadingText=#FLASH_TEMPLATES#">'||chr(10)||
+''||chr(10)||
+'<embed src="#IMAGE_PREFIX#flashchart/anychart_5/swf/#CHART_TYPE#.swf?XMLFile=#HOST#apex_util.flash?p=&APP_ID.:&FLOW_PAGE_ID.:&APP_SESSION.:FLOW_FLASH_CHART5_R#REGION_ID#"'||chr(10)||
+'       quality="high"'||chr(10)||
+'       width="#WIDTH#"'||chr(10)||
+'       height="#HEIGHT#"'||chr(10)||
+'       name="#CHART_NAME#"'||chr(10)||
+'       scale="noscale"'||chr(10)||
+'       align=""'||chr(10)||
+'       allowScript';
+
+s:=s||'Access="sameDomain" '||chr(10)||
+'       allowNetworking="all"'||chr(10)||
+'       type="application/x-shockwave-flash"'||chr(10)||
+'       pluginspage="#HOST_PROTOCOL#://www.macromedia.com/go/getflashplayer"'||chr(10)||
+'       wmode="transparent"'||chr(10)||
+'       FlashVars="initText=#FLASH_INIT#&xmlLoadingText=#FLASH_LOADING#&resourcesLoadingText=#FLASH_RESOURCES#&noDataText=#FLASH_NO_DATA#&waitingForDataText=#FLASH_WAITING#&templatesLoadingText=#FLASH_TEM';
+
+s:=s||'PLATES#">'||chr(10)||
+'</embed>'||chr(10)||
+'</object>'||chr(10)||
+'#CHART_REFRESH#';
+
+wwv_flow_api.create_page_plug (
+  p_id=> 4991524989596000 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 2,
+  p_plug_name=> 'Desglose de exportación por bodega del país (Hectolitros)',
+  p_region_name=>'',
+  p_plug_template=> 4887410716405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 50,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'FLASH_CHART5',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_plug_query_row_count_max => 500,
+  p_plug_display_condition_type => '',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+ a1 varchar2(32767) := null;
+begin
+a1 := null;
+wwv_flow_api.create_flash_chart5(
+  p_id => 4991707195596001+wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id => 2,
+  p_region_id => 4991524989596000+wwv_flow_api.g_id_offset,
+  p_default_chart_type     =>'2DPie',
+  p_chart_title            =>'',
+  p_chart_name             =>'chart_4991006142566086',
+  p_chart_width            =>500,
+  p_chart_height           =>300,
+  p_chart_animation        =>'N',
+  p_display_attr           =>':H:N:V:::N::V:Y:None:::N:::Default',
+  p_dial_tick_attr         =>':::::::::::',
+  p_gantt_attr             =>'Y:Rhomb:Rhomb:Full:Rhomb:Rhomb:Full:Rhomb:Rhomb:Full:30:15:5:Y:I:N:S:E',
+  p_map_attr               =>'Orthographic:RegionBounds:REGION_NAME',
+  p_map_source             =>'',
+  p_margins                =>':::',
+  p_omit_label_interval    => null,
+  p_bgtype                 =>'Trans',
+  p_bgcolor1               =>'',
+  p_bgcolor2               =>'',
+  p_gradient_rotation      =>null,
+  p_grid_bgtype            =>'',
+  p_grid_bgcolor1          =>'',
+  p_grid_bgcolor2          =>'',
+  p_grid_gradient_rotation =>null,
+  p_color_scheme           =>'1',
+  p_custom_colors          =>'',
+  p_map_undef_color_scheme =>'',
+  p_map_undef_custom_colors =>'',
+  p_x_axis_title           =>'',
+  p_x_axis_min             =>null,
+  p_x_axis_max             =>null,
+  p_x_axis_decimal_place   =>null,
+  p_x_axis_prefix          =>'',
+  p_x_axis_postfix         =>'',
+  p_x_axis_label_rotation  =>'',
+  p_x_axis_label_font      =>'::',
+  p_x_axis_major_interval  =>null,
+  p_x_axis_minor_interval  =>null,
+  p_y_axis_title           =>'',
+  p_y_axis_min             =>null,
+  p_y_axis_max             =>null,
+  p_y_axis_decimal_place   =>null,
+  p_y_axis_prefix          =>'',
+  p_y_axis_postfix         =>'',
+  p_y_axis_label_rotation  =>'',
+  p_y_axis_label_font      =>'::',
+  p_y_axis_major_interval  =>null,
+  p_y_axis_minor_interval  =>null,
+  p_async_update           =>'N',
+  p_async_time             =>null,
+  p_legend_title           =>'',
+  p_legend_title_font      =>'',
+  p_names_font             => null,
+  p_names_rotation         => null,
+  p_values_font            =>'Arial:10:#000000',
+  p_values_rotation        =>null,
+  p_values_prefix          =>'',
+  p_values_postfix         =>'',
+  p_hints_font             =>'Tahoma:10:#000000',
+  p_legend_font            =>'Arial:10:#000000',
+  p_grid_labels_font       =>'',
+  p_chart_title_font       =>'Tahoma:14:#000000',
+  p_x_axis_title_font      =>'Tahoma:14:',
+  p_x_axis_title_rotation  =>'',
+  p_y_axis_title_font      =>'Tahoma:14:',
+  p_y_axis_title_rotation  =>'',
+  p_gauge_labels_font      =>'Tahoma:10:',
+  p_use_chart_xml          =>'N',
+  p_chart_xml              => a1);
+end;
+/
+declare
+ a1 varchar2(32767) := null;
+begin
+a1:=a1||'select null LINK, b.nombre LABEL, litros_a_hectolitros(exportacion_bodega_en(b.id, :P2_ANIO)) VALUE'||chr(10)||
+'from Bodega b, B_DO bdo, Region r'||chr(10)||
+'where r.fk_pais = :P2_PAIS'||chr(10)||
+'and bdo.fk_do_region = r.id'||chr(10)||
+'and b.id = bdo.fk_bodega'||chr(10)||
+'group by b.id, b.nombre';
+
+wwv_flow_api.create_flash_chart5_series(
+  p_id => 4991828737596001+wwv_flow_api.g_id_offset,
+  p_chart_id => 4991707195596001+wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_series_seq                =>10,
+  p_series_name               =>'Series 1',
+  p_series_query              => a1,
+  p_series_type               =>'',
+  p_series_query_type         =>'SQL_QUERY',
+  p_series_query_parse_opt    =>'PARSE_CHART_QUERY',
+  p_series_query_no_data_found=>'No data found.',
+  p_series_query_row_count_max=>15,
+  p_action_link               =>'',
+  p_show_action_link          =>'N',
+  p_action_link_checksum_type =>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'||chr(10)||
+'    codebase="#HOST_PROTOCOL#://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"'||chr(10)||
+'    width="#WIDTH#"'||chr(10)||
+'    height="#HEIGHT#"'||chr(10)||
+'    id="#CHART_NAME#"'||chr(10)||
+'    align="top">'||chr(10)||
+'<param name="movie" value="#IMAGE_PREFIX#flashchart/anychart_5/swf/#CHART_TYPE#.swf?XMLFile=#HOST#apex_util.flash?p=&APP_ID.:&FLOW_PAGE_ID.:&APP_SES';
+
+s:=s||'SION.:FLOW_FLASH_CHART5_R#REGION_ID#">'||chr(10)||
+'<param name="quality" value="high">'||chr(10)||
+'<param name="allowScriptAccess" value="sameDomain">'||chr(10)||
+'<param name="allowNetworking" value="all">'||chr(10)||
+'<param name="scale" value="noscale">'||chr(10)||
+'<param name="wmode" value="transparent">'||chr(10)||
+'<param name="FlashVars" value="initText=#FLASH_INIT#&xmlLoadingText=#FLASH_LOADING#&resourcesLoadingText=#FLASH_RESOURCES#&noDataText=#FLASH_NO_DATA#&wa';
+
+s:=s||'itingForDataText=#FLASH_WAITING#&templatesLoadingText=#FLASH_TEMPLATES#">'||chr(10)||
+''||chr(10)||
+'<embed src="#IMAGE_PREFIX#flashchart/anychart_5/swf/#CHART_TYPE#.swf?XMLFile=#HOST#apex_util.flash?p=&APP_ID.:&FLOW_PAGE_ID.:&APP_SESSION.:FLOW_FLASH_CHART5_R#REGION_ID#"'||chr(10)||
+'       quality="high"'||chr(10)||
+'       width="#WIDTH#"'||chr(10)||
+'       height="#HEIGHT#"'||chr(10)||
+'       name="#CHART_NAME#"'||chr(10)||
+'       scale="noscale"'||chr(10)||
+'       align=""'||chr(10)||
+'       allowScript';
+
+s:=s||'Access="sameDomain" '||chr(10)||
+'       allowNetworking="all"'||chr(10)||
+'       type="application/x-shockwave-flash"'||chr(10)||
+'       pluginspage="#HOST_PROTOCOL#://www.macromedia.com/go/getflashplayer"'||chr(10)||
+'       wmode="transparent"'||chr(10)||
+'       FlashVars="initText=#FLASH_INIT#&xmlLoadingText=#FLASH_LOADING#&resourcesLoadingText=#FLASH_RESOURCES#&noDataText=#FLASH_NO_DATA#&waitingForDataText=#FLASH_WAITING#&templatesLoadingText=#FLASH_TEM';
+
+s:=s||'PLATES#">'||chr(10)||
+'</embed>'||chr(10)||
+'</object>'||chr(10)||
+'#CHART_REFRESH#';
+
+wwv_flow_api.create_page_plug (
+  p_id=> 4992131447664118 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 2,
+  p_plug_name=> 'Desglose de producción por marca del país (Hectolitros)',
+  p_region_name=>'',
+  p_plug_template=> 4887410716405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 60,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'FLASH_CHART5',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_plug_query_row_count_max => 500,
+  p_plug_display_condition_type => '',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+ a1 varchar2(32767) := null;
+begin
+a1 := null;
+wwv_flow_api.create_flash_chart5(
+  p_id => 4992324171664120+wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id => 2,
+  p_region_id => 4992131447664118+wwv_flow_api.g_id_offset,
+  p_default_chart_type     =>'2DPie',
+  p_chart_title            =>'',
+  p_chart_name             =>'chart_4991006142566086',
+  p_chart_width            =>500,
+  p_chart_height           =>300,
+  p_chart_animation        =>'N',
+  p_display_attr           =>':H:N:V:::N::V:Y:None:::N:::Default',
+  p_dial_tick_attr         =>':::::::::::',
+  p_gantt_attr             =>'Y:Rhomb:Rhomb:Full:Rhomb:Rhomb:Full:Rhomb:Rhomb:Full:30:15:5:Y:I:N:S:E',
+  p_map_attr               =>'Orthographic:RegionBounds:REGION_NAME',
+  p_map_source             =>'',
+  p_margins                =>':::',
+  p_omit_label_interval    => null,
+  p_bgtype                 =>'Trans',
+  p_bgcolor1               =>'',
+  p_bgcolor2               =>'',
+  p_gradient_rotation      =>null,
+  p_grid_bgtype            =>'',
+  p_grid_bgcolor1          =>'',
+  p_grid_bgcolor2          =>'',
+  p_grid_gradient_rotation =>null,
+  p_color_scheme           =>'1',
+  p_custom_colors          =>'',
+  p_map_undef_color_scheme =>'',
+  p_map_undef_custom_colors =>'',
+  p_x_axis_title           =>'',
+  p_x_axis_min             =>null,
+  p_x_axis_max             =>null,
+  p_x_axis_decimal_place   =>null,
+  p_x_axis_prefix          =>'',
+  p_x_axis_postfix         =>'',
+  p_x_axis_label_rotation  =>'',
+  p_x_axis_label_font      =>'::',
+  p_x_axis_major_interval  =>null,
+  p_x_axis_minor_interval  =>null,
+  p_y_axis_title           =>'',
+  p_y_axis_min             =>null,
+  p_y_axis_max             =>null,
+  p_y_axis_decimal_place   =>null,
+  p_y_axis_prefix          =>'',
+  p_y_axis_postfix         =>'',
+  p_y_axis_label_rotation  =>'',
+  p_y_axis_label_font      =>'::',
+  p_y_axis_major_interval  =>null,
+  p_y_axis_minor_interval  =>null,
+  p_async_update           =>'N',
+  p_async_time             =>null,
+  p_legend_title           =>'',
+  p_legend_title_font      =>'',
+  p_names_font             => null,
+  p_names_rotation         => null,
+  p_values_font            =>'Arial:10:#000000',
+  p_values_rotation        =>null,
+  p_values_prefix          =>'',
+  p_values_postfix         =>'',
+  p_hints_font             =>'Tahoma:10:#000000',
+  p_legend_font            =>'Arial:10:#000000',
+  p_grid_labels_font       =>'',
+  p_chart_title_font       =>'Tahoma:14:#000000',
+  p_x_axis_title_font      =>'Tahoma:14:',
+  p_x_axis_title_rotation  =>'',
+  p_y_axis_title_font      =>'Tahoma:14:',
+  p_y_axis_title_rotation  =>'',
+  p_gauge_labels_font      =>'Tahoma:10:',
+  p_use_chart_xml          =>'N',
+  p_chart_xml              => a1);
+end;
+/
+declare
+ a1 varchar2(32767) := null;
+begin
+a1:=a1||'select null link, mv.nombre label, litros_a_hectolitros(produccion_marca_en(mv.id, :P2_ANIO)) value'||chr(10)||
+'from Bodega b, B_DO bdo, Region r, MarcaVino mv, MarcaVino_B_DO mvbdo'||chr(10)||
+'where r.fk_pais = :P2_PAIS'||chr(10)||
+'and bdo.fk_do_region = r.id'||chr(10)||
+'and b.id = bdo.fk_bodega'||chr(10)||
+'and mvbdo.fk_b_do = bdo.id'||chr(10)||
+'and mvbdo.fk_bodega = b.id'||chr(10)||
+'and mvbdo.fk_denominaciondeorigen = bdo.fk_do_id'||chr(10)||
+'and mvbdo.fk_do_VariedadVid = bdo.fk_do_varieda';
+
+a1:=a1||'dvid'||chr(10)||
+'and mvbdo.fk_do_region = bdo.fk_do_region'||chr(10)||
+'and mv.id = mvbdo.fk_marcavino'||chr(10)||
+'and mv.fk_clasificacionvinos = mvbdo.fk_clasificacionvinos'||chr(10)||
+'group by mv.id, mv.nombre';
+
+wwv_flow_api.create_flash_chart5_series(
+  p_id => 4992413295664120+wwv_flow_api.g_id_offset,
+  p_chart_id => 4992324171664120+wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_series_seq                =>10,
+  p_series_name               =>'Series 1',
+  p_series_query              => a1,
+  p_series_type               =>'',
+  p_series_query_type         =>'SQL_QUERY',
+  p_series_query_parse_opt    =>'PARSE_CHART_QUERY',
+  p_series_query_no_data_found=>'No data found.',
+  p_series_query_row_count_max=>15,
+  p_action_link               =>'',
+  p_show_action_link          =>'N',
+  p_action_link_checksum_type =>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'||chr(10)||
+'    codebase="#HOST_PROTOCOL#://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"'||chr(10)||
+'    width="#WIDTH#"'||chr(10)||
+'    height="#HEIGHT#"'||chr(10)||
+'    id="#CHART_NAME#"'||chr(10)||
+'    align="top">'||chr(10)||
+'<param name="movie" value="#IMAGE_PREFIX#flashchart/anychart_5/swf/#CHART_TYPE#.swf?XMLFile=#HOST#apex_util.flash?p=&APP_ID.:&FLOW_PAGE_ID.:&APP_SES';
+
+s:=s||'SION.:FLOW_FLASH_CHART5_R#REGION_ID#">'||chr(10)||
+'<param name="quality" value="high">'||chr(10)||
+'<param name="allowScriptAccess" value="sameDomain">'||chr(10)||
+'<param name="allowNetworking" value="all">'||chr(10)||
+'<param name="scale" value="noscale">'||chr(10)||
+'<param name="wmode" value="transparent">'||chr(10)||
+'<param name="FlashVars" value="initText=#FLASH_INIT#&xmlLoadingText=#FLASH_LOADING#&resourcesLoadingText=#FLASH_RESOURCES#&noDataText=#FLASH_NO_DATA#&wa';
+
+s:=s||'itingForDataText=#FLASH_WAITING#&templatesLoadingText=#FLASH_TEMPLATES#">'||chr(10)||
+''||chr(10)||
+'<embed src="#IMAGE_PREFIX#flashchart/anychart_5/swf/#CHART_TYPE#.swf?XMLFile=#HOST#apex_util.flash?p=&APP_ID.:&FLOW_PAGE_ID.:&APP_SESSION.:FLOW_FLASH_CHART5_R#REGION_ID#"'||chr(10)||
+'       quality="high"'||chr(10)||
+'       width="#WIDTH#"'||chr(10)||
+'       height="#HEIGHT#"'||chr(10)||
+'       name="#CHART_NAME#"'||chr(10)||
+'       scale="noscale"'||chr(10)||
+'       align=""'||chr(10)||
+'       allowScript';
+
+s:=s||'Access="sameDomain" '||chr(10)||
+'       allowNetworking="all"'||chr(10)||
+'       type="application/x-shockwave-flash"'||chr(10)||
+'       pluginspage="#HOST_PROTOCOL#://www.macromedia.com/go/getflashplayer"'||chr(10)||
+'       wmode="transparent"'||chr(10)||
+'       FlashVars="initText=#FLASH_INIT#&xmlLoadingText=#FLASH_LOADING#&resourcesLoadingText=#FLASH_RESOURCES#&noDataText=#FLASH_NO_DATA#&waitingForDataText=#FLASH_WAITING#&templatesLoadingText=#FLASH_TEM';
+
+s:=s||'PLATES#">'||chr(10)||
+'</embed>'||chr(10)||
+'</object>'||chr(10)||
+'#CHART_REFRESH#';
+
+wwv_flow_api.create_page_plug (
+  p_id=> 4992622621699363 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 2,
+  p_plug_name=> 'Desglose de exportación por marca del país (Hectolitros)',
+  p_region_name=>'',
+  p_plug_template=> 4887410716405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 70,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'FLASH_CHART5',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_plug_query_row_count_max => 500,
+  p_plug_display_condition_type => '',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+ a1 varchar2(32767) := null;
+begin
+a1 := null;
+wwv_flow_api.create_flash_chart5(
+  p_id => 4992813578699366+wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id => 2,
+  p_region_id => 4992622621699363+wwv_flow_api.g_id_offset,
+  p_default_chart_type     =>'2DPie',
+  p_chart_title            =>'',
+  p_chart_name             =>'chart_4991006142566086',
+  p_chart_width            =>500,
+  p_chart_height           =>300,
+  p_chart_animation        =>'N',
+  p_display_attr           =>':H:N:V:::N::V:Y:None:::N:::Default',
+  p_dial_tick_attr         =>':::::::::::',
+  p_gantt_attr             =>'Y:Rhomb:Rhomb:Full:Rhomb:Rhomb:Full:Rhomb:Rhomb:Full:30:15:5:Y:I:N:S:E',
+  p_map_attr               =>'Orthographic:RegionBounds:REGION_NAME',
+  p_map_source             =>'',
+  p_margins                =>':::',
+  p_omit_label_interval    => null,
+  p_bgtype                 =>'Trans',
+  p_bgcolor1               =>'',
+  p_bgcolor2               =>'',
+  p_gradient_rotation      =>null,
+  p_grid_bgtype            =>'',
+  p_grid_bgcolor1          =>'',
+  p_grid_bgcolor2          =>'',
+  p_grid_gradient_rotation =>null,
+  p_color_scheme           =>'1',
+  p_custom_colors          =>'',
+  p_map_undef_color_scheme =>'',
+  p_map_undef_custom_colors =>'',
+  p_x_axis_title           =>'',
+  p_x_axis_min             =>null,
+  p_x_axis_max             =>null,
+  p_x_axis_decimal_place   =>null,
+  p_x_axis_prefix          =>'',
+  p_x_axis_postfix         =>'',
+  p_x_axis_label_rotation  =>'',
+  p_x_axis_label_font      =>'::',
+  p_x_axis_major_interval  =>null,
+  p_x_axis_minor_interval  =>null,
+  p_y_axis_title           =>'',
+  p_y_axis_min             =>null,
+  p_y_axis_max             =>null,
+  p_y_axis_decimal_place   =>null,
+  p_y_axis_prefix          =>'',
+  p_y_axis_postfix         =>'',
+  p_y_axis_label_rotation  =>'',
+  p_y_axis_label_font      =>'::',
+  p_y_axis_major_interval  =>null,
+  p_y_axis_minor_interval  =>null,
+  p_async_update           =>'N',
+  p_async_time             =>null,
+  p_legend_title           =>'',
+  p_legend_title_font      =>'',
+  p_names_font             => null,
+  p_names_rotation         => null,
+  p_values_font            =>'Arial:10:#000000',
+  p_values_rotation        =>null,
+  p_values_prefix          =>'',
+  p_values_postfix         =>'',
+  p_hints_font             =>'Tahoma:10:#000000',
+  p_legend_font            =>'Arial:10:#000000',
+  p_grid_labels_font       =>'',
+  p_chart_title_font       =>'Tahoma:14:#000000',
+  p_x_axis_title_font      =>'Tahoma:14:',
+  p_x_axis_title_rotation  =>'',
+  p_y_axis_title_font      =>'Tahoma:14:',
+  p_y_axis_title_rotation  =>'',
+  p_gauge_labels_font      =>'Tahoma:10:',
+  p_use_chart_xml          =>'N',
+  p_chart_xml              => a1);
+end;
+/
+declare
+ a1 varchar2(32767) := null;
+begin
+a1:=a1||'select null link, mv.nombre label, litros_a_hectolitros(exportacion_marca_en(mv.id, :P2_ANIO)) value'||chr(10)||
+'from Bodega b, B_DO bdo, Region r, MarcaVino mv, MarcaVino_B_DO mvbdo'||chr(10)||
+'where r.fk_pais = :P2_PAIS'||chr(10)||
+'and bdo.fk_do_region = r.id'||chr(10)||
+'and b.id = bdo.fk_bodega'||chr(10)||
+'and mvbdo.fk_b_do = bdo.id'||chr(10)||
+'and mvbdo.fk_bodega = b.id'||chr(10)||
+'and mvbdo.fk_denominaciondeorigen = bdo.fk_do_id'||chr(10)||
+'and mvbdo.fk_do_VariedadVid = bdo.fk_do_varied';
+
+a1:=a1||'advid'||chr(10)||
+'and mvbdo.fk_do_region = bdo.fk_do_region'||chr(10)||
+'and mv.id = mvbdo.fk_marcavino'||chr(10)||
+'and mv.fk_clasificacionvinos = mvbdo.fk_clasificacionvinos'||chr(10)||
+'group by mv.id, mv.nombre';
+
+wwv_flow_api.create_flash_chart5_series(
+  p_id => 4992910150699368+wwv_flow_api.g_id_offset,
+  p_chart_id => 4992813578699366+wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_series_seq                =>10,
+  p_series_name               =>'Series 1',
+  p_series_query              => a1,
+  p_series_type               =>'',
+  p_series_query_type         =>'SQL_QUERY',
+  p_series_query_parse_opt    =>'PARSE_CHART_QUERY',
+  p_series_query_no_data_found=>'No data found.',
+  p_series_query_row_count_max=>15,
+  p_action_link               =>'',
+  p_show_action_link          =>'N',
+  p_action_link_checksum_type =>'');
+end;
+/
+ 
+begin
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+null;
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4986918500424286 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 2,
+  p_name=>'PPP_GO',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 60,
+  p_item_plug_id => 4987531289427440+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default=> 'Submit',
+  p_prompt=>'Go',
+  p_source=>'Submit',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'BUTTON',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> null,
+  p_cMaxlength=> 2000,
+  p_cHeight=> null,
+  p_begin_on_new_line=> 'NO',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT',
+  p_is_persistent=> 'N',
+  p_button_execute_validations=>'Y',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4989517399470807 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 2,
+  p_name=>'P2_PAIS',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 30,
+  p_item_plug_id => 4987531289427440+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'País',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_SELECT_LIST',
+  p_lov=> 'select nombre, id from Pais',
+  p_lov_display_null=> 'YES',
+  p_lov_translated=> 'N',
+  p_lov_null_text=>'',
+  p_lov_null_value=> '',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892803899405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_attribute_01 => 'NONE',
+  p_attribute_02 => 'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4989906448477036 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 2,
+  p_name=>'P2_ANIO',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 40,
+  p_item_plug_id => 4987531289427440+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Año',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_NUMBER_FIELD',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 5,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892803899405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_03 => 'right',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+ 
+begin
+ 
+---------------------------------------
+-- ...updatable report columns for page 2
 --
  
 begin
@@ -1550,7 +2970,7 @@ wwv_flow_api.create_page (
  ,p_include_apex_css_js_yn => 'Y'
  ,p_cache_page_yn => 'N'
  ,p_last_updated_by => 'WINE_USER'
- ,p_last_upd_yyyymmddhh24miss => '20181215093625'
+ ,p_last_upd_yyyymmddhh24miss => '20181216200031'
   );
 null;
  
@@ -1570,7 +2990,7 @@ wwv_flow_api.create_page_plug (
   p_plug_name=> 'Ficha marca de vino',
   p_region_name=>'',
   p_plug_template=> 4888504559405499+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 10,
+  p_plug_display_sequence=> 20,
   p_plug_display_column=> 1,
   p_plug_display_point=> 'REGION_POSITION_01',
   p_plug_source=> s,
@@ -2384,6 +3804,39 @@ wwv_flow_api.create_report_columns (
   p_column_comment=>'');
 end;
 /
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4993230848720654 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 6,
+  p_plug_name=> 'Input_contenedor',
+  p_region_name=>'',
+  p_plug_template=> 4886714017405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 10,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'REGION_POSITION_01',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
  
 begin
  
@@ -2475,8 +3928,8 @@ wwv_flow_api.create_page_item(
   p_data_type=> 'VARCHAR',
   p_is_required=> true,
   p_accept_processing=> 'REPLACE_EXISTING',
-  p_item_sequence=> 20,
-  p_item_plug_id => 4939716223421460+wwv_flow_api.g_id_offset,
+  p_item_sequence=> 10,
+  p_item_plug_id => 4993230848720654+wwv_flow_api.g_id_offset,
   p_use_cache_before_default=> 'YES',
   p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
   p_prompt=>'Seleccionar marca de vino',
@@ -3086,8 +4539,8 @@ wwv_flow_api.create_page_item(
   p_data_type=> 'VARCHAR',
   p_is_required=> true,
   p_accept_processing=> 'REPLACE_EXISTING',
-  p_item_sequence=> 110,
-  p_item_plug_id => 4939716223421460+wwv_flow_api.g_id_offset,
+  p_item_sequence=> 20,
+  p_item_plug_id => 4993230848720654+wwv_flow_api.g_id_offset,
   p_use_cache_before_default=> 'YES',
   p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
   p_prompt=>'Año',
@@ -3130,8 +4583,8 @@ wwv_flow_api.create_page_item(
   p_data_type=> 'VARCHAR',
   p_is_required=> false,
   p_accept_processing=> 'REPLACE_EXISTING',
-  p_item_sequence=> 120,
-  p_item_plug_id => 4939716223421460+wwv_flow_api.g_id_offset,
+  p_item_sequence=> 30,
+  p_item_plug_id => 4993230848720654+wwv_flow_api.g_id_offset,
   p_use_cache_before_default=> 'NO',
   p_item_default=> 'Go',
   p_prompt=>'Actualizar',
