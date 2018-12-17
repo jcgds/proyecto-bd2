@@ -475,7 +475,7 @@ begin
 end;
 /
 
-create or replace procedure mostrar_organizadores(idConcurso number) 
+create or replace procedure mostrar_organizadores(idConcurso number)
 as
 begin
 
@@ -487,7 +487,7 @@ begin
         where oc.fk_concurso = idConcurso
         and og.id = oc.fk_organizador
     ) loop
-      
+
         DBMS_OUTPUT.PUT_LINE('Nombre organizador: ' || org.nombre);
     end loop;
 
@@ -534,7 +534,7 @@ create or replace procedure insertar_calendario(
 ) as
     nombreJuez varchar2(100);
 begin
-    
+
     if (p_fechaFin < p_fechaInicio) then
         RAISE_APPLICATION_ERROR(-20106, 'La fecha fin no puede ser antes que la fecha de inicio');
     end if;
@@ -549,9 +549,9 @@ begin
 
     begin
         select ce.nombre || ' ' || ce.apellido into nombreJuez
-        from catadorExperto ce 
+        from catadorExperto ce
         where ce.id = p_idCatadorExp;
-    exception 
+    exception
         when NO_DATA_FOUND then
             RAISE_APPLICATION_ERROR(-20105, 'El experto indicado no esta registrado.');
     end;
@@ -588,11 +588,11 @@ create or replace procedure crear_precio_presentacion (
     idMarcaVino number,
     idPresentacion number,
     anio number,
-    precio number    
+    precio number
 ) as
     clasifVino number;
 begin
-    -- TODO: Validacion de anio vs fecha de cosecha?  
+    -- TODO: Validacion de anio vs fecha de cosecha?
     begin
         select fk_clasificacionvinos into clasifVino from MarcaVino where id = idMarcaVino;
     exception
@@ -604,7 +604,7 @@ begin
     end if;
 
     begin
-        insert into HistoricoPrecio values 
+        insert into HistoricoPrecio values
         (anio, idPresentacion, idMarcaVino, clasifVino, precio);
 
         DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
@@ -641,14 +641,14 @@ begin
         distribucion_exp_nt(),
         p_propietario
     );
-    
+
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
     DBMS_OUTPUT.PUT_LINE('Bodega insertada (id = ' || to_char(p_id) || ')');
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 
 end;
 /
-create or replace procedure insertar_costo_a(idEdicion number, p_nroMuestras number, p_valor number, p_unidadValor varchar2, p_pais varchar2) 
+create or replace procedure insertar_costo_a(idEdicion number, p_nroMuestras number, p_valor number, p_unidadValor varchar2, p_pais varchar2)
 as
 begin
 
@@ -700,15 +700,15 @@ end;
 /
 
 create or replace procedure formula_ventana_consumo(idMarcaVino number,idClasificacion number)
-as 
+as
     ventanaAnio number;
     anioFinal number (4,0);
 begin
-    for VentanaConsumo in (select M.ventanaDeConsumoMeses , C.anio from 
+    for VentanaConsumo in (select M.ventanaDeConsumoMeses , C.anio from
                             Cosecha C, MarcaVino_B_DO MB, MarcaVino M
-                            where MB.fk_b_do = C.fk_bdo_id and MB.fk_bodega = C.fk_bdo_bodega and MB.fk_denominaciondeorigen = fk_bdo_do_id 
-                            and MB.fk_do_VariedadVid = C.fk_bdo_do_VariedadVid and MB.fk_do_region = C.fk_bdo_do_region and 
-                            MB.fk_marcavino = idMarcaVino and MB.fk_clasificacionvinos = idClasificacion and 
+                            where MB.fk_b_do = C.fk_bdo_id and MB.fk_bodega = C.fk_bdo_bodega and MB.fk_denominaciondeorigen = fk_bdo_do_id
+                            and MB.fk_do_VariedadVid = C.fk_bdo_do_VariedadVid and MB.fk_do_region = C.fk_bdo_do_region and
+                            MB.fk_marcavino = idMarcaVino and MB.fk_clasificacionvinos = idClasificacion and
                             M.id = MB.fk_marcavino and M.fk_clasificacionvinos = MB.fk_clasificacionvinos) loop
 
         ventanaAnio := trunc(VentanaConsumo.ventanaDeConsumoMeses/12);
@@ -727,14 +727,14 @@ as
     esDeCatadores char(1);
     cont number := 1;
 begin
-    select C.deCatadores into esDeCatadores from Concurso C, Edicion E 
+    select C.deCatadores into esDeCatadores from Concurso C, Edicion E
         where E.id = idEdicion and E.fk_concurso = C.id;
 
     if esDeCatadores = 'N' then
         for resultado in (select avg(C.sumatoria) RP,M.id Mid, I.id Iid, MV.nombre
                             from MuestraCompite M,CataExperto C, Inscripcion I,Edicion E,MarcaVino MV
-                            where M.fk_inscripcion = I.id and I.fk_edicion = E.id and C.fk_muestracompite = M.id and E.id = idEdicion and 
-                            M.fk_marcavino = MV.id and M.fk_clasificacionvinos = MV.fk_clasificacionvinos 
+                            where M.fk_inscripcion = I.id and I.fk_edicion = E.id and C.fk_muestracompite = M.id and E.id = idEdicion and
+                            M.fk_marcavino = MV.id and M.fk_clasificacionvinos = MV.fk_clasificacionvinos
                             group by M.id,I.id,MV.nombre
                             order by avg(sumatoria) desc)
         loop
@@ -744,12 +744,12 @@ begin
             end if;
             cont := cont+1;
         end loop;
-    end if;   
+    end if;
 end;
 /
 
 create or replace function litros_a_hectolitros(litros number )
-return number is 
+return number is
     hectolitros number;
 begin
     hectolitros:= litros/100;
@@ -758,7 +758,7 @@ end;
 /
 
 /* Consulta para sacar la producion en hectolitro por marca
-select t.anio, litros_a_hectolitros(t.valor) as valor 
+select t.anio, litros_a_hectolitros(t.valor) as valor
 from the (select produccionAnual from MarcaVino where id = idMarca)t;
 */
 
@@ -928,3 +928,49 @@ begin
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 end;
 /
+create or replace procedure inscribir_bodega(idBodega number, idEdicion number)
+as
+tipoDeConcurso char(1);
+pid number := ids_seq.nextval;
+begin
+    select c.deCatadores into tipoDeConcurso from Concurso c, Edicion e where e.id = idEdicion and e.fk_concurso = c.id;
+    if tipoDeConcurso = 'S' then
+        RAISE_APPLICATION_ERROR(-20200, 'El concurso al que intenta inscribir una bodega es un concurso de catadores');
+    end if;
+    insert into inscripcion values (pid, CURRENT_DATE, null, idEdicion, idBodega, null);
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Bodega inscrita en la edicion');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+end;
+/
+create or replace procedure inscribir_catador(idCatador number, idEdicion number)
+as
+tipoDeConcurso char(1);
+catadorExiste number :=0 ;
+pid number := ids_seq.nextval;
+begin
+    select c.deCatadores into tipoDeConcurso from Concurso c, Edicion e where e.id = idEdicion and e.fk_concurso = c.id;
+    if tipoDeConcurso = 'N' then
+        RAISE_APPLICATION_ERROR(-20200, 'El concurso al que intenta inscribir un catador es un concurso de bodegas');
+    end if;
+    select count(*) into catadorExiste from CatadorAprendiz where pasaporte = idCatador;
+    if catadorExiste = 0 then
+        RAISE_APPLICATION_ERROR(-20201, 'El catador que intenta inscribir no existe. Por favor registrarlo primero');
+    end if;
+    insert into inscripcion values (pid, CURRENT_DATE, null, idEdicion, null, idCatador);
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Catador inscrito en la edicion');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+end;
+/
+create or replace procedure insertar_catador_aprendiz(pasaporte number, nombre varchar2, apellido varchar2, fecha varchar2, genero varchar2, ciudad varchar2, pais varchar2)
+as
+begin
+    insert into CatadorAprendiz values (pasaporte, nombre, apellido, TO_DATE(fecha, 'DD/MM/YYYY'), genero, lugar(ciudad, pais));
+
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('Catador aprendiz registrado');
+    DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+end;
