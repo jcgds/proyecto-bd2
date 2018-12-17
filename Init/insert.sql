@@ -945,4 +945,96 @@ INSERT INTO CatadorExperto VALUES (
     1
 );
 
+--- Concurso de catadores-----
+
+INSERT INTO Concurso VALUES (
+    2,
+    'Baco Catadores',
+    DATOSDECONTACTO(
+        conj_telefonos(34914293477, 34914291238), 
+        null, 
+        'info@tomelloso.es', 
+        'http://www.tomelloso.es/',
+        direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
+        null
+    ),
+    'Comparativa',
+    'S',
+    premio_nt(),
+    escala_nt(),
+    'La práctica totalidad del atlas vinícola escoge a Baco como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
+);
+
+INSERT INTO Organizador VALUES 
+(51, 'Asociacion de Tomelloso', null);
+
+INSERT INTO Organizador VALUES 
+(52, 'Bodegas Simbolo', null);
+
+INSERT INTO P_O VALUES
+(51, 51, 1);
+
+INSERT INTO P_O VALUES
+(52, 52, 2);
+
+INSERT INTO P_O VALUES
+(53, 52, 4);
+
+
+INSERT INTO Organizador_Concurso VALUES
+(51, 51, 2);
+
+INSERT INTO Organizador_Concurso VALUES
+(52, 52, 2);
+
+INSERT INTO CatadorExperto VALUES (
+    51, 
+    'Romeo', 
+    'Santos', 
+    to_date('09-06-1968', 'DD-MM-YYYY'), 
+    null,
+    hechos_hist_nt(),
+    lugar('Lisboa', 'Portugal'),
+    publicaciones_nt(),
+    'M',
+    2
+);
+
+INSERT INTO CatadorExperto VALUES (
+    52, 
+    'Anuel', 
+    'AA', 
+    to_date('09-06-1978', 'DD-MM-YYYY'), 
+    null,
+    hechos_hist_nt(),
+    lugar('Lisboa', 'Portugal'),
+    publicaciones_nt(),
+    'M',
+    4
+);
+
+insert into Edicion values(
+51,
+null,
+TO_DATE('12-06-2018', 'DD-MM-YYYY'),
+null,
+TO_DATE('12-06-2018', 'DD-MM-YYYY'),
+TO_DATE('12-06-2018', 'DD-MM-YYYY'),
+null,
+direccion('Hermanus', '7200', '2 Harbour Rd', null),
+costoInscripcion_nt(),
+lugar('test','test2'),
+unidadMonetaria('Rand Sudafricano', 'R'),
+null,
+DATOSDECONTACTO(
+        conj_telefonos(270832355748,4740000787), 
+        null, 
+        'customerservice@crystallumwines.com', 
+        'http://www.crystallumwines.com/',
+        direccion('Hermanus', '7200', '2 Harbour Rd', null),
+        personasDeContacto(personaDeContacto('David','Nel','Sales','steele.nel@gmail.com'))
+),
+2
+);
+
 commit;
