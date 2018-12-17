@@ -789,14 +789,28 @@ begin
 end;
 /
 
+create or replace function premio_para_posicion(idConcurso number, p_posicion number)
+return premio is
+    result premio;
+begin
+    select premio(nt.nombre, nt.posicion, nt.descripcion, nt.tipo, nt.premioMoneda) into result 
+    from the (select premios from Concurso where id = idConcurso) nt
+    where nt.posicion = p_posicion;
+    return result;
+end;
+/
+
 create or replace procedure resultados_concurso (idEdicion number)
 as
     esDeCatadores char(1);
+    idConcurso number;
     cont number := 1;
+    premioHolder premio;
 begin
-    select C.deCatadores into esDeCatadores from Concurso C, Edicion E
+    select C.deCatadores, C.id into esDeCatadores, idConcurso from Concurso C, Edicion E
         where E.id = idEdicion and E.fk_concurso = C.id;
 
+    DBMS_OUTPUT.PUT_LINE('Id concurso: ' || to_char(idConcurso));
     if esDeCatadores = 'N' then
         DBMS_OUTPUT.PUT_LINE('Concurso de vinos');
         for resultado in (select avg(C.sumatoria) RP,M.id Mid, I.id Iid, MV.nombre
@@ -806,14 +820,20 @@ begin
                             group by M.id,I.id,MV.nombre
                             order by avg(sumatoria) desc)
         loop
-            -- TODO: Cambiar esto por funcion que devuelva el premio correspondiente a la posicion
-            -- obtener_premio(idConcurso, posicion)
-            -- En este caso la llamada seria que si obtener_premio([idConcurso], cont)
-            if cont <= 3 then
-                DBMS_OUTPUT.PUT_LINE('Resultado Promedio: ' || to_char(resultado.RP) || ' Posicion : ' || to_char(cont)|| ' Nombre del vino: ' || resultado.nombre);
-                -- TODO: Insertar premios al NT de la MuestraCompite
+            begin
+                premioHolder := premio_para_posicion(idConcurso, cont);
+                DBMS_OUTPUT.PUT_LINE('Resultado Promedio: ' || to_char(resultado.RP, '999,999') || '| Posicion : ' || to_char(cont)|| ' | Nombre del vino: ' || resultado.nombre || ' (MuestraCompite id = ' || to_char(resultado.Mid) || ')');
+
+                -- TODO: Tal vez esto deberia llamar a un procedure que asigne el premio y valide que ya no lo tenga, pero creo que si se puede repetir
+                INSERT INTO THE (select premio from MuestraCompite where id = resultado.Mid and fk_inscripcion = resultado.Iid)
+                VALUES (premio(premioHolder.nombre, premioHolder.posicion, premioHolder.descripcion, premioHolder.tipo, premioHolder.premioMoneda));
+
                 DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
-            end if;
+            exception
+              when no_data_found then
+                DBMS_OUTPUT.PUT_LINE('');
+            end;
+           
             cont := cont+1;
         end loop;
     end if;
