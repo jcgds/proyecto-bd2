@@ -929,8 +929,19 @@ INSERT INTO Concurso VALUES (
     ),
     'A ciegas',
     'N',
-    premio_nt(),
-    escala_nt(),
+    premio_nt(
+        premio('Gran Bacchus de oro', 1, null, 'Medalla', null),     
+        premio('Bacchus de oro', 2, null, 'Medalla', null),
+        premio('Bacchus de plata', 3, null, 'Medalla', null)
+    ),
+    escala_nt(
+        escala('Fase visual', 0, 9, null),      
+        escala('Fase olfativa', 0, 18, 'Intensidad'),
+        escala('Fase olfativa', 0, 18, 'Calidad'),
+        escala('Fase gustativa', 0, 18, 'Intensidad'),
+        escala('Fase gustativa', 0, 27, 'Calidad'),
+        escala('Armonia', 0, 27, null)
+    ),
     'La práctica totalidad del atlas vinícola escoge a Bacchus como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
 );
 
@@ -1011,6 +1022,41 @@ INSERT INTO CatadorExperto VALUES (
     1
 );
 
+INSERT INTO CatadorExperto VALUES (
+    2, 
+    'Robert', 
+    'Parker', 
+    to_date('23-07-1947', 'DD-MM-YYYY'), 
+    null,
+    hechos_hist_nt(),
+    lugar('Baltimore', 'Estados Unidos'),
+    publicaciones_nt(
+        'Parker''s wine buyer''s guide',
+        'Parker''s wine bargains',
+        'The wine''s advocate'
+    ),
+    'M',
+    4
+);
+
+INSERT INTO CatadorExperto VALUES (
+    3, 
+    'Steve', 
+    'Spurrier', 
+    to_date('12-02-1941', 'DD-MM-YYYY'), 
+    null,
+    hechos_hist_nt(),
+    lugar('London', 'United Kingdom'),
+    publicaciones_nt(
+        'The Academie Du Vin Guide to French Wines',
+        'How to Buy Fine Wines',
+        'Academie Du Vin Wine Course',
+        'Clarke and Spurrier''s Fine Wine Guide'
+    ),
+    'M',
+    2
+);
+
 INSERT INTO Edicion VALUES  (
     1,
     datosBancarios(
@@ -1019,10 +1065,10 @@ INSERT INTO Edicion VALUES  (
         'ES78 2100 2254 10 0200151989',
         'CAIXESBBXXX'
     ),
-    to_date('20-02-2019', 'DD-MM-YYYY'),
-    to_date('22-02-2019', 'DD-MM-YYYY'),
-    to_date('07-03-2019', 'DD-MM-YYYY'),
-    to_date('11-03-2019', 'DD-MM-YYYY'),
+    to_date('20-02-2018', 'DD-MM-YYYY'),
+    to_date('22-02-2018', 'DD-MM-YYYY'),
+    to_date('07-03-2018', 'DD-MM-YYYY'),
+    to_date('11-03-2018', 'DD-MM-YYYY'),
     128,
     direccion(
         'Madrid',
@@ -1031,36 +1077,12 @@ INSERT INTO Edicion VALUES  (
         '28320 PINTO (Madrid), Espana'
     ),
     costoInscripcion_nt(
-        costoInscripcion(
-            1,
-            150,
-            'Espana'
-        ),
-        costoInscripcion(
-            2,
-            298,
-            'Espana'
-        ),
-        costoInscripcion(
-            3,
-            443,
-            'Espana'
-        ),
-        costoInscripcion(
-            1,
-            124,
-            'Resto de Europa'
-        ),
-        costoInscripcion(
-            2,
-            246,
-            'Resto de Europa'
-        ),
-        costoInscripcion(
-            3,
-            366,
-            'Resto de Europa'
-        )
+        costoInscripcion(1,150,'Espana'),
+        costoInscripcion(2,298,'Espana'),
+        costoInscripcion(3,443,'Espana'),
+        costoInscripcion(1,124,'Resto de Europa'),
+        costoInscripcion(2,246,'Resto de Europa'),
+        costoInscripcion(3,366,'Resto de Europa')
     ),
     lugar('Madrid', 'Espana'),
     unidadMonetaria('Euro', 'EUR'),
@@ -1075,5 +1097,196 @@ INSERT INTO Edicion VALUES  (
     ),
     1
 );
+
+insert into Juez values (1, 1);
+insert into Juez values (2, 1);
+insert into Juez values (3, 1);
+
+insert into Inscripcion values (
+    1,
+    to_date('10-02-2018', 'DD-MM-YYYY'),
+    null,
+    1,
+    4,
+    null
+);
+
+insert into Inscripcion values (
+    2,
+    to_date('12-02-2018', 'DD-MM-YYYY'),
+    null,
+    1,
+    54,
+    null
+);
+
+insert into Inscripcion values (
+    3,
+    to_date('08-02-2018', 'DD-MM-YYYY'),
+    null,
+    1,
+    51,
+    null
+);
+
+-- Justinos Tinta Negra en Bacchus 2019
+insert into MuestraCompite values (
+    1,
+    5,
+    18,
+    1,
+    2016,
+    premio_nt()
+);
+
+--  Crystallum The Agnes Chardonnay en Bacchus 2019
+insert into MuestraCompite values (
+    2,
+    57,
+    13,
+    2,
+    2016,
+    premio_nt()
+);
+
+-- Opus One Overture en Bacchus 2019
+insert into MuestraCompite values (
+    3,
+    51,
+    16,
+    3,
+    2017,
+    premio_nt()
+);
+
+
+insert into CataExperto values (
+    1,
+    to_date('08-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 9, 'Excelente reflejo de luz'),
+        valoracion('Fase olfativa', 26, 'Buena intensidad pobre calidad'),
+        valoracion('Fase gustativa', 45, 'Muy sabroso'),
+        valoracion('Armonia', 18, null)
+    ),
+    null,
+    1,
+    1
+);
+insert into CataExperto values (
+    2,
+    to_date('08-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 9, null),
+        valoracion('Fase olfativa', 23, null),
+        valoracion('Fase gustativa', 40, null),
+        valoracion('Armonia', 27, null)
+    ),
+    null,
+    2,
+    1
+);
+
+insert into CataExperto values (
+    3,
+    to_date('08-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 6, null),
+        valoracion('Fase olfativa', 20, null),
+        valoracion('Fase gustativa', 35, null),
+        valoracion('Armonia', 15, null)
+    ),
+    null,
+    3,
+    1
+);
+
+
+insert into CataExperto values (
+    4,
+    to_date('09-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 3, null),
+        valoracion('Fase olfativa', 12, null),
+        valoracion('Fase gustativa', 26, null),
+        valoracion('Armonia', 9, null)
+    ),
+    null,
+    1,
+    2
+);
+insert into CataExperto values (
+    5,
+    to_date('09-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 5, null),
+        valoracion('Fase olfativa', 18, null),
+        valoracion('Fase gustativa', 20, null),
+        valoracion('Armonia', 12, null)
+    ),
+    null,
+    2,
+    2
+);
+
+insert into CataExperto values (
+    6,
+    to_date('09-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 6, null),
+        valoracion('Fase olfativa', 20, null),
+        valoracion('Fase gustativa', 20, null),
+        valoracion('Armonia', 20, null)
+    ),
+    null,
+    3,
+    2
+);
+
+
+insert into CataExperto values (
+    7,
+    to_date('10-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 8, null),
+        valoracion('Fase olfativa', 30, null),
+        valoracion('Fase gustativa', 40, null),
+        valoracion('Armonia', 18, null)
+    ),
+    null,
+    1,
+    3
+);
+
+insert into CataExperto values (
+    8,
+    to_date('10-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 9, null),
+        valoracion('Fase olfativa', 32, null),
+        valoracion('Fase gustativa', 38, null),
+        valoracion('Armonia', 25, null)
+    ),
+    null,
+    2,
+    3
+);
+
+insert into CataExperto values (
+    9,
+    to_date('10-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 8, null),
+        valoracion('Fase olfativa', 35, null),
+        valoracion('Fase gustativa', 20, null),
+        valoracion('Armonia', 23, null)
+    ),
+    null,
+    3,
+    3
+);
+
+-- TODO: Insertar una muestracompite mas a la edicion que sea posicion 4 y no gane nada
+
 
 commit;
