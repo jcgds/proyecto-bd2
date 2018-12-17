@@ -43,14 +43,23 @@ commit;
 --------------------------------------------------------------------------------------------------------
 
 insert into Pais values (
-    1,
-    'Portugal',
+    1, 
+    'Portugal', 
     'Europa',
-    tipo_valor_nt(), -- superficie vi�edo
-    tipo_valor_nt(),
-    distribucion_exp_nt(),
-    unidadMonetaria('Euro', 'EUR'),
-    bfilename('mapas_regionales', 'portugal.jpg'),
+    tipo_valor_nt(
+        tipo_valor(2011, 210, 'millones de hectareas'),
+        tipo_valor(2012, 231, 'millones de hectareas'),
+        tipo_valor(2013, 224, 'millones de hectareas'),
+        tipo_valor(2014, 219, 'millones de hectareas'),
+        tipo_valor(2015, 199, 'millones de hectareas'),
+        tipo_valor(2016, 190, 'millones de hectareas'),
+        tipo_valor(2017, 199, 'millones de hectareas'),
+        tipo_valor(2018, 212, 'millones de hectareas')
+    ), 
+    tipo_valor_nt(), 
+    distribucion_exp_nt(), 
+    unidadMonetaria('Euro', 'EUR'), 
+    bfilename('mapas_regionales', 'portugal.png'), 
     null
 );
 
@@ -84,10 +93,10 @@ insert into Bodega values (
     'Created with the purpose of becoming one of the most important players in the Portuguese wine business.' ||
     ' Its strategy is based on the development of high quality estate wines from 250 hectares of own vineyards,' ||
     ' planted in the major Portuguese wine regions. The company aims to achieve sustained growth, with main focus on foreign markets.',
-    'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
+    'The least fruit-like of all dark fruits. When writers mention cassis, they are often thinking of the seedy and gritty character of actual black currants. Homework assignment: try a black currant and report back.',
     tipo_valor_nt(),
     distribucion_exp_nt(),
-    null -- TODO: Crear bodega Companhia Das Quintas y colocar su id
+    null
 );
 
 insert into MarcaVino values (
@@ -101,14 +110,17 @@ insert into MarcaVino values (
     1.2,
     15,
     tipo_valor_nt(
-        tipo_valor(2011, 15348, 'litros'),
-        tipo_valor(2012, 15348, 'litros'),
+        tipo_valor(2011, 15348, 'litros'), 
+        tipo_valor(2012, 15500, 'litros'), 
         tipo_valor(2013, 21126, 'litros')
     ),
     distribucion_exp_nt(
-        distribucion_exp(tipo_valor(2011, 4, 'litros'), 'Canada'),
-        distribucion_exp(tipo_valor(2011, 5, 'litros'), 'Italia'),
-        distribucion_exp(tipo_valor(2012, 10, 'litros'), 'Alemania')
+        distribucion_exp(tipo_valor(2011, 5116, 'litros'), 'Estados Unidos'),
+        distribucion_exp(tipo_valor(2011, 2000, 'litros'), 'Venezuela'),
+        distribucion_exp(tipo_valor(2012, 6400, 'litros'), 'Alemania'),
+        distribucion_exp(tipo_valor(2012, 3200, 'litros'), 'Estados Unidos'),
+        distribucion_exp(tipo_valor(2013, 11200, 'litros'), 'Alemania'),
+        distribucion_exp(tipo_valor(2013, 7200, 'litros'), 'Estados Unidos')
     ),
     calificacion_nt(
         calificacion('Wine Enthusiast Magazine', tipo_valor(2012, 91, 'puntos')),
@@ -120,7 +132,7 @@ insert into MarcaVino values (
     maridajes('Carnes rojas', 'Asados', 'Quesos de sabor intenso'),
     5.1,
     'Corcho',
-    null -- TODO: Ver como se sube un BLOB
+    EMPTY_BLOB()
 );
 
 insert into Presentacion values (1, 1, 17, 'Botella', null);
@@ -137,13 +149,25 @@ insert into HistoricoPrecio values (2018, 2, 1, 17, 99.99);
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (1, 1, 1, 1, 1);
 
+insert into Cosecha values (1, 2016, 'E', 1, 1, 1, 1, 1);
+insert into Cosecha values (2, 2017, 'MB', 1, 1, 1, 1, 1);
+insert into Cosecha values (3, 2018, 'E', 1, 1, 1, 1, 1);
+
 -- B_DO Entre bodega Quinta Da Fronteira y la Douro Touriga Franca
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (2, 2, 2, 1, 1);
 
+insert into Cosecha values (4, 2016, 'E', 2, 2, 2, 1, 1);
+insert into Cosecha values (5, 2017, 'MB', 2, 2, 2, 1, 1);
+insert into Cosecha values (6, 2018, 'E', 2, 2, 2, 1, 1);
+
 -- B_DO Entre bodega Quinta Da Fronteira y la Douro Tinta Roriz
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (3, 3, 5, 1, 1);
+
+insert into Cosecha values (7, 2016, 'E', 3, 3, 5, 1, 1);
+insert into Cosecha values (8, 2017, 'MB', 3, 3, 5, 1, 1);
+insert into Cosecha values (9, 2018, 'E', 3, 3, 5, 1, 1);
 
 -- Quinta Da Fronteira - Douro Touriga Nacional - Reserva Tinto
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
@@ -165,6 +189,10 @@ insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Re
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (4, 4, 3, 1, 1);
 
+insert into Cosecha values (10, 2016, 'MB', 4, 4, 3, 1, 1);
+insert into Cosecha values (11, 2017, 'MB', 4, 4, 3, 1, 1);
+insert into Cosecha values (12, 2018, 'MB', 4, 4, 3, 1, 1);
+
 insert into VariedadVid values (4,'Codega do Lorinho');
 insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values
 (5,'Douro - Codega do Lorinho', null, 4, 1);
@@ -172,6 +200,10 @@ insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Re
 -- B_DO Entre bodega Quinta Da Fronteira y la Douro Codega do Lorinho
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (5, 5, 4, 1, 1);
+
+insert into Cosecha values (13, 2016, 'E', 5, 5, 4, 1, 1);
+insert into Cosecha values (14, 2017, 'E', 5, 5, 4, 1, 1);
+insert into Cosecha values (15, 2018, 'E', 5, 5, 4, 1, 1);
 
 insert into MarcaVino values (
     3,
@@ -189,9 +221,12 @@ insert into MarcaVino values (
         tipo_valor(2013, 67500, 'litros')
     ),
     distribucion_exp_nt(
-        distribucion_exp(tipo_valor(2011, 6, 'litros'), 'Canada'),
-        distribucion_exp(tipo_valor(2011, 5, 'litros'), 'Italia'),
-        distribucion_exp(tipo_valor(2012, 10, 'litros'), 'Alemania')
+        distribucion_exp(tipo_valor(2011, 25500, 'litros'), 'Canada'),
+        distribucion_exp(tipo_valor(2011, 9800, 'litros'), 'Chile'),
+        distribucion_exp(tipo_valor(2012, 30000, 'litros'), 'Canada'),
+        distribucion_exp(tipo_valor(2012, 20000, 'litros'), 'Chile'),
+        distribucion_exp(tipo_valor(2013, 35000, 'litros'), 'Canada'),
+        distribucion_exp(tipo_valor(2013, 15000, 'litros'), 'Chile')
     ),
     calificacion_nt(
         calificacion('Wine Enthusiast Magazine', tipo_valor(2015, 88, 'puntos'))
@@ -201,7 +236,7 @@ insert into MarcaVino values (
     maridajes('Pescados', 'Ensaladas', 'Pastas', 'Carnes blancas'),
     6.75,
     'Corcho 1+1',
-    null -- TODO: Ver como se sube un BLOB
+    EMPTY_BLOB()
 );
 
 insert into Presentacion values (3, 3, 9, 'Botella', null);
@@ -245,23 +280,30 @@ insert into Bodega values (
         direccion('Alentejo', '7350-491', 'Herdade da Farizoa - 7350- 491 Terrugem - Elvas', null),
         personasDeContacto(personaDeContacto('Joaquim','Mendes','Winemaker','farizoa@companhiadasquintas.pt'))
     ),
-    -- TODO: En este caso como son sub bodegas de Companhia Das Quintas la mision deberia ser la misma?
-    'Created with the purpose of becoming one of the most important players in the Portuguese wine business.' ||
-    ' Its strategy is based on the development of high quality estate wines from 250 hectares of own vineyards,' ||
+    'Created with the purpose of becoming one of the most important players in the Portuguese wine business.' || 
+    ' Its strategy is based on the development of high quality estate wines from 250 hectares of own vineyards,' || 
     ' planted in the major Portuguese wine regions. The company aims to achieve sustained growth, with main focus on foreign markets.',
     'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
     tipo_valor_nt(),
     distribucion_exp_nt(),
-    null -- TODO: Crear bodega Companhia Das Quintas y colocar su id
+    null
 );
 
 -- B_DO Entre bodega Herdade Da Farizoa y la IG Alentejano Touriga Nacional
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (6, 6, 1, 3, 3);
 
+insert into Cosecha values (16, 2016, 'MB', 6, 6, 1, 3, 3);
+insert into Cosecha values (17, 2017, 'MB', 6, 6, 1, 3, 3);
+insert into Cosecha values (18, 2018, 'E', 6, 6, 1, 3, 3);
+
 -- B_DO Entre bodega Herdade Da Farizoa y la IG Alentejano Aragonez
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (7, 7, 6, 3, 3);
+
+insert into Cosecha values (19, 2016, 'E', 7, 7, 6, 3, 3);
+insert into Cosecha values (20, 2017, 'E', 7, 7, 6, 3, 3);
+insert into Cosecha values (21, 2018, 'E', 7, 7, 6, 3, 3);
 
 insert into MarcaVino values (
     4,
@@ -273,8 +315,19 @@ insert into MarcaVino values (
     'S',
     0.3,
     13.5,
-    tipo_valor_nt(tipo_valor(2011, 26500, 'litros'), tipo_valor(2012, 34250, 'litros'), tipo_valor(2013, 30750, 'litros')),
-    distribucion_exp_nt(), -- TODO: Conseguir o inventar datos de exportacion
+    tipo_valor_nt(
+        tipo_valor(2011, 26500, 'litros'), 
+        tipo_valor(2012, 34250, 'litros'), 
+        tipo_valor(2013, 30750, 'litros')
+    ),
+    distribucion_exp_nt(
+        distribucion_exp(tipo_valor(2011, 6400, 'litros'), 'Alemania'),
+        distribucion_exp(tipo_valor(2011, 3600, 'litros'), 'Suecia'),
+        distribucion_exp(tipo_valor(2012, 18350, 'litros'), 'Suecia'),
+        distribucion_exp(tipo_valor(2012, 6000, 'litros'), 'Brasil'),
+        distribucion_exp(tipo_valor(2013, 15000, 'litros'), 'Suecia'),
+        distribucion_exp(tipo_valor(2013, 3500, 'litros'), 'Colombia')
+    ),
     calificacion_nt(),
     9,
     10,
@@ -316,12 +369,11 @@ insert into Bodega values (
         351291934049,
         'justinos@justinosmadeira.com',
         'http://www.justinosmadeira.com',
-        direccion('Madeira', '9125-042', 'Parque Industrial da Cancela', 'Cani�o, Madeira'),
+        direccion('Madeira', '9125-042', 'Parque Industrial da Cancela', 'Canico, Madeira'),
         personasDeContacto()
     ),
-    -- TODO: En este caso como son sub bodegas de Companhia Das Quintas la mision deberia ser la misma?
-    'Durante toda a sua hist�ria a Justino''s Madeira tem vindo, gradualmente, a conquistar e a confirmar a sua presen�a, um pouco por todo o mundo, com especial destaque para a Fran�a, Alemanha, Inglaterra, �ustria, Su��a, Pol�nia, Benelux, Espanha e Escandin�via, e tamb�m E.U.A., Canad�, Brasil e Jap�o.',
-    'A empresa disp�e actualmente de um dos maiores stocks de vinhos na Ilha da Madeira, constitu�do por vinhos de elevada qualidade, envelhecidos em cascos de carvalho, que lhe permitem dar resposta �s solicita��es dos mercados mais exigentes e selectivos.',
+    'Durante toda a sua historia a Justino''s Madeira tem vindo, gradualmente, a conquistar e a confirmar a sua presena, um pouco por todo o mundo, com especial destaque para a Franca, Alemanha, Inglaterra, Austria, Suiza, Polonia, Benelux, Espanha e Escandinavia, e tambem E.U.A., Canada, Brasil e Japao.',
+    'A empresa dispoe actualmente de um dos maiores stocks de vinhos na Ilha da Madeira, constituido por vinhos de elevada qualidade, envelhecidos em cascos de carvalho, que lhe permitem dar resposta as solicitudes dos mercados mais exigentes e selectivos.',
     tipo_valor_nt(),
     distribucion_exp_nt(),
     null
@@ -331,7 +383,10 @@ insert into Bodega values (
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (8, 8, 7, 4, 4);
 
--- TODO: Cambiar a Verdelho Coleita 1997 que gano el baccus de oro
+insert into Cosecha values (22, 2016, 'MB', 8, 8, 7, 4, 4);
+insert into Cosecha values (23, 2017, 'E', 8, 8, 7, 4, 4);
+insert into Cosecha values (24, 2018, 'MB', 8, 8, 7, 4, 4);
+
 insert into MarcaVino values (
     5,
     18,
@@ -342,8 +397,19 @@ insert into MarcaVino values (
     'S',
     121.3,
     19,
-    tipo_valor_nt(), -- TODO: 1999, 1998
-    distribucion_exp_nt(), -- TODO: Conseguir o inventar datos de exportacion
+    tipo_valor_nt(
+        tipo_valor(2011, 87500, 'litros'), 
+        tipo_valor(2012, 120300, 'litros'), 
+        tipo_valor(2013, 210000, 'litros')
+    ),
+    distribucion_exp_nt(
+        distribucion_exp(tipo_valor(2011, 38000, 'litros'), 'Italia'),
+        distribucion_exp(tipo_valor(2011, 24500, 'litros'), 'Japon'),
+        distribucion_exp(tipo_valor(2012, 60350, 'litros'), 'China'),
+        distribucion_exp(tipo_valor(2012, 24250, 'litros'), 'Japon'),
+        distribucion_exp(tipo_valor(2013, 65000, 'litros'), 'Japon'),
+        distribucion_exp(tipo_valor(2013, 65000, 'litros'), 'China')
+    ),
     calificacion_nt(),
     4,
     5,
@@ -361,7 +427,7 @@ insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk
 ---- / Fin Bodega Justino's Madeira ------------------------------------------------------------------------------------------------------------------------------------------
 
 
-insert into Pais values (4, 'Estados Unidos', 'America', tipo_valor_nt(), tipo_valor_nt(tipo_valor(2016,26900000,'hl')), distribucion_exp_nt(),
+insert into Pais values (4, 'Estados Unidos', 'America', tipo_valor_nt(), tipo_valor_nt(), distribucion_exp_nt(), 
     unidadMonetaria('Dolar', 'USD'), bfilename('mapas_regionales', 'usa.jpg'), null);
 -- Bodega OPUS ONE -----------------------------------------------
 insert into Region values (41, 'Oakville AVA', null, 4);
@@ -919,17 +985,28 @@ INSERT INTO Concurso VALUES (
     1,
     'Bacchus',
     DATOSDECONTACTO(
-        conj_telefonos(34914293477, 34914291238),
-        null,
-        'info@uec.es',
-        'http://www.uec.es/',
+        conj_telefonos(34914293477, 34914291238), 
+        null, 
+        'info@uec.es', 
+        'http://www.concursobacchus.com/',
         direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
         null
     ),
     'A ciegas',
     'N',
-    premio_nt(),
-    escala_nt(),
+    premio_nt(
+        premio('Gran Bacchus de oro', 1, null, 'Medalla', null),     
+        premio('Bacchus de oro', 2, null, 'Medalla', null),
+        premio('Bacchus de plata', 3, null, 'Medalla', null)
+    ),
+    escala_nt(
+        escala('Fase visual', 0, 9, null),      
+        escala('Fase olfativa', 0, 18, 'Intensidad'),
+        escala('Fase olfativa', 0, 18, 'Calidad'),
+        escala('Fase gustativa', 0, 18, 'Intensidad'),
+        escala('Fase gustativa', 0, 27, 'Calidad'),
+        escala('Armonia', 0, 27, null)
+    ),
     'La práctica totalidad del atlas vinícola escoge a Bacchus como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
 );
 
@@ -1418,3 +1495,363 @@ insert into DenominacionDeOrigen values (106,'Regional Wine of Heraklion', null,
   insert into HistoricoPrecio values (2016, 116, 108, 2, 1225);
   insert into HistoricoPrecio values (2017, 116, 108, 2, 1228);
   insert into HistoricoPrecio values (2018, 116, 108, 2, 1350);
+INSERT INTO CatadorExperto VALUES (
+    2, 
+    'Robert', 
+    'Parker', 
+    to_date('23-07-1947', 'DD-MM-YYYY'), 
+    null,
+    hechos_hist_nt(),
+    lugar('Baltimore', 'Estados Unidos'),
+    publicaciones_nt(
+        'Parker''s wine buyer''s guide',
+        'Parker''s wine bargains',
+        'The wine''s advocate'
+    ),
+    'M',
+    4
+);
+
+INSERT INTO CatadorExperto VALUES (
+    3, 
+    'Steve', 
+    'Spurrier', 
+    to_date('12-02-1941', 'DD-MM-YYYY'), 
+    null,
+    hechos_hist_nt(),
+    lugar('London', 'United Kingdom'),
+    publicaciones_nt(
+        'The Academie Du Vin Guide to French Wines',
+        'How to Buy Fine Wines',
+        'Academie Du Vin Wine Course',
+        'Clarke and Spurrier''s Fine Wine Guide'
+    ),
+    'M',
+    2
+);
+
+INSERT INTO Edicion VALUES  (
+    1,
+    datosBancarios(
+        'Union Espanola de Catadores (BACCHUS 2019)',
+        'La Caixa',
+        'ES78 2100 2254 10 0200151989',
+        'CAIXESBBXXX'
+    ),
+    to_date('20-02-2018', 'DD-MM-YYYY'),
+    to_date('22-02-2018', 'DD-MM-YYYY'),
+    to_date('07-03-2018', 'DD-MM-YYYY'),
+    to_date('11-03-2018', 'DD-MM-YYYY'),
+    128,
+    direccion(
+        'Madrid',
+        '28320',
+        'C/ Alcotanes 22 – Polígono Industrial La Estación',
+        '28320 PINTO (Madrid), Espana'
+    ),
+    costoInscripcion_nt(
+        costoInscripcion(1,150,'Espana'),
+        costoInscripcion(2,298,'Espana'),
+        costoInscripcion(3,443,'Espana'),
+        costoInscripcion(1,124,'Resto de Europa'),
+        costoInscripcion(2,246,'Resto de Europa'),
+        costoInscripcion(3,366,'Resto de Europa')
+    ),
+    lugar('Madrid', 'Espana'),
+    unidadMonetaria('Euro', 'EUR'),
+    'info@uec.es',
+    DATOSDECONTACTO(
+        conj_telefonos(34914293477, 34914291238), 
+        null, 
+        'info@uec.es', 
+        'http://www.concursobacchus.com/',
+        direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
+        null
+    ),
+    1
+);
+
+insert into Juez values (1, 1);
+insert into Juez values (2, 1);
+insert into Juez values (3, 1);
+
+insert into Inscripcion values (
+    1,
+    to_date('10-02-2018', 'DD-MM-YYYY'),
+    null,
+    1,
+    4,
+    null
+);
+
+insert into Inscripcion values (
+    2,
+    to_date('12-02-2018', 'DD-MM-YYYY'),
+    null,
+    1,
+    54,
+    null
+);
+
+insert into Inscripcion values (
+    3,
+    to_date('08-02-2018', 'DD-MM-YYYY'),
+    null,
+    1,
+    51,
+    null
+);
+
+-- Justinos Tinta Negra en Bacchus 2019
+insert into MuestraCompite values (
+    1,
+    5,
+    18,
+    1,
+    2016,
+    premio_nt()
+);
+
+--  Crystallum The Agnes Chardonnay en Bacchus 2019
+insert into MuestraCompite values (
+    2,
+    57,
+    13,
+    2,
+    2016,
+    premio_nt()
+);
+
+-- Opus One Overture en Bacchus 2019
+insert into MuestraCompite values (
+    3,
+    51,
+    16,
+    3,
+    2017,
+    premio_nt()
+);
+
+
+insert into CataExperto values (
+    1,
+    to_date('08-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 9, 'Excelente reflejo de luz'),
+        valoracion('Fase olfativa', 26, 'Buena intensidad pobre calidad'),
+        valoracion('Fase gustativa', 45, 'Muy sabroso'),
+        valoracion('Armonia', 18, null)
+    ),
+    null,
+    1,
+    1
+);
+insert into CataExperto values (
+    2,
+    to_date('08-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 9, null),
+        valoracion('Fase olfativa', 23, null),
+        valoracion('Fase gustativa', 40, null),
+        valoracion('Armonia', 27, null)
+    ),
+    null,
+    2,
+    1
+);
+
+insert into CataExperto values (
+    3,
+    to_date('08-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 6, null),
+        valoracion('Fase olfativa', 20, null),
+        valoracion('Fase gustativa', 35, null),
+        valoracion('Armonia', 15, null)
+    ),
+    null,
+    3,
+    1
+);
+
+
+insert into CataExperto values (
+    4,
+    to_date('09-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 3, null),
+        valoracion('Fase olfativa', 12, null),
+        valoracion('Fase gustativa', 26, null),
+        valoracion('Armonia', 9, null)
+    ),
+    null,
+    1,
+    2
+);
+insert into CataExperto values (
+    5,
+    to_date('09-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 5, null),
+        valoracion('Fase olfativa', 18, null),
+        valoracion('Fase gustativa', 20, null),
+        valoracion('Armonia', 12, null)
+    ),
+    null,
+    2,
+    2
+);
+
+insert into CataExperto values (
+    6,
+    to_date('09-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 6, null),
+        valoracion('Fase olfativa', 20, null),
+        valoracion('Fase gustativa', 20, null),
+        valoracion('Armonia', 20, null)
+    ),
+    null,
+    3,
+    2
+);
+
+
+insert into CataExperto values (
+    7,
+    to_date('10-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 8, null),
+        valoracion('Fase olfativa', 30, null),
+        valoracion('Fase gustativa', 40, null),
+        valoracion('Armonia', 18, null)
+    ),
+    null,
+    1,
+    3
+);
+
+insert into CataExperto values (
+    8,
+    to_date('10-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 9, null),
+        valoracion('Fase olfativa', 32, null),
+        valoracion('Fase gustativa', 38, null),
+        valoracion('Armonia', 25, null)
+    ),
+    null,
+    2,
+    3
+);
+
+insert into CataExperto values (
+    9,
+    to_date('10-03-2018', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 8, null),
+        valoracion('Fase olfativa', 35, null),
+        valoracion('Fase gustativa', 20, null),
+        valoracion('Armonia', 23, null)
+    ),
+    null,
+    3,
+    3
+);
+
+-- TODO: Insertar una muestracompite mas a la edicion que sea posicion 4 y no gane nada
+
+
+--- Concurso de catadores-----
+
+INSERT INTO Concurso VALUES (
+    2,
+    'Baco Catadores',
+    DATOSDECONTACTO(
+        conj_telefonos(34914293477, 34914291238), 
+        null, 
+        'info@tomelloso.es', 
+        'http://www.tomelloso.es/',
+        direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
+        null
+    ),
+    'Comparativa',
+    'S',
+    premio_nt(),
+    escala_nt(),
+    'La práctica totalidad del atlas vinícola escoge a Baco como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
+);
+
+INSERT INTO Organizador VALUES 
+(51, 'Asociacion de Tomelloso', null);
+
+INSERT INTO Organizador VALUES 
+(52, 'Bodegas Simbolo', null);
+
+INSERT INTO P_O VALUES
+(51, 51, 1);
+
+INSERT INTO P_O VALUES
+(52, 52, 2);
+
+INSERT INTO P_O VALUES
+(53, 52, 4);
+
+
+INSERT INTO Organizador_Concurso VALUES
+(51, 51, 2);
+
+INSERT INTO Organizador_Concurso VALUES
+(52, 52, 2);
+
+INSERT INTO CatadorExperto VALUES (
+    51, 
+    'Romeo', 
+    'Santos', 
+    to_date('09-06-1968', 'DD-MM-YYYY'), 
+    null,
+    hechos_hist_nt(),
+    lugar('Lisboa', 'Portugal'),
+    publicaciones_nt(),
+    'M',
+    2
+);
+
+INSERT INTO CatadorExperto VALUES (
+    52, 
+    'Anuel', 
+    'AA', 
+    to_date('09-06-1978', 'DD-MM-YYYY'), 
+    null,
+    hechos_hist_nt(),
+    lugar('Lisboa', 'Portugal'),
+    publicaciones_nt(),
+    'M',
+    4
+);
+
+insert into Edicion values(
+51,
+null,
+TO_DATE('12-06-2018', 'DD-MM-YYYY'),
+null,
+TO_DATE('12-06-2018', 'DD-MM-YYYY'),
+TO_DATE('12-06-2018', 'DD-MM-YYYY'),
+null,
+direccion('Hermanus', '7200', '2 Harbour Rd', null),
+costoInscripcion_nt(),
+lugar('test','test2'),
+unidadMonetaria('Rand Sudafricano', 'R'),
+null,
+DATOSDECONTACTO(
+        conj_telefonos(270832355748,4740000787), 
+        null, 
+        'customerservice@crystallumwines.com', 
+        'http://www.crystallumwines.com/',
+        direccion('Hermanus', '7200', '2 Harbour Rd', null),
+        personasDeContacto(personaDeContacto('David','Nel','Sales','steele.nel@gmail.com'))
+),
+2
+);
+
+commit;

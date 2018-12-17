@@ -35,6 +35,32 @@ EXCEPTION
 END;
 /
 
+create or replace function exportacion_bodega_en (idBodega IN number, anioDeseado IN number)
+return number is
+    exportacion number := 0;
+BEGIN
+       select sum(t.tipovalor.valor) into exportacion
+        from the (
+            select exportacionAnual
+            from Bodega
+            where id = idBodega
+        ) t
+        where t.tipovalor.anio = anioDeseado;
+    return exportacion;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        return 0;
+END;
+/
+
+create or replace function consumo_int_bodega_en (idBodega IN number, anioDeseado IN number)
+return number is
+BEGIN
+       return produccion_bodega_en(idBodega, anioDeseado) - exportacion_bodega_en(idBodega, anioDeseado);
+END;
+/
+
+
 create or replace function produccion_pais_en (idPais IN number, anioDeseado IN number)
 return number is
     produccion number := 0;
@@ -344,7 +370,44 @@ begin
 end;
 /
 
-create or replace procedure CalcularConsumoInterno(p_idPais number, p_anio number) as
+/* Lo devuelve en litros */
+create or replace function CalcularProduccionPais(p_idPais number, p_anio number) 
+return number is
+produccionEnElAnio number := 0;
+nombrePais varchar2(50);
+begin
+    select nombre into nombrePais
+    from Pais where id = p_idPais;
+
+    select t.valor into produccionEnElAnio
+    from the (select produccionAnual from Pais where id = p_idPais) t
+    where t.anio = p_anio;
+
+    return produccionEnElAnio;
+end;
+/
+
+/* Lo devuelve en litros */
+create or replace function CalcularExportacionPais(p_idPais number, p_anio number) 
+return number is
+exportacionEnElAnio number := 0;
+nombrePais varchar2(50);
+begin
+    select nombre into nombrePais
+    from Pais where id = p_idPais;
+
+    select SUM(t.tipovalor.valor) into exportacionEnElAnio
+    from the (select exportacionAnual from Pais where id = p_idPais) t
+    where t.tipovalor.anio = p_anio;
+
+    return exportacionEnElAnio;
+end;
+/
+
+
+/* Lo devuelve en litros */
+create or replace function CalcularConsumoInterno(p_idPais number, p_anio number) 
+return number is
 produccionEnElAnio number := 0;
 exportacionEnElAnio number := 0;
 nombrePais varchar2(50);
@@ -365,6 +428,8 @@ begin
     DBMS_OUTPUT.PUT_LINE('Exportacion en ' || to_char(p_anio) || ': ' || to_char(exportacionEnElAnio));
     DBMS_OUTPUT.PUT_LINE('Consumo interno en ' || to_char(p_anio) || ': ' || to_char(produccionEnElAnio - exportacionEnElAnio));
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+
+    return produccionEnElAnio - exportacionEnElAnio;
 end;
 /
 
@@ -648,12 +713,14 @@ begin
 
 end;
 /
-create or replace procedure insertar_costo_a(idEdicion number, p_nroMuestras number, p_valor number, p_unidadValor varchar2, p_pais varchar2)
+create or replace procedure insertar_costo_a(idEdicion number, p_nroMuestras number, p_valor number, p_pais varchar2) 
 as
 begin
 
+    -- TODO: Validar que ya no se tenga un costo para el mismo pais y nro de muestras
+    
     INSERT INTO THE (SELECT costos from Edicion where id = idEdicion) VALUES
-    (costoInscripcion(p_nroMuestras, p_valor, p_unidadValor, p_pais));
+    (costoInscripcion(p_nroMuestras, p_valor, p_pais));
 
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
     DBMS_OUTPUT.PUT_LINE('Costo insertado');
@@ -731,6 +798,7 @@ begin
         where E.id = idEdicion and E.fk_concurso = C.id;
 
     if esDeCatadores = 'N' then
+        DBMS_OUTPUT.PUT_LINE('Concurso de vinos');
         for resultado in (select avg(C.sumatoria) RP,M.id Mid, I.id Iid, MV.nombre
                             from MuestraCompite M,CataExperto C, Inscripcion I,Edicion E,MarcaVino MV
                             where M.fk_inscripcion = I.id and I.fk_edicion = E.id and C.fk_muestracompite = M.id and E.id = idEdicion and
@@ -738,8 +806,12 @@ begin
                             group by M.id,I.id,MV.nombre
                             order by avg(sumatoria) desc)
         loop
+            -- TODO: Cambiar esto por funcion que devuelva el premio correspondiente a la posicion
+            -- obtener_premio(idConcurso, posicion)
+            -- En este caso la llamada seria que si obtener_premio([idConcurso], cont)
             if cont <= 3 then
                 DBMS_OUTPUT.PUT_LINE('Resultado Promedio: ' || to_char(resultado.RP) || ' Posicion : ' || to_char(cont)|| ' Nombre del vino: ' || resultado.nombre);
+                -- TODO: Insertar premios al NT de la MuestraCompite
                 DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
             end if;
             cont := cont+1;
@@ -973,5 +1045,27 @@ begin
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
     DBMS_OUTPUT.PUT_LINE('Catador aprendiz registrado');
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+end;
+/
+
+create or replace function calcular_porcentaje_vinedo (idPais number,anioP number)
+return number is 
+    porcentaje number(10,2) := 0;
+    totalsuperficie number := 0;
+    superficie number := 0;
+begin
+    for idP in (select id from Pais) loop
+        select t.valor into superficie from 
+        the(select superficieVinedo from pais where id = idP.id)t where t.anio = anioP;
+
+        if superficie != 0  then
+            totalsuperficie := totalsuperficie + superficie;
+        end if;
+    end loop;
+    select t.valor into superficie from 
+    the(select superficieVinedo from pais where id = idPais)t where t.anio = anioP;
+
+    porcentaje := superficie/totalsuperficie * 100;
+    return porcentaje;
 end;
 /

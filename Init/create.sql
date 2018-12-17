@@ -86,7 +86,6 @@ create or replace type escala_nt as table of escala
 create or replace type costoInscripcion as object(
     nroDeMuestras number(10),
     valor number(20),
-    unidadValor varchar2(50),
     pais varchar2(50)
 )
 /
@@ -237,14 +236,14 @@ CREATE TABLE CataAprendiz (
     fecha date NOT NULL,
     valoraciones valoracion_nt,
     sumatoria number(20),
-    fk_catadoraprendiz number,
+    fk_catadoraprendiz number not null,
     -- FK MuestraCatador ----------------------------
-    fk_muestra_id number,
-    fk_muestra_marcavino_id number,
-    fk_muestra_marcavino_clasif number,
+    fk_muestra_id number not null,
+    fk_muestra_marcavino_id number not null,
+    fk_muestra_marcavino_clasif number not null,
         -- FK Juez --------------------
-        fk_edicion number,
-        fk_catadorexperto number,
+        fk_edicion number not null,
+        fk_catadorexperto number not null,
         -------------------------------
     -------------------------------------------------
     CONSTRAINT pk_cataaprendiz PRIMARY KEY (id)
@@ -275,8 +274,8 @@ CREATE TABLE CataExperto (
     fecha date NOT NULL,
     valoraciones valoracion_nt,
     sumatoria number(20),
-    fk_catadorexperto number,
-    fk_muestracompite number,
+    fk_catadorexperto number not null,
+    fk_muestracompite number not null,
     CONSTRAINT pk_cataexperto PRIMARY KEY (id)
 )
 NESTED TABLE valoraciones STORE AS valoracion_nt_2
@@ -395,7 +394,7 @@ CREATE TABLE MuestraCompite(
     -----------------------------
     fk_inscripcion number,
     anada number NOT NULL,
-    premio premio_nt, -- TODO: Creo que es un unico premio no varios (Verificar con profesora)
+    premio premio_nt,
     CONSTRAINT pk_muestracompite PRIMARY KEY(id, fk_inscripcion)
 )
 NESTED TABLE premio STORE AS premio_nt_muestracompite
