@@ -394,7 +394,7 @@ CREATE TABLE MuestraCompite(
     -----------------------------
     fk_inscripcion number,
     anada number NOT NULL,
-    premio premio_nt, -- TODO: Creo que es un unico premio no varios (Verificar con profesora)
+    premio premio_nt,
     CONSTRAINT pk_muestracompite PRIMARY KEY(id, fk_inscripcion)
 )
 NESTED TABLE premio STORE AS premio_nt_muestracompite
