@@ -35,6 +35,32 @@ EXCEPTION
 END;
 /
 
+create or replace function exportacion_bodega_en (idBodega IN number, anioDeseado IN number)
+return number is
+    exportacion number := 0;
+BEGIN
+       select sum(t.tipovalor.valor) into exportacion
+        from the (
+            select exportacionAnual
+            from Bodega
+            where id = idBodega
+        ) t
+        where t.tipovalor.anio = anioDeseado;
+    return exportacion;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        return 0;
+END;
+/
+
+create or replace function consumo_int_bodega_en (idBodega IN number, anioDeseado IN number)
+return number is
+BEGIN
+       return produccion_bodega_en(idBodega, anioDeseado) - exportacion_bodega_en(idBodega, anioDeseado);
+END;
+/
+
+
 create or replace function produccion_pais_en (idPais IN number, anioDeseado IN number)
 return number is
     produccion number := 0;
@@ -344,7 +370,44 @@ begin
 end;
 /
 
-create or replace procedure CalcularConsumoInterno(p_idPais number, p_anio number) as
+/* Lo devuelve en litros */
+create or replace function CalcularProduccionPais(p_idPais number, p_anio number) 
+return number is
+produccionEnElAnio number := 0;
+nombrePais varchar2(50);
+begin
+    select nombre into nombrePais
+    from Pais where id = p_idPais;
+
+    select t.valor into produccionEnElAnio
+    from the (select produccionAnual from Pais where id = p_idPais) t
+    where t.anio = p_anio;
+
+    return produccionEnElAnio;
+end;
+/
+
+/* Lo devuelve en litros */
+create or replace function CalcularExportacionPais(p_idPais number, p_anio number) 
+return number is
+exportacionEnElAnio number := 0;
+nombrePais varchar2(50);
+begin
+    select nombre into nombrePais
+    from Pais where id = p_idPais;
+
+    select SUM(t.tipovalor.valor) into exportacionEnElAnio
+    from the (select exportacionAnual from Pais where id = p_idPais) t
+    where t.tipovalor.anio = p_anio;
+
+    return exportacionEnElAnio;
+end;
+/
+
+
+/* Lo devuelve en litros */
+create or replace function CalcularConsumoInterno(p_idPais number, p_anio number) 
+return number is
 produccionEnElAnio number := 0;
 exportacionEnElAnio number := 0;
 nombrePais varchar2(50);
@@ -365,6 +428,8 @@ begin
     DBMS_OUTPUT.PUT_LINE('Exportacion en ' || to_char(p_anio) || ': ' || to_char(exportacionEnElAnio));
     DBMS_OUTPUT.PUT_LINE('Consumo interno en ' || to_char(p_anio) || ': ' || to_char(produccionEnElAnio - exportacionEnElAnio));
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
+
+    return produccionEnElAnio - exportacionEnElAnio;
 end;
 /
 
