@@ -798,6 +798,7 @@ begin
         where E.id = idEdicion and E.fk_concurso = C.id;
 
     if esDeCatadores = 'N' then
+        DBMS_OUTPUT.PUT_LINE('Concurso de vinos');
         for resultado in (select avg(C.sumatoria) RP,M.id Mid, I.id Iid, MV.nombre
                             from MuestraCompite M,CataExperto C, Inscripcion I,Edicion E,MarcaVino MV
                             where M.fk_inscripcion = I.id and I.fk_edicion = E.id and C.fk_muestracompite = M.id and E.id = idEdicion and 
@@ -805,8 +806,12 @@ begin
                             group by M.id,I.id,MV.nombre
                             order by avg(sumatoria) desc)
         loop
+            -- TODO: Cambiar esto por funcion que devuelva el premio correspondiente a la posicion
+            -- obtener_premio(idConcurso, posicion)
+            -- En este caso la llamada seria que si obtener_premio([idConcurso], cont)
             if cont <= 3 then
                 DBMS_OUTPUT.PUT_LINE('Resultado Promedio: ' || to_char(resultado.RP) || ' Posicion : ' || to_char(cont)|| ' Nombre del vino: ' || resultado.nombre);
+                -- TODO: Insertar premios al NT de la MuestraCompite
                 DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
             end if;
             cont := cont+1;
