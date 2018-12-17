@@ -539,7 +539,7 @@ begin
         RAISE_APPLICATION_ERROR(-20106, 'La fecha fin no puede ser antes que la fecha de inicio');
     end if;
 
-    if (p_fechaLimEnvioDeInsc < p_fechaFin) then
+    if ( p_fechaLimEnvioDeInsc > p_fechaFin) then
         RAISE_APPLICATION_ERROR(-20107, 'La fecha de inscripcion no puede ser despues que la fecha final');
     end if;
 
@@ -974,3 +974,4 @@ begin
     DBMS_OUTPUT.PUT_LINE('Catador aprendiz registrado');
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
 end;
+/
