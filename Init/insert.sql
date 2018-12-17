@@ -849,6 +849,71 @@ insert into HistoricoPrecio values (2016, 66, 59, 13, 800);
 insert into HistoricoPrecio values (2017, 66, 59, 13, 835);
 insert into HistoricoPrecio values (2018, 66, 59, 13, 890);
 
+  ----------Bodega Sumaridge----------
+  insert into Region values (104, 'Hemel-en-Aarde', null, 2);
+  insert into VariedadVid values (107,'Hermanaus');
+  insert into DenominacionDeOrigen values (107,'Wine of Origin Hermanaus', null, 107, 104);
+  insert into Bodega values (
+      104,
+      'Sumaridge',
+      hechos_hist_nt(hechos_hist(2014, 'Sumaridge Estate Wines, proudly owned by the Bellingham Turner family, lies gracefully between two imposing mountain ranges in the Western Cape’s Upper Hemel-en-Aarde Valley - aptly named “Heaven and Earth” - with commanding views stretching to Walker Bay on the Atlantic Ocean. Producing the best wines since 2014')),
+      TO_DATE('29-05-2014', 'DD-MM-YYYY'),
+      DATOSDECONTACTO(
+          conj_telefonos(283121097),
+          null,
+          'info@sumaridge.co.za',
+          'http://www.sumaridge.co.za',
+          direccion('Hermanus', '7200', 'Upper Hemel-en-Aarde Valley', null),
+          personasDeContacto(personaDeContacto('Holly','Bellingham','Spokesman','holly@bellinghamturner.com'))
+      ),
+      'We will always do our very best to be of assistance, whether you would like to order a selection of our boutique wines or are planning a visit to the Cellar.',
+      null,
+      tipo_valor_nt(tipo_valor(2014, 600000, 'litros'), tipo_valor(2015, 660000, 'litros'), tipo_valor(2016, 590000, 'litros')),
+      distribucion_exp_nt(distribucion_exp(tipo_valor(2014, 440000, 'litros'), 'Japon'),distribucion_exp(tipo_valor(2015, 360000, 'litros'), 'India'),distribucion_exp(tipo_valor(2016, 250000, 'litros'), 'Alemania') ),
+      null
+  );
+  insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+  (107, 107, 107, 104, 104);
+
+  insert into MarcaVino values (
+      109,
+      2,
+      'Tara Rosé',
+      'Our Tara Rosé shows a brilliant light colour and a fresh bouquet of strawberry, red apple and candy floss. A carefully crafted wine using early harvested Merlot, Cabernet Franc and Malbec grapes for our cool sea facing sites. The style is elegant and classy on a warm summer’s day. This soft, easy drinking but flavourful wine is ideally served chilled with alfresco fare or simply enjoyed in familiar company.',
+      'Brilliant wine, bright red that leaves a great after taste.',
+      15,
+      'S',
+      2.4,
+      13.2,
+      tipo_valor_nt(tipo_valor(2013, 5000, 'litros'), tipo_valor(2014, 4800, 'litros'), tipo_valor(2015, 4950, 'litros')),
+      distribucion_exp_nt(distribucion_exp(tipo_valor(2012,789,'litros'),'Portugal'),distribucion_exp(tipo_valor(2013,856,'litros'),'India'),distribucion_exp(tipo_valor(2014,684,'litros'),'Canada')), -- TODO: Conseguir o inventar datos de exportacion
+      calificacion_nt(
+          calificacion('ProWein', tipo_valor(2015, 85, 'puntos')),
+          calificacion('ProWein', tipo_valor(2016, 84, 'puntos'))
+      ),
+      28,
+      12,
+      maridajes('Carnes'),
+      3.21,
+      'Corcho',
+      null
+  );
+
+  insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk_bodega, fk_denominaciondeorigen, fk_do_variedadvid, fk_do_region) values
+  (109, 109, 2, 107, 104, 107, 107, 104);
+
+  insert into Presentacion values (116, 109, 2, 'Botella', null);
+  insert into HistoricoPrecio values (2016, 116, 109, 2, 110);
+  insert into HistoricoPrecio values (2017, 116, 109, 2, 112);
+  insert into HistoricoPrecio values (2018, 116, 109, 2, 120);
+
+  insert into Presentacion values (117, 109, 2, 'Caja', 6);
+  insert into HistoricoPrecio values (2016, 117, 109, 2, 850);
+  insert into HistoricoPrecio values (2017, 117, 109, 2, 860);
+  insert into HistoricoPrecio values (2018, 117, 109, 2, 880);
+
+
+
 -- Concurso de prueba
 INSERT INTO Concurso VALUES (
     1,
