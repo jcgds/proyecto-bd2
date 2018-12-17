@@ -810,9 +810,8 @@ begin
     select C.deCatadores, C.id into esDeCatadores, idConcurso from Concurso C, Edicion E
         where E.id = idEdicion and E.fk_concurso = C.id;
 
-    DBMS_OUTPUT.PUT_LINE('Id concurso: ' || to_char(idConcurso));
     if esDeCatadores = 'N' then
-        DBMS_OUTPUT.PUT_LINE('Concurso de vinos');
+
         for resultado in (select avg(C.sumatoria) RP,M.id Mid, I.id Iid, MV.nombre
                             from MuestraCompite M,CataExperto C, Inscripcion I,Edicion E,MarcaVino MV
                             where M.fk_inscripcion = I.id and I.fk_edicion = E.id and C.fk_muestracompite = M.id and E.id = idEdicion and
@@ -836,6 +835,15 @@ begin
            
             cont := cont+1;
         end loop;
+
+    elsif esDeCatadores = 'S' then
+      -- TODO: Implementar
+      /* 
+        Aqui es un beta como se pueden tener varias muestra compite en la misma edicion
+         entonces hay que ir calculando la diferencia entre la sumatoriaExperta y la sumatoria
+         de la cata aprendiz (valor absoluto) por muestra, y luego ganarian los que tengan la diferencia
+         mas pequeña (conseguir premio usando la funcion premio_para_posicion(idConcurso, posicion) )
+      */
     end if;
 end;
 /
