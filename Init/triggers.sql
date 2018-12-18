@@ -79,25 +79,25 @@ END;
 /
 
 CREATE OR REPLACE TRIGGER validar_inscripcion
-BEFORE INSERT OR UPDATE ON Inscripcion
+BEFORE INSERT OR UPDATE ON Inscripcion 
 FOR EACH ROW
-DECLARE
+DECLARE 
     esCatadores char(1);
 BEGIN
-    select C.deCatadores, into esCatadores from Concurso C, Edicion E
+    select C.deCatadores into esCatadores from Concurso C, Edicion E 
         where E.id = :new.fk_edicion and E.fk_concurso = C.id;
 
     IF :new.fk_bodega is not null then
-        if esCatadores = 'S' then
+        if esCatadores = 'S' then 
             RAISE_APPLICATION_ERROR(-20005, 'No se puede inscribir una bodega a un concurso de catadores');
         end if;
     elsif :new.fk_catadoraprendiz is not null then
-        if esCatadores = 'N' then
+        if esCatadores = 'N' then 
             RAISE_APPLICATION_ERROR(-20006, 'No se puede inscribir un catador a un concurso de bodegas');
         end if;
     elsif :new.fk_bodega is not null and :new.fk_catadoraprendiz is not null then
         RAISE_APPLICATION_ERROR(-20007, 'Una inscripcion no puede ser de una bodega y de un catador a la vez');
-    end if;
+    end if; 
 END;
 /
 

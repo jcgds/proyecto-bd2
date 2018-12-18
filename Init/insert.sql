@@ -1929,12 +1929,41 @@ insert into Juez values (3, 51);
 insert into muestracatador values (1, 1, 17, 51, 1, 2016, 54);
 insert into muestracatador values (2, 109, 2, 51, 1, 2016, 85);
 
-insert into cataAprendiz values (1, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 64, 1, 1, 1, 17, 51, 1);
-insert into cataAprendiz values (2, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 58, 1, 2, 109, 2, 51, 1);
-insert into cataAprendiz values (3, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 49, 1, 2, 109, 2, 51, 1);
-insert into cataAprendiz values (4, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 60, 2, 2, 109, 2, 51, 1);
-insert into cataAprendiz values (5, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 75, 3, 1, 1, 17, 51, 1);
-insert into cataAprendiz values (6, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 32, 4, 1, 1, 17, 51, 1);
-
-
+insert into cataAprendiz values (1, TO_DATE('12/11/2000', 'DD/MM/YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 18, null),
+        valoracion('Fase olfativa', 25, null),
+        valoracion('Fase gustativa', 30, null),
+        valoracion('Armonia', 23, null)
+    ), 64, 1, 1, 1, 17, 51, 1);
+insert into cataAprendiz values (2, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(
+    valoracion('Fase visual', 48, null),
+        valoracion('Fase olfativa', 35, null),
+        valoracion('Fase gustativa', 20, null),
+        valoracion('Armonia', 73, null)
+), 58, 1, 2, 109, 2, 51, 1);
+insert into cataAprendiz values (3, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(
+    valoracion('Fase visual', 8, null),
+        valoracion('Fase olfativa', 53, null),
+        valoracion('Fase gustativa', 31, null),
+        valoracion('Armonia', 24, null)
+), 49, 1, 2, 109, 2, 51, 1);
+insert into cataAprendiz values (4, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(
+    valoracion('Fase visual', 18, null),
+        valoracion('Fase olfativa', 35, null),
+        valoracion('Fase gustativa', 37, null),
+        valoracion('Armonia', 13, null)
+), 60, 2, 2, 109, 2, 51, 1);
+insert into cataAprendiz values (5, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(
+    valoracion('Fase visual', 80, null),
+        valoracion('Fase olfativa', 5, null),
+        valoracion('Fase gustativa', 31, null),
+        valoracion('Armonia', 23, null)
+), 75, 3, 1, 1, 17, 51, 1);
+insert into cataAprendiz values (6, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(
+    valoracion('Fase visual', 11, null),
+        valoracion('Fase olfativa', 23, null),
+        valoracion('Fase gustativa', 39, null),
+        valoracion('Armonia', 27, null)
+), 32, 4, 1, 1, 17, 51, 1);
 commit;
