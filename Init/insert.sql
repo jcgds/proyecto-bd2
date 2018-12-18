@@ -128,7 +128,7 @@ insert into MarcaVino values (
         calificacion('Wine Advocate/Robert Parker', tipo_valor(2011, 90, 'puntos'))
     ),
     6,
-    20,
+    24,
     maridajes('Carnes rojas', 'Asados', 'Quesos de sabor intenso'),
     5.1,
     'Corcho',
