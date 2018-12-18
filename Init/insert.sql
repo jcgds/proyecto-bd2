@@ -2011,4 +2011,106 @@ DATOSDECONTACTO(
 2
 );
 
+INSERT INTO Juez VALUES(
+    51,
+    51
+);
+
+INSERT INTO Juez VALUES(
+    52,
+    51
+);
+
+INSERT INTO CatadorAprendiz VALUES(
+    51,
+    'John',
+    'Trapvolta',
+    TO_DATE('01-06-1990', 'DD-MM-YYYY'),
+    'M',
+    lugar('Lisboa', 'Portugal'),
+);
+
+INSERT INTO CatadorAprendiz VALUES(
+    52,
+    'Gucci',
+    'Mane',
+    TO_DATE('05-06-1990', 'DD-MM-YYYY'),
+    'M',
+    lugar('Guasdualito', 'Venezuela'),
+);
+
+INSERT INTO MuestraCatador VALUES (
+    51,
+    1,
+    17,
+    51,
+    51,
+    422,
+    400
+);
+
+INSERT INTO MuestraCatador VALUES (
+    52,
+    51,
+    16,
+    51,
+    52,
+    69,
+    400
+);
+
+INSERT INTO Inscripcion VALUES (
+    51,
+    TO_DATE('05-06-2010', 'DD-MM-YYYY'),
+    null,
+    51,
+    null,
+    51
+);
+
+INSERT INTO Inscripcion VALUES (
+    52,
+    TO_DATE('05-06-2010', 'DD-MM-YYYY'),
+    null,
+    51,
+    null,
+    52
+);
+
+INSERT INTO CataAprendiz VALUES (
+    51,
+    TO_DATE('05-06-2010', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 18, null),
+        valoracion('Fase olfativa', 35, null),
+        valoracion('Fase gustativa', 20, null),
+        valoracion('Armonia', 23, null)
+    ),
+    null,
+    51,
+    51,
+    1,
+    17,
+    51,
+    51
+);
+
+INSERT INTO CataAprendiz VALUES (
+    52,
+    TO_DATE('05-06-2010', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 18, null),
+        valoracion('Fase olfativa', 25, null),
+        valoracion('Fase gustativa', 30, null),
+        valoracion('Armonia', 23, null)
+    ),
+    null,
+    52,
+    52,
+    51,
+    16,
+    51,
+    52
+);
+
 commit;
