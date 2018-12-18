@@ -766,25 +766,25 @@ begin
 end;
 /
 
-create or replace procedure formula_ventana_consumo(idMarcaVino number,idClasificacion number)
-as
+create or replace function formula_ventana_consumo(idMarcaVino number, anioInicial number)
+return number is
     ventanaAnio number;
     anioFinal number (4,0);
+    ventanaMeses number;
 begin
-    for VentanaConsumo in (select distinct M.ventanaDeConsumoMeses , C.anio from
-                            Cosecha C, MarcaVino_B_DO MB, MarcaVino M
-                            where MB.fk_b_do = C.fk_bdo_id and MB.fk_bodega = C.fk_bdo_bodega and MB.fk_denominaciondeorigen = fk_bdo_do_id
-                            and MB.fk_do_VariedadVid = C.fk_bdo_do_VariedadVid and MB.fk_do_region = C.fk_bdo_do_region and
-                            MB.fk_marcavino = idMarcaVino and MB.fk_clasificacionvinos = idClasificacion and
-                            M.id = MB.fk_marcavino and M.fk_clasificacionvinos = MB.fk_clasificacionvinos) loop
+    select distinct M.ventanaDeConsumoMeses into ventanaMeses from
+        Cosecha C, MarcaVino_B_DO MB, MarcaVino M
+        where MB.fk_b_do = C.fk_bdo_id and MB.fk_bodega = C.fk_bdo_bodega and MB.fk_denominaciondeorigen = fk_bdo_do_id
+        and MB.fk_do_VariedadVid = C.fk_bdo_do_VariedadVid and MB.fk_do_region = C.fk_bdo_do_region and
+        MB.fk_marcavino = idMarcaVino and
+        M.id = MB.fk_marcavino and M.fk_clasificacionvinos = MB.fk_clasificacionvinos and C.anio = anioInicial;
 
-        ventanaAnio := trunc(VentanaConsumo.ventanaDeConsumoMeses/12);
-        anioFinal := VentanaConsumo.anio + ventanaAnio;
-        DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
-        DBMS_OUTPUT.PUT_LINE('Anio Incial: ' || to_char(VentanaConsumo.anio) || ' Anio Final : ' || to_char(anioFinal));
-        DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
-
-    end loop;
+    if ventanaMeses is null then
+        RAISE_APPLICATION_ERROR(-20500, 'El anio ingresado no tiene una cosecha asignada');
+    end if;
+    ventanaAnio := trunc(ventanaMeses/12);
+    anioFinal := anioInicial + ventanaAnio;
+    return anioFinal;
 
 end;
 /
