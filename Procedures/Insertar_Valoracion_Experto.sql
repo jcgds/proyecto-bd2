@@ -8,7 +8,7 @@ ACCEPT observacion PROMPT 'Ingrese la observacion dada a la cata: ';
 
 begin
 
-    insertar_valoracion_experto(&idCata, &nombre, &valor, &observacion);
+    insertar_valoracion_experto(&idCata, '&nombre', &valor, '&observacion');
 
 end;
 /
