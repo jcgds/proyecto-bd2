@@ -371,7 +371,7 @@ end;
 /
 
 /* Lo devuelve en litros */
-create or replace function CalcularProduccionPais(p_idPais number, p_anio number) 
+create or replace function CalcularProduccionPais(p_idPais number, p_anio number)
 return number is
 produccionEnElAnio number := 0;
 nombrePais varchar2(50);
@@ -388,7 +388,7 @@ end;
 /
 
 /* Lo devuelve en litros */
-create or replace function CalcularExportacionPais(p_idPais number, p_anio number) 
+create or replace function CalcularExportacionPais(p_idPais number, p_anio number)
 return number is
 exportacionEnElAnio number := 0;
 nombrePais varchar2(50);
@@ -406,7 +406,7 @@ end;
 
 
 /* Lo devuelve en litros */
-create or replace function CalcularConsumoInterno(p_idPais number, p_anio number) 
+create or replace function CalcularConsumoInterno(p_idPais number, p_anio number)
 return number is
 produccionEnElAnio number := 0;
 exportacionEnElAnio number := 0;
@@ -713,12 +713,12 @@ begin
 
 end;
 /
-create or replace procedure insertar_costo_a(idEdicion number, p_nroMuestras number, p_valor number, p_pais varchar2) 
+create or replace procedure insertar_costo_a(idEdicion number, p_nroMuestras number, p_valor number, p_pais varchar2)
 as
 begin
 
     -- TODO: Validar que ya no se tenga un costo para el mismo pais y nro de muestras
-    
+
     INSERT INTO THE (SELECT costos from Edicion where id = idEdicion) VALUES
     (costoInscripcion(p_nroMuestras, p_valor, p_pais));
 
@@ -793,7 +793,7 @@ create or replace function premio_para_posicion(idConcurso number, p_posicion nu
 return premio is
     result premio;
 begin
-    select premio(nt.nombre, nt.posicion, nt.descripcion, nt.tipo, nt.premioMoneda) into result 
+    select premio(nt.nombre, nt.posicion, nt.descripcion, nt.tipo, nt.premioMoneda) into result
     from the (select premios from Concurso where id = idConcurso) nt
     where nt.posicion = p_posicion;
     return result;
@@ -832,18 +832,28 @@ begin
               when no_data_found then
                 DBMS_OUTPUT.PUT_LINE('');
             end;
-           
+
             cont := cont+1;
         end loop;
 
     elsif esDeCatadores = 'S' then
-      -- TODO: Implementar
-      /* 
-        Aqui es un beta como se pueden tener varias muestra compite en la misma edicion
-         entonces hay que ir calculando la diferencia entre la sumatoriaExperta y la sumatoria
-         de la cata aprendiz (valor absoluto) por muestra, y luego ganarian los que tengan la diferencia
-         mas pequeña (conseguir premio usando la funcion premio_para_posicion(idConcurso, posicion) )
-      */
+         for resultado in   (select C.pasaporte as idCatador, ABS(CA.sumatoria-MC.sumatoriaExperto) as puntaje, I.id as idInscripcion, I.premioCatador as premio
+                            from CatadorAprendiz C, CataAprendiz CA, MuestraCatador MC, Inscripcion I, Edicion E
+                            where C.pasaporte = I.fk_catadoraprendiz and I.fk_edicion = idEdicion and CA.fk_catadoraprendiz = C.pasaporte and CA.fk_muestra_id = MC.id and MC.fk_edicion = idEdicion
+                            order by puntaje desc)
+        loop
+            begin
+                premioHolder := premio_para_posicion(idConcurso, cont);
+                if resultado.premio is NULL then
+                    update Inscripcion set premioCatador = premioHolder.nombre where id = resultado.idInscripcion;
+                    cont := cont+1;
+                end if;
+
+                exception
+              when no_data_found then
+                DBMS_OUTPUT.PUT_LINE('');
+            end;
+        end loop;
     end if;
 end;
 /
@@ -1077,20 +1087,20 @@ end;
 /
 
 create or replace function calcular_porcentaje_vinedo (idPais number,anioP number)
-return number is 
+return number is
     porcentaje number(10,2) := 0;
     totalsuperficie number := 0;
     superficie number := 0;
 begin
     for idP in (select id from Pais) loop
-        select t.valor into superficie from 
+        select t.valor into superficie from
         the(select superficieVinedo from pais where id = idP.id)t where t.anio = anioP;
 
         if superficie != 0  then
             totalsuperficie := totalsuperficie + superficie;
         end if;
     end loop;
-    select t.valor into superficie from 
+    select t.valor into superficie from
     the(select superficieVinedo from pais where id = idPais)t where t.anio = anioP;
 
     porcentaje := superficie/totalsuperficie * 100;
