@@ -43,8 +43,8 @@ commit;
 --------------------------------------------------------------------------------------------------------
 
 insert into Pais values (
-    1, 
-    'Portugal', 
+    1,
+    'Portugal',
     'Europa',
     tipo_valor_nt(
         tipo_valor(2011, 210, 'millones de hectareas'),
@@ -55,11 +55,11 @@ insert into Pais values (
         tipo_valor(2016, 190, 'millones de hectareas'),
         tipo_valor(2017, 199, 'millones de hectareas'),
         tipo_valor(2018, 212, 'millones de hectareas')
-    ), 
-    tipo_valor_nt(), 
-    distribucion_exp_nt(), 
-    unidadMonetaria('Euro', 'EUR'), 
-    bfilename('mapas_regionales', 'portugal.png'), 
+    ),
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    unidadMonetaria('Euro', 'EUR'),
+    bfilename('mapas_regionales', 'portugal.png'),
     null
 );
 
@@ -280,8 +280,8 @@ insert into Bodega values (
         direccion('Alentejo', '7350-491', 'Herdade da Farizoa - 7350- 491 Terrugem - Elvas', null),
         personasDeContacto(personaDeContacto('Joaquim','Mendes','Winemaker','farizoa@companhiadasquintas.pt'))
     ),
-    'Created with the purpose of becoming one of the most important players in the Portuguese wine business.' || 
-    ' Its strategy is based on the development of high quality estate wines from 250 hectares of own vineyards,' || 
+    'Created with the purpose of becoming one of the most important players in the Portuguese wine business.' ||
+    ' Its strategy is based on the development of high quality estate wines from 250 hectares of own vineyards,' ||
     ' planted in the major Portuguese wine regions. The company aims to achieve sustained growth, with main focus on foreign markets.',
     'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
     tipo_valor_nt(),
@@ -1100,9 +1100,9 @@ INSERT INTO Concurso VALUES (
     1,
     'Bacchus',
     DATOSDECONTACTO(
-        conj_telefonos(34914293477, 34914291238), 
-        null, 
-        'info@uec.es', 
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@uec.es',
         'http://www.concursobacchus.com/',
         direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
         null
@@ -1110,12 +1110,12 @@ INSERT INTO Concurso VALUES (
     'A ciegas',
     'N',
     premio_nt(
-        premio('Gran Bacchus de oro', 1, null, 'Medalla', null),     
+        premio('Gran Bacchus de oro', 1, null, 'Medalla', null),
         premio('Bacchus de oro', 2, null, 'Medalla', null),
         premio('Bacchus de plata', 3, null, 'Medalla', null)
     ),
     escala_nt(
-        escala('Fase visual', 0, 9, null),      
+        escala('Fase visual', 0, 9, null),
         escala('Fase olfativa', 0, 18, 'Intensidad'),
         escala('Fase olfativa', 0, 18, 'Calidad'),
         escala('Fase gustativa', 0, 18, 'Intensidad'),
@@ -1437,7 +1437,7 @@ insert into DenominacionDeOrigen values (105,'Wine of Origin Amyndeon', null, 10
       ),
       'Our activities are entirely based on the principles of integrated farming. This is a management decision based on a concern to protect the environment as a valuable component of a civilization that is now under threat. Moreover, the integrated farming can ensure the production of high-quality products in Ktima Kir-Yianni.',
       null,
-      tipo_valor_nt(tipo_valor(2014, 520000, 'litros'), tipo_valor(2015, 650000, 'litros'), tipo_valor(2016, 480000, 'litros')),
+      tipo_valor_nt(tipo_valor(2016, 520000, 'litros'), tipo_valor(2017, 650000, 'litros'), tipo_valor(2018, 480000, 'litros')),
       distribucion_exp_nt(distribucion_exp(tipo_valor(2014, 440000, 'litros'), 'Suiza'),distribucion_exp(tipo_valor(2015, 560000, 'litros'), 'Rusia'),distribucion_exp(tipo_valor(2016, 300000, 'litros'), 'Mexico') ),
       null
   );
@@ -1597,7 +1597,7 @@ insert into DenominacionDeOrigen values (106,'Regional Wine of Heraklion', null,
       ),
       'To preserve and modernize viticulture in greece, we do naught but the best wines even the Gods could ask for.',
       null,
-      tipo_valor_nt(tipo_valor(2014, 600000, 'litros'), tipo_valor(2015, 660000, 'litros'), tipo_valor(2016, 590000, 'litros')),
+      tipo_valor_nt(tipo_valor(2016, 600000, 'litros'), tipo_valor(2017, 660000, 'litros'), tipo_valor(2018, 590000, 'litros')),
       distribucion_exp_nt(distribucion_exp(tipo_valor(2014, 440000, 'litros'), 'Japon'),distribucion_exp(tipo_valor(2015, 360000, 'litros'), 'India'),distribucion_exp(tipo_valor(2016, 250000, 'litros'), 'Alemania') ),
       null
   );
@@ -1696,10 +1696,10 @@ insert into DenominacionDeOrigen values (106,'Regional Wine of Heraklion', null,
   insert into HistoricoPrecio values (2017, 116, 108, 2, 1228);
   insert into HistoricoPrecio values (2018, 116, 108, 2, 1350);
 INSERT INTO CatadorExperto VALUES (
-    2, 
-    'Robert', 
-    'Parker', 
-    to_date('23-07-1947', 'DD-MM-YYYY'), 
+    2,
+    'Robert',
+    'Parker',
+    to_date('23-07-1947', 'DD-MM-YYYY'),
     null,
     hechos_hist_nt(),
     lugar('Baltimore', 'Estados Unidos'),
@@ -1713,10 +1713,10 @@ INSERT INTO CatadorExperto VALUES (
 );
 
 INSERT INTO CatadorExperto VALUES (
-    3, 
-    'Steve', 
-    'Spurrier', 
-    to_date('12-02-1941', 'DD-MM-YYYY'), 
+    3,
+    'Steve',
+    'Spurrier',
+    to_date('12-02-1941', 'DD-MM-YYYY'),
     null,
     hechos_hist_nt(),
     lugar('London', 'United Kingdom'),
@@ -1761,9 +1761,9 @@ INSERT INTO Edicion VALUES  (
     unidadMonetaria('Euro', 'EUR'),
     'info@uec.es',
     DATOSDECONTACTO(
-        conj_telefonos(34914293477, 34914291238), 
-        null, 
-        'info@uec.es', 
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@uec.es',
         'http://www.concursobacchus.com/',
         direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
         null
@@ -1968,24 +1968,26 @@ INSERT INTO Concurso VALUES (
     2,
     'Baco Catadores',
     DATOSDECONTACTO(
-        conj_telefonos(34914293477, 34914291238), 
-        null, 
-        'info@tomelloso.es', 
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@tomelloso.es',
         'http://www.tomelloso.es/',
         direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
         null
     ),
     'Comparativa',
     'S',
-    premio_nt(),
-    escala_nt(),
+    premio_nt(premio('Catador estrella', 1, null, 'Medalla', null),
+    premio('Catador explorador', 2, null, 'Medalla', null),
+    premio('Catador novato', 3, null, 'Medalla', null)),
+    escala_nt(escala('puntos', 0, 100, 'estandar')),
     'La práctica totalidad del atlas vinícola escoge a Baco como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
 );
 
-INSERT INTO Organizador VALUES 
+INSERT INTO Organizador VALUES
 (51, 'Asociacion de Tomelloso', null);
 
-INSERT INTO Organizador VALUES 
+INSERT INTO Organizador VALUES
 (52, 'Bodegas Simbolo', null);
 
 INSERT INTO P_O VALUES
@@ -2005,10 +2007,10 @@ INSERT INTO Organizador_Concurso VALUES
 (52, 52, 2);
 
 INSERT INTO CatadorExperto VALUES (
-    51, 
-    'Romeo', 
-    'Santos', 
-    to_date('09-06-1968', 'DD-MM-YYYY'), 
+    51,
+    'Romeo',
+    'Santos',
+    to_date('09-06-1968', 'DD-MM-YYYY'),
     null,
     hechos_hist_nt(),
     lugar('Lisboa', 'Portugal'),
@@ -2018,10 +2020,10 @@ INSERT INTO CatadorExperto VALUES (
 );
 
 INSERT INTO CatadorExperto VALUES (
-    52, 
-    'Anuel', 
-    'AA', 
-    to_date('09-06-1978', 'DD-MM-YYYY'), 
+    52,
+    'Anuel',
+    'AA',
+    to_date('09-06-1978', 'DD-MM-YYYY'),
     null,
     hechos_hist_nt(),
     lugar('Lisboa', 'Portugal'),
@@ -2044,15 +2046,69 @@ lugar('test','test2'),
 unidadMonetaria('Rand Sudafricano', 'R'),
 null,
 DATOSDECONTACTO(
-        conj_telefonos(270832355748,4740000787), 
-        null, 
-        'customerservice@crystallumwines.com', 
+        conj_telefonos(270832355748,4740000787),
+        null,
+        'customerservice@crystallumwines.com',
         'http://www.crystallumwines.com/',
         direccion('Hermanus', '7200', '2 Harbour Rd', null),
         personasDeContacto(personaDeContacto('David','Nel','Sales','steele.nel@gmail.com'))
 ),
 2
 );
+
+insert into catadoraprendiz values (2, 'Luis', 'Gil', TO_DATE('12/4/2000', 'DD/MM/YYYY'), 'M',lugar('Caracas', 'Venezuela'));
+insert into catadoraprendiz values (1, 'Albert', 'Gil', TO_DATE('9/6/1997', 'DD/MM/YYYY'), 'M',lugar('Caracas', 'Venezuela'));
+insert into catadoraprendiz values (3, 'Odiseo', 'Farble', TO_DATE('5/5/1985', 'DD/MM/YYYY'), 'M',lugar('Caracas', 'Venezuela'));
+insert into catadoraprendiz values (4, 'Euclides', 'Galante', TO_DATE('10/8/1978', 'DD/MM/YYYY'), 'M',lugar('Caracas', 'Venezuela'));
+  insert into Inscripcion values (
+    4,
+    to_date('10-02-2018', 'DD-MM-YYYY'),
+    null,
+    51,
+    null,
+    1
+);
+
+insert into Inscripcion values (
+    5,
+    to_date('12-02-2018', 'DD-MM-YYYY'),
+    null,
+    51,
+    null,
+    2
+);
+
+insert into Inscripcion values (
+    6,
+    to_date('08-02-2018', 'DD-MM-YYYY'),
+    null,
+    51,
+    null,
+    3
+);
+insert into Inscripcion values (
+    7,
+    to_date('08-02-2018', 'DD-MM-YYYY'),
+    null,
+    51,
+    null,
+    4
+);
+insert into Juez values (1, 51);
+insert into Juez values (2, 51);
+insert into Juez values (3, 51);
+
+insert into muestracatador values (1, 1, 17, 51, 1, 2016, 54);
+insert into muestracatador values (2, 109, 2, 51, 1, 2016, 85);
+
+/*
+insert into cataAprendiz values (1, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 64, 1, 1, 1, 17, 51, 1);
+insert into cataAprendiz values (2, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 58, 1, 2, 109, 2, 51, 1);
+insert into cataAprendiz values (3, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 49, 1, 2, 109, 2, 51, 1);
+insert into cataAprendiz values (4, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 60, 2, 2, 109, 2, 51, 1);
+insert into cataAprendiz values (5, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 75, 3, 1, 1, 17, 51, 1);
+insert into cataAprendiz values (6, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 32, 4, 1, 1, 17, 51, 1);
+*/
 
 INSERT INTO Juez VALUES(
     51,
@@ -2138,9 +2194,7 @@ INSERT INTO CataAprendiz VALUES (
     51
 );
 
-INSERT INTO CataAprendiz VALUES (
-    52,
-    TO_DATE('05-06-2010', 'DD-MM-YYYY'),
+insert into cataAprendiz values (1, TO_DATE('12/11/2000', 'DD/MM/YYYY'),
     valoracion_nt(
         valoracion('Fase visual', 18, null),
         valoracion('Fase olfativa', 25, null),
@@ -2156,4 +2210,35 @@ INSERT INTO CataAprendiz VALUES (
     52
 );
 
+   -- ), 64, 1, 1, 1, 17, 51, 1);
+insert into cataAprendiz values (2, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(
+    valoracion('Fase visual', 48, null),
+        valoracion('Fase olfativa', 35, null),
+        valoracion('Fase gustativa', 20, null),
+        valoracion('Armonia', 73, null)
+), 58, 1, 2, 109, 2, 51, 1);
+insert into cataAprendiz values (3, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(
+    valoracion('Fase visual', 8, null),
+        valoracion('Fase olfativa', 53, null),
+        valoracion('Fase gustativa', 31, null),
+        valoracion('Armonia', 24, null)
+), 49, 1, 2, 109, 2, 51, 1);
+insert into cataAprendiz values (4, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(
+    valoracion('Fase visual', 18, null),
+        valoracion('Fase olfativa', 35, null),
+        valoracion('Fase gustativa', 37, null),
+        valoracion('Armonia', 13, null)
+), 60, 2, 2, 109, 2, 51, 1);
+insert into cataAprendiz values (5, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(
+    valoracion('Fase visual', 80, null),
+        valoracion('Fase olfativa', 5, null),
+        valoracion('Fase gustativa', 31, null),
+        valoracion('Armonia', 23, null)
+), 75, 3, 1, 1, 17, 51, 1);
+insert into cataAprendiz values (6, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(
+    valoracion('Fase visual', 11, null),
+        valoracion('Fase olfativa', 23, null),
+        valoracion('Fase gustativa', 39, null),
+        valoracion('Armonia', 27, null)
+), 32, 4, 1, 1, 17, 51, 1);
 commit;
