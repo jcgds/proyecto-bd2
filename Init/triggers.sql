@@ -47,8 +47,8 @@ BEFORE INSERT OR UPDATE ON CataAprendiz
 FOR EACH ROW
 DECLARE
     suma number := 0;
-
 BEGIN
+
     IF :NEW.valoraciones IS NOT NULL THEN
         FOR i IN :NEW.valoraciones.FIRST..:NEW.valoraciones.LAST LOOP
             suma := suma + :NEW.valoraciones(i).valor;
@@ -65,10 +65,24 @@ BEFORE INSERT OR UPDATE ON CataExperto
 FOR EACH ROW
 DECLARE
     suma number := 0;
-
+    concursoId number;
 BEGIN
+
+    select distinct co.id into concursoId
+    from concurso co, edicion e, inscripcion i, MuestraCompite mc
+    where mc.id = :new.fk_muestracompite
+    and mc.fk_inscripcion = i.id
+    and i.fk_edicion = e.id
+    and co.id = e.fk_concurso;
+
+
     IF :NEW.valoraciones IS NOT NULL THEN
         FOR i IN :NEW.valoraciones.FIRST..:NEW.valoraciones.LAST LOOP
+            if (:NEW.valoraciones(i).valor < minimoValorEscala(concursoId, :NEW.valoraciones(i).nombreElemento)) then
+                RAISE_APPLICATION_ERROR(-20005, 'Valor menor al indicado por la escala');
+            elsif (:NEW.valoraciones(i).valor > maximoValorEscala(concursoId, :NEW.valoraciones(i).nombreElemento)) then
+                RAISE_APPLICATION_ERROR(-20005, 'Valor mayor al indicado por la escala');
+            end if;
             suma := suma + :NEW.valoraciones(i).valor;
         END LOOP;
     END IF;
@@ -83,6 +97,7 @@ BEFORE INSERT OR UPDATE ON Inscripcion
 FOR EACH ROW
 DECLARE 
     esCatadores char(1);
+    limiteInsc date;
 BEGIN
     select C.deCatadores into esCatadores from Concurso C, Edicion E 
         where E.id = :new.fk_edicion and E.fk_concurso = C.id;
@@ -98,6 +113,12 @@ BEGIN
     elsif :new.fk_bodega is not null and :new.fk_catadoraprendiz is not null then
         RAISE_APPLICATION_ERROR(-20007, 'Una inscripcion no puede ser de una bodega y de un catador a la vez');
     end if; 
+    
+    select fechaLimiteEnvioDeInscripcion into limiteInsc from Edicion where id = :new.fk_edicion;
+
+    if :new.fecha > limiteInsc then
+        RAISE_APPLICATION_ERROR(-20008, 'Ya se vencio el periodo de inscripcion');
+    end if;
 END;
 /
 
