@@ -975,6 +975,8 @@ catas number;
 begin
     insert into table (select valoraciones from CataExperto where id = idCata) values (nombreVal, valor, observacion);
 
+    UPDATE CataExperto SET sumatoria = 0 where id = idCata;
+
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
     DBMS_OUTPUT.PUT_LINE('Valoracion de experto insertada');
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
@@ -986,6 +988,8 @@ create or replace procedure insertar_valoracion_aprendiz(idCata number, nombreVa
 as
 begin
     insert into table (select valoraciones from CataAprendiz where id = idCata) values (nombreVal, valor, observacion);
+
+    UPDATE CataAprendiz SET sumatoria = 0 where id = idCata;
 
     DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
     DBMS_OUTPUT.PUT_LINE('Valoracion de aprendiz insertada');
@@ -1224,5 +1228,28 @@ begin
     select datosBancarios into dbanc from Edicion where id = idEdicion;
     
     return dbanc.recipiente || ', ' || dbanc.nombreBanco || ', ' || dbanc.codigoCuenta || ', ' || dbanc.codigoSucursal;
+end;
+/
+
+create or replace procedure insertar_img_vino(nombreImg varchar2, idMarcaVino number) as
+    v_lob blob;
+    file bfile;
+    sz number;
+begin
+    file := bfilename('IMG', 'portugal.png');
+    DBMS_OUTPUT.PUT_LINE('done');
+
+    
+    select foto into v_lob
+    from MarcaVino where id = idMarcaVino
+    FOR UPDATE;
+
+    sz := dbms_lob.getlength(file);
+    dbms_lob.fileopen(file, dbms_lob.file_readonly);
+    dbms_lob.loadfromfile(v_lob, file, sz);
+
+    dbms_lob.fileclose(file);
+
+    update MarcaVino set foto = v_lob where id = idMarcaVino;
 end;
 /
