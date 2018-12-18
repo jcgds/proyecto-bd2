@@ -1129,3 +1129,61 @@ begin
     return -1;
 end;
 /
+
+create or replace function posicion_ranking_produccion(idPais number, p_anio number)
+return number is
+    contador number := 1;
+begin
+  
+    for ranking in (
+        select p.id, produccion_pais_en(p.id, p_anio) prod
+        from pais p
+        order by prod desc
+    )
+    loop
+      if ranking.id = idPais then
+        return contador;
+      end if;
+
+      contador := contador + 1;
+    end loop;
+
+    return -1;
+end;
+/
+
+create or replace function formatear_msj_tipo_conc(idConcurso number) 
+return varchar2 as
+    tipo char;
+begin
+    select deCatadores into tipo from Concurso where id = idConcurso;
+
+    if tipo LIKE 'S' then
+        return 'De catadores';
+    else
+        return 'De vinos';
+    end if;
+end;
+/
+
+create or replace function obtener_clasificacion_vino(idMarcaVino number)
+return varchar2 as
+    idClasif number;
+    res varchar2(300);
+    tem varchar2(100);
+    fkPadre number;
+begin
+    select fk_clasificacionvinos into idClasif from MarcaVino where id = idMarcaVino;
+
+    while (idClasif is not null) loop
+        select nombre, fk_clasificacionvinos into tem, idClasif from clasificacionvinos where id = idClasif;
+        if (idClasif is null) then
+            res := res || tem;
+        else 
+            res := res || tem || ', ';
+        end if;
+    end loop;
+
+    return res;
+end;
+/
