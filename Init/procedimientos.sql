@@ -771,7 +771,7 @@ as
     ventanaAnio number;
     anioFinal number (4,0);
 begin
-    for VentanaConsumo in (select M.ventanaDeConsumoMeses , C.anio from
+    for VentanaConsumo in (select distinct M.ventanaDeConsumoMeses , C.anio from
                             Cosecha C, MarcaVino_B_DO MB, MarcaVino M
                             where MB.fk_b_do = C.fk_bdo_id and MB.fk_bodega = C.fk_bdo_bodega and MB.fk_denominaciondeorigen = fk_bdo_do_id
                             and MB.fk_do_VariedadVid = C.fk_bdo_do_VariedadVid and MB.fk_do_region = C.fk_bdo_do_region and
@@ -1095,5 +1095,37 @@ begin
 
     porcentaje := superficie/totalsuperficie * 100;
     return porcentaje;
+end;
+/
+
+create or replace function superficie_pais(idPais number, p_anio number)
+return number is
+    result number := 0;
+begin
+
+    select nt.valor into result from the (select superficieVinedo from Pais where id = idPais) nt
+    where nt.anio = p_anio;
+    return result;
+exception
+  when no_data_found then
+    return 0;
+end;
+/
+
+create or replace function posicion_ranking_superficie(idPais number, p_anio number)
+return number is
+    contador number := 1;
+begin
+  
+    for ranking in (select p.id, superficie_pais(p.id, p_anio) sup from pais p order by sup desc)
+    loop
+      if ranking.id = idPais then
+        return contador;
+      end if;
+
+      contador := contador + 1;
+    end loop;
+
+    return -1;
 end;
 /
