@@ -24,7 +24,7 @@ BEGIN
     if :new.unidadesEnCaja is not null and :new.tipo not like 'Caja' then
         RAISE_APPLICATION_ERROR(-20003, 'Para tener unidades en caja el tipo debe ser Caja');
     end if;
-    
+
     if :new.unidadesEnCaja is null and :new.tipo not like 'Botella' then
         RAISE_APPLICATION_ERROR(-20004, 'Si no hay unidades en caja debe ser botella');
     end if;
@@ -47,7 +47,7 @@ BEFORE INSERT OR UPDATE ON CataAprendiz
 FOR EACH ROW
 DECLARE
     suma number := 0;
-    
+
 BEGIN
     IF :NEW.valoraciones IS NOT NULL THEN
         FOR i IN :NEW.valoraciones.FIRST..:NEW.valoraciones.LAST LOOP
@@ -56,8 +56,8 @@ BEGIN
     END IF;
 
     :new.sumatoria := suma;
-    
-END; 
+
+END;
 /
 
 CREATE OR REPLACE TRIGGER sumatoria_cataexperto
@@ -65,7 +65,7 @@ BEFORE INSERT OR UPDATE ON CataExperto
 FOR EACH ROW
 DECLARE
     suma number := 0;
-    
+
 BEGIN
     IF :NEW.valoraciones IS NOT NULL THEN
         FOR i IN :NEW.valoraciones.FIRST..:NEW.valoraciones.LAST LOOP
@@ -74,56 +74,55 @@ BEGIN
     END IF;
 
     :new.sumatoria := suma;
-    
-END; 
+
+END;
 /
 
 CREATE OR REPLACE TRIGGER validar_inscripcion
-BEFORE INSERT OR UPDATE ON Inscripcion 
+BEFORE INSERT OR UPDATE ON Inscripcion
 FOR EACH ROW
-DECLARE 
+DECLARE
     esCatadores char(1);
 BEGIN
-    select C.deCatadores into esCatadores from Concurso C, Edicion E 
+    select C.deCatadores, into esCatadores from Concurso C, Edicion E
         where E.id = :new.fk_edicion and E.fk_concurso = C.id;
 
     IF :new.fk_bodega is not null then
-        if esCatadores = 'S' then 
+        if esCatadores = 'S' then
             RAISE_APPLICATION_ERROR(-20005, 'No se puede inscribir una bodega a un concurso de catadores');
         end if;
     elsif :new.fk_catadoraprendiz is not null then
-        if esCatadores = 'N' then 
+        if esCatadores = 'N' then
             RAISE_APPLICATION_ERROR(-20006, 'No se puede inscribir un catador a un concurso de bodegas');
         end if;
     elsif :new.fk_bodega is not null and :new.fk_catadoraprendiz is not null then
         RAISE_APPLICATION_ERROR(-20007, 'Una inscripcion no puede ser de una bodega y de un catador a la vez');
-    end if; 
+    end if;
 END;
 /
 
-CREATE OR REPLACE TRIGGER concurso_internacional 
+CREATE OR REPLACE TRIGGER concurso_internacional
 BEFORE INSERT OR UPDATE ON Inscripcion
-FOR EACH ROW 
-DECLARE 
+FOR EACH ROW
+DECLARE
     idConcurso number;
     esInternacional varchar2(50) := '';
     paisBod varchar2(50);
 
-BEGIN 
-    select C.id into idConcurso from Concurso C, Edicion E 
+BEGIN
+    select C.id into idConcurso from Concurso C, Edicion E
         where E.id = :new.fk_edicion and E.fk_concurso = C.id;
 
     esInternacional := validar_concurso_internacional(idConcurso);
 
     if esInternacional <> 'S' and esInternacional is not null and :new.fk_bodega is not null then
-        select distinct P.nombre into paisBod from 
-        B_DO BDO,Pais P, Bodega B,Region R where 
-        P.id = R.fk_pais AND BDO.fk_do_region = R.id AND BDO.fk_bodega = :new.fk_bodega; 
+        select distinct P.nombre into paisBod from
+        B_DO BDO,Pais P, Bodega B,Region R where
+        P.id = R.fk_pais AND BDO.fk_do_region = R.id AND BDO.fk_bodega = :new.fk_bodega;
         if esInternacional <> paisBod then
             RAISE_APPLICATION_ERROR(-20009, 'No se puede inscribir una bodega extranjera a un concurso nacional');
         end if;
     end if;
 
 END;
-/        
-
+/

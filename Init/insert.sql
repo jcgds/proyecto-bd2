@@ -934,7 +934,7 @@ insert into HistoricoPrecio values (2018, 66, 59, 13, 890);
       ),
       'We will always do our very best to be of assistance, whether you would like to order a selection of our boutique wines or are planning a visit to the Cellar.',
       null,
-      tipo_valor_nt(tipo_valor(2014, 600000, 'litros'), tipo_valor(2015, 660000, 'litros'), tipo_valor(2016, 590000, 'litros')),
+      tipo_valor_nt(tipo_valor(2016, 600000, 'litros'), tipo_valor(2017, 660000, 'litros'), tipo_valor(2018, 590000, 'litros')),
       distribucion_exp_nt(distribucion_exp(tipo_valor(2014, 440000, 'litros'), 'Japon'),distribucion_exp(tipo_valor(2015, 360000, 'litros'), 'India'),distribucion_exp(tipo_valor(2016, 250000, 'litros'), 'Alemania') ),
       null
   );
@@ -1096,7 +1096,14 @@ insert into Pais values (
     3,
     'Grecia',
     'Europa',
-    tipo_valor_nt(), -- superficie vi�edo
+    tipo_valor_nt(tipo_valor(2011, 230, 'millones de hectareas'),
+    tipo_valor(2012, 221, 'millones de hectareas'),
+    tipo_valor(2013, 250, 'millones de hectareas'),
+    tipo_valor(2014, 212, 'millones de hectareas'),
+    tipo_valor(2015, 150, 'millones de hectareas'),
+    tipo_valor(2016, 200, 'millones de hectareas'),
+    tipo_valor(2017, 180, 'millones de hectareas'),
+    tipo_valor(2018, 230, 'millones de hectareas')),
     tipo_valor_nt(),
     distribucion_exp_nt(),
     unidadMonetaria('Euro', 'EUR'),
@@ -1127,7 +1134,7 @@ insert into Pais values (
         ),
         'The Winery and the private vineyards are located in the heart of Korinthia, the land rich with the history of kings and heroes. A legacy we are bound to fulfill',
         null,
-        tipo_valor_nt(tipo_valor(2014, 330000, 'litros'), tipo_valor(2015, 280000, 'litros'), tipo_valor(2016, 270000, 'litros')),
+        tipo_valor_nt(tipo_valor(2016, 330000, 'litros'), tipo_valor(2017, 280000, 'litros'), tipo_valor(2018, 270000, 'litros')),
         distribucion_exp_nt(distribucion_exp(tipo_valor(2014, 280000, 'litros'), 'Francia'),distribucion_exp(tipo_valor(2015, 250000, 'litros'), 'Francia'),distribucion_exp(tipo_valor(2016, 220000, 'litros'), 'Francia') ),
         null
     );
@@ -1282,7 +1289,7 @@ insert into DenominacionDeOrigen values (105,'Wine of Origin Amyndeon', null, 10
       ),
       'Our activities are entirely based on the principles of integrated farming. This is a management decision based on a concern to protect the environment as a valuable component of a civilization that is now under threat. Moreover, the integrated farming can ensure the production of high-quality products in Ktima Kir-Yianni.',
       null,
-      tipo_valor_nt(tipo_valor(2014, 520000, 'litros'), tipo_valor(2015, 650000, 'litros'), tipo_valor(2016, 480000, 'litros')),
+      tipo_valor_nt(tipo_valor(2016, 520000, 'litros'), tipo_valor(2017, 650000, 'litros'), tipo_valor(2018, 480000, 'litros')),
       distribucion_exp_nt(distribucion_exp(tipo_valor(2014, 440000, 'litros'), 'Suiza'),distribucion_exp(tipo_valor(2015, 560000, 'litros'), 'Rusia'),distribucion_exp(tipo_valor(2016, 300000, 'litros'), 'Mexico') ),
       null
   );
@@ -1430,7 +1437,7 @@ insert into DenominacionDeOrigen values (106,'Regional Wine of Heraklion', null,
       ),
       'To preserve and modernize viticulture in greece, we do naught but the best wines even the Gods could ask for.',
       null,
-      tipo_valor_nt(tipo_valor(2014, 600000, 'litros'), tipo_valor(2015, 660000, 'litros'), tipo_valor(2016, 590000, 'litros')),
+      tipo_valor_nt(tipo_valor(2016, 600000, 'litros'), tipo_valor(2017, 660000, 'litros'), tipo_valor(2018, 590000, 'litros')),
       distribucion_exp_nt(distribucion_exp(tipo_valor(2014, 440000, 'litros'), 'Japon'),distribucion_exp(tipo_valor(2015, 360000, 'litros'), 'India'),distribucion_exp(tipo_valor(2016, 250000, 'litros'), 'Alemania') ),
       null
   );
