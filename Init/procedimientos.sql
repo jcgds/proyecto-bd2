@@ -1187,3 +1187,28 @@ begin
     return res;
 end;
 /
+
+create or replace function obtener_telefonos(phones conj_telefonos)
+return varchar2 as
+    res varchar2(3000);
+begin
+
+    for i in 1 .. phones.COUNT loop
+        if (phones(i) is not null) then
+            res := res || to_char(phones(i)) || ', ';
+        end if;
+    end loop;
+    
+    return res;
+end;
+/
+
+create or replace function obtener_datos_bancarios(idEdicion number)
+return varchar2 as
+    dbanc datosBancarios;
+begin
+    select datosBancarios into dbanc from Edicion where id = idEdicion;
+    
+    return dbanc.recipiente || ', ' || dbanc.nombreBanco || ', ' || dbanc.codigoCuenta || ', ' || dbanc.codigoSucursal;
+end;
+/
