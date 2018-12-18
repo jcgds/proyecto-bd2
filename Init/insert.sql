@@ -476,6 +476,9 @@ insert into Bodega values (
 );
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (51, 51, 51, 41, 51);
+insert into Cosecha values (51, 2016, 'E', 51, 51, 51, 41, 51);
+insert into Cosecha values (52, 2017, 'MB', 51, 51, 51, 41, 51);
+insert into Cosecha values (53, 2018, 'E', 51, 51, 51, 41, 51);
 insert into MarcaVino values (
     51,
     16,
@@ -546,8 +549,14 @@ insert into Bodega values (
 );
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (52, 54, 54, 42, 52);
+insert into Cosecha values (54, 2016, 'E', 52, 54, 54, 42, 52);
+insert into Cosecha values (55, 2017, 'MB', 52, 54, 54, 42, 52);
+insert into Cosecha values (56, 2018, 'E', 52, 54, 54, 42, 52);
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (53, 55, 55, 42, 52);
+insert into Cosecha values (57, 2016, 'E',53, 55, 55, 42, 52);
+insert into Cosecha values (58, 2017, 'MB',53, 55, 55, 42, 52);
+insert into Cosecha values (59, 2018, 'E',53, 55, 55, 42, 52);
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (54, 56, 56, 42, 52);
 insert into MarcaVino values (
@@ -715,6 +724,9 @@ insert into Bodega values (
 );
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (55, 57, 57, 43, 53);
+insert into Cosecha values (60, 2016, 'E',55, 57, 57, 43, 53);
+insert into Cosecha values (61, 2017, 'MB',55, 57, 57, 43, 53);
+insert into Cosecha values (62, 2018, 'E',55, 57, 57, 43, 53);
 
 insert into MarcaVino values (
     55,
@@ -853,10 +865,19 @@ insert into Bodega values (
 );
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (56, 58, 58, 44, 54);
+insert into Cosecha values (63, 2016, 'E',55, 57, 57, 43, 53);
+insert into Cosecha values (64, 2017, 'MB',55, 57, 57, 43, 53);
+insert into Cosecha values (65, 2018, 'E',55, 57, 57, 43, 53);
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (57, 59, 59, 44, 54);
+insert into Cosecha values (66, 2016, 'E',57, 59, 59, 44, 54);
+insert into Cosecha values (67, 2017, 'MB',57, 59, 59, 44, 54);
+insert into Cosecha values (68, 2018, 'E',57, 59, 59, 44, 54);
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (58, 60, 60, 44, 54);
+insert into Cosecha values (69, 2016, 'E',58, 60, 60, 44, 54);
+insert into Cosecha values (70, 2017, 'MB',58, 60, 60, 44, 54);
+insert into Cosecha values (71, 2018, 'E',58, 60, 60, 44, 54);
 
 insert into MarcaVino values (
     57,
@@ -1025,6 +1046,9 @@ insert into HistoricoPrecio values (2018, 66, 59, 13, 890);
   );
   insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
   (107, 107, 107, 104, 104);
+insert into Cosecha values (72, 2016, 'E',107, 107, 107, 104, 104);
+insert into Cosecha values (73, 2017, 'MB',107, 107, 107, 104, 104);
+insert into Cosecha values (74, 2018, 'E',107, 107, 107, 104, 104);
 
   insert into MarcaVino values (
       109,
@@ -1245,10 +1269,20 @@ insert into Pais values (
     );
     insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
     (101, 101, 101, 101, 101);
+    insert into Cosecha values (75, 2016, 'E',101, 101, 101, 101, 101);
+    insert into Cosecha values (76, 2017, 'MB',101, 101, 101, 101, 101);
+    insert into Cosecha values (77, 2018, 'E',101, 101, 101, 101, 101);
+
     insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
     (102, 102, 102, 101, 101);
+    insert into Cosecha values (78, 2016, 'E',102, 102, 102, 101, 101);
+    insert into Cosecha values (79, 2017, 'MB',102, 102, 102, 101, 101);
+    insert into Cosecha values (80, 2018, 'E',102, 102, 102, 101, 101);
     insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
     (103, 103, 103, 101, 101);
+    insert into Cosecha values (81, 2016, 'E',103, 103, 103, 101, 101);
+    insert into Cosecha values (82, 2017, 'MB',103, 103, 103, 101, 101);
+    insert into Cosecha values (83, 2018, 'E',103, 103, 103, 101, 101);
 
     insert into MarcaVino values (
         101,
@@ -1409,8 +1443,14 @@ insert into DenominacionDeOrigen values (105,'Wine of Origin Amyndeon', null, 10
   );
   insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
   (104, 104, 104, 102, 102);
+  insert into Cosecha values (84, 2016, 'E',104, 104, 104, 102, 102);
+  insert into Cosecha values (85, 2017, 'MB',104, 104, 104, 102, 102);
+  insert into Cosecha values (86, 2018, 'E',104, 104, 104, 102, 102);
   insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
   (105, 105, 105, 102, 102);
+  insert into Cosecha values (87, 2016, 'E',105, 105, 105, 102, 102);
+  insert into Cosecha values (88, 2017, 'MB',105, 105, 105, 102, 102);
+  insert into Cosecha values (89, 2018, 'E',105, 105, 105, 102, 102);
 
   insert into MarcaVino values (
       104,
@@ -1563,6 +1603,9 @@ insert into DenominacionDeOrigen values (106,'Regional Wine of Heraklion', null,
   );
   insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
   (106, 106, 106, 103, 103);
+  insert into Cosecha values (90, 2016, 'E',106, 106, 106, 103, 103);
+  insert into Cosecha values (91, 2017, 'MB',106, 106, 106, 103, 103);
+  insert into Cosecha values (92, 2018, 'E',106, 106, 106, 103, 103);
 
   insert into MarcaVino values (
       107,
