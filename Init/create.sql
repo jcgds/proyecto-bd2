@@ -1,3 +1,5 @@
+CREATE OR REPLACE DIRECTORY IMG AS 'C:\WINE_DB\IMG'
+/
 ALTER SESSION SET CURRENT_SCHEMA = WINE_SCHEMA
 /
 create or replace type tipo_valor as object (
