@@ -766,25 +766,25 @@ begin
 end;
 /
 
-create or replace procedure formula_ventana_consumo(idMarcaVino number,idClasificacion number)
-as
+create or replace function formula_ventana_consumo(idMarcaVino number, anioInicial number)
+return number is
     ventanaAnio number;
     anioFinal number (4,0);
+    ventanaMeses number;
 begin
-    for VentanaConsumo in (select M.ventanaDeConsumoMeses , C.anio from
-                            Cosecha C, MarcaVino_B_DO MB, MarcaVino M
-                            where MB.fk_b_do = C.fk_bdo_id and MB.fk_bodega = C.fk_bdo_bodega and MB.fk_denominaciondeorigen = fk_bdo_do_id
-                            and MB.fk_do_VariedadVid = C.fk_bdo_do_VariedadVid and MB.fk_do_region = C.fk_bdo_do_region and
-                            MB.fk_marcavino = idMarcaVino and MB.fk_clasificacionvinos = idClasificacion and
-                            M.id = MB.fk_marcavino and M.fk_clasificacionvinos = MB.fk_clasificacionvinos) loop
+    select distinct M.ventanaDeConsumoMeses into ventanaMeses from
+        Cosecha C, MarcaVino_B_DO MB, MarcaVino M
+        where MB.fk_b_do = C.fk_bdo_id and MB.fk_bodega = C.fk_bdo_bodega and MB.fk_denominaciondeorigen = fk_bdo_do_id
+        and MB.fk_do_VariedadVid = C.fk_bdo_do_VariedadVid and MB.fk_do_region = C.fk_bdo_do_region and
+        MB.fk_marcavino = idMarcaVino and
+        M.id = MB.fk_marcavino and M.fk_clasificacionvinos = MB.fk_clasificacionvinos and C.anio = anioInicial;
 
-        ventanaAnio := trunc(VentanaConsumo.ventanaDeConsumoMeses/12);
-        anioFinal := VentanaConsumo.anio + ventanaAnio;
-        DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
-        DBMS_OUTPUT.PUT_LINE('Anio Incial: ' || to_char(VentanaConsumo.anio) || ' Anio Final : ' || to_char(anioFinal));
-        DBMS_OUTPUT.PUT_LINE('------------------------------------------------');
-
-    end loop;
+    if ventanaMeses is null then
+        RAISE_APPLICATION_ERROR(-20500, 'El anio ingresado no tiene una cosecha asignada');
+    end if;
+    ventanaAnio := trunc(ventanaMeses/12);
+    anioFinal := anioInicial + ventanaAnio;
+    return anioFinal;
 
 end;
 /
@@ -1109,5 +1109,120 @@ begin
 
     porcentaje := superficie/totalsuperficie * 100;
     return porcentaje;
+end;
+/
+
+create or replace function superficie_pais(idPais number, p_anio number)
+return number is
+    result number := 0;
+begin
+
+    select nt.valor into result from the (select superficieVinedo from Pais where id = idPais) nt
+    where nt.anio = p_anio;
+    return result;
+exception
+  when no_data_found then
+    return 0;
+end;
+/
+
+create or replace function posicion_ranking_superficie(idPais number, p_anio number)
+return number is
+    contador number := 1;
+begin
+  
+    for ranking in (select p.id, superficie_pais(p.id, p_anio) sup from pais p order by sup desc)
+    loop
+      if ranking.id = idPais then
+        return contador;
+      end if;
+
+      contador := contador + 1;
+    end loop;
+
+    return -1;
+end;
+/
+
+create or replace function posicion_ranking_produccion(idPais number, p_anio number)
+return number is
+    contador number := 1;
+begin
+  
+    for ranking in (
+        select p.id, produccion_pais_en(p.id, p_anio) prod
+        from pais p
+        order by prod desc
+    )
+    loop
+      if ranking.id = idPais then
+        return contador;
+      end if;
+
+      contador := contador + 1;
+    end loop;
+
+    return -1;
+end;
+/
+
+create or replace function formatear_msj_tipo_conc(idConcurso number) 
+return varchar2 as
+    tipo char;
+begin
+    select deCatadores into tipo from Concurso where id = idConcurso;
+
+    if tipo LIKE 'S' then
+        return 'De catadores';
+    else
+        return 'De vinos';
+    end if;
+end;
+/
+
+create or replace function obtener_clasificacion_vino(idMarcaVino number)
+return varchar2 as
+    idClasif number;
+    res varchar2(300);
+    tem varchar2(100);
+    fkPadre number;
+begin
+    select fk_clasificacionvinos into idClasif from MarcaVino where id = idMarcaVino;
+
+    while (idClasif is not null) loop
+        select nombre, fk_clasificacionvinos into tem, idClasif from clasificacionvinos where id = idClasif;
+        if (idClasif is null) then
+            res := res || tem;
+        else 
+            res := res || tem || ', ';
+        end if;
+    end loop;
+
+    return res;
+end;
+/
+
+create or replace function obtener_telefonos(phones conj_telefonos)
+return varchar2 as
+    res varchar2(3000);
+begin
+
+    for i in 1 .. phones.COUNT loop
+        if (phones(i) is not null) then
+            res := res || to_char(phones(i)) || ', ';
+        end if;
+    end loop;
+    
+    return res;
+end;
+/
+
+create or replace function obtener_datos_bancarios(idEdicion number)
+return varchar2 as
+    dbanc datosBancarios;
+begin
+    select datosBancarios into dbanc from Edicion where id = idEdicion;
+    
+    return dbanc.recipiente || ', ' || dbanc.nombreBanco || ', ' || dbanc.codigoCuenta || ', ' || dbanc.codigoSucursal;
 end;
 /
