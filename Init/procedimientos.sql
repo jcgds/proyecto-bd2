@@ -1253,3 +1253,28 @@ begin
     update MarcaVino set foto = v_lob where id = idMarcaVino;
 end;
 /
+
+
+create or replace function maximoValorEscala(idConcurso number, nombreFase varchar) 
+return number as
+    res number;
+begin
+
+    select SUM(RangoSuperior) into res from the (select escalas from concurso where id = idConcurso) nt
+    group by elemento
+    having elemento = nombreFase;
+    return res;
+end;
+/
+
+create or replace function minimoValorEscala(idConcurso number, nombreFase varchar) 
+return number as
+    res number;
+begin
+
+    select SUM(RangoInferior) into res from the (select escalas from concurso where id = idConcurso) nt
+    group by elemento
+    having elemento = nombreFase;
+    return res;
+end;
+/
