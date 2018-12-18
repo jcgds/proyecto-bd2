@@ -19,7 +19,7 @@ begin
 
     insert into CataAprendiz values (
         saveId,
-        to_date('10-10-2010', 'DD-MM-YYYY'),
+        CURRENT_DATE,
         valoracion_nt(
             valoracion(null, 0, null)
         ),
