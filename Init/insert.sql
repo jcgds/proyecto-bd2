@@ -1798,8 +1798,10 @@ INSERT INTO Concurso VALUES (
     ),
     'Comparativa',
     'S',
-    premio_nt(),
-    escala_nt(),
+    premio_nt(premio('Catador estrella', 1, null, 'Medalla', null),
+    premio('Catador explorador', 2, null, 'Medalla', null),
+    premio('Catador novato', 3, null, 'Medalla', null)),
+    escala_nt(escala('puntos', 0, 100, 'estandar')),
     'La práctica totalidad del atlas vinícola escoge a Baco como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
 );
 
@@ -1874,5 +1876,58 @@ DATOSDECONTACTO(
 ),
 2
 );
+
+insert into catadoraprendiz values (2, 'Luis', 'Gil', TO_DATE('12/4/2000', 'DD/MM/YYYY'), 'M',lugar('Caracas', 'Venezuela'));
+insert into catadoraprendiz values (1, 'Albert', 'Gil', TO_DATE('9/6/1997', 'DD/MM/YYYY'), 'M',lugar('Caracas', 'Venezuela'));
+insert into catadoraprendiz values (3, 'Odiseo', 'Farble', TO_DATE('5/5/1985', 'DD/MM/YYYY'), 'M',lugar('Caracas', 'Venezuela'));
+insert into catadoraprendiz values (4, 'Euclides', 'Galante', TO_DATE('10/8/1978', 'DD/MM/YYYY'), 'M',lugar('Caracas', 'Venezuela'));
+  insert into Inscripcion values (
+    4,
+    to_date('10-02-2018', 'DD-MM-YYYY'),
+    null,
+    51,
+    null,
+    1
+);
+
+insert into Inscripcion values (
+    5,
+    to_date('12-02-2018', 'DD-MM-YYYY'),
+    null,
+    51,
+    null,
+    2
+);
+
+insert into Inscripcion values (
+    6,
+    to_date('08-02-2018', 'DD-MM-YYYY'),
+    null,
+    51,
+    null,
+    3
+);
+insert into Inscripcion values (
+    7,
+    to_date('08-02-2018', 'DD-MM-YYYY'),
+    null,
+    51,
+    null,
+    4
+);
+insert into Juez values (1, 51);
+insert into Juez values (2, 51);
+insert into Juez values (3, 51);
+
+insert into muestracatador values (1, 1, 17, 51, 1, 2016, 54);
+insert into muestracatador values (2, 109, 2, 51, 1, 2016, 85);
+
+insert into cataAprendiz values (1, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 64, 1, 1, 1, 17, 51, 1);
+insert into cataAprendiz values (2, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 58, 1, 2, 109, 2, 51, 1);
+insert into cataAprendiz values (3, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 49, 1, 2, 109, 2, 51, 1);
+insert into cataAprendiz values (4, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 60, 2, 2, 109, 2, 51, 1);
+insert into cataAprendiz values (5, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 75, 3, 1, 1, 17, 51, 1);
+insert into cataAprendiz values (6, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoracion_nt(), 32, 4, 1, 1, 17, 51, 1);
+
 
 commit;

@@ -806,6 +806,7 @@ as
     idConcurso number;
     cont number := 1;
     premioHolder premio;
+    tienePremio varchar2(50);
 begin
     select C.deCatadores, C.id into esDeCatadores, idConcurso from Concurso C, Edicion E
         where E.id = idEdicion and E.fk_concurso = C.id;
@@ -844,8 +845,11 @@ begin
         loop
             begin
                 premioHolder := premio_para_posicion(idConcurso, cont);
-                if resultado.premio is NULL then
+                select premioCatador into tienePremio from Inscripcion where id = resultado.idInscripcion;
+                if tienePremio is NULL then
                     update Inscripcion set premioCatador = premioHolder.nombre where id = resultado.idInscripcion;
+                      DBMS_OUTPUT.PUT_LINE('Premio otorgado : ' || resultado.premio);
+                      DBMS_OUTPUT.PUT_LINE('Catador de pasaporte : ' || to_char(resultado.idCatador));
                     cont := cont+1;
                 end if;
 
