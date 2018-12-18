@@ -43,8 +43,8 @@ commit;
 --------------------------------------------------------------------------------------------------------
 
 insert into Pais values (
-    1, 
-    'Portugal', 
+    1,
+    'Portugal',
     'Europa',
     tipo_valor_nt(
         tipo_valor(2011, 210, 'millones de hectareas'),
@@ -55,11 +55,11 @@ insert into Pais values (
         tipo_valor(2016, 190, 'millones de hectareas'),
         tipo_valor(2017, 199, 'millones de hectareas'),
         tipo_valor(2018, 212, 'millones de hectareas')
-    ), 
-    tipo_valor_nt(), 
-    distribucion_exp_nt(), 
-    unidadMonetaria('Euro', 'EUR'), 
-    bfilename('mapas_regionales', 'portugal.png'), 
+    ),
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    unidadMonetaria('Euro', 'EUR'),
+    bfilename('mapas_regionales', 'portugal.png'),
     null
 );
 
@@ -110,8 +110,8 @@ insert into MarcaVino values (
     1.2,
     15,
     tipo_valor_nt(
-        tipo_valor(2011, 15348, 'litros'), 
-        tipo_valor(2012, 15500, 'litros'), 
+        tipo_valor(2011, 15348, 'litros'),
+        tipo_valor(2012, 15500, 'litros'),
         tipo_valor(2013, 21126, 'litros')
     ),
     distribucion_exp_nt(
@@ -280,8 +280,8 @@ insert into Bodega values (
         direccion('Alentejo', '7350-491', 'Herdade da Farizoa - 7350- 491 Terrugem - Elvas', null),
         personasDeContacto(personaDeContacto('Joaquim','Mendes','Winemaker','farizoa@companhiadasquintas.pt'))
     ),
-    'Created with the purpose of becoming one of the most important players in the Portuguese wine business.' || 
-    ' Its strategy is based on the development of high quality estate wines from 250 hectares of own vineyards,' || 
+    'Created with the purpose of becoming one of the most important players in the Portuguese wine business.' ||
+    ' Its strategy is based on the development of high quality estate wines from 250 hectares of own vineyards,' ||
     ' planted in the major Portuguese wine regions. The company aims to achieve sustained growth, with main focus on foreign markets.',
     'TODO: Tal vez deberia poder ser null (Descripcion general vinos)',
     tipo_valor_nt(),
@@ -316,8 +316,8 @@ insert into MarcaVino values (
     0.3,
     13.5,
     tipo_valor_nt(
-        tipo_valor(2011, 26500, 'litros'), 
-        tipo_valor(2012, 34250, 'litros'), 
+        tipo_valor(2011, 26500, 'litros'),
+        tipo_valor(2012, 34250, 'litros'),
         tipo_valor(2013, 30750, 'litros')
     ),
     distribucion_exp_nt(
@@ -398,8 +398,8 @@ insert into MarcaVino values (
     121.3,
     19,
     tipo_valor_nt(
-        tipo_valor(2011, 87500, 'litros'), 
-        tipo_valor(2012, 120300, 'litros'), 
+        tipo_valor(2011, 87500, 'litros'),
+        tipo_valor(2012, 120300, 'litros'),
         tipo_valor(2013, 210000, 'litros')
     ),
     distribucion_exp_nt(
@@ -427,7 +427,7 @@ insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk
 ---- / Fin Bodega Justino's Madeira ------------------------------------------------------------------------------------------------------------------------------------------
 
 
-insert into Pais values (4, 'Estados Unidos', 'America', tipo_valor_nt(), tipo_valor_nt(), distribucion_exp_nt(), 
+insert into Pais values (4, 'Estados Unidos', 'America', tipo_valor_nt(), tipo_valor_nt(), distribucion_exp_nt(),
     unidadMonetaria('Dolar', 'USD'), bfilename('mapas_regionales', 'usa.jpg'), null);
 -- Bodega OPUS ONE -----------------------------------------------
 insert into Region values (41, 'Oakville AVA', null, 4);
@@ -940,6 +940,9 @@ insert into HistoricoPrecio values (2018, 66, 59, 13, 890);
   );
   insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
   (107, 107, 107, 104, 104);
+  insert into Cosecha values (119, 2016, 'E', 107, 107, 107, 104, 104);
+  insert into Cosecha values (120, 2017, 'MB', 107, 107, 107, 104, 104);
+  insert into Cosecha values (121, 2018, 'E', 107, 107, 107, 104, 104);
 
   insert into MarcaVino values (
       109,
@@ -985,9 +988,9 @@ INSERT INTO Concurso VALUES (
     1,
     'Bacchus',
     DATOSDECONTACTO(
-        conj_telefonos(34914293477, 34914291238), 
-        null, 
-        'info@uec.es', 
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@uec.es',
         'http://www.concursobacchus.com/',
         direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
         null
@@ -995,12 +998,12 @@ INSERT INTO Concurso VALUES (
     'A ciegas',
     'N',
     premio_nt(
-        premio('Gran Bacchus de oro', 1, null, 'Medalla', null),     
+        premio('Gran Bacchus de oro', 1, null, 'Medalla', null),
         premio('Bacchus de oro', 2, null, 'Medalla', null),
         premio('Bacchus de plata', 3, null, 'Medalla', null)
     ),
     escala_nt(
-        escala('Fase visual', 0, 9, null),      
+        escala('Fase visual', 0, 9, null),
         escala('Fase olfativa', 0, 18, 'Intensidad'),
         escala('Fase olfativa', 0, 18, 'Calidad'),
         escala('Fase gustativa', 0, 18, 'Intensidad'),
@@ -1130,10 +1133,19 @@ insert into Pais values (
     );
     insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
     (101, 101, 101, 101, 101);
+    insert into Cosecha values (110, 2016, 'E', 101, 101, 101, 101, 101);
+    insert into Cosecha values (111, 2017, 'MB', 101, 101, 101, 101, 101);
+    insert into Cosecha values (112, 2018, 'E', 101, 101, 101, 101, 101);
     insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
     (102, 102, 102, 101, 101);
+    insert into Cosecha values (113, 2016, 'E', 102, 102, 102, 101, 101);
+    insert into Cosecha values (114, 2017, 'MB', 102, 102, 102, 101, 101);
+    insert into Cosecha values (115, 2018, 'E', 102, 102, 102, 101, 101);
     insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
     (103, 103, 103, 101, 101);
+    insert into Cosecha values (116, 2016, 'E', 103, 103, 103, 101, 101);
+    insert into Cosecha values (117, 2017, 'MB', 103, 103, 103, 101, 101);
+    insert into Cosecha values (118, 2018, 'E', 103, 103, 103, 101, 101);
 
     insert into MarcaVino values (
         101,
@@ -1276,8 +1288,14 @@ insert into DenominacionDeOrigen values (105,'Wine of Origin Amyndeon', null, 10
   );
   insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
   (104, 104, 104, 102, 102);
+  insert into Cosecha values (104, 2016, 'E', 104, 104, 104, 102, 102);
+  insert into Cosecha values (105, 2017, 'MB', 104, 104, 104, 102, 102);
+  insert into Cosecha values (106, 2018, 'E', 104, 104, 104, 102, 102);
   insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
   (105, 105, 105, 102, 102);
+  insert into Cosecha values (107, 2016, 'E', 105, 105, 105, 102, 102);
+  insert into Cosecha values (108, 2017, 'MB', 105, 105, 105, 102, 102);
+  insert into Cosecha values (109, 2018, 'E', 105, 105, 105, 102, 102);
 
   insert into MarcaVino values (
       104,
@@ -1418,6 +1436,9 @@ insert into DenominacionDeOrigen values (106,'Regional Wine of Heraklion', null,
   );
   insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
   (106, 106, 106, 103, 103);
+  insert into Cosecha values (101, 2016, 'E', 106, 106, 106, 103, 103);
+  insert into Cosecha values (102, 2017, 'MB', 106, 106, 106, 103, 103);
+  insert into Cosecha values (103, 2018, 'E', 106, 106, 106, 103, 103);
 
   insert into MarcaVino values (
       107,
@@ -1496,10 +1517,10 @@ insert into DenominacionDeOrigen values (106,'Regional Wine of Heraklion', null,
   insert into HistoricoPrecio values (2017, 116, 108, 2, 1228);
   insert into HistoricoPrecio values (2018, 116, 108, 2, 1350);
 INSERT INTO CatadorExperto VALUES (
-    2, 
-    'Robert', 
-    'Parker', 
-    to_date('23-07-1947', 'DD-MM-YYYY'), 
+    2,
+    'Robert',
+    'Parker',
+    to_date('23-07-1947', 'DD-MM-YYYY'),
     null,
     hechos_hist_nt(),
     lugar('Baltimore', 'Estados Unidos'),
@@ -1513,10 +1534,10 @@ INSERT INTO CatadorExperto VALUES (
 );
 
 INSERT INTO CatadorExperto VALUES (
-    3, 
-    'Steve', 
-    'Spurrier', 
-    to_date('12-02-1941', 'DD-MM-YYYY'), 
+    3,
+    'Steve',
+    'Spurrier',
+    to_date('12-02-1941', 'DD-MM-YYYY'),
     null,
     hechos_hist_nt(),
     lugar('London', 'United Kingdom'),
@@ -1561,9 +1582,9 @@ INSERT INTO Edicion VALUES  (
     unidadMonetaria('Euro', 'EUR'),
     'info@uec.es',
     DATOSDECONTACTO(
-        conj_telefonos(34914293477, 34914291238), 
-        null, 
-        'info@uec.es', 
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@uec.es',
         'http://www.concursobacchus.com/',
         direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
         null
@@ -1768,9 +1789,9 @@ INSERT INTO Concurso VALUES (
     2,
     'Baco Catadores',
     DATOSDECONTACTO(
-        conj_telefonos(34914293477, 34914291238), 
-        null, 
-        'info@tomelloso.es', 
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@tomelloso.es',
         'http://www.tomelloso.es/',
         direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
         null
@@ -1782,10 +1803,10 @@ INSERT INTO Concurso VALUES (
     'La práctica totalidad del atlas vinícola escoge a Baco como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
 );
 
-INSERT INTO Organizador VALUES 
+INSERT INTO Organizador VALUES
 (51, 'Asociacion de Tomelloso', null);
 
-INSERT INTO Organizador VALUES 
+INSERT INTO Organizador VALUES
 (52, 'Bodegas Simbolo', null);
 
 INSERT INTO P_O VALUES
@@ -1805,10 +1826,10 @@ INSERT INTO Organizador_Concurso VALUES
 (52, 52, 2);
 
 INSERT INTO CatadorExperto VALUES (
-    51, 
-    'Romeo', 
-    'Santos', 
-    to_date('09-06-1968', 'DD-MM-YYYY'), 
+    51,
+    'Romeo',
+    'Santos',
+    to_date('09-06-1968', 'DD-MM-YYYY'),
     null,
     hechos_hist_nt(),
     lugar('Lisboa', 'Portugal'),
@@ -1818,10 +1839,10 @@ INSERT INTO CatadorExperto VALUES (
 );
 
 INSERT INTO CatadorExperto VALUES (
-    52, 
-    'Anuel', 
-    'AA', 
-    to_date('09-06-1978', 'DD-MM-YYYY'), 
+    52,
+    'Anuel',
+    'AA',
+    to_date('09-06-1978', 'DD-MM-YYYY'),
     null,
     hechos_hist_nt(),
     lugar('Lisboa', 'Portugal'),
@@ -1844,9 +1865,9 @@ lugar('test','test2'),
 unidadMonetaria('Rand Sudafricano', 'R'),
 null,
 DATOSDECONTACTO(
-        conj_telefonos(270832355748,4740000787), 
-        null, 
-        'customerservice@crystallumwines.com', 
+        conj_telefonos(270832355748,4740000787),
+        null,
+        'customerservice@crystallumwines.com',
         'http://www.crystallumwines.com/',
         direccion('Hermanus', '7200', '2 Harbour Rd', null),
         personasDeContacto(personaDeContacto('David','Nel','Sales','steele.nel@gmail.com'))
