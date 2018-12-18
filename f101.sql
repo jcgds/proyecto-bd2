@@ -13,7 +13,7 @@ prompt  APPLICATION 101 - WINES
 -- Application Export:
 --   Application:     101
 --   Name:            WINES
---   Date and Time:   23:29 Monday December 17, 2018
+--   Date and Time:   11:29 Tuesday December 18, 2018
 --   Exported By:     WINE_USER
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -25,12 +25,12 @@ prompt  APPLICATION 101 - WINES
 --   Using SQL*Plus as the Oracle user APEX_040000 or as the owner (parsing schema) of the application.
  
 -- Application Statistics:
---   Pages:                    8
---     Items:                 81
+--   Pages:                   11
+--     Items:                103
 --     Computations:           0
 --     Validations:            0
 --     Processes:              5
---     Regions:               64
+--     Regions:               88
 --     Buttons:                0
 --     Dynamic Actions:        0
 --   Shared Components
@@ -41,7 +41,7 @@ prompt  APPLICATION 101 - WINES
 --     Processes:              0
 --     Parent Tabs:            1
 --     Tab Sets:               1
---        Tabs:                6
+--        Tabs:                8
 --     NavBars:                1
 --     Lists:                  0
 --     Shortcuts:              1
@@ -146,7 +146,7 @@ wwv_flow_api.create_flow(
   p_default_region_template=> 4888420064405499 + wwv_flow_api.g_id_offset,
   p_error_template=> 4884712299405483 + wwv_flow_api.g_id_offset,
   p_page_protection_enabled_y_n=> 'Y',
-  p_checksum_salt_last_reset => '20181217232712',
+  p_checksum_salt_last_reset => '20181218112907',
   p_max_session_length_sec=> 28800,
   p_home_link=> 'f?p=&APP_ID.:1:&SESSION.',
   p_flow_language=> 'en',
@@ -158,7 +158,7 @@ wwv_flow_api.create_flow(
   p_authentication=> 'CUSTOM2',
   p_login_url=> '',
   p_logout_url=> 'wwv_flow_custom_auth_std.logout?p_this_flow=&APP_ID.&amp;p_next_flow_page_sess=&APP_ID.:1',
-  p_application_tab_set=> 0,
+  p_application_tab_set=> 1,
   p_public_url_prefix => '',
   p_public_user=> 'APEX_PUBLIC_USER',
   p_dbauth_url_prefix => '',
@@ -189,7 +189,7 @@ wwv_flow_api.create_flow(
   p_default_listr_template => 4887323994405498 + wwv_flow_api.g_id_offset,
   p_default_irr_template => 4888031003405498 + wwv_flow_api.g_id_offset,
   p_last_updated_by => 'WINE_USER',
-  p_last_upd_yyyymmddhh24miss=> '20181217232712',
+  p_last_upd_yyyymmddhh24miss=> '20181218112907',
   p_required_roles=> wwv_flow_utilities.string_to_table2(''));
  
  
@@ -307,7 +307,7 @@ wwv_flow_api.create_tab (
   p_tab_sequence=> 50,
   p_tab_name=> 'T_BODEGAS',
   p_tab_text => 'Bodegas',
-  p_tab_step => 7,
+  p_tab_step => 20,
   p_tab_also_current_for_pages => '',
   p_tab_parent_tabset=>'Reportes',
   p_tab_comment  => '');
@@ -347,6 +347,32 @@ wwv_flow_api.create_tab (
   p_tab_name=> 'T_FICHA CONCURSO',
   p_tab_text => 'Ficha Concurso',
   p_tab_step => 52,
+  p_tab_also_current_for_pages => '',
+  p_tab_parent_tabset=>'Reportes',
+  p_tab_comment  => '');
+ 
+--application/shared_components/navigation/tabs/standard/t_reporteclasificaciónvinos
+wwv_flow_api.create_tab (
+  p_id=> 5056824502713222 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_tab_set=> 'Reportes',
+  p_tab_sequence=> 100,
+  p_tab_name=> 'T_REPORTECLASIFICACIÓNVINOS',
+  p_tab_text => 'Reporte Clasificación Vinos',
+  p_tab_step => 21,
+  p_tab_also_current_for_pages => '',
+  p_tab_parent_tabset=>'Reportes',
+  p_tab_comment  => '');
+ 
+--application/shared_components/navigation/tabs/standard/t_inscripciónaprendiz
+wwv_flow_api.create_tab (
+  p_id=> 5059219847651617 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_tab_set=> 'Reportes',
+  p_tab_sequence=> 110,
+  p_tab_name=> 'T_INSCRIPCIÓNAPRENDIZ',
+  p_tab_text => 'Inscripción Aprendiz',
+  p_tab_step => 22,
   p_tab_also_current_for_pages => '',
   p_tab_parent_tabset=>'Reportes',
   p_tab_comment  => '');
@@ -421,7 +447,7 @@ wwv_flow_api.create_page (
  ,p_help_text => 
 'No help is available for this page.'
  ,p_last_updated_by => 'WINE_USER'
- ,p_last_upd_yyyymmddhh24miss => '20181217203656'
+ ,p_last_upd_yyyymmddhh24miss => '20181218060912'
   );
 null;
  
@@ -533,7 +559,7 @@ wwv_flow_api.create_page_plug (
   p_id=> 4984008639335821 + wwv_flow_api.g_id_offset,
   p_flow_id=> wwv_flow.g_flow_id,
   p_page_id=> 1,
-  p_plug_name=> 'Producción Bodega (Hectolitros)',
+  p_plug_name=> 'Producción, Exportación y Consumo Bodega (Hectolitros)',
   p_region_name=>'',
   p_plug_template=> 4887410716405498+ wwv_flow_api.g_id_offset,
   p_plug_display_sequence=> 30,
@@ -637,9 +663,6 @@ a1:=a1||'select '||chr(10)||
 '    xx.des label,'||chr(10)||
 '    SUM(litros_a_hectolitros(xx.valor)) value'||chr(10)||
 'from ('||chr(10)||
-'select ''Produccion'' des, produccion_bodega_en(:PPB_BODEGA, :PPB_ANIO) valor'||chr(10)||
-'from dual'||chr(10)||
-'UNION'||chr(10)||
 'select ''Exportacion'' des, exportacion_bodega_en(:PPB_BODEGA, :PPB_ANIO) valor'||chr(10)||
 'from dual'||chr(10)||
 'UNION'||chr(10)||
@@ -656,11 +679,11 @@ wwv_flow_api.create_flash_chart5_series(
   p_series_query              => a1,
   p_series_type               =>'',
   p_series_query_type         =>'SQL_QUERY',
-  p_series_query_parse_opt    =>'',
+  p_series_query_parse_opt    =>'PARSE_CHART_QUERY',
   p_series_query_no_data_found=>'No data found.',
   p_series_query_row_count_max=>15,
   p_action_link               =>'',
-  p_show_action_link          =>'',
+  p_show_action_link          =>'N',
   p_action_link_checksum_type =>'');
 end;
 /
@@ -1026,7 +1049,7 @@ wwv_flow_api.create_page (
  ,p_include_apex_css_js_yn => 'Y'
  ,p_cache_page_yn => 'N'
  ,p_last_updated_by => 'WINE_USER'
- ,p_last_upd_yyyymmddhh24miss => '20181217202522'
+ ,p_last_upd_yyyymmddhh24miss => '20181217235606'
   );
 null;
  
@@ -1896,7 +1919,7 @@ wwv_flow_api.create_page_item(
   p_use_cache_before_default=> 'YES',
   p_item_default=> 'No hay datos',
   p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
-  p_source=>'select to_char(t.valor,''999,999,999.99'') || '' Hectareas'' from '||chr(10)||
+  p_source=>'select to_char(t.valor,''999,999,999.99'') || '' Millones de Hectáreas'' from '||chr(10)||
 'the(select superficieVinedo from pais where id = :P2_SELECCIONARPAIS)t '||chr(10)||
 'where t.anio = :P2_ANIO',
   p_source_type=> 'QUERY',
@@ -3137,7 +3160,7 @@ wwv_flow_api.create_page (
  ,p_include_apex_css_js_yn => 'Y'
  ,p_cache_page_yn => 'N'
  ,p_last_updated_by => 'WINE_USER'
- ,p_last_upd_yyyymmddhh24miss => '20181216200031'
+ ,p_last_upd_yyyymmddhh24miss => '20181218004108'
   );
 null;
  
@@ -3258,7 +3281,7 @@ wwv_flow_api.create_page_plug (
   p_region_name=>'',
   p_parent_plug_id=>4939716223421460 + wwv_flow_api.g_id_offset,
   p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 270,
+  p_plug_display_sequence=> 290,
   p_plug_display_column=> 1,
   p_plug_display_point=> 'AFTER_SHOW_ITEMS',
   p_plug_source=> s,
@@ -3292,7 +3315,7 @@ wwv_flow_api.create_page_plug (
   p_region_name=>'',
   p_parent_plug_id=>4939716223421460 + wwv_flow_api.g_id_offset,
   p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 360,
+  p_plug_display_sequence=> 380,
   p_plug_display_column=> 1,
   p_plug_display_point=> 'AFTER_SHOW_ITEMS',
   p_plug_source=> s,
@@ -3324,7 +3347,7 @@ wwv_flow_api.create_report_region (
   p_region_name=>'',
   p_parent_plug_id=>4939716223421460 + wwv_flow_api.g_id_offset,
   p_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
-  p_display_sequence=> 520,
+  p_display_sequence=> 540,
   p_display_column=> 1,
   p_display_point=> '',
   p_source=> s,
@@ -3450,7 +3473,7 @@ wwv_flow_api.create_page_plug (
   p_region_name=>'',
   p_parent_plug_id=>4939716223421460 + wwv_flow_api.g_id_offset,
   p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 370,
+  p_plug_display_sequence=> 390,
   p_plug_display_column=> 1,
   p_plug_display_point=> 'AFTER_SHOW_ITEMS',
   p_plug_source=> s,
@@ -3484,7 +3507,7 @@ wwv_flow_api.create_page_plug (
   p_region_name=>'',
   p_parent_plug_id=>4939716223421460 + wwv_flow_api.g_id_offset,
   p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 380,
+  p_plug_display_sequence=> 400,
   p_plug_display_column=> 1,
   p_plug_display_point=> 'AFTER_SHOW_ITEMS',
   p_plug_source=> s,
@@ -3518,7 +3541,7 @@ wwv_flow_api.create_page_plug (
   p_region_name=>'',
   p_parent_plug_id=>4939716223421460 + wwv_flow_api.g_id_offset,
   p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 280,
+  p_plug_display_sequence=> 300,
   p_plug_display_column=> 1,
   p_plug_display_point=> 'AFTER_SHOW_ITEMS',
   p_plug_source=> s,
@@ -3586,7 +3609,7 @@ wwv_flow_api.create_page_plug (
   p_region_name=>'',
   p_parent_plug_id=>4939716223421460 + wwv_flow_api.g_id_offset,
   p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 490,
+  p_plug_display_sequence=> 510,
   p_plug_display_column=> 1,
   p_plug_display_point=> 'AFTER_SHOW_ITEMS',
   p_plug_source=> s,
@@ -3618,7 +3641,7 @@ wwv_flow_api.create_page_plug (
   p_region_name=>'',
   p_parent_plug_id=>4939716223421460 + wwv_flow_api.g_id_offset,
   p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 500,
+  p_plug_display_sequence=> 520,
   p_plug_display_column=> 1,
   p_plug_display_point=> 'AFTER_SHOW_ITEMS',
   p_plug_source=> s,
@@ -3650,7 +3673,7 @@ wwv_flow_api.create_page_plug (
   p_region_name=>'',
   p_parent_plug_id=>4939716223421460 + wwv_flow_api.g_id_offset,
   p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
-  p_plug_display_sequence=> 510,
+  p_plug_display_sequence=> 530,
   p_plug_display_column=> 1,
   p_plug_display_point=> 'AFTER_SHOW_ITEMS',
   p_plug_source=> s,
@@ -3685,7 +3708,7 @@ wwv_flow_api.create_report_region (
   p_region_name=>'',
   p_parent_plug_id=>4939716223421460 + wwv_flow_api.g_id_offset,
   p_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
-  p_display_sequence=> 530,
+  p_display_sequence=> 550,
   p_display_column=> 1,
   p_display_point=> 'AFTER_SHOW_ITEMS',
   p_source=> s,
@@ -3833,9 +3856,10 @@ wwv_flow_api.create_page_plug (
   p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
   p_plug_display_sequence=> 60,
   p_plug_display_column=> 1,
-  p_plug_display_point=> '',
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
   p_plug_source=> s,
   p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
   p_plug_display_error_message=> '#SQLERRM#',
   p_plug_query_row_template=> 1,
   p_plug_query_headings_type=> 'QUERY_COLUMNS',
@@ -3845,6 +3869,7 @@ wwv_flow_api.create_page_plug (
   p_plug_query_show_nulls_as => ' - ',
   p_plug_display_condition_type => '',
   p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
   p_plug_caching=> 'NOT_CACHED',
   p_plug_comment=> '');
 end;
@@ -3969,6 +3994,40 @@ wwv_flow_api.create_report_columns (
   p_is_required=> false,
   p_pk_col_source=> s,
   p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 5049507697453863 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 6,
+  p_plug_name=> 'Ventana de consumo',
+  p_region_name=>'',
+  p_parent_plug_id=>4939716223421460 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 150,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
 end;
 /
 declare
@@ -4103,7 +4162,8 @@ wwv_flow_api.create_page_item(
   p_source_type=> 'STATIC',
   p_display_as=> 'NATIVE_SELECT_LIST',
   p_lov=> 'select nombre || '' ('' || to_char(id) || '')'' as nombre, id'||chr(10)||
-'from MarcaVino',
+'from MarcaVino'||chr(10)||
+'order by id asc',
   p_lov_display_null=> 'NO',
   p_lov_translated=> 'N',
   p_cSize=> 30,
@@ -4710,7 +4770,7 @@ wwv_flow_api.create_page_item(
   p_item_plug_id => 4993230848720654+wwv_flow_api.g_id_offset,
   p_use_cache_before_default=> 'YES',
   p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
-  p_prompt=>'Año',
+  p_prompt=>'Año de consulta de presentaciones',
   p_source_type=> 'STATIC',
   p_display_as=> 'NATIVE_NUMBER_FIELD',
   p_lov_display_null=> 'NO',
@@ -4750,7 +4810,7 @@ wwv_flow_api.create_page_item(
   p_data_type=> 'VARCHAR',
   p_is_required=> false,
   p_accept_processing=> 'REPLACE_EXISTING',
-  p_item_sequence=> 30,
+  p_item_sequence=> 50,
   p_item_plug_id => 4993230848720654+wwv_flow_api.g_id_offset,
   p_use_cache_before_default=> 'NO',
   p_item_default=> 'Go',
@@ -4813,6 +4873,169 @@ wwv_flow_api.create_page_item(
   p_escape_on_http_output => 'Y',
   p_attribute_01 => 'SQL',
   p_attribute_06 => 'select foto from MarcaVino where id = :P6_SELECCIONARVINO',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>5049203410443207 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 6,
+  p_name=>'P6_CLASIF',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 140,
+  p_item_plug_id => 4972112794823862+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Cla',
+  p_source=>'select obtener_clasificacion_vino(:P6_SELECCIONARVINO) from dual',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>5049921642514680 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 6,
+  p_name=>'P6_VENT',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 150,
+  p_item_plug_id => 5049507697453863+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Vent',
+  p_source=>'select ''Consumible hasta '' || to_char(formula_ventana_consumo(:P6_SELECCIONARVINO, :P6_TEST)) from dual;',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>5053809847750397 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 6,
+  p_name=>'P6_TEST',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 160,
+  p_item_plug_id => 4993230848720654+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Añada',
+  p_source=>'select distinct to_char(co.anio) name, co.anio value'||chr(10)||
+'from Cosecha co, marcavino_b_do mvbdo, b_do bdo'||chr(10)||
+'where mvbdo.fk_marcavino = :P6_SELECCIONARVINO'||chr(10)||
+'and mvbdo.fk_b_do = bdo.id'||chr(10)||
+'and mvbdo.fk_bodega = bdo.fk_bodega'||chr(10)||
+'and mvbdo.fk_denominaciondeorigen = bdo.fk_do_id'||chr(10)||
+'and mvbdo.fk_do_region = bdo.fk_do_region'||chr(10)||
+'and mvbdo.fk_do_variedadvid = bdo.fk_do_variedadvid'||chr(10)||
+'and co.fk_bdo_bodega = bdo.fk_bodega'||chr(10)||
+'and co.fk_bdo_do_id = bdo.fk_do_id'||chr(10)||
+'and co.fk_bdo_do_region = bdo.fk_do_region'||chr(10)||
+'and co.fk_bdo_do_variedadvid = bdo.fk_do_variedadvid'||chr(10)||
+'order by anio desc',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_SELECT_LIST',
+  p_lov=> 'select distinct to_char(co.anio) name, co.anio value'||chr(10)||
+'from Cosecha co, marcavino_b_do mvbdo, b_do bdo'||chr(10)||
+'where mvbdo.fk_marcavino = :P6_SELECCIONARVINO'||chr(10)||
+'and mvbdo.fk_b_do = bdo.id'||chr(10)||
+'and mvbdo.fk_bodega = bdo.fk_bodega'||chr(10)||
+'and mvbdo.fk_denominaciondeorigen = bdo.fk_do_id'||chr(10)||
+'and mvbdo.fk_do_region = bdo.fk_do_region'||chr(10)||
+'and mvbdo.fk_do_variedadvid = bdo.fk_do_variedadvid'||chr(10)||
+'and co.fk_bdo_bodega = bdo.fk_bodega'||chr(10)||
+'and co.fk_bdo_do_id = bdo.fk_do_id'||chr(10)||
+'and co.fk_bdo_do_region = bdo.fk_do_region'||chr(10)||
+'and co.fk_bdo_do_variedadvid = bdo.fk_do_variedadvid'||chr(10)||
+'order by anio desc'||chr(10)||
+'',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892803899405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'NO',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'SUBMIT',
+  p_attribute_03 => 'Y',
   p_show_quick_picks=>'N',
   p_item_comment => '');
  
@@ -4926,6 +5149,2036 @@ end;
 /
 
  
+--application/pages/page_00020
+prompt  ...PAGE 20: Ficha Bodega
+--
+ 
+begin
+ 
+wwv_flow_api.create_page (
+  p_flow_id => wwv_flow.g_flow_id
+ ,p_id => 20
+ ,p_tab_set => 'Reportes'
+ ,p_name => 'Ficha Bodega'
+ ,p_step_title => 'Ficha Bodega'
+ ,p_allow_duplicate_submissions => 'Y'
+ ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'NO_FIRST_ITEM'
+ ,p_include_apex_css_js_yn => 'Y'
+ ,p_autocomplete_on_off => 'ON'
+ ,p_page_is_public_y_n => 'N'
+ ,p_protection_level => 'N'
+ ,p_cache_page_yn => 'N'
+ ,p_cache_timeout_seconds => 21600
+ ,p_cache_by_user_yn => 'N'
+ ,p_last_updated_by => 'WINE_USER'
+ ,p_last_upd_yyyymmddhh24miss => '20181218060333'
+  );
+null;
+ 
+end;
+/
+
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4827912873315463 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_plug_name=> 'Ficha Bodega',
+  p_region_name=>'',
+  p_plug_template=> 4888504559405499+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 10,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'REGION_POSITION_01',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4828717478315486 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_plug_name=> 'Regiones',
+  p_region_name=>'',
+  p_parent_plug_id=>4827912873315463 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 70,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'select M.nombre "Vino", D.nombre "DO" from DenominacionDeOrigen D, MarcaVino M, MarcaVino_B_DO MB,Bodega B '||chr(10)||
+'where B.id = MB.fk_bodega and M.id = MB.fk_marcavino and MB.fk_denominaciondeorigen = D.id and B.id = :P20_SELECCIONARBODEGA';
+
+wwv_flow_api.create_report_region (
+  p_id=> 4829122481315488 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_name=> 'Marcas de vino con denominación de origen',
+  p_region_name=>'',
+  p_parent_plug_id=>4827912873315463 + wwv_flow_api.g_id_offset,
+  p_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_display_sequence=> 150,
+  p_display_column=> 1,
+  p_display_point=> 'AFTER_SHOW_ITEMS',
+  p_source=> s,
+  p_source_type=> 'SQL_QUERY',
+  p_display_error_message=> '',
+  p_plug_caching=> 'NOT_CACHED',
+  p_customized=> '0',
+  p_translate_title=> 'Y',
+  p_ajax_enabled=> 'Y',
+  p_query_row_template=> 4892020536405507+ wwv_flow_api.g_id_offset,
+  p_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_query_num_rows=> '15',
+  p_query_options=> 'DERIVED_REPORT_COLUMNS',
+  p_query_show_nulls_as=> ' - ',
+  p_query_break_cols=> '0',
+  p_query_no_data_found=> 'Ningún dato conseguido (Prueba presionando el botón "Actualizar" de nuevo)',
+  p_query_num_rows_type=> 'NEXT_PREVIOUS_LINKS',
+  p_query_row_count_max=> '500',
+  p_pagination_display_position=> 'BOTTOM_RIGHT',
+  p_csv_output=> 'N',
+  p_query_asc_image=> 'apex/builder/dup.gif',
+  p_query_asc_image_attr=> 'width="16" height="16" alt="" ',
+  p_query_desc_image=> 'apex/builder/ddown.gif',
+  p_query_desc_image_attr=> 'width="16" height="16" alt="" ',
+  p_plug_query_strip_html=> 'Y',
+  p_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 4838509522522630 + wwv_flow_api.g_id_offset,
+  p_region_id=> 4829122481315488 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 1,
+  p_form_element_id=> null,
+  p_column_alias=> 'Vino',
+  p_column_display_sequence=> 1,
+  p_column_heading=> 'Vino',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 4838618346522630 + wwv_flow_api.g_id_offset,
+  p_region_id=> 4829122481315488 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 2,
+  p_form_element_id=> null,
+  p_column_alias=> 'DO',
+  p_column_display_sequence=> 2,
+  p_column_heading=> 'Do',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4829911465315503 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_plug_name=> 'Descripción general de vinos',
+  p_region_name=>'',
+  p_parent_plug_id=>4827912873315463 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 90,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4830330260315505 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_plug_name=> 'Misión ',
+  p_region_name=>'',
+  p_parent_plug_id=>4827912873315463 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 80,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4831123540315510 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_plug_name=> 'Datos de contacto ',
+  p_region_name=>'',
+  p_parent_plug_id=>4827912873315463 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 390,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4840706508654188 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_plug_name=> 'Dirección ',
+  p_region_name=>'',
+  p_parent_plug_id=>4831123540315510 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 410,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4841102137662374 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_plug_name=> 'Teléfono',
+  p_region_name=>'',
+  p_parent_plug_id=>4831123540315510 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 420,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4841309756664662 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_plug_name=> 'Fax',
+  p_region_name=>'',
+  p_parent_plug_id=>4831123540315510 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 430,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4841518413667144 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_plug_name=> 'E-mail',
+  p_region_name=>'',
+  p_parent_plug_id=>4831123540315510 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 440,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'select T.anio "Año" , litros_a_hectolitros(T.valor) "Hectolitros" from'||chr(10)||
+'the (select produccionAnual from bodega where id = :P20_SELECCIONARBODEGA)T';
+
+wwv_flow_api.create_report_region (
+  p_id=> 4831502983315511 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_name=> 'Producción anual total',
+  p_region_name=>'',
+  p_parent_plug_id=>4827912873315463 + wwv_flow_api.g_id_offset,
+  p_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_display_sequence=> 160,
+  p_display_column=> 1,
+  p_display_point=> 'AFTER_SHOW_ITEMS',
+  p_source=> s,
+  p_source_type=> 'SQL_QUERY',
+  p_display_error_message=> '#SQLERRM#',
+  p_plug_caching=> 'NOT_CACHED',
+  p_customized=> '0',
+  p_translate_title=> 'Y',
+  p_ajax_enabled=> 'Y',
+  p_query_row_template=> 4892020536405507+ wwv_flow_api.g_id_offset,
+  p_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_query_num_rows=> '15',
+  p_query_options=> 'DERIVED_REPORT_COLUMNS',
+  p_query_show_nulls_as=> ' - ',
+  p_query_break_cols=> '0',
+  p_query_no_data_found=> 'no data found',
+  p_query_num_rows_type=> 'NEXT_PREVIOUS_LINKS',
+  p_query_row_count_max=> '500',
+  p_pagination_display_position=> 'BOTTOM_RIGHT',
+  p_csv_output=> 'Y',
+  p_csv_output_link_text=> 'Exportar',
+  p_query_asc_image=> 'apex/builder/dup.gif',
+  p_query_asc_image_attr=> 'width="16" height="16" alt="" ',
+  p_query_desc_image=> 'apex/builder/ddown.gif',
+  p_query_desc_image_attr=> 'width="16" height="16" alt="" ',
+  p_plug_query_exp_filename=> 'ProduccionMarcaVino',
+  p_plug_query_strip_html=> 'Y',
+  p_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 4840002558567925 + wwv_flow_api.g_id_offset,
+  p_region_id=> 4831502983315511 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 1,
+  p_form_element_id=> null,
+  p_column_alias=> 'Año',
+  p_column_display_sequence=> 1,
+  p_column_heading=> 'Año',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 4840118955567925 + wwv_flow_api.g_id_offset,
+  p_region_id=> 4831502983315511 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 2,
+  p_form_element_id=> null,
+  p_column_alias=> 'Hectolitros',
+  p_column_display_sequence=> 2,
+  p_column_heading=> 'Hectolitros',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4831915085315512 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_plug_name=> 'País',
+  p_region_name=>'',
+  p_parent_plug_id=>4827912873315463 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 40,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'select distinct A.anio "Año", V.nombre "Variedad de vid", R.nombre "Region" from Region R, VariedadVid V, Cosecha A, Bodega B, B_DO BD '||chr(10)||
+'where BD.fk_do_region = R.id and BD.fk_do_variedadvid = V.id and BD.fk_bodega = B.id and B.id = :P20_SELECCIONARBODEGA'||chr(10)||
+'order by A.anio';
+
+wwv_flow_api.create_report_region (
+  p_id=> 4832317233315513 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_name=> 'Cosechas',
+  p_region_name=>'',
+  p_parent_plug_id=>4827912873315463 + wwv_flow_api.g_id_offset,
+  p_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_display_sequence=> 170,
+  p_display_column=> 1,
+  p_display_point=> 'AFTER_SHOW_ITEMS',
+  p_source=> s,
+  p_source_type=> 'SQL_QUERY',
+  p_display_error_message=> '#SQLERRM#',
+  p_plug_caching=> 'NOT_CACHED',
+  p_customized=> '0',
+  p_translate_title=> 'Y',
+  p_ajax_enabled=> 'Y',
+  p_query_row_template=> 4892020536405507+ wwv_flow_api.g_id_offset,
+  p_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_query_num_rows=> '15',
+  p_query_options=> 'DERIVED_REPORT_COLUMNS',
+  p_query_show_nulls_as=> ' - ',
+  p_query_no_data_found=> 'no data found',
+  p_query_num_rows_type=> 'NEXT_PREVIOUS_LINKS',
+  p_query_row_count_max=> '500',
+  p_pagination_display_position=> 'BOTTOM_RIGHT',
+  p_csv_output=> 'N',
+  p_query_asc_image=> 'apex/builder/dup.gif',
+  p_query_asc_image_attr=> 'width="16" height="16" alt="" ',
+  p_query_desc_image=> 'apex/builder/ddown.gif',
+  p_query_desc_image_attr=> 'width="16" height="16" alt="" ',
+  p_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 4840317889629117 + wwv_flow_api.g_id_offset,
+  p_region_id=> 4832317233315513 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 1,
+  p_form_element_id=> null,
+  p_column_alias=> 'Año',
+  p_column_display_sequence=> 1,
+  p_column_heading=> 'Año',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 4840418043629117 + wwv_flow_api.g_id_offset,
+  p_region_id=> 4832317233315513 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 2,
+  p_form_element_id=> null,
+  p_column_alias=> 'Variedad de vid',
+  p_column_display_sequence=> 2,
+  p_column_heading=> 'Variedad De Vid',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 4840503143629117 + wwv_flow_api.g_id_offset,
+  p_region_id=> 4832317233315513 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 3,
+  p_form_element_id=> null,
+  p_column_alias=> 'Region',
+  p_column_display_sequence=> 3,
+  p_column_heading=> 'Region',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'select T.anio "Año", T.hechos "Hecho" from '||chr(10)||
+'the (select historia from Bodega where id = :P20_SELECCIONARBODEGA)T';
+
+wwv_flow_api.create_report_region (
+  p_id=> 4833201894444672 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 20,
+  p_name=> 'Hechos Históricos ',
+  p_region_name=>'',
+  p_parent_plug_id=>4827912873315463 + wwv_flow_api.g_id_offset,
+  p_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_display_sequence=> 120,
+  p_display_column=> 1,
+  p_display_point=> 'AFTER_SHOW_ITEMS',
+  p_source=> s,
+  p_source_type=> 'SQL_QUERY',
+  p_display_error_message=> '',
+  p_plug_caching=> 'NOT_CACHED',
+  p_customized=> '0',
+  p_translate_title=> 'Y',
+  p_ajax_enabled=> 'Y',
+  p_query_row_template=> 4892020536405507+ wwv_flow_api.g_id_offset,
+  p_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_query_num_rows=> '15',
+  p_query_options=> 'DERIVED_REPORT_COLUMNS',
+  p_query_show_nulls_as=> ' - ',
+  p_query_break_cols=> '0',
+  p_query_no_data_found=> 'Ningún dato conseguido (Prueba presionando el botón "Actualizar" de nuevo)',
+  p_query_num_rows_type=> 'NEXT_PREVIOUS_LINKS',
+  p_query_row_count_max=> '500',
+  p_pagination_display_position=> 'BOTTOM_RIGHT',
+  p_csv_output=> 'N',
+  p_query_asc_image=> 'apex/builder/dup.gif',
+  p_query_asc_image_attr=> 'width="16" height="16" alt="" ',
+  p_query_desc_image=> 'apex/builder/ddown.gif',
+  p_query_desc_image_attr=> 'width="16" height="16" alt="" ',
+  p_plug_query_strip_html=> 'Y',
+  p_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 4838205320492987 + wwv_flow_api.g_id_offset,
+  p_region_id=> 4833201894444672 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 1,
+  p_form_element_id=> null,
+  p_column_alias=> 'Año',
+  p_column_display_sequence=> 1,
+  p_column_heading=> 'Año',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 4838316645492987 + wwv_flow_api.g_id_offset,
+  p_region_id=> 4833201894444672 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 2,
+  p_form_element_id=> null,
+  p_column_alias=> 'Hecho',
+  p_column_display_sequence=> 2,
+  p_column_heading=> 'Hecho',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+ 
+begin
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+null;
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4828106442315477 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 20,
+  p_name=>'P20_SELECCIONARBODEGA',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 20,
+  p_item_plug_id => 4827912873315463+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Seleccionar país ',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_SELECT_LIST',
+  p_lov=> 'select nombre || '' ('' || to_char(id) || '')'' as nombre, id'||chr(10)||
+'from Bodega',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892803899405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'SUBMIT',
+  p_attribute_03 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4828508495315485 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 20,
+  p_name=>'P20_GO',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 120,
+  p_item_plug_id => 4827912873315463+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default=> 'Go',
+  p_prompt=>'Actualizar',
+  p_source=>'Go',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'BUTTON',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> null,
+  p_cMaxlength=> 2000,
+  p_cHeight=> null,
+  p_begin_on_new_line=> 'NO',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'LEFT',
+  p_field_alignment=> 'LEFT',
+  p_is_persistent=> 'N',
+  p_button_execute_validations=>'Y',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4828906103315487 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 20,
+  p_name=>'P20_REGIONES',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 100,
+  p_item_plug_id => 4828717478315486+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Dos',
+  p_source=>'select listagg(nombre,'', '') within group (order by nombre) sup '||chr(10)||
+'from'||chr(10)||
+'(select distinct R.nombre from region R, Bodega B, B_DO BD where B.id = BD.fk_bodega and BD.fk_do_region = R.id and B.id = :P20_SELECCIONARBODEGA) xx',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4829732304315502 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 20,
+  p_name=>'P20_DIR',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 10,
+  p_item_plug_id => 4840706508654188+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Mar',
+  p_source=>'select B.datosDeContacto.dir.lineaDireccion1 || '' '' || B.datosDeContacto.dir.lineaDireccion2 || '' '' || B.datosDeContacto.dir.codigoPostal || '' '' || B.datosDeContacto.dir.estado'||chr(10)||
+'from Bodega B where id = :P20_SELECCIONARBODEGA',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4830101003315504 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 20,
+  p_name=>'P20_DGV',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 60,
+  p_item_plug_id => 4829911465315503+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default=> 'Seleccione alguna bodega',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Vvid',
+  p_source=>'select descripcionGeneralVinos from bodega where id = :P20_SELECCIONARBODEGA',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4830505278315509 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 20,
+  p_name=>'P20_MISION',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 10,
+  p_item_plug_id => 4830330260315505+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default=> 'No hay una bodega seleccionado',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_source=>'select descripcionMision from Bodega where id = :P20_SELECCIONARBODEGA',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 2,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4831313708315511 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 20,
+  p_name=>'P20_TELF',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 10,
+  p_item_plug_id => 4841102137662374+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default=> 'No hay un país seleccionada',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Desc Cata',
+  p_source=>'select obtener_telefonos(B.datosDeContacto.telefonos)'||chr(10)||
+'from Bodega B where id = :P20_SELECCIONARBODEGA',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4832115736315513 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 20,
+  p_name=>'P20_NOMBREPAIS',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 50,
+  p_item_plug_id => 4831915085315512+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default=> 'No hay un país seleccionado',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Bodega',
+  p_source=>'select distinct P.nombre from Pais P, Bodega B, B_DO BD,Region R'||chr(10)||
+'where BD.fk_do_region = R.id and BD.fk_bodega = :P20_SELECCIONARBODEGA and R.fk_pais = P.id',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4841905385672825 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 20,
+  p_name=>'P20_FAX',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 10,
+  p_item_plug_id => 4841309756664662+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default=> 'No hay un fax disponible',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Desc Cata',
+  p_source=>'select B.datosDeContacto.fax from bodega B where id = :P20_SELECCIONARBODEGA;',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4842329280679758 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 20,
+  p_name=>'P20_EMAIL',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 10,
+  p_item_plug_id => 4841518413667144+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Mar',
+  p_source=>'select B.datosDeContacto.email from bodega B where id = :P20_SELECCIONARBODEGA;',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+ 
+begin
+ 
+---------------------------------------
+-- ...updatable report columns for page 20
+--
+ 
+begin
+ 
+null;
+end;
+null;
+ 
+end;
+/
+
+ 
+--application/pages/page_00021
+prompt  ...PAGE 21: Clasificacion Vinos
+--
+ 
+begin
+ 
+wwv_flow_api.create_page (
+  p_flow_id => wwv_flow.g_flow_id
+ ,p_id => 21
+ ,p_tab_set => 'Reportes'
+ ,p_name => 'Clasificacion Vinos'
+ ,p_step_title => 'Clasificacion Vinos'
+ ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'NO_FIRST_ITEM'
+ ,p_include_apex_css_js_yn => 'Y'
+ ,p_cache_page_yn => 'N'
+ ,p_last_updated_by => 'ANGEL'
+ ,p_last_upd_yyyymmddhh24miss => '20181218002913'
+  );
+null;
+ 
+end;
+/
+
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'select M.nombre "Marca Vino" , C.nombre "Clasificacion" from MarcaVino M, ClasificacionVinos C where '||chr(10)||
+'M.fk_clasificacionvinos = C.id '||chr(10)||
+'order by C.porcentajes.desde;';
+
+wwv_flow_api.create_report_region (
+  p_id=> 4846007975026177 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 21,
+  p_name=> 'Resultados',
+  p_region_name=>'',
+  p_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_display_sequence=> 20,
+  p_display_column=> 1,
+  p_display_point=> 'REGION_POSITION_01',
+  p_source=> s,
+  p_source_type=> 'SQL_QUERY',
+  p_display_error_message=> '',
+  p_plug_caching=> 'NOT_CACHED',
+  p_customized=> '0',
+  p_translate_title=> 'Y',
+  p_ajax_enabled=> 'Y',
+  p_query_row_template=> 4892020536405507+ wwv_flow_api.g_id_offset,
+  p_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_query_num_rows=> '15',
+  p_query_options=> 'DERIVED_REPORT_COLUMNS',
+  p_query_show_nulls_as=> ' - ',
+  p_query_break_cols=> '0',
+  p_query_no_data_found=> 'Ningún dato conseguido (Prueba presionando el botón "Actualizar" de nuevo)',
+  p_query_num_rows_type=> 'NEXT_PREVIOUS_LINKS',
+  p_query_row_count_max=> '500',
+  p_pagination_display_position=> 'BOTTOM_RIGHT',
+  p_csv_output=> 'N',
+  p_query_asc_image=> 'apex/builder/dup.gif',
+  p_query_asc_image_attr=> 'width="16" height="16" alt="" ',
+  p_query_desc_image=> 'apex/builder/ddown.gif',
+  p_query_desc_image_attr=> 'width="16" height="16" alt="" ',
+  p_plug_query_strip_html=> 'Y',
+  p_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 4847223690040256 + wwv_flow_api.g_id_offset,
+  p_region_id=> 4846007975026177 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 1,
+  p_form_element_id=> null,
+  p_column_alias=> 'Marca Vino',
+  p_column_display_sequence=> 1,
+  p_column_heading=> 'Marca Vino',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 4847332340040256 + wwv_flow_api.g_id_offset,
+  p_region_id=> 4846007975026177 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 2,
+  p_form_element_id=> null,
+  p_column_alias=> 'Clasificacion',
+  p_column_display_sequence=> 2,
+  p_column_heading=> 'Clasificacion',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+ 
+begin
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+---------------------------------------
+-- ...updatable report columns for page 21
+--
+ 
+begin
+ 
+null;
+end;
+null;
+ 
+end;
+/
+
+ 
+--application/pages/page_00022
+prompt  ...PAGE 22: Formulario Inscripción Catador
+--
+ 
+begin
+ 
+wwv_flow_api.create_page (
+  p_flow_id => wwv_flow.g_flow_id
+ ,p_id => 22
+ ,p_tab_set => 'Reportes'
+ ,p_name => 'Formulario Inscripción Catador'
+ ,p_step_title => 'Formulario Inscripción Catador'
+ ,p_step_sub_title_type => 'TEXT_WITH_SUBSTITUTIONS'
+ ,p_first_item => 'NO_FIRST_ITEM'
+ ,p_include_apex_css_js_yn => 'Y'
+ ,p_cache_page_yn => 'N'
+ ,p_last_updated_by => 'ANGEL'
+ ,p_last_upd_yyyymmddhh24miss => '20181218111537'
+  );
+null;
+ 
+end;
+/
+
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4848820700104622 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 22,
+  p_plug_name=> 'Ficha Inscripción ',
+  p_region_name=>'',
+  p_plug_template=> 4888504559405499+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 10,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'REGION_POSITION_01',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4849608935104650 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 22,
+  p_plug_name=> 'Apellido',
+  p_region_name=>'',
+  p_parent_plug_id=>4848820700104622 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 50,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4850800700104676 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 22,
+  p_plug_name=> 'Género',
+  p_region_name=>'',
+  p_parent_plug_id=>4848820700104622 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 120,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4851220878104679 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 22,
+  p_plug_name=> 'Fecha de nacimiento ',
+  p_region_name=>'',
+  p_parent_plug_id=>4848820700104622 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 110,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4851610590104681 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 22,
+  p_plug_name=> 'Lugar de nacimiento',
+  p_region_name=>'',
+  p_parent_plug_id=>4848820700104622 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 140,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s := null;
+wwv_flow_api.create_page_plug (
+  p_id=> 4852823251104686 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 22,
+  p_plug_name=> 'Nombre',
+  p_region_name=>'',
+  p_parent_plug_id=>4848820700104622 + wwv_flow_api.g_id_offset,
+  p_plug_template=> 4886632719405498+ wwv_flow_api.g_id_offset,
+  p_plug_display_sequence=> 40,
+  p_plug_display_column=> 1,
+  p_plug_display_point=> 'AFTER_SHOW_ITEMS',
+  p_plug_source=> s,
+  p_plug_source_type=> 'STATIC_TEXT',
+  p_translate_title=> 'Y',
+  p_plug_display_error_message=> '#SQLERRM#',
+  p_plug_query_row_template=> 1,
+  p_plug_query_headings_type=> 'QUERY_COLUMNS',
+  p_plug_query_num_rows => 15,
+  p_plug_query_num_rows_type => 'NEXT_PREVIOUS_LINKS',
+  p_plug_query_row_count_max => 500,
+  p_plug_query_show_nulls_as => ' - ',
+  p_plug_display_condition_type => '',
+  p_pagination_display_position=>'BOTTOM_RIGHT',
+  p_plug_customized=>'0',
+  p_plug_caching=> 'NOT_CACHED',
+  p_plug_comment=> '');
+end;
+/
+ 
+begin
+ 
+null;
+ 
+end;
+/
+
+ 
+begin
+ 
+null;
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4849000168104638 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 22,
+  p_name=>'P22_CONCURSO',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 20,
+  p_item_plug_id => 4848820700104622+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Seleccionar Concurso',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_SELECT_LIST',
+  p_lov=> 'select C.nombre || '' ('' || to_char(E.id) || '')'' as nombre, E.id'||chr(10)||
+'from Concurso C, Edicion E where C.deCatadores = ''S'' and E.fk_concurso = C.id',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892803899405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'SUBMIT',
+  p_attribute_03 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4849410022104649 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 22,
+  p_name=>'P22_GO',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 200,
+  p_item_plug_id => 4848820700104622+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default=> 'Go',
+  p_prompt=>'Actualizar',
+  p_source=>'Go',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'BUTTON',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> null,
+  p_cMaxlength=> 2000,
+  p_cHeight=> null,
+  p_begin_on_new_line=> 'NO',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'LEFT',
+  p_field_alignment=> 'LEFT',
+  p_is_persistent=> 'N',
+  p_button_execute_validations=>'Y',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4849825591104651 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 22,
+  p_name=>'P22_APELLIDO',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 100,
+  p_item_plug_id => 4849608935104650+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default=> 'No hay un catador seleccionado',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Dos',
+  p_source=>'select C.apellido from CatadorAprendiz C, Edicion E, Inscripcion I where I.fk_edicion = :P22_CONCURSO and I.fk_catadoraprendiz = :P22_PASAPORTE and C.pasaporte = I.fk_catadoraprendiz and E.id = :P22_CONCURSO',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4851015809104678 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 22,
+  p_name=>'P22_GENERO',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 60,
+  p_item_plug_id => 4850800700104676+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default=> 'No hay un catador seleccionado',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Vvid',
+  p_source=>'select C.genero from CatadorAprendiz C, Edicion E, Inscripcion I where I.fk_edicion = :P22_CONCURSO and I.fk_catadoraprendiz = :P22_PASAPORTE and C.pasaporte = I.fk_catadoraprendiz and E.id = :P22_CONCURSO',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4851423029104680 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 22,
+  p_name=>'P22_FECHA',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 10,
+  p_item_plug_id => 4851220878104679+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default=> 'No hay un catador seleccionado',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_source=>'select TO_CHAR(C.fechaDeNacimiento) from CatadorAprendiz C, Edicion E, Inscripcion I where I.fk_edicion = :P22_CONCURSO and I.fk_catadoraprendiz = :P22_PASAPORTE and C.pasaporte = I.fk_catadoraprendiz and E.id = :P22_CONCURSO',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 2,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4851813571104681 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 22,
+  p_name=>'P22_PROD_ANUAL',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 40,
+  p_item_plug_id => 4851610590104681+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default=> 'No hay un país seleccionada',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Desc Cata',
+  p_source=>'select C.lugarNacimiento.ciudad || '', '' || C.lugarNacimiento.pais from CatadorAprendiz C, Edicion E, Inscripcion I where I.fk_edicion = :P22_CONCURSO and I.fk_catadoraprendiz = :P22_PASAPORTE and C.pasaporte = I.fk_catadoraprendiz and E.id = :P22_CONCURSO',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4853008006104686 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 22,
+  p_name=>'P22_NOMBRE',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 50,
+  p_item_plug_id => 4852823251104686+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'NO',
+  p_item_default=> 'No hay un catador seleccionado',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Bodega',
+  p_source=>'select C.nombre from CatadorAprendiz C, Edicion E, Inscripcion I where I.fk_edicion = :P22_CONCURSO and I.fk_catadoraprendiz = :P22_PASAPORTE and C.pasaporte = I.fk_catadoraprendiz and E.id = :P22_CONCURSO',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892505215405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>4855604311241873 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 22,
+  p_name=>'P22_PASAPORTE',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> true,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 30,
+  p_item_plug_id => 4848820700104622+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Ingrese Pasaporte',
+  p_source_type=> 'STATIC',
+  p_display_as=> 'NATIVE_NUMBER_FIELD',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 5,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892803899405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => '1',
+  p_attribute_03 => 'right',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
+ 
+begin
+ 
+---------------------------------------
+-- ...updatable report columns for page 22
+--
+ 
+begin
+ 
+null;
+end;
+null;
+ 
+end;
+/
+
+ 
 --application/pages/page_00030
 prompt  ...PAGE 30: País
 --
@@ -4944,7 +7197,7 @@ wwv_flow_api.create_page (
  ,p_include_apex_css_js_yn => 'Y'
  ,p_cache_page_yn => 'N'
  ,p_last_updated_by => 'WINE_USER'
- ,p_last_upd_yyyymmddhh24miss => '20181217111247'
+ ,p_last_upd_yyyymmddhh24miss => '20181218082542'
   );
 null;
  
@@ -5283,9 +7536,6 @@ a1:=a1||'select '||chr(10)||
 '    xx.des label,'||chr(10)||
 '    SUM(litros_a_hectolitros(xx.valor)) value'||chr(10)||
 'from ('||chr(10)||
-'select ''Produccion'' des, calcularproduccionpais(:P30_PAIS, :P30_ANIO) valor'||chr(10)||
-'from dual'||chr(10)||
-'UNION'||chr(10)||
 'select ''Exportacion'' des, calcularexportacionpais(:P30_PAIS, :P30_ANIO) valor'||chr(10)||
 'from dual'||chr(10)||
 'UNION'||chr(10)||
@@ -5898,10 +8148,8 @@ wwv_flow_api.create_page_item(
   p_source_type=> 'STATIC',
   p_display_as=> 'NATIVE_SELECT_LIST',
   p_lov=> 'select nombre, id from Pais',
-  p_lov_display_null=> 'YES',
+  p_lov_display_null=> 'NO',
   p_lov_translated=> 'N',
-  p_lov_null_text=>'',
-  p_lov_null_value=> '',
   p_cSize=> 30,
   p_cMaxlength=> 4000,
   p_cHeight=> 1,
@@ -5914,8 +8162,12 @@ wwv_flow_api.create_page_item(
   p_field_alignment=> 'LEFT-CENTER',
   p_field_template=> 4892803899405507+wwv_flow_api.g_id_offset,
   p_is_persistent=> 'Y',
+  p_lov_display_extra=>'NO',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
   p_attribute_01 => 'NONE',
   p_attribute_02 => 'N',
+  p_show_quick_picks=>'N',
   p_item_comment => '');
  
  
@@ -6003,6 +8255,52 @@ wwv_flow_api.create_page_item(
 end;
 /
 
+declare
+    h varchar2(32767) := null;
+begin
+wwv_flow_api.create_page_item(
+  p_id=>5058205903540586 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_flow_step_id=> 30,
+  p_name=>'P30_PRODUCCIONANIO',
+  p_data_type=> 'VARCHAR',
+  p_is_required=> false,
+  p_accept_processing=> 'REPLACE_EXISTING',
+  p_item_sequence=> 70,
+  p_item_plug_id => 4996713414111146+wwv_flow_api.g_id_offset,
+  p_use_cache_before_default=> 'YES',
+  p_item_default_type=> 'STATIC_TEXT_WITH_SUBSTITUTIONS',
+  p_prompt=>'Producción en el año',
+  p_source=>'select to_char(litros_a_hectolitros(produccion_pais_en(:P30_PAIS, :P30_ANIO))) || '' hectolitros'' from dual',
+  p_source_type=> 'QUERY',
+  p_display_as=> 'NATIVE_DISPLAY_ONLY',
+  p_lov_display_null=> 'NO',
+  p_lov_translated=> 'N',
+  p_cSize=> 30,
+  p_cMaxlength=> 4000,
+  p_cHeight=> 1,
+  p_cAttributes=> 'nowrap="nowrap"',
+  p_begin_on_new_line=> 'YES',
+  p_begin_on_new_field=> 'YES',
+  p_colspan=> 1,
+  p_rowspan=> 1,
+  p_label_alignment=> 'RIGHT',
+  p_field_alignment=> 'LEFT-CENTER',
+  p_field_template=> 4892600703405507+wwv_flow_api.g_id_offset,
+  p_is_persistent=> 'Y',
+  p_lov_display_extra=>'YES',
+  p_protection_level => 'N',
+  p_escape_on_http_output => 'Y',
+  p_attribute_01 => 'N',
+  p_attribute_02 => 'VALUE',
+  p_attribute_04 => 'Y',
+  p_show_quick_picks=>'N',
+  p_item_comment => '');
+ 
+ 
+end;
+/
+
  
 begin
  
@@ -6038,7 +8336,7 @@ wwv_flow_api.create_page (
  ,p_include_apex_css_js_yn => 'Y'
  ,p_cache_page_yn => 'N'
  ,p_last_updated_by => 'WINE_USER'
- ,p_last_upd_yyyymmddhh24miss => '20181217232712'
+ ,p_last_upd_yyyymmddhh24miss => '20181218081700'
   );
 null;
  
@@ -7443,6 +9741,252 @@ wwv_flow_api.create_report_columns (
   p_column_display_sequence=> 4,
   p_column_heading=> 'BODEGA',
   p_column_alignment=>'LEFT',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'select bo.nombre Bodega, mv.nombre Vino, a.nombre Premio'||chr(10)||
+'from Bodega bo, MarcaVino mv, MuestraCompite mc, Inscripcion i, MarcaVino_B_DO mvbdo CROSS JOIN TABLE(mc.premio) a'||chr(10)||
+'where i.fk_edicion = :FC_EDICION'||chr(10)||
+'and mc.fk_inscripcion = i.id'||chr(10)||
+'and mv.id = mc.fk_marcavino'||chr(10)||
+'and mvbdo.fk_marcavino = mv.id'||chr(10)||
+'and bo.id = mvbdo.fk_bodega';
+
+wwv_flow_api.create_report_region (
+  p_id=> 5054723372905693 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 52,
+  p_name=> 'Ganadores concurso de vinos',
+  p_region_name=>'',
+  p_template=> 4888420064405499+ wwv_flow_api.g_id_offset,
+  p_display_sequence=> 270,
+  p_display_column=> 1,
+  p_display_point=> 'AFTER_SHOW_ITEMS',
+  p_source=> s,
+  p_source_type=> 'SQL_QUERY',
+  p_display_error_message=> '#SQLERRM#',
+  p_display_when_condition=> 'BEGIN'||chr(10)||
+'if formatear_msj_tipo_conc(:FC_CONCURSO) like ''De vinos'' then'||chr(10)||
+'return true;'||chr(10)||
+'else'||chr(10)||
+'return false;'||chr(10)||
+'end if;'||chr(10)||
+'end;',
+  p_display_condition_type=> 'FUNCTION_BODY',
+  p_plug_caching=> 'NOT_CACHED',
+  p_customized=> '0',
+  p_translate_title=> 'Y',
+  p_ajax_enabled=> 'Y',
+  p_query_row_template=> 4892020536405507+ wwv_flow_api.g_id_offset,
+  p_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_query_options=> 'DERIVED_REPORT_COLUMNS',
+  p_query_show_nulls_as=> ' - ',
+  p_query_no_data_found=> 'no data found',
+  p_query_num_rows_type=> 'NEXT_PREVIOUS_LINKS',
+  p_pagination_display_position=> 'BOTTOM_RIGHT',
+  p_query_asc_image=> 'apex/builder/dup.gif',
+  p_query_asc_image_attr=> 'width="16" height="16" alt="" ',
+  p_query_desc_image=> 'apex/builder/ddown.gif',
+  p_query_desc_image_attr=> 'width="16" height="16" alt="" ',
+  p_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5055001544905693 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5054723372905693 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 1,
+  p_form_element_id=> null,
+  p_column_alias=> 'BODEGA',
+  p_column_display_sequence=> 1,
+  p_column_heading=> 'BODEGA',
+  p_column_alignment=>'LEFT',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5055108567905693 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5054723372905693 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 2,
+  p_form_element_id=> null,
+  p_column_alias=> 'VINO',
+  p_column_display_sequence=> 2,
+  p_column_heading=> 'VINO',
+  p_column_alignment=>'LEFT',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5055218727905693 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5054723372905693 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 3,
+  p_form_element_id=> null,
+  p_column_alias=> 'PREMIO',
+  p_column_display_sequence=> 3,
+  p_column_heading=> 'PREMIO',
+  p_column_alignment=>'LEFT',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+  l_clob clob;
+  l_length number := 1;
+begin
+s:=s||'select ca.nombre || '' '' || ca.apellido Nombre, i.premioCatador Premio, pr.posicion'||chr(10)||
+'from CatadorAprendiz ca, Inscripcion i, Edicion e, Concurso c cross join table (c.premios) pr'||chr(10)||
+'where e.id = :FC_EDICION'||chr(10)||
+'and i.fk_edicion = e.id'||chr(10)||
+'and e.fk_concurso = c.id'||chr(10)||
+'and ca.pasaporte = i.fk_catadoraprendiz'||chr(10)||
+'and i.premioCatador is not null'||chr(10)||
+'and pr.nombre = i.premioCatador'||chr(10)||
+'order by pr.posicion asc';
+
+wwv_flow_api.create_report_region (
+  p_id=> 5057218408496833 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_page_id=> 52,
+  p_name=> 'Ganadores concurso de catadores',
+  p_region_name=>'',
+  p_template=> 4888420064405499+ wwv_flow_api.g_id_offset,
+  p_display_sequence=> 280,
+  p_display_column=> 1,
+  p_display_point=> 'AFTER_SHOW_ITEMS',
+  p_source=> s,
+  p_source_type=> 'SQL_QUERY',
+  p_display_error_message=> '#SQLERRM#',
+  p_display_when_condition=> 'BEGIN'||chr(10)||
+'if formatear_msj_tipo_conc(:FC_CONCURSO) not like ''De vinos'' then'||chr(10)||
+'return true;'||chr(10)||
+'else'||chr(10)||
+'return false;'||chr(10)||
+'end if;'||chr(10)||
+'end;',
+  p_display_condition_type=> 'FUNCTION_BODY',
+  p_plug_caching=> 'NOT_CACHED',
+  p_customized=> '0',
+  p_translate_title=> 'Y',
+  p_ajax_enabled=> 'Y',
+  p_query_row_template=> 4892020536405507+ wwv_flow_api.g_id_offset,
+  p_query_headings_type=> 'COLON_DELMITED_LIST',
+  p_query_options=> 'DERIVED_REPORT_COLUMNS',
+  p_query_show_nulls_as=> ' - ',
+  p_query_no_data_found=> 'no data found',
+  p_query_num_rows_type=> 'NEXT_PREVIOUS_LINKS',
+  p_pagination_display_position=> 'BOTTOM_RIGHT',
+  p_query_asc_image=> 'apex/builder/dup.gif',
+  p_query_asc_image_attr=> 'width="16" height="16" alt="" ',
+  p_query_desc_image=> 'apex/builder/ddown.gif',
+  p_query_desc_image_attr=> 'width="16" height="16" alt="" ',
+  p_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5057824641498610 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5057218408496833 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 1,
+  p_form_element_id=> null,
+  p_column_alias=> 'NOMBRE',
+  p_column_display_sequence=> 2,
+  p_column_heading=> 'Nombre',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5057614814496835 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5057218408496833 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 2,
+  p_form_element_id=> null,
+  p_column_alias=> 'PREMIO',
+  p_column_display_sequence=> 1,
+  p_column_heading=> 'PREMIO',
+  p_column_alignment=>'LEFT',
+  p_disable_sort_column=>'Y',
+  p_sum_column=> 'N',
+  p_hidden_column=> 'N',
+  p_display_as=>'ESCAPE_SC',
+  p_is_required=> false,
+  p_pk_col_source=> s,
+  p_column_comment=>'');
+end;
+/
+declare
+  s varchar2(32767) := null;
+begin
+s := null;
+wwv_flow_api.create_report_columns (
+  p_id=> 5057912801498610 + wwv_flow_api.g_id_offset,
+  p_region_id=> 5057218408496833 + wwv_flow_api.g_id_offset,
+  p_flow_id=> wwv_flow.g_flow_id,
+  p_query_column_id=> 3,
+  p_form_element_id=> null,
+  p_column_alias=> 'POSICION',
+  p_column_display_sequence=> 3,
+  p_column_heading=> 'Posicion',
+  p_column_alignment=>'LEFT',
+  p_heading_alignment=>'CENTER',
   p_disable_sort_column=>'Y',
   p_sum_column=> 'N',
   p_hidden_column=> 'N',
