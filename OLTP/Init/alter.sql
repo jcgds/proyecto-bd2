@@ -83,20 +83,3 @@ ALTER TABLE MarcaVino_B_DO ADD CONSTRAINT fk_MarcaBDO_marcavino FOREIGN KEY (fk_
 
 ALTER TABLE MarcaVino_B_DO ADD CONSTRAINT fk_MarcaBDO_bdo FOREIGN KEY (fk_b_do, fk_bodega, fk_denominaciondeorigen,fk_do_VariedadVid,fk_do_region)
     REFERENCES B_DO (id, fk_bodega, fk_do_id,fk_do_VariedadVid,fk_do_region);
-
-    ----------------- Alters de Data mart ----------------
-
-    alter table DW_metricas_pais add (
-    constraint fk_tiempo_Mpais foreign key (id_tiempo) references DW_tiempo (id),
-    constraint fk_lugar_Mpais foreign key (id_lugar) references DW_pais (id)
-);
-
-alter table DW_metricas_concurso add (
-    constraint fk_tiempo_Mconcurso foreign key (id_tiempo) references DW_tiempo (id),
-    constraint fk_lugar_Mconcurso foreign key (id_lugar) references DW_pais (id),
-    constraint fk_tipoConcurso_Mconcurso foreign key (id_tipo_concurso) references DW_tipo_concurso (id)
-);
-
-alter table DW_pais add (
-    constraint fk_pais_Dcontinente foreign key (id_continente) references DW_continente (id)
-);
