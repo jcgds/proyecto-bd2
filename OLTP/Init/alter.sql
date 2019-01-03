@@ -14,13 +14,13 @@ ALTER TABLE B_DO add (
 );
 
 alter table Cosecha add
-    constraint fk_cosecha_bdo foreign key (fk_bdo_id, fk_bdo_do_id, fk_bdo_do_VariedadVid, fk_bdo_do_region, fk_bdo_bodega) 
+    constraint fk_cosecha_bdo foreign key (fk_bdo_id, fk_bdo_do_id, fk_bdo_do_VariedadVid, fk_bdo_do_region, fk_bdo_bodega)
     references B_DO (id, fk_do_id, fk_do_VariedadVid, fk_do_region, fk_bodega);
 
-ALTER TABLE CataAprendiz ADD CONSTRAINT fk_CA FOREIGN KEY (fk_catadoraprendiz) 
+ALTER TABLE CataAprendiz ADD CONSTRAINT fk_CA FOREIGN KEY (fk_catadoraprendiz)
     REFERENCES CatadorAprendiz (pasaporte);
 
-ALTER TABLE CataAprendiz ADD CONSTRAINT fk_M FOREIGN KEY (fk_muestra_id, fk_muestra_marcavino_id, 
+ALTER TABLE CataAprendiz ADD CONSTRAINT fk_M FOREIGN KEY (fk_muestra_id, fk_muestra_marcavino_id,
                                                           fk_muestra_marcavino_clasif, fk_edicion, fk_catadorexperto)
     REFERENCES MuestraCatador (id, fk_marcavino_id, fk_marcavino_clasificacion, fk_edicion, fk_catadorexperto);
 
@@ -44,7 +44,7 @@ ALTER TABLE P_O ADD CONSTRAINT fk_Organizador FOREIGN KEY (fk_organizador)
 
 ALTER TABLE P_O ADD CONSTRAINT fk_Organizador_Pais FOREIGN KEY (fk_pais)
     REFERENCES Pais (id);
-    
+
 ALTER TABLE Edicion ADD CONSTRAINT fk_Concurso_Edicion FOREIGN KEY (fk_concurso)
     REFERENCES Concurso (id);
 
@@ -84,5 +84,19 @@ ALTER TABLE MarcaVino_B_DO ADD CONSTRAINT fk_MarcaBDO_marcavino FOREIGN KEY (fk_
 ALTER TABLE MarcaVino_B_DO ADD CONSTRAINT fk_MarcaBDO_bdo FOREIGN KEY (fk_b_do, fk_bodega, fk_denominaciondeorigen,fk_do_VariedadVid,fk_do_region)
     REFERENCES B_DO (id, fk_bodega, fk_do_id,fk_do_VariedadVid,fk_do_region);
 
+    ----------------- Alters de Data mart ----------------
 
+    alter table DW_metricas_pais add (
+    constraint fk_tiempo_Mpais foreign key (id_tiempo) references DW_tiempo (id),
+    constraint fk_lugar_Mpais foreign key (id_lugar) references DW_pais (id)
+);
 
+alter table DW_metricas_concurso add (
+    constraint fk_tiempo_Mconcurso foreign key (id_tiempo) references DW_tiempo (id),
+    constraint fk_lugar_Mconcurso foreign key (id_lugar) references DW_pais (id),
+    constraint fk_tipoConcurso_Mconcurso foreign key (id_tipo_concurso) references DW_tipo_concurso (id)
+);
+
+alter table DW_pais add (
+    constraint fk_pais_Dcontinente foreign key (id_continente) references DW_continente (id)
+);

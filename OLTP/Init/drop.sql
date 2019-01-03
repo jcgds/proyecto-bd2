@@ -54,3 +54,18 @@ drop table ClasificacionVinos cascade constraints purge;
 drop table MarcaVino cascade constraints purge;
 drop table MuestraCatador cascade constraints purge;
 drop sequence ids_seq;
+
+-------- Drops de DW ---------------
+
+drop table DW_metricas_pais cascade constraints purge;
+drop table DW_metricas_concurso cascade constraints purge;
+drop table DW_tiempo cascade constraints purge;
+drop table DW_pais cascade constraints purge;
+drop table DW_continente cascade constraints purge;
+drop table DW_tipo_concurso cascade constraints purge;
+drop sequence seq_pais;
+drop sequence seq_continente;
+drop sequence seq_tiempo;
+drop sequence seq_tipo_concurso;
+drop sequence seq_metricas_pais;
+drop sequence seq_metricas_concurso;
