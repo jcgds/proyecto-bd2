@@ -110,8 +110,8 @@ insert into MarcaVino values (
     1.2,
     15,
     tipo_valor_nt(
-        tipo_valor(2016, 15348, 'litros'), 
-        tipo_valor(2017, 15500, 'litros'), 
+        tipo_valor(2016, 15348, 'litros'),
+        tipo_valor(2017, 15500, 'litros'),
         tipo_valor(2018, 21126, 'litros')
     ),
     distribucion_exp_nt(
@@ -316,8 +316,8 @@ insert into MarcaVino values (
     0.3,
     13.5,
     tipo_valor_nt(
-        tipo_valor(2016, 26500, 'litros'), 
-        tipo_valor(2017, 34250, 'litros'), 
+        tipo_valor(2016, 26500, 'litros'),
+        tipo_valor(2017, 34250, 'litros'),
         tipo_valor(2018, 30750, 'litros')
     ),
     distribucion_exp_nt(
@@ -398,8 +398,8 @@ insert into MarcaVino values (
     121.3,
     19,
     tipo_valor_nt(
-        tipo_valor(2016, 87500, 'litros'), 
-        tipo_valor(2017, 120300, 'litros'), 
+        tipo_valor(2016, 87500, 'litros'),
+        tipo_valor(2017, 120300, 'litros'),
         tipo_valor(2018, 210000, 'litros')
     ),
     distribucion_exp_nt(
@@ -427,9 +427,9 @@ insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do, fk
 ---- / Fin Bodega Justino's Madeira ------------------------------------------------------------------------------------------------------------------------------------------
 
 
-insert into Pais values (4, 
-'Estados Unidos', 
-'America', 
+insert into Pais values (4,
+'Estados Unidos',
+'America',
 tipo_valor_nt(
     tipo_valor(2011, 110, 'millones de hectareas'),
     tipo_valor(2012, 131, 'millones de hectareas'),
@@ -439,9 +439,9 @@ tipo_valor_nt(
     tipo_valor(2016, 190, 'millones de hectareas'),
     tipo_valor(2017, 499, 'millones de hectareas'),
     tipo_valor(2018, 112, 'millones de hectareas')
-), 
-tipo_valor_nt(), 
-distribucion_exp_nt(), 
+),
+tipo_valor_nt(),
+distribucion_exp_nt(),
 unidadMonetaria('Dolar', 'USD'), bfilename('mapas_regionales', 'usa.jpg'), null);
 -- Bodega OPUS ONE -----------------------------------------------
 insert into Region values (41, 'Oakville AVA', null, 4);
@@ -572,8 +572,8 @@ insert into MarcaVino values (
     1.1,
     14,
     tipo_valor_nt(
-        tipo_valor(2016, 261354, 'litros'), 
-        tipo_valor(2017, 362235, 'litros'), 
+        tipo_valor(2016, 261354, 'litros'),
+        tipo_valor(2017, 362235, 'litros'),
         tipo_valor(2018, 45625, 'litros')),
     distribucion_exp_nt(
         distribucion_exp(tipo_valor(2016,3432,'litros'),'Portugal'),
@@ -617,8 +617,8 @@ insert into MarcaVino values (
     1.1,
     14,
     tipo_valor_nt(
-        tipo_valor(2016, 16654, 'litros'), 
-        tipo_valor(2017, 76225, 'litros'), 
+        tipo_valor(2016, 16654, 'litros'),
+        tipo_valor(2017, 76225, 'litros'),
         tipo_valor(2018, 94562, 'litros')),
     distribucion_exp_nt(
         distribucion_exp(tipo_valor(2016,3432,'litros'),'Portugal'),
@@ -661,8 +661,8 @@ insert into MarcaVino values (
     1.4,
     10,
     tipo_valor_nt(
-        tipo_valor(2016, 92654, 'litros'), 
-        tipo_valor(2017, 88225, 'litros'), 
+        tipo_valor(2016, 92654, 'litros'),
+        tipo_valor(2017, 88225, 'litros'),
         tipo_valor(2018, 54562, 'litros')),
     distribucion_exp_nt(
         distribucion_exp(tipo_valor(2016,3132,'litros'),'Portugal'),
@@ -740,8 +740,8 @@ insert into MarcaVino values (
     1.4,
     11,
     tipo_valor_nt(
-        tipo_valor(2016, 12654, 'litros'), 
-        tipo_valor(2017, 98225, 'litros'), 
+        tipo_valor(2016, 12654, 'litros'),
+        tipo_valor(2017, 98225, 'litros'),
         tipo_valor(2018, 44562, 'litros')),
     distribucion_exp_nt(
         distribucion_exp(tipo_valor(2016,93432,'litros'),'Portugal'),
@@ -785,8 +785,8 @@ insert into MarcaVino values (
     1.4,
     15,
     tipo_valor_nt(
-        tipo_valor(2016, 42654, 'litros'), 
-        tipo_valor(2017, 68225, 'litros'), 
+        tipo_valor(2016, 42654, 'litros'),
+        tipo_valor(2017, 68225, 'litros'),
         tipo_valor(2018, 84562, 'litros')),
     distribucion_exp_nt(
         distribucion_exp(tipo_valor(2016,3436,'litros'),'Portugal'),
@@ -817,9 +817,9 @@ insert into HistoricoPrecio values (2017, 61, 56, 7, 835);
 insert into HistoricoPrecio values (2018, 61, 56, 7, 890);
 
 ---------- Sudafrica ----------------
-insert into Pais values (2, 
-'Sudafrica', 
-'Africa', 
+insert into Pais values (2,
+'Sudafrica',
+'Africa',
 tipo_valor_nt(
     tipo_valor(2011, 610, 'millones de hectareas'),
     tipo_valor(2012, 341, 'millones de hectareas'),
@@ -829,8 +829,8 @@ tipo_valor_nt(
     tipo_valor(2016, 790, 'millones de hectareas'),
     tipo_valor(2017, 699, 'millones de hectareas'),
     tipo_valor(2018, 412, 'millones de hectareas')
-), 
-tipo_valor_nt(), 
+),
+tipo_valor_nt(),
 distribucion_exp_nt(),
 unidadMonetaria('Rand Sudafricano', 'R'), bfilename('mapas_regionales', 'sudafrica.jpg'), null);
 
@@ -892,8 +892,8 @@ insert into MarcaVino values (
     1.9,
     13,
     tipo_valor_nt(
-        tipo_valor(2016, 95733, 'litros'), 
-        tipo_valor(2017, 23938, 'litros'), 
+        tipo_valor(2016, 95733, 'litros'),
+        tipo_valor(2017, 23938, 'litros'),
         tipo_valor(2018, 43912, 'litros')),
     distribucion_exp_nt(
         distribucion_exp(tipo_valor(2016,3932,'litros'),'Portugal'),
@@ -938,8 +938,8 @@ insert into MarcaVino values (
     2.7,
     14,
     tipo_valor_nt(
-        tipo_valor(2016, 92189, 'litros'), 
-        tipo_valor(2017, 27136, 'litros'), 
+        tipo_valor(2016, 92189, 'litros'),
+        tipo_valor(2017, 27136, 'litros'),
         tipo_valor(2018, 43036, 'litros')),
     distribucion_exp_nt(
         distribucion_exp(tipo_valor(2016,9432,'litros'),'Portugal'),
@@ -983,8 +983,8 @@ insert into MarcaVino values (
     2.5,
     13,
     tipo_valor_nt(
-        tipo_valor(2016, 12112, 'litros'), 
-        tipo_valor(2017, 3267, 'litros'), 
+        tipo_valor(2016, 12112, 'litros'),
+        tipo_valor(2017, 3267, 'litros'),
         tipo_valor(2018, 2338, 'litros')),
     distribucion_exp_nt(
         distribucion_exp(tipo_valor(2012,432,'litros'),'Portugal'),
@@ -1035,8 +1035,8 @@ insert into HistoricoPrecio values (2018, 66, 59, 13, 890);
       'We will always do our very best to be of assistance, whether you would like to order a selection of our boutique wines or are planning a visit to the Cellar.',
       null,
       tipo_valor_nt(
-          tipo_valor(2016, 600000, 'litros'), 
-          tipo_valor(2017, 660000, 'litros'), 
+          tipo_valor(2016, 600000, 'litros'),
+          tipo_valor(2017, 660000, 'litros'),
           tipo_valor(2018, 590000, 'litros')),
       distribucion_exp_nt(
           distribucion_exp(tipo_valor(2016, 440000, 'litros'), 'Japon'),
@@ -1061,8 +1061,8 @@ insert into Cosecha values (74, 2018, 'E',107, 107, 107, 104, 104);
       2.4,
       13.2,
       tipo_valor_nt(
-          tipo_valor(2016, 5000, 'litros'), 
-          tipo_valor(2017, 4800, 'litros'), 
+          tipo_valor(2016, 5000, 'litros'),
+          tipo_valor(2017, 4800, 'litros'),
           tipo_valor(2018, 4950, 'litros')),
       distribucion_exp_nt(
           distribucion_exp(tipo_valor(2016,789,'litros'),'Portugal'),
@@ -1258,8 +1258,8 @@ insert into Pais values (
         'The Winery and the private vineyards are located in the heart of Korinthia, the land rich with the history of kings and heroes. A legacy we are bound to fulfill',
         null,
         tipo_valor_nt(
-            tipo_valor(2016, 330000, 'litros'), 
-            tipo_valor(2017, 280000, 'litros'), 
+            tipo_valor(2016, 330000, 'litros'),
+            tipo_valor(2017, 280000, 'litros'),
             tipo_valor(2018, 270000, 'litros')),
         distribucion_exp_nt(
             distribucion_exp(tipo_valor(2016, 280000, 'litros'), 'Francia'),
@@ -1295,8 +1295,8 @@ insert into Pais values (
         2.0,
         13,
         tipo_valor_nt(
-            tipo_valor(2016, 6020, 'litros'), 
-            tipo_valor(2017, 8095, 'litros'), 
+            tipo_valor(2016, 6020, 'litros'),
+            tipo_valor(2017, 8095, 'litros'),
             tipo_valor(2018, 9056, 'litros')),
         distribucion_exp_nt(
             distribucion_exp(tipo_valor(2016,8056,'litros'),'Francia'),
@@ -1339,8 +1339,8 @@ insert into Pais values (
         1.5,
         16,
         tipo_valor_nt(
-            tipo_valor(2016, 2189, 'litros'), 
-            tipo_valor(2017, 2136, 'litros'), 
+            tipo_valor(2016, 2189, 'litros'),
+            tipo_valor(2017, 2136, 'litros'),
             tipo_valor(2018, 3036, 'litros')),
         distribucion_exp_nt(
             distribucion_exp(tipo_valor(2016,800,'litros'),'Estados Unidos'),
@@ -1382,8 +1382,8 @@ insert into Pais values (
         2.5,
         13,
         tipo_valor_nt(
-            tipo_valor(2016, 8050, 'litros'), 
-            tipo_valor(2017, 2140, 'litros'), 
+            tipo_valor(2016, 8050, 'litros'),
+            tipo_valor(2017, 2140, 'litros'),
             tipo_valor(2018, 2210, 'litros')),
         distribucion_exp_nt(
             distribucion_exp(tipo_valor(2016,650,'litros'),'Rumania'),
@@ -1463,17 +1463,18 @@ insert into DenominacionDeOrigen values (105,'Wine of Origin Amyndeon', null, 10
       2.9,
       13,
       tipo_valor_nt(
-          tipo_valor(2016, 7100, 'litros'), 
-          tipo_valor(2017, 7200, 'litros'), 
+          tipo_valor(2016, 7100, 'litros'),
+          tipo_valor(2017, 7200, 'litros'),
           tipo_valor(2018, 10500, 'litros')),
       distribucion_exp_nt(
           distribucion_exp(tipo_valor(2016,5600,'litros'),'España'),
           distribucion_exp(tipo_valor(2017,5300,'litros'),'Mexico'),
           distribucion_exp(tipo_valor(2018,8600,'litros'),'Prusia')),
       calificacion_nt(
-          calificacion('ProWein', tipo_valor(2008, 87, 'puntos')),
-          calificacion('ProWein', tipo_valor(2009, 90, 'puntos')),
-          calificacion('ProWein', tipo_valor(2010, 89, 'puntos'))
+          calificacion('ProWein', tipo_valor(2016, 87, 'puntos')),
+          calificacion('ProWein', tipo_valor(2016, 28, 'puntos')),
+          calificacion('ProWein', tipo_valor(2017, 90, 'puntos')),
+          calificacion('ProWein', tipo_valor(2018, 89, 'puntos'))
       ),
       12,
       16,
@@ -1507,16 +1508,16 @@ insert into DenominacionDeOrigen values (105,'Wine of Origin Amyndeon', null, 10
       3.1,
       14,
       tipo_valor_nt(
-          tipo_valor(2016, 3000, 'litros'), 
-          tipo_valor(2017, 4253, 'litros'), 
+          tipo_valor(2016, 3000, 'litros'),
+          tipo_valor(2017, 4253, 'litros'),
           tipo_valor(2018, 5023, 'litros')),
       distribucion_exp_nt(
           distribucion_exp(tipo_valor(2016,950,'litros'),'Belgica'),
           distribucion_exp(tipo_valor(2017,782,'litros'),'China'),
           distribucion_exp(tipo_valor(2018,893,'litros'),'Australia')), -- TODO: Conseguir o inventar datos de exportacion
       calificacion_nt(
-          calificacion('ProWein', tipo_valor(2012, 89, 'puntos')),
-          calificacion('ProWein', tipo_valor(2014, 93, 'puntos'))
+          calificacion('ProWein', tipo_valor(2016, 89, 'puntos')),
+          calificacion('ProWein', tipo_valor(2017, 93, 'puntos'))
       ),
       120,
       23,
@@ -1620,8 +1621,8 @@ insert into DenominacionDeOrigen values (106,'Regional Wine of Heraklion', null,
       2.9,
       15,
       tipo_valor_nt(
-          tipo_valor(2016, 7100, 'litros'), 
-          tipo_valor(2017, 7200, 'litros'), 
+          tipo_valor(2016, 7100, 'litros'),
+          tipo_valor(2017, 7200, 'litros'),
           tipo_valor(2018, 10500, 'litros')),
       distribucion_exp_nt(
           distribucion_exp(tipo_valor(2016,5600,'litros'),'Mexico'),
@@ -1664,8 +1665,8 @@ insert into DenominacionDeOrigen values (106,'Regional Wine of Heraklion', null,
       3.1,
       15,
       tipo_valor_nt(
-          tipo_valor(2016, 4000, 'litros'), 
-          tipo_valor(2017, 4300, 'litros'), 
+          tipo_valor(2016, 4000, 'litros'),
+          tipo_valor(2017, 4300, 'litros'),
           tipo_valor(2018, 4250, 'litros')),
       distribucion_exp_nt(
           distribucion_exp(tipo_valor(2016,850,'litros'),'Portugal'),
@@ -2160,7 +2161,7 @@ INSERT INTO MuestraCatador VALUES (
 
 INSERT INTO Inscripcion VALUES (
     51,
-    TO_DATE('05-06-2010', 'DD-MM-YYYY'),
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
     null,
     51,
     null,
@@ -2169,7 +2170,7 @@ INSERT INTO Inscripcion VALUES (
 
 INSERT INTO Inscripcion VALUES (
     52,
-    TO_DATE('05-06-2010', 'DD-MM-YYYY'),
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
     null,
     51,
     null,
