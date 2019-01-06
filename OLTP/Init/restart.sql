@@ -1,8 +1,8 @@
 
-@init/startup
-@init/drop
-@init/create
-@init/alter
-@init/triggers
-@init/procedimientos
-@init/insert
+@OLTP/init/startup
+@OLTP/init/drop
+@OLTP/init/create
+@OLTP/init/alter
+@OLTP/init/triggers
+@OLTP/init/procedimientos
+@OLTP/init/insert

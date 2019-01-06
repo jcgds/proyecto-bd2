@@ -2242,3 +2242,1211 @@ insert into cataAprendiz values (6, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoraci
         valoracion('Armonia', 27, null)
 ), 32, 4, 1, 1, 17, 51, 1);
 commit;
+
+----------Inserts del grupo de Pacheco Cripi---------
+insert into Pais values (
+    501,
+    'Argentina',
+    'America',
+    tipo_valor_nt(
+        tipo_valor(2016, 218, 'millones de hectareas'),
+        tipo_valor(2017, 224, 'millones de hectareas'),
+        tipo_valor(2018, 228, 'millones de hectareas')
+    ),
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    unidadMonetaria('Peso Argertino', '$'),
+    bfilename('mapas_regionales', 'argentina.png'),
+    null
+);
+
+insert into Pais values (
+    502,
+    'Francia',
+    'Europa',
+    tipo_valor_nt(
+        tipo_valor(2016, 677, 'millones de hectareas'),
+        tipo_valor(2017, 845, 'millones de hectareas'),
+        tipo_valor(2018, 794, 'millones de hectareas')
+    ),
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    unidadMonetaria('Euro', 'EUR'),
+    bfilename('mapas_regionales', 'francia.png'),
+    null
+);
+
+insert into Pais values (
+    503,
+    'Australia',
+    'Europa',
+    tipo_valor_nt(
+        tipo_valor(2016, 152, 'millones de hectareas'),
+        tipo_valor(2017, 205, 'millones de hectareas'),
+        tipo_valor(2018, 230, 'millones de hectareas')
+    ),
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    unidadMonetaria('Dolar Australiano', '$'),
+    bfilename('mapas_regionales', 'australia.png'),
+    null
+);
+ 
+---- Espana id: 10 -----
+
+insert into Region values (
+    501,
+    'Cuyo',
+    NULL,
+    501
+);
+
+Insert into Region values (
+    502,
+    'Suroeste de Francia',
+    NULL,
+    502
+);
+
+Insert into Region values (
+    503,
+    'Nouvelle-Aquitaine',
+    NULL,
+    502
+);
+
+Insert into Region values (
+    504,
+    'South Australia',
+    NULL,
+    503
+);
+
+Insert into Region values (
+    505,
+    'Navarra',
+    NULL,
+    10
+);
+
+Insert into Region values (
+    506,
+    'Valladolid',
+    NULL,
+    10
+);
+
+Insert into Region values (
+    507,
+    'Valdepeñas',
+    NULL,
+    10
+);
+--------Bodegas Argentina-------
+insert into VariedadVid values (501,'Malbec');
+insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values
+(501,'Mendoza Malbec', null, 501, 501);
+
+insert into Bodega values (
+    501,
+    'Navarro Correa',
+    hechos_hist_nt(hechos_hist(1798,'Se Fundó Navarro Correa.'),hechos_hist(1996,'Se unio al grupo DIAGEO, la principal empresa de bebidas premium del mundo.'),hechos_hist(2016,'Casi todos sus vinos recibieron reconocimientos.')),
+    TO_DATE('01-01-1798', 'DD-MM-YYYY'),
+    DATOSDECONTACTO(
+        conj_telefonos( 2106605200,2332059700),
+        null,
+        'info@boutari.gr',
+        'http://www.boutari.gr',
+        direccion('Godoy Cruz', '5501', 'San Francisco del Monte 1555.', null),
+        personasDeContacto(personaDeContacto('Roxanne','Masta','Chief Secretary','ktimatsa@gmail.com'))
+    ),
+    'Continuar con la tradición familiar de hacerlo cada vez mejor, nos encontramos permanente en la búsqueda de nuevas expresiones, seleccionando las regiones con microclimas y suelos más destacados de la provincia de Mendoza.',
+    null,
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+(501, 501, 501, 501, 501);
+
+insert into Bodega values (
+    502,
+    'Luis Mora',
+    hechos_hist_nt(hechos_hist(1992,'Se Fundó Luis Mora.'),hechos_hist(1996,'Se unio al grupo DIAGEO, la principal empresa de bebidas premium del mundo.'),hechos_hist(2016,'Casi todos sus vinos recibieron reconocimientos.')),
+    TO_DATE('01-01-1992', 'DD-MM-YYYY'),
+    DATOSDECONTACTO(
+        conj_telefonos( 2106605200,2332059700),
+        null,
+        'info@boutari.gr',
+        'http://www.boutari.gr',
+        direccion('Godoy Cruz', '5501', 'San Francisco del Monte 1555.', null),
+        personasDeContacto(personaDeContacto('Roxanne','Masta','Chief Secretary','ktimatsa@gmail.com'))
+    ),
+    'Continuar con la tradición familiar de hacerlo cada vez mejor, nos encontramos permanente en la búsqueda de nuevas expresiones, seleccionando las regiones con microclimas y suelos más destacados de la provincia de Mendoza.',
+    null,
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+(502, 501, 501, 501, 502);
+
+insert into Bodega values (
+    503,
+    'Trapiche',
+    hechos_hist_nt(hechos_hist(1883,'Se Fundó Trapiche'),hechos_hist(1996,'Se unio al grupo DIAGEO, la principal empresa de bebidas premium del mundo.'),hechos_hist(2016,'Casi todos sus vinos recibieron reconocimientos.')),
+    TO_DATE('01-01-1883', 'DD-MM-YYYY'),
+    DATOSDECONTACTO(
+        conj_telefonos( 2106605200,2332059700),
+        null,
+        'info@boutari.gr',
+        'http://www.boutari.gr',
+        direccion('Godoy Cruz', '5501', 'San Francisco del Monte 1555.', null),
+        personasDeContacto(personaDeContacto('Roxanne','Masta','Chief Secretary','ktimatsa@gmail.com'))
+    ),
+    'Continuar con la tradición familiar de hacerlo cada vez mejor, nos encontramos permanente en la búsqueda de nuevas expresiones, seleccionando las regiones con microclimas y suelos más destacados de la provincia de Mendoza.',
+    null,
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+(503, 501, 501, 501, 503);
+
+------Bodegas Australia ---------
+insert into VariedadVid values (502,'Shiraz');
+insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values
+(502,'Rueda Shiraz', null, 502, 504);
+
+insert into Bodega values (
+    504,
+    'John Duval Wines',
+    hechos_hist_nt(hechos_hist(2003,'Se Fundó John Duval Wines'),hechos_hist(1996,'Se unio al grupo DIAGEO, la principal empresa de bebidas premium del mundo.'),hechos_hist(2016,'Casi todos sus vinos recibieron reconocimientos.')),
+    TO_DATE('01-01-2003', 'DD-MM-YYYY'),
+    DATOSDECONTACTO(
+        conj_telefonos( 2106605200,2332059700),
+        null,
+        'info@boutari.gr',
+        'http://www.boutari.gr',
+        direccion('Godoy Cruz', '5501', 'San Francisco del Monte 1555.', null),
+        personasDeContacto(personaDeContacto('Roxanne','Masta','Chief Secretary','ktimatsa@gmail.com'))
+    ),
+    'Continuar con la tradición familiar de hacerlo cada vez mejor, nos encontramos permanente en la búsqueda de nuevas expresiones, seleccionando las regiones con microclimas y suelos más destacados de la provincia de Mendoza.',
+    null,
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+(504, 502, 502, 504, 504);
+
+insert into Bodega values (
+    505,
+    'Seppeltsfield',
+    hechos_hist_nt(hechos_hist(1852,'Se Fundó Seppeltsfield'),hechos_hist(1996,'Se unio al grupo DIAGEO, la principal empresa de bebidas premium del mundo.'),hechos_hist(2016,'Casi todos sus vinos recibieron reconocimientos.')),
+    TO_DATE('01-01-1852', 'DD-MM-YYYY'),
+    DATOSDECONTACTO(
+        conj_telefonos( 2106605200,2332059700),
+        null,
+        'info@boutari.gr',
+        'http://www.boutari.gr',
+        direccion('Godoy Cruz', '5501', 'San Francisco del Monte 1555.', null),
+        personasDeContacto(personaDeContacto('Roxanne','Masta','Chief Secretary','ktimatsa@gmail.com'))
+    ),
+    'Continuar con la tradición familiar de hacerlo cada vez mejor, nos encontramos permanente en la búsqueda de nuevas expresiones, seleccionando las regiones con microclimas y suelos más destacados de la provincia de Mendoza.',
+    null,
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+(505, 502, 502, 504, 505);
+
+insert into Bodega values (
+    506,
+    'De Bortoli',
+    hechos_hist_nt(hechos_hist(1928,'Se Fundó De Bortoli'),hechos_hist(1996,'Se unio al grupo DIAGEO, la principal empresa de bebidas premium del mundo.'),hechos_hist(2016,'Casi todos sus vinos recibieron reconocimientos.')),
+    TO_DATE('01-01-1928', 'DD-MM-YYYY'),
+    DATOSDECONTACTO(
+        conj_telefonos( 2106605200,2332059700),
+        null,
+        'info@boutari.gr',
+        'http://www.boutari.gr',
+        direccion('Godoy Cruz', '5501', 'San Francisco del Monte 1555.', null),
+        personasDeContacto(personaDeContacto('Roxanne','Masta','Chief Secretary','ktimatsa@gmail.com'))
+    ),
+    'Continuar con la tradición familiar de hacerlo cada vez mejor, nos encontramos permanente en la búsqueda de nuevas expresiones, seleccionando las regiones con microclimas y suelos más destacados de la provincia de Mendoza.',
+    null,
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+(506, 502, 502, 504, 506);
+
+------Bodegas Francia ---------
+insert into VariedadVid values (503,'Cabernet Franc');
+insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values
+(503,'Pauillac Cabernet Franc', null, 503, 502);
+
+insert into Bodega values (
+    507,
+    'Chateau Pichon Baron',
+    hechos_hist_nt(hechos_hist(1694,'Se Fundó Chateau Pichon Baron'),hechos_hist(1996,'Se unio al grupo DIAGEO, la principal empresa de bebidas premium del mundo.'),hechos_hist(2016,'Casi todos sus vinos recibieron reconocimientos.')),
+    TO_DATE('01-01-1694', 'DD-MM-YYYY'),
+    DATOSDECONTACTO(
+        conj_telefonos( 2106605200,2332059700),
+        null,
+        'info@boutari.gr',
+        'http://www.boutari.gr',
+        direccion('Godoy Cruz', '5501', 'San Francisco del Monte 1555.', null),
+        personasDeContacto(personaDeContacto('Roxanne','Masta','Chief Secretary','ktimatsa@gmail.com'))
+    ),
+    'Continuar con la tradición familiar de hacerlo cada vez mejor, nos encontramos permanente en la búsqueda de nuevas expresiones, seleccionando las regiones con microclimas y suelos más destacados de la provincia de Mendoza.',
+    null,
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+(507, 503, 503, 502, 507);
+
+insert into Bodega values (
+    508,
+    'Clos des Menuts',
+    hechos_hist_nt(hechos_hist(1875,'Se Fundó Clos des Menuts'),hechos_hist(1996,'Se unio al grupo DIAGEO, la principal empresa de bebidas premium del mundo.'),hechos_hist(2016,'Casi todos sus vinos recibieron reconocimientos.')),
+    TO_DATE('01-01-1875', 'DD-MM-YYYY'),
+    DATOSDECONTACTO(
+        conj_telefonos( 2106605200,2332059700),
+        null,
+        'info@boutari.gr',
+        'http://www.boutari.gr',
+        direccion('Godoy Cruz', '5501', 'San Francisco del Monte 1555.', null),
+        personasDeContacto(personaDeContacto('Roxanne','Masta','Chief Secretary','ktimatsa@gmail.com'))
+    ),
+    'Continuar con la tradición familiar de hacerlo cada vez mejor, nos encontramos permanente en la búsqueda de nuevas expresiones, seleccionando las regiones con microclimas y suelos más destacados de la provincia de Mendoza.',
+    null,
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+(508, 503, 503, 502, 508);
+
+insert into Bodega values (
+    509,
+    'Chateau Lafite Rothschild',
+    hechos_hist_nt(hechos_hist(1680,'Se Fundó Chateau Lafite Rothschild'),hechos_hist(1996,'Se unio al grupo DIAGEO, la principal empresa de bebidas premium del mundo.'),hechos_hist(2016,'Casi todos sus vinos recibieron reconocimientos.')),
+    TO_DATE('01-01-1680', 'DD-MM-YYYY'),
+    DATOSDECONTACTO(
+        conj_telefonos( 2106605200,2332059700),
+        null,
+        'info@boutari.gr',
+        'http://www.boutari.gr',
+        direccion('Godoy Cruz', '5501', 'San Francisco del Monte 1555.', null),
+        personasDeContacto(personaDeContacto('Roxanne','Masta','Chief Secretary','ktimatsa@gmail.com'))
+    ),
+    'Continuar con la tradición familiar de hacerlo cada vez mejor, nos encontramos permanente en la búsqueda de nuevas expresiones, seleccionando las regiones con microclimas y suelos más destacados de la provincia de Mendoza.',
+    null,
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+(509, 503, 503, 502, 509);
+
+-----Bodegas Espana -------
+insert into VariedadVid values (504,'Garnacha');
+insert into DenominacionDeOrigen (id, nombre, descripcion, FK_VariedadVid, FK_Region) values
+(504,'Tierra de Castilla Garnacha', null, 504, 505);
+
+insert into Bodega values (
+    510,
+    'Rioja Vega',
+    hechos_hist_nt(hechos_hist(1882,'Se Fundó Rioja Vega'),hechos_hist(1996,'Se unio al grupo DIAGEO, la principal empresa de bebidas premium del mundo.'),hechos_hist(2016,'Casi todos sus vinos recibieron reconocimientos.')),
+    TO_DATE('01-01-1882', 'DD-MM-YYYY'),
+    DATOSDECONTACTO(
+        conj_telefonos( 2106605200,2332059700),
+        null,
+        'info@boutari.gr',
+        'http://www.boutari.gr',
+        direccion('Godoy Cruz', '5501', 'San Francisco del Monte 1555.', null),
+        personasDeContacto(personaDeContacto('Roxanne','Masta','Chief Secretary','ktimatsa@gmail.com'))
+    ),
+    'Continuar con la tradición familiar de hacerlo cada vez mejor, nos encontramos permanente en la búsqueda de nuevas expresiones, seleccionando las regiones con microclimas y suelos más destacados de la provincia de Mendoza.',
+    null,
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+(510, 504, 504, 505, 510);
+
+insert into Bodega values (
+    511,
+    'Protos',
+    hechos_hist_nt(hechos_hist(1927,'Se Fundó Protos'),hechos_hist(1996,'Se unio al grupo DIAGEO, la principal empresa de bebidas premium del mundo.'),hechos_hist(2016,'Casi todos sus vinos recibieron reconocimientos.')),
+    TO_DATE('01-01-1927', 'DD-MM-YYYY'),
+    DATOSDECONTACTO(
+        conj_telefonos( 2106605200,2332059700),
+        null,
+        'info@boutari.gr',
+        'http://www.boutari.gr',
+        direccion('Godoy Cruz', '5501', 'San Francisco del Monte 1555.', null),
+        personasDeContacto(personaDeContacto('Roxanne','Masta','Chief Secretary','ktimatsa@gmail.com'))
+    ),
+    'Continuar con la tradición familiar de hacerlo cada vez mejor, nos encontramos permanente en la búsqueda de nuevas expresiones, seleccionando las regiones con microclimas y suelos más destacados de la provincia de Mendoza.',
+    null,
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+(511, 504, 504, 505, 511);
+
+insert into Bodega values (
+    512,
+    'Real',
+    hechos_hist_nt(hechos_hist(1984,'Se Fundó Real'),hechos_hist(1996,'Se unio al grupo DIAGEO, la principal empresa de bebidas premium del mundo.'),hechos_hist(2016,'Casi todos sus vinos recibieron reconocimientos.')),
+    TO_DATE('01-01-1984', 'DD-MM-YYYY'),
+    DATOSDECONTACTO(
+        conj_telefonos( 2106605200,2332059700),
+        null,
+        'info@boutari.gr',
+        'http://www.boutari.gr',
+        direccion('Godoy Cruz', '5501', 'San Francisco del Monte 1555.', null),
+        personasDeContacto(personaDeContacto('Roxanne','Masta','Chief Secretary','ktimatsa@gmail.com'))
+    ),
+    'Continuar con la tradición familiar de hacerlo cada vez mejor, nos encontramos permanente en la búsqueda de nuevas expresiones, seleccionando las regiones con microclimas y suelos más destacados de la provincia de Mendoza.',
+    null,
+    tipo_valor_nt(),
+    distribucion_exp_nt(),
+    null
+);
+
+insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
+(512, 504, 504, 505, 512);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,maridaje,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    501, 
+    'Structura',
+    'Cosecha manual a horas tempranas de la mañana. Fermentación: En recipientes de acero inoxidable a bajas temperaturas. La fermentación se realizó por separado en lotes reducidos para cada varietal, y luego se hizo una maceración prolongada.',
+    'Color rojo oscuro y profundo. Aromas y sabores a ciruelas, guindas confitadas, moras, trufas, grafito y especias. Vino complejo de mucho cuerpo y taninos redondos que aportan una textura sedosa. Gran equilibrio entre alcohol, acidez y fruta. Final muy prolongado.',
+    maridajes('Ensaldas','Postres'),
+    18,
+    32,
+    14.5,
+    3.5,
+    empty_blob(),
+'S',
+'Corcho',
+calificacion_nt(
+    calificacion('James Suckling', Tipo_valor(2018, 95,'puntos')), 
+    calificacion('Tim Atkin',Tipo_valor(2017, 93,'puntos')),
+    calificacion('Stephen Tanzer',Tipo_valor(2017, 90,'puntos'))),
+tipo_valor_nt(tipo_valor(2016,1000,'litros'),tipo_valor(2017,1345,'litros'),tipo_valor(2018,2600,'litros')),
+distribucion_exp_nt(distribucion_exp(tipo_valor(2016, 200,'litros'),'Uruguay'),
+distribucion_exp(tipo_valor(2017, 200,'litros'), 'Uruguay'),
+distribucion_exp(tipo_valor(2018, 250,'litros'),'Uruguay'),
+distribucion_exp(tipo_valor(2016, 200,'litros'),'Japon'),
+distribucion_exp(tipo_valor(2016, 200,'litros'),'Japon'),
+distribucion_exp(tipo_valor(2018, 250,'litros'),'Japon'),
+distribucion_exp(tipo_valor(2016, 190,'litros'),'Hungria'),
+distribucion_exp(tipo_valor(2016, 200,'litros'),'Hungria'),
+distribucion_exp(tipo_valor(2018, 250,'litros'),'Hungria')),
+10,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(501, 501, 2,501, 501, 501, 501, 501);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    502, 
+    'Colección Privada',
+'Se elabora con tres tipos de uvas: Cabernet sauvignon que le aporta cuerpo y estructura; Malbec que le otorga dulzura; Merlot que le da un final elegante. Cosecha manual. Fermentación: En tanques de acero inoxidable a bajas temperaturas.',
+'De color rojo intenso. Sabores a moras, membrillo y especias. De cuerpo medio y taninos sedosos. Frutado y de larga persistencia en boca.',
+18,
+108,
+13.9,
+4.3,
+empty_blob(),
+'S',
+'Corcho',
+calificacion_nt(
+    Calificacion('James Suckling', Tipo_valor(2018, 91,'puntos')), 
+    Calificacion('Tim Atkin',Tipo_valor(2017, 90,'puntos'))),
+tipo_valor_nt(Tipo_valor(2016,1000,'litros'),
+Tipo_valor(2017,1500,'litros'),Tipo_valor(2018,1250,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 100,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 100,'litros'), 'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 50,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2016, 100,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 100,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 75,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 100,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 90,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 0,'litros'),'Hungria')),
+12,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(502, 502, 2,501, 501, 501, 501, 501);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    503, 
+    'Medalla ',
+'Elaborado con uvas cosechadas a mano, de gran estructura y complejidad.',
+'Este vino posee un color rojo intenso con tonos violetas. Expresa aromas complejos con notas de mermelada de ciruela, pimientos verdes, pasas de uva, tabaco y un delicado toque de roble. De sabor redondo, en boca es muy persistente, con taninos suaves y maduros.',
+18,
+132,
+14,
+3.6,
+empty_blob(),
+'S',
+'Corcho',
+calificacion_nt(
+    Calificacion('Robert Parker', Tipo_valor(2016, 92,'puntos')), 
+    Calificacion('Campbell Mattinson',Tipo_valor(2017, 90,'puntos'))),
+tipo_valor_nt(Tipo_valor(2016,1000,'litros'),
+Tipo_valor(2017,1690,'litros'),Tipo_valor(2018,2000,'litros')),
+distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 250,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 200,'litros'), 'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 300,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2016, 100,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 200,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 300,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 50,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2017, 300,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2018, 200,'litros'),'Uruguay')),
+18,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(503, 503, 2,503, 501, 501, 501, 503);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    504, 
+    'Alaris',
+'Alaris Chardonnay es un monovarietal elaborado con viñedos de Cruz de Piedra, plantados a una altitud de 720 m.s.n.m, con más de 90 años de antigüedad.',
+'De color amarillo brillante con tintes verdosos, este vino entrega aromas frutales de manzanas rojas y ananá maduro. En boca su sabor es suave, con una fresca acidez y un prolongado final.',
+12,
+120,
+12.5,
+3.2,
+empty_blob(),
+'N',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Tyson Stelzer', Tipo_valor(2016, 93,'puntos')), 
+    Calificacion('Huon Hooke',Tipo_valor(2017, 92,'puntos'))),
+Tipo_valor_nt(Tipo_valor(2016,600,'litros'),
+Tipo_valor(2017,720,'litros'),Tipo_valor(2018,600,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 30,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2017, 50,'litros'), 'Uruguay'),
+    Distribucion_exp(Tipo_valor(2018, 100,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2016, 100,'litros'),'Japon'),
+    Distribucion_exp(Tipo_valor(2017, 200,'litros'),'Japon'),
+    Distribucion_exp(Tipo_valor(2018, 300,'litros'),'Japon'),
+    Distribucion_exp(Tipo_valor(2016, 100,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 200,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 100,'litros'),'Holanda')),
+16,
+1
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(504, 504, 1,503, 501, 501, 501, 503);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    505, 
+    'Luis Mora',
+'Despalillado y presionado de los granos con descarga por desnivel sobre boca de pileta, tendiente a un tratamiento cuidadoso de las uvas. Se utilizan piletas de pequeño tamaño (150 HLTS), para lograr una intensa maceración de los orujos. La fermentación alcohólica se realiza a temperaturas que oscilan entre 24° y 28°C, con levaduras seleccionadas, para asegurar una fermentación efectiva y controlada. El tiempo total de contacto con los orujos oscila entre 15 a 20 días, tiempos que se deciden por degustación, buscando extraer colores intensos y taninos dulces poco agresivos.',
+'Rojo bordó intenso. Aroma a frutos rojos maduros, mermelada de ciruelas, y toques de pasas de uva, con notas vainilla y tabaco aportadas por el roble.  Entrada en boca dulce, cuerpo intenso, se percibe un perfecto equilibrio entre la fruta y el roble, dejando un agradable y persistente final en boca.',
+18,
+120,
+14.7,
+5.7,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Nick Stock', Tipo_valor(2016, 90,'puntos')), 
+    Calificacion('Jeremy Oliver',Tipo_valor(2017, 90,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,450,'litros'),
+    Tipo_valor(2017,400,'litros'),
+    Tipo_valor(2018,490,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 20,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2017, 37,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2018, 25,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2016, 20,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 30,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 35,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 40,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 30,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 40,'litros'),'Hungria')),
+12,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(505, 505, 2,502, 501, 501, 501, 502);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    506, 
+    'Les Tourelles de Longueville',
+'30% en barriles nuevos, 70% en barriles de una cosecha durante 12 meses.',
+'El Tourelles de Longueville ofrece un color rubí fino fino. La nariz está marcada por las bayas de grosella, cereza negra, fresa silvestre y especias suaves. El ataque es fresco, elegante y sutil. La estructura se despliega y crece en poder. El final es armonioso, completo y bien equilibrado. Este vino está lleno de encanto y gracia.',
+16,
+144,
+13,
+5.6,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Robert Parker', Tipo_valor(2012, 93,'puntos')), 
+    Calificacion('Jeremy Oliver',Tipo_valor(2017, 91,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,2000,'litros'),
+    Tipo_valor(2017,2100,'litros'),
+    Tipo_valor(2018,1900,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 400,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 400,'litros'), 'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 390,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2016, 500,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 550,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 540,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 520,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 530,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 500,'litros'),'Hungria')),
+12,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(506, 506, 2,507, 503, 503, 502, 507);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    507, 
+    'Les Griffon Pichon Baron',
+'40% en barriles nuevos, 60% en barriles de una cosecha durante 12 meses.',
+'El color es oscuro; Un granate rojo intenso. La nariz está realzada por fruta fresca, crema de grosella negra y Arándanos con una elegante nota a roble. En boca es suave y aterciopelado con taninos delicados y precisos.',
+18,
+144,
+13,
+5.8,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Nick Stock', Tipo_valor(2017, 92,'puntos')), 
+    Calificacion('Jeremy Oliver',Tipo_valor(2018, 91,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,1350,'litros'),
+    Tipo_valor(2017,1350,'litros'),
+    Tipo_valor(2018,1350,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 220,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 240,'litros'), 'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 300,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2016, 356,'litros'),'Japon'),
+    Distribucion_exp(Tipo_valor(2017, 325,'litros'),'Japon'),
+    Distribucion_exp(Tipo_valor(2018, 315,'litros'),'Japon'),
+    Distribucion_exp(Tipo_valor(2016, 310,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 352,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 380,'litros'),'Hungria')),
+18,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(507, 507, 2,507, 503, 503, 502, 507);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    508, 
+    'Legende Bordeaux Rougue',
+'Objeto de los mayores cuidados por parte de los viñateros, el viñedo bordelés concita unanimidad absoluta respecto de un punto: produce vinos frescos y elegantes que, si bien son testimonio de una gran cultura y una civilización única, se beben con especial agrado. ',
+'Nariz: intensa y muy expresiva, con predominancia de aromas de fruta fresca (grosella y frambuesa) que se mezclan con leves notas de madera. Boca: estructurada, redonda y agradable, con un suave dejo de madera, taninos firmes pero aterciopelados y un largo final fresco y frutal',
+18,
+156,
+12.5,
+3.37,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Nick Stock', Tipo_valor(2016, 93,'puntos')), 
+    Calificacion('Robert Parker',Tipo_valor(2017, 91,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,1360,'litros'),
+    Tipo_valor(2017,1400,'litros'),
+    Tipo_valor(2018,1370,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 620,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2017, 640,'litros'), 'Uruguay'),
+    Distribucion_exp(Tipo_valor(2018, 670,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2016, 750,'litros'),'Japon'),
+    Distribucion_exp(Tipo_valor(2017, 725,'litros'),'Japon'),
+    Distribucion_exp(Tipo_valor(2018, 715,'litros'),'Japon'),
+    Distribucion_exp(Tipo_valor(2016, 310,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 450,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 480,'litros'),'Hungria')),
+20,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(508, 508, 2,509, 503, 503, 502, 509);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    509, 
+    'Carruades de Lafite',
+'Objeto de los mayores cuidados por parte de los viñateros, el viñedo bordelés concita unanimidad absoluta respecto de un punto: produce vinos frescos y elegantes que, si bien son testimonio de una gran cultura y una civilización única, se beben con especial agrado. ',
+'De color rubí, con reflejos ciruela. En nariz aromas de grosella y notas de vainilla. En boca de cuerpo medio, notas de suelo y de frutas.',
+17,
+156,
+12.5,
+3.8,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Robert Parker',Tipo_valor(2017, 91,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,1800,'litros'),
+    Tipo_valor(2017,1800,'litros'),
+    Tipo_valor(2018,1820,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 420,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 460,'litros'), 'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 465,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2016, 350,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 375,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 380,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 310,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 340,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 380,'litros'),'Hungria')),
+20,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(509, 509, 2,509, 503, 503, 502, 509);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    510, 
+    'L Excellence',
+'Viticultura integrada, adelgazamiento de las hojas realizado por mano, cosecha verde. Fermentación maloláctica en barricas de roble francés. Vinificación en cubas de hormigón termo regulado',
+'Este Saint-Emilion es un trato absoluto con su sutil Mezcla de Merlot y Cabernet. L Excellence Clos des Menuts es un buen mantenimiento bien equilibrado y afrutado. Vino, con sutiles taninos.',
+15,
+120,
+14.5,
+4.8,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Tyson Stelzer', Tipo_valor(2016, 93,'puntos')),
+    Calificacion('Huon Hooke',Tipo_valor(2017, 92,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,3400,'litros'),
+    Tipo_valor(2017,3450,'litros'),
+    Tipo_valor(2018,3420,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 440,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2017, 440,'litros'), 'Uruguay'),
+    Distribucion_exp(Tipo_valor(2018, 470,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2016, 380,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 425,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 435,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 510,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 520,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 580,'litros'),'Hungria')),
+18,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(510, 510, 2,508, 503, 503, 502, 508);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    511, 
+'Plexux',
+'Fermentación con tapa sumergida y pequeños fermentadores abiertos de acero inoxidable.',
+'Un poco más de cuerpo medio, con un núcleo oscuro de Frutos concentrados, maduros, rojos y negros. Amplia Estructura proporcionada por taninos finos y suaves. Acidez brillante. Acabados largos y picantes',
+17,
+120,
+14.5,
+6.1,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('James Halliday', Tipo_valor(2017, 95,'puntos')), 
+    Calificacion('Huon Hooke',Tipo_valor(2017, 92,'puntos')), 
+    Calificacion('Mike Bennie',Tipo_valor(2016, 93,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,600,'litros'),
+    Tipo_valor(2017,900,'litros'),
+    Tipo_valor(2018,950,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 100,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2017, 100,'litros'), 'Uruguay'),
+    Distribucion_exp(Tipo_valor(2018, 100,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2016, 50,'litros'),'Japon'),
+    Distribucion_exp(Tipo_valor(2017, 150,'litros'),'Japon'),
+    Distribucion_exp(Tipo_valor(2018, 150,'litros'),'Japon'),
+    Distribucion_exp(Tipo_valor(2016, 190,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 100,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 100,'litros'),'Hungria')),
+15,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(511, 511, 2,504, 502, 502, 504, 504);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    512, 
+'Entity Shiraz',
+'Fermentación con tapa sumergida y pequeños fermentadores abiertos de acero inoxidable.',
+'De cuerpo completo y con una gran variedad de frutos oscuros concentrados. Suculenta, equilibrada y largo sabor en la boca.',
+16,
+144,
+14.5,
+6.2,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('James Halliday', Tipo_valor(2017, 97,'puntos')), 
+    Calificacion('Campbell Mattinson',Tipo_valor(2017, 95,'puntos')), 
+    Calificacion('Tim White',Tipo_valor(2016, 96,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,2500,'litros'),
+    Tipo_valor(2017,2700,'litros'),
+    Tipo_valor(2018,3500,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 300,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 300,'litros'), 'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 350,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2016, 240,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 300,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 320,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 430,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 450,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 430,'litros'),'Hungria')),
+15,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(512, 512, 2,504, 502, 502, 504, 504);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    513, 
+'Grand Tokay',
+'Como los componentes vintage de Tokay se maduran por separado en barriles de roble viejos, la mezcla final DP57 es el resultado de un riguroso programa de selección.',
+'Como néctar, con viscosidad de relleno bucal, caramelo y especias exóticas.',
+17,
+120,
+17,
+5.8,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('James Halliday', Tipo_valor(2017, 97,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,5100,'litros'),
+    Tipo_valor(2017,5050,'litros'),
+    Tipo_valor(2018,6120,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 500,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 540,'litros'), 'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 570,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2016, 300,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 325,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 340,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 210,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 220,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 280,'litros'),'Hungria')),
+18,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(513, 513, 2,505, 502, 502, 504, 505);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    514, 
+'Master Muscat',
+'Como los componentes vintage de Muscat se maduran por separado en barriles de roble viejos, la mezcla final DP63 es el resultado de un riguroso programa de selección.',
+'Como néctar, con viscosidad de relleno bucal, caramelo y especias exóticas.',
+16,
+132,
+17,
+6.4,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Lisa Perrotti-Brown', Tipo_valor(2017, 97,'litros')),
+    Calificacion('Joe Czerwinsk', Tipo_valor(2017, 95,'litros'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,1100,'litros'),
+    Tipo_valor(2017,1100,'litros'),
+    Tipo_valor(2018,1200,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 100,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2017, 90,'litros'), 'Uruguay'),
+    Distribucion_exp(Tipo_valor(2018, 110,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2016, 340,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 370,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 340,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 10,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 50,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 40,'litros'),'Hungria')),
+21,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(514, 514, 2,505, 502, 502, 504, 505);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    515, 
+'Noble One',
+'Cada uno de los viñedos especialmente seleccionados se cosechó, fermentó y maduró por separado, y cada viñedo proporcionó su propio carácter único, lo que contribuyó a la riqueza y complejidad de este vino. Madurado en 37% de barricas nuevas de roble francés, 62% en barricas de uno y dos años y 25% sin cocción para conservar los sabores de frutas jóvenes en la mezcla.',
+'Brillante medio dorado. Aromas gloriosos de membrillo, nectarina, ralladura de naranja y nuez de roble vanilense. Un banquete sensual de ricas frutas de hueso blanco, cítricos, un toque de mermelada y roble bellamente integrado. Una espiga picante de acidez equilibra la dulzura de este vino dando un toque de frescura al final.',
+16,
+120,
+11,
+9.6,
+empty_blob(),
+'N',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Nick Stock', Tipo_valor(2017,97,'litros')),
+    Calificacion('James Halliday', Tipo_valor(2017, 95,'litros'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,1050,'litros'),
+    Tipo_valor(2017,1100,'litros'),
+    Tipo_valor(2018,1150,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 400,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2017, 420,'litros'), 'Uruguay'),
+    Distribucion_exp(Tipo_valor(2018, 430,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2016, 480,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 495,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 500,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 610,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 620,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 600,'litros'),'Hungria')),
+21,
+1
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(515, 515, 1,506, 502, 502, 504, 506);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    516, 
+'Crianza',
+'Fermentación alcohólica durante 10 días, seguida de maceración por contacto con la piel durante 18 días. La fermentación se realizó a 28ºC con malolácticos en depósitos de acero inoxidable.',
+'En boca es sedoso, agradable y envolvente, largo, equilibrado, con muy buenos taninos.',
+18,
+144,
+13.5,
+6.6,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Huon Hooke', Tipo_valor(2017, 95,'puntos')),
+    Calificacion('Chris Shanahan', Tipo_valor(2017, 92,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,4400,'litros'),
+    Tipo_valor(2017,4600,'litros'),
+    Tipo_valor(2018,5000,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 300,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 290,'litros'), 'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 300,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2016, 340,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 370,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 350,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 150,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 140,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 140,'litros'),'Hungria')),
+17,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(516, 516, 2,510, 504, 504, 505, 510);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    517, 
+'Verdejo',
+'Fermentación alcohólica durante 10 días a 28ºC, con maceración por contacto con la piel durante 20 días. Fermentación maloláctica en depósitos de acero inoxidable a 18ºC.',
+'Untuoso, aterciopelado y equilibrado en boca, con una buena estructura tánica de alta calidad.',
+18,
+132,
+13.5,
+5.8,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Robert Parker', Tipo_valor(2017, 91,'puntos')),
+    Calificacion('Michael Apstein', Tipo_valor(2017, 93,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,2300,'litros'),
+    Tipo_valor(2017,2600,'litros'),
+    Tipo_valor(2018,2600,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 100,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 50,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 70,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2016, 70,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 90,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 100,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 110,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2017, 90,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2018, 100,'litros'),'Uruguay')),
+15,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(517, 517, 2,510, 504, 504, 505, 510);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    519, 
+'Roble',
+'Cosecha manual en cajas de 20 kg. Tabla de clasificación. Maceración por contacto con la piel y fermentación durante 15 días a 24 ºC.',
+'Sabroso, afrutado, tostado con taninos redondos y buen final.',
+16,
+132,
+14.5,
+5.3,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Nick Stock', Tipo_valor(2017, 94,'puntos')),
+    Calificacion('Josh Raynolds', Tipo_valor(2017, 93,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,2200,'litros'),
+    Tipo_valor(2017,2400,'litros'),
+    Tipo_valor(2018,2400,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 540,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 550,'litros'), 'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 570,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2016, 390,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 450,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 455,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 410,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 420,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 480,'litros'),'Hungria')),
+15,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(519, 519, 2,511, 504, 504, 505, 511);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    518, 
+'Reserva',
+'Cosecha nocturna. Maceración por contacto con la piel de 4/5 horas a 10 ºC. Fermentación a 13.5 ºC.',
+'Aroma franco, fresco, balsámico, aromas cítricos, de lima, con gran carga de fruta tropical y sensaciones florales. Una acidez marcada, con recuerdos cítricos vinculados a las sensaciones aromáticas.',
+10,
+120,
+12.5,
+5.7,
+empty_blob(),
+'N',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Mike Bennie', Tipo_valor(2017, 93,'puntos')),
+    Calificacion('Tyson Stelzer', Tipo_valor(2017, 91,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,2200,'litros'),
+    Tipo_valor(2017,2400,'litros'),
+    Tipo_valor(2018,2400,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 540,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 590,'litros'), 'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 570,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2016, 380,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 385,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 395,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 710,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2017, 720,'litros'),'Uruguay'),
+    Distribucion_exp(Tipo_valor(2018, 780,'litros'),'Uruguay')),
+15,
+1
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(518, 518, 1,511, 504, 504, 505, 511);
+
+insert into MarcaVino 
+(id,nombre,descripcionElaboracion,descripcionCata,
+temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
+foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
+exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
+values (
+    520, 
+'Vega Ibor Viura',
+'Recolección en un momento óptimo de madurez. Maceración en frío durante 10 horas, tras dicha maceración se realiza el prensado y se separan las diferentes fracciones del mismo, siendo el mosto yema el que se utiliza para la elaboración de este vino',
+'Aroma franco, fresco, balsámico, aromas cítricos, de lima, con gran carga de fruta tropical y sensaciones florales. Una acidez marcada, con recuerdos cítricos vinculados a las sensaciones aromáticas.',
+17,
+120,
+13.5,
+6.2,
+empty_blob(),
+'S',
+'Corcho',
+Calificacion_nt(
+    Calificacion('Jeremy Oliver', Tipo_valor(2017, 91,'puntos'))),
+Tipo_valor_nt(
+    Tipo_valor(2016,3500,'litros'),
+    Tipo_valor(2017,3500,'litros'),
+    Tipo_valor(2018,3900,'litros')),
+Distribucion_exp_nt(
+    Distribucion_exp(Tipo_valor(2016, 230,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2017, 240,'litros'), 'Holanda'),
+    Distribucion_exp(Tipo_valor(2018, 270,'litros'),'Holanda'),
+    Distribucion_exp(Tipo_valor(2016, 340,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2017, 350,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2018, 370,'litros'),'Mexico'),
+    Distribucion_exp(Tipo_valor(2016, 400,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2017, 410,'litros'),'Hungria'),
+    Distribucion_exp(Tipo_valor(2018, 430,'litros'),'Hungria')),
+12,
+2
+);
+
+insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
+(520, 520, 2,512, 504, 504, 505, 512);
+
+commit;
