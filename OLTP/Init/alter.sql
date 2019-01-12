@@ -1,5 +1,3 @@
-ALTER SESSION SET CURRENT_SCHEMA=WINE_SCHEMA;
-
 ALTER TABLE Region add constraint fk_region_pais foreign key (FK_Pais) references Pais (id);
 alter table Bodega add constraint fk_bodega_bodega foreign key (propietario) references Bodega (id);
 

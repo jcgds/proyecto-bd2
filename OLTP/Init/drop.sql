@@ -1,5 +1,3 @@
-ALTER SESSION SET CURRENT_SCHEMA=WINE_SCHEMA;
-
 drop type tipo_valor force;
 drop type distribucion_exp force;
 drop type tipo_valor_nt force;

@@ -1,5 +1,3 @@
-ALTER SESSION SET CURRENT_SCHEMA=WINE_SCHEMA;
-
 create or replace procedure insertar_concurso(pid number DEFAULT ids_seq.nextval, nombre varchar2, dc datosDeContacto, tipoCata varchar2, deCatadores char, caracteristicas varchar2) as
 begin
     INSERT INTO Concurso VALUES (
