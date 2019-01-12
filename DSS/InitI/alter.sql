@@ -13,6 +13,26 @@ alter table I_pais add (
     constraint fk_pais_IDcontinente foreign key (id_continente) references I_continente (id)
 );
 
+alter table I_paisAux add (
+    constraint fk_pais_tiempoAux foreign key (id_tiempoAux) references I_tiempoAux (id)
+);
+
+alter table I_bodega add (
+    constraint fk_bodega_tiempoAux foreign key (id_tiempoAux) references I_tiempoAux (anio)
+);
+
+alter table I_marca add (
+    constraint fk_marca_tiempoAux foreign key (id_tiempoAux) references I_tiempoAux (anio)
+);
+
+alter table I_catador add (
+    constraint fk_catador_tiempoAux foreign key (id_tiempoAux) references I_tiempoAux (anio)
+);
+
+alter table I_concurso add (
+    constraint fk_concurso_tiempoAux foreign key (id_tiempoAux) references I_tiempoAux (anio)
+);
+
 alter table I_critica add (
     constraint fk_critica_marca foreign key (id_marca) references I_marca (id)
 );

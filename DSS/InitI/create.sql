@@ -34,9 +34,6 @@ CREATE SEQUENCE seq_Ipais
  NOCACHE
  NOCYCLE
 /
-
--- TODO: Despues de actualizar el modelo estrella, actualizar los create aqui 
-
 create table I_metricas_pais (
     id number (10),
     id_tiempo number(10),
@@ -66,7 +63,7 @@ create table I_metricas_concurso (
     id_tipo_concurso number(10) not null,
     id_tiempo number(10),
     id_lugar number(10),
-    PorcCrecimiento_TipoConcurso number(3) not null,
+    PorcenCrecimiento_TipoConcurso number(3) not null,
     top1_marca_premios varchar(50) not null,
     top2_marca_premios varchar(50) not null,
     top3_marca_premios varchar(50) not null,
@@ -106,10 +103,15 @@ create table I_tipo_concurso (
     constraint I_tipoConcurso primary key (id)
 )
 /
-
+create table I_tiempoAux (
+    anio number (10),
+    --bienio number (1) not null,
+    constraint I_tiempoAux primary key (anio)
+)
+/
 create table I_bodega (
     id number (10),
-    anio number(10, 0) not null,
+    id_tiempoAux number (10),
     nombre varchar(50) not null,
     produccion number (10) not null,
     exportacion number (10) not null,
@@ -118,7 +120,7 @@ create table I_bodega (
 /
 create table I_marca (
     id number (10),
-    anio number(10, 0) not null,
+    id_tiempoAux number (10),
     nombre varchar(50) not null,
     produccion number (10) not null,
     exportacion number (10) not null,
@@ -128,7 +130,7 @@ create table I_marca (
 /
 create table I_paisAux (
     id number (10),
-    anio number(10, 0) not null,
+    id_tiempoAux number (10),
     nombre varchar(50) not null,
     continente varchar(50) not null,
     produccion number (10) not null,
@@ -138,7 +140,7 @@ create table I_paisAux (
 /
 create table I_catador (
     id number (10),
-    anio number(10, 0) not null,
+    id_tiempoAux number (10),
     nombre varchar(50) not null,
     pasaporte number not null,
     premios number not null,
@@ -147,7 +149,7 @@ create table I_catador (
 /
 create table I_concurso (
     id number (10),
-    anio number(10, 0) not null,
+    id_tiempoAux number (10),
     nombre varchar(50) not null,
     inscripciones number not null,
     tipoConcurso varchar(1) not null,
