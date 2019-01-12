@@ -14,15 +14,23 @@ alter table I_pais add (
 );
 
 alter table I_paisAux add (
-    constraint fk_pais_tiempoAux foreign key (id_tiempoAux) references I_tiempoAux (id)
+    constraint fk_pais_tiempoAux foreign key (id_tiempoAux) references I_tiempoAux (anio)
 );
 
 alter table I_bodega add (
     constraint fk_bodega_tiempoAux foreign key (id_tiempoAux) references I_tiempoAux (anio)
 );
 
+alter table I_bodega add (
+    constraint fk_bodega_paisAux foreign key (id_paisAux) references I_paisAux (id)
+);
+
 alter table I_marca add (
     constraint fk_marca_tiempoAux foreign key (id_tiempoAux) references I_tiempoAux (anio)
+);
+
+alter table I_marca add (
+    constraint fk_marca_bodega foreign key (id_bodega) references I_bodega (id)
 );
 
 alter table I_catador add (

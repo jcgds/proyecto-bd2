@@ -109,9 +109,20 @@ create table I_tiempoAux (
     constraint I_tiempoAux primary key (anio)
 )
 /
+create table I_paisAux (
+    id number (10),
+    id_tiempoAux number (10) not null,
+    nombre varchar(50) not null,
+    continente varchar(50) not null,
+    produccion number (10) not null,
+    exportacion number (10) not null,
+    constraint I_paisAux primary key (id)
+)
+/
 create table I_bodega (
     id number (10),
-    id_tiempoAux number (10),
+    id_paisAux number(10) not null,
+    id_tiempoAux number (10) not null,
     nombre varchar(50) not null,
     produccion number (10) not null,
     exportacion number (10) not null,
@@ -120,22 +131,13 @@ create table I_bodega (
 /
 create table I_marca (
     id number (10),
-    id_tiempoAux number (10),
+    id_bodega number(10) not null,
+    id_tiempoAux number (10) not null,
     nombre varchar(50) not null,
     produccion number (10) not null,
     exportacion number (10) not null,
     premios number not null,
     constraint I_marca primary key (id)
-)
-/
-create table I_paisAux (
-    id number (10),
-    id_tiempoAux number (10),
-    nombre varchar(50) not null,
-    continente varchar(50) not null,
-    produccion number (10) not null,
-    exportacion number (10) not null,
-    constraint I_paisAux primary key (id)
 )
 /
 create table I_catador (
