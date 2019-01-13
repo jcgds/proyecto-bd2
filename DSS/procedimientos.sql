@@ -67,11 +67,28 @@ begin
     end loop paises_loop;
 
 
-    -- TODO: Extraer Concursos y Catadores
+    << catador_loop >>
+    for recCatador in (
+        select ca.nombre || ' ' || ca.apellido nombre, ca.pasaporte, 
+           (select count(*) 
+           from Inscripcion i where i.fk_catadoraprendiz = ca.pasaporte 
+           and i.premioCatador is not null
+           and EXTRACT(year from i.fecha) = anio
+           ) nPremios
+        from CatadorAprendiz ca
+    ) loop
+      
+        INSERT INTO I_Catador VALUES (seq_Ipais.nextval, anio, recCatador.nombre, recCatador.pasaporte, recCatador.nPremios);
+
+    end loop catador_loop;
+
+    -- TODO: Extraer Concursos
+
   end loop anio_loop;
 
 end;
 /
+
 
 create or replace procedure Limpiar as
 begin
@@ -84,10 +101,12 @@ begin
 end;
 /
 
+
 /*
     Funcion que se encarga de contar el numero de premios para una marca en un año dado.
     Es un wrapper para el query.
 */
+
 create or replace function premios_marca_en(idMarcaOLTP number, anio number)
 return number is
     n_premios number;
