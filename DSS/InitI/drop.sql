@@ -9,6 +9,7 @@ drop sequence seq_Itiempo;
 drop sequence seq_Itipo_concurso;
 drop sequence seq_Imetricas_pais;
 drop sequence seq_Imetricas_concurso;
+drop sequence seq_Icontinente;
 
 drop table I_tiempoAux cascade constraints purge;
 drop table I_bodega cascade constraints purge;

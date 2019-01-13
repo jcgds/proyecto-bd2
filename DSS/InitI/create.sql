@@ -28,6 +28,12 @@ CREATE SEQUENCE seq_Ipais
  NOCACHE
  NOCYCLE
 /
+CREATE SEQUENCE seq_Icontinente
+START WITH     1
+INCREMENT BY   1
+NOCACHE
+NOCYCLE
+/
 create table I_metricas_pais (
     id number (10),
     id_tiempo number(10),

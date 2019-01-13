@@ -382,6 +382,9 @@ begin
     where t.anio = p_anio;
 
     return produccionEnElAnio;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            return 0;
 end;
 /
 
@@ -399,6 +402,9 @@ begin
     where t.tipovalor.anio = p_anio;
 
     return exportacionEnElAnio;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            return 0;
 end;
 /
 
@@ -1132,7 +1138,7 @@ create or replace function posicion_ranking_superficie(idPais number, p_anio num
 return number is
     contador number := 1;
 begin
-  
+
     for ranking in (select p.id, superficie_pais(p.id, p_anio) sup from pais p order by sup desc)
     loop
       if ranking.id = idPais then
@@ -1150,7 +1156,7 @@ create or replace function posicion_ranking_produccion(idPais number, p_anio num
 return number is
     contador number := 1;
 begin
-  
+
     for ranking in (
         select p.id, produccion_pais_en(p.id, p_anio) prod
         from pais p
@@ -1168,7 +1174,7 @@ begin
 end;
 /
 
-create or replace function formatear_msj_tipo_conc(idConcurso number) 
+create or replace function formatear_msj_tipo_conc(idConcurso number)
 return varchar2 as
     tipo char;
 begin
@@ -1195,7 +1201,7 @@ begin
         select nombre, fk_clasificacionvinos into tem, idClasif from clasificacionvinos where id = idClasif;
         if (idClasif is null) then
             res := res || tem;
-        else 
+        else
             res := res || tem || ', ';
         end if;
     end loop;
@@ -1214,7 +1220,7 @@ begin
             res := res || to_char(phones(i)) || ', ';
         end if;
     end loop;
-    
+
     return res;
 end;
 /
@@ -1224,7 +1230,7 @@ return varchar2 as
     dbanc datosBancarios;
 begin
     select datosBancarios into dbanc from Edicion where id = idEdicion;
-    
+
     return dbanc.recipiente || ', ' || dbanc.nombreBanco || ', ' || dbanc.codigoCuenta || ', ' || dbanc.codigoSucursal;
 end;
 /
@@ -1237,7 +1243,7 @@ begin
     file := bfilename('IMG', 'portugal.png');
     DBMS_OUTPUT.PUT_LINE('done');
 
-    
+
     select foto into v_lob
     from MarcaVino where id = idMarcaVino
     FOR UPDATE;
@@ -1253,7 +1259,7 @@ end;
 /
 
 
-create or replace function maximoValorEscala(idConcurso number, nombreFase varchar) 
+create or replace function maximoValorEscala(idConcurso number, nombreFase varchar)
 return number as
     res number;
 begin
@@ -1265,7 +1271,7 @@ begin
 end;
 /
 
-create or replace function minimoValorEscala(idConcurso number, nombreFase varchar) 
+create or replace function minimoValorEscala(idConcurso number, nombreFase varchar)
 return number as
     res number;
 begin
