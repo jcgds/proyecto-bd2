@@ -987,9 +987,9 @@ insert into MarcaVino values (
         tipo_valor(2017, 3267, 'litros'),
         tipo_valor(2018, 2338, 'litros')),
     distribucion_exp_nt(
-        distribucion_exp(tipo_valor(2012,432,'litros'),'Portugal'),
-        distribucion_exp(tipo_valor(2013,232,'litros'),'Mexico'),
-        distribucion_exp(tipo_valor(2014,932,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
+        distribucion_exp(tipo_valor(2016,432,'litros'),'Portugal'),
+        distribucion_exp(tipo_valor(2017,232,'litros'),'Mexico'),
+        distribucion_exp(tipo_valor(2018,932,'litros'),'Colombia')),
     calificacion_nt(
         calificacion('Wine Advocate', tipo_valor(2014, 91, 'puntos')),
         calificacion('TREVE RING', tipo_valor(2015, 92, 'puntos'))
