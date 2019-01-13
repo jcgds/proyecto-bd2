@@ -6,11 +6,11 @@ idForBodega number;
 idForMarca number;
 idForCritica number;
 begin
-  
+
   -- TODO: Calcular estas fechas en base de la tabla de tiempoAux
   << anio_loop >>
   for anio in anio_min .. anio_max loop
-            
+
       begin
         insert into I_tiempoAux values (anio);
       exception
@@ -18,14 +18,14 @@ begin
             DBMS_OUTPUT.PUT_LINE('Informacion del ' || to_char(anio) || ' ya extraida.');
             continue;
       end;
-         
+
     <<paises_loop>>
     for recPais in (select p.id, p.nombre, p.continente, produccion_pais_en(p.id, anio) prod, CalcularExportacionPais(p.id, anio) exportacion from Pais p)
     loop
         idForPaisAux := seq_Imetricas_pais.nextval;
         DBMS_OUTPUT.PUT_LINE('ID: ' || to_char(idForPaisAux) || ' Nombre Pais: ' || recPais.nombre || ' Prod: ' || to_char(recPais.prod) || ' Exp: ' || to_char(recPais.exportacion));
         INSERT INTO I_paisAux VALUES (idForPaisAux, anio, recPais.nombre, recPais.continente, recPais.prod, recPais.exportacion);
-      
+
         <<bodegas_loop>>
         for recBodega in (
             select distinct bo.id, bo.nombre, produccion_bodega_en(bo.id, anio) prod, exportacion_bodega_en(bo.id, anio) exportacion
@@ -35,22 +35,22 @@ begin
             and bdo.fk_do_id = do.id
             and bdo.fk_do_region = do.fk_region
             and bdo.fk_do_variedadvid = do.fk_variedadvid
-            and bdo.fk_bodega = bo.id  
+            and bdo.fk_bodega = bo.id
         ) loop
-        
-            idForBodega := seq_Icontinente.nextval; -- TODO: Cambiar nombre de secuencia?           
+
+            idForBodega := seq_Icontinente.nextval; -- TODO: Cambiar nombre de secuencia?
             INSERT INTO I_bodega VALUES (idForBodega, idForPaisAux, anio, recBodega.nombre, recBodega.prod, recBodega.exportacion);
 
             <<marca_loop>>
-            for recMarca in (                
+            for recMarca in (
                 select distinct M.id, M.nombre, produccion_marca_en(M.id, anio) produccion, exportacion_marca_en(M.id, anio) exportacion, premios_marca_en(M.id, anio) nPremios
-                from MarcaVino M, MarcaVino_B_DO MB,Bodega B 
+                from MarcaVino M, MarcaVino_B_DO MB,Bodega B
                 where B.id = MB.fk_bodega and M.id = MB.fk_marcavino and B.id = recBodega.id
             ) loop
                 idForMarca := seq_Itiempo.nextval; -- TODO: Cambiar nombre de secuencia?
                 DBMS_OUTPUT.PUT_LINE('ID: ' || to_char(recMarca.id) || ' Nombre Marca: ' || recMarca.nombre || ' Prod: ' || to_char(recMarca.produccion) || ' Exp: ' || to_char(recMarca.exportacion) || ' Premios: ' || to_char(recMarca.nPremios));
                 insert into I_marca values (idForMarca, idForBodega, anio, recMarca.nombre, recMarca.produccion, recMarca.exportacion, recMarca.nPremios);
-            
+
                 << criticas_loop >>
                 for recCritica in (select xx.* from the (select mm.criticas from MarcaVino mm where mm.id = recMarca.id) xx where xx.valor.anio = anio)
                 loop
@@ -73,8 +73,8 @@ begin
 end;
 /
 
-create or replace procedure Limpiar as 
-begin   
+create or replace procedure Limpiar as
+begin
     delete from I_critica;
     delete from I_marca;
     delete from I_bodega;
@@ -94,11 +94,63 @@ return number is
 begin
     select COUNT(*) into n_premios
     from muestraCompite c, marcaVino mv, Inscripcion i
-    where mv.id = idMarcaOLTP and c.premio is not empty 
-    and mv.id = c.fk_marcavino 
-    and i.id = c.fk_inscripcion 
+    where mv.id = idMarcaOLTP and c.premio is not empty
+    and mv.id = c.fk_marcavino
+    and i.id = c.fk_inscripcion
     and EXTRACT(year from i.fecha) = anio;
 
     return n_premios;
+end;
+/
+--------------- Saca el top de paises exportadores y de paises productores para un año dado -----------------------------
+create or replace procedure TransformacionTopProdExpo (anio number)
+as
+cont number(1):=1;
+existe number(1):=0;
+tiempo number(10) := 0;
+name varchar(50);
+export number(10):=0;
+idMetrica number;
+top1E varchar(50);
+top2E varchar(50);
+top1P varchar(50);
+top2P varchar(50);
+top3P varchar(50);
+begin
+    select count(*) into existe from I_tiempo t where t.anio = anio;
+    if (existe = 0) then
+        insert into I_tiempo values(seq_Itiempo.nextval, anio, 0);
+    end if;
+    select t.id into tiempo from I_tiempo t where t.anio = anio;
+
+    for names in (select p.nombre into name from (select nombre, exportacion from I_paisAux where id_tiempoAux = anio order by exportacion DESC) p where rownum<=2) loop
+        if (cont = 1) then
+            top1E:=names.nombre;
+        end if;
+        if (cont = 2) then
+            top2E:=names.nombre;
+        end if;
+        cont:=cont+1;
+    end loop;
+
+    cont :=1;
+
+     for names in (select p.nombre into name from (select nombre, produccion from I_paisAux where id_tiempoAux = anio order by produccion DESC) p where rownum<=3) loop
+        if (cont = 1) then
+            top1P:=names.nombre;
+        end if;
+        if (cont = 2) then
+            top2P:=names.nombre;
+        end if;
+        if (cont = 3) then
+            top3P:=names.nombre;
+        end if;
+        cont:=cont+1;
+    end loop;
+
+
+    idMetrica := seq_Imetricas_pais.nextval;
+    insert into I_metricas_pais values (idMetrica, tiempo, null, null, top1P, top2P, top3P, null, null, top1E, top2E, null, null, null, null, null, null, null, null, null);
+
 end;
 /
