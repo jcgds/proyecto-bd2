@@ -102,6 +102,20 @@ begin
     return n_premios;
 end;
 /
+---------------- Funcion para saber si ese año y bienio existen en el area intermedia y sino que lo cree ----------------
+create or replace function Buscartiempo(anio number, bienio number)
+return number is
+    tiempo number;
+    existe number;
+begin
+    select count(*) into existe from I_tiempo t where t.anio = anio;
+    if (existe = 0) then
+        insert into I_tiempo values(seq_Itiempo.nextval, anio, bienio);
+    end if;
+    select t.id into tiempo from I_tiempo t where t.anio = anio;
+    return tiempo;
+end;
+/
 --------------- Saca el top de paises exportadores y de paises productores para un año dado -----------------------------
 create or replace procedure TransformacionTopProdExpo (anio number)
 as
@@ -117,11 +131,8 @@ top1P varchar(50);
 top2P varchar(50);
 top3P varchar(50);
 begin
-    select count(*) into existe from I_tiempo t where t.anio = anio;
-    if (existe = 0) then
-        insert into I_tiempo values(seq_Itiempo.nextval, anio, 0);
-    end if;
-    select t.id into tiempo from I_tiempo t where t.anio = anio;
+
+    tiempo:=BuscarTiempo(anio,0);
 
     for names in (select p.nombre into name from (select nombre, exportacion from I_paisAux where id_tiempoAux = anio order by exportacion DESC) p where rownum<=2) loop
         if (cont = 1) then
