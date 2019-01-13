@@ -1,13 +1,12 @@
 create or replace procedure Extraer as
-anio_min number := 2016;
-anio_max number := 2018;
+anio_max number := EXTRACT(year from sysdate);
+anio_min number := anio_max - 3;
 idForPaisAux number;
 idForBodega number;
 idForMarca number;
 idForCritica number;
 begin
 
-  -- TODO: Calcular estas fechas en base de la tabla de tiempoAux
   << anio_loop >>
   for anio in anio_min .. anio_max loop
 
@@ -38,7 +37,7 @@ begin
             and bdo.fk_bodega = bo.id
         ) loop
 
-            idForBodega := seq_Icontinente.nextval; -- TODO: Cambiar nombre de secuencia?
+            idForBodega := seq_Icontinente.nextval;
             INSERT INTO I_bodega VALUES (idForBodega, idForPaisAux, anio, recBodega.nombre, recBodega.prod, recBodega.exportacion);
 
             <<marca_loop>>
@@ -47,7 +46,7 @@ begin
                 from MarcaVino M, MarcaVino_B_DO MB,Bodega B
                 where B.id = MB.fk_bodega and M.id = MB.fk_marcavino and B.id = recBodega.id
             ) loop
-                idForMarca := seq_Itiempo.nextval; -- TODO: Cambiar nombre de secuencia?
+                idForMarca := seq_Itiempo.nextval;
                 DBMS_OUTPUT.PUT_LINE('ID: ' || to_char(recMarca.id) || ' Nombre Marca: ' || recMarca.nombre || ' Prod: ' || to_char(recMarca.produccion) || ' Exp: ' || to_char(recMarca.exportacion) || ' Premios: ' || to_char(recMarca.nPremios));
                 insert into I_marca values (idForMarca, idForBodega, anio, recMarca.nombre, recMarca.produccion, recMarca.exportacion, recMarca.nPremios);
 
@@ -82,13 +81,26 @@ begin
 
     end loop catador_loop;
 
-    -- TODO: Extraer Concursos
+    << concurso_loop >>
+    for recConcurso in (
+        select co.nombre, co.deCatadores, (
+            select count(i.id) 
+            from Edicion e, Inscripcion i
+            where e.fk_concurso = co.id
+            and i.fk_edicion = e.id
+            and EXTRACT(year from i.fecha) = anio
+        ) inscripciones
+        from Concurso co
+    ) loop
+      
+        INSERT INTO I_Concurso VALUES (seq_Itipo_concurso.nextval, anio, recConcurso.nombre, recConcurso.inscripciones, recConcurso.deCatadores);
 
+    end loop concurso_loop;
+    
   end loop anio_loop;
 
 end;
 /
-
 
 create or replace procedure Limpiar as
 begin
@@ -100,12 +112,6 @@ begin
     delete from I_catador;
 end;
 /
-
-
-/*
-    Funcion que se encarga de contar el numero de premios para una marca en un año dado.
-    Es un wrapper para el query.
-*/
 
 create or replace function premios_marca_en(idMarcaOLTP number, anio number)
 return number is
