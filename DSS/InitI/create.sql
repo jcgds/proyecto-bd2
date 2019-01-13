@@ -4,12 +4,6 @@ CREATE SEQUENCE seq_Ipais
  NOCACHE
  NOCYCLE
 /
- CREATE SEQUENCE seq_Icontinente
- START WITH     1
- INCREMENT BY   1
- NOCACHE
- NOCYCLE
-/
  CREATE SEQUENCE seq_Itiempo
  START WITH     1
  INCREMENT BY   1
@@ -38,62 +32,55 @@ create table I_metricas_pais (
     id number (10),
     id_tiempo number(10),
     id_lugar number(10),
-    PorcentajeCrecimiento_prod number (3) not null,
-    top1_productor_mundial varchar2(50) not null,
-    top2_productor_mundial varchar2(50) not null,
-    top3_productor_mundial varchar2(50) not null,
-    top1_bodega_prod number not null,
-    top2_bodega_prod number not null,
-    top1_exportador varchar2(50) not null,
-    top2_exportador varchar2(50) not null,
-    top3_exportador varchar2(50) not null,
-    top1_marcavino_totalprod varchar2(50) not null,
-    top2_marcavino_totalprod varchar2(50) not null,
-    top3_marcavino_totalprod varchar2(50) not null,
-    top4_marcavino_totalprod varchar2(50) not null,
-    top5_marcavino_totalprod varchar2(50) not null,
-    top1_marcas_criticas varchar2(50) not null,
-    top2_marcas_criticas varchar2(50) not null,
-    top3_marcas_criticas varchar2(50) not null,
+    PorcentajeCrecimiento_prod number (3),
+    top1_productor_mundial varchar2(50),
+    top2_productor_mundial varchar2(50),
+    top3_productor_mundial varchar2(50),
+    top1_bodega_prod varchar(50),
+    top2_bodega_prod varchar(50),
+    top1_exportador varchar2(50),
+    top2_exportador varchar2(50),
+    top3_exportador varchar2(50),
+    top1_marcavino_totalprod varchar2(50),
+    top2_marcavino_totalprod varchar2(50),
+    top3_marcavino_totalprod varchar2(50),
+    top4_marcavino_totalprod varchar2(50),
+    top5_marcavino_totalprod varchar2(50),
+    top1_marcas_criticas varchar2(50),
+    top2_marcas_criticas varchar2(50),
+    top3_marcas_criticas varchar2(50),
     constraint I_metricas_pais primary key (id)
 )
 /
 create table I_metricas_concurso (
     id number (10),
-    id_tipo_concurso number(10) not null,
+    id_tipo_concurso number(10),
     id_tiempo number(10),
     id_lugar number(10),
-    PorcenCrecimiento_TipoConcurso number(3) not null,
-    top1_marca_premios varchar(50) not null,
-    top2_marca_premios varchar(50) not null,
-    top3_marca_premios varchar(50) not null,
-    top1_catador varchar(50) not null,
-    top2_catador varchar(50) not null,
-    top3_catador varchar(50) not null,
-    top_concursoCatadores varchar(50) not null,
+    PorcenCrecimiento_TipoConcurso number(3),
+    top1_marca_premios varchar(50),
+    top2_marca_premios varchar(50),
+    top3_marca_premios varchar(50),
+    top1_catador varchar(50),
+    top2_catador varchar(50),
+    top3_catador varchar(50),
+    ConcursoMasPopular varchar(50),
     constraint I_metricas_concurso primary key (id)
 )
 /
 create table I_tiempo (
     id number (10),
-    anio date,
+    anio number not null,
     bienio number (1) not null,
     constraint I_tiempo primary key (id)
 )
 /
 create table I_pais (
     id number (10),
-    id_continente number (10),
+    continente varchar(50) not null,
     nombre varchar(50) not null,
     fecha_creacion date not null,
     constraint I_pais primary key (id)
-)
-/
-create table I_continente (
-    id number (10),
-    nombre varchar(50) not null,
-    fecha_creacion date not null,
-    constraint I_continente primary key (id)
 )
 /
 create table I_tipo_concurso (

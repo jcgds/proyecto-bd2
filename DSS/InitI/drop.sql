@@ -5,7 +5,6 @@ drop table I_pais cascade constraints purge;
 drop table I_continente cascade constraints purge;
 drop table I_tipo_concurso cascade constraints purge;
 drop sequence seq_Ipais;
-drop sequence seq_Icontinente;
 drop sequence seq_Itiempo;
 drop sequence seq_Itipo_concurso;
 drop sequence seq_Imetricas_pais;

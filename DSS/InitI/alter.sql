@@ -9,10 +9,6 @@ alter table I_metricas_concurso add (
     constraint fk_tipoConcurso_IMconcurso foreign key (id_tipo_concurso) references I_tipo_concurso (id)
 );
 
-alter table I_pais add (
-    constraint fk_pais_IDcontinente foreign key (id_continente) references I_continente (id)
-);
-
 alter table I_paisAux add (
     constraint fk_pais_tiempoAux foreign key (id_tiempoAux) references I_tiempoAux (anio)
 );
