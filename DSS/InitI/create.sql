@@ -84,7 +84,7 @@ create table I_tiempo (
 create table I_pais (
     id number (10),
     continente varchar(50) not null,
-    nombre varchar(50) not null,
+    nombre varchar(50) not null unique,
     fecha_creacion date not null,
     constraint I_pais primary key (id)
 )

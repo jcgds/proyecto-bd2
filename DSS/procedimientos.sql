@@ -103,23 +103,37 @@ begin
 end;
 /
 ---------------- Funcion para saber si ese año y bienio existen en el area intermedia y sino que lo cree ----------------
-create or replace function Buscartiempo(anio number, bienio number)
+create or replace function Buscartiempo(p_anio number, p_bienio number)
 return number is
     tiempo number;
     existe number;
 begin
-    select count(*) into existe from I_tiempo t where t.anio = anio;
+    select count(*) into existe from I_tiempo t where t.anio = p_anio;
     if (existe = 0) then
-        insert into I_tiempo values(seq_Itiempo.nextval, anio, bienio);
+        insert into I_tiempo values(seq_Itiempo.nextval, p_anio, p_bienio);
     end if;
-    select t.id into tiempo from I_tiempo t where t.anio = anio;
+    select t.id into tiempo from I_tiempo t where t.anio = p_anio;
     return tiempo;
+end;
+/
+---------------- Funcion que dado el id de un pais en el area intermedia, busca, y crea de ser necesario, el pais en el modelo estrella -----------------
+create or replace function BuscarPais(f_nombre varchar, f_continente varchar)
+return number is
+existe number := 0;
+pais number;
+begin
+    select count(*) into existe from I_pais p where p.nombre = f_nombre;
+    if (existe = 0) then
+        insert into I_pais values(seq_Ipais.nextval, f_continente, f_nombre, SYSDATE);
+    end if;
+    select p.id into pais from I_pais p where p.nombre = f_nombre;
+    return pais;
 end;
 /
 --------------- Saca el top de paises exportadores y de paises productores para un año dado -----------------------------
 create or replace procedure TransformacionTopProdExpo (anio number)
 as
-cont number(1):=1;
+cont number:=1;
 existe number(1):=0;
 tiempo number(10) := 0;
 name varchar(50);
@@ -163,5 +177,33 @@ begin
     idMetrica := seq_Imetricas_pais.nextval;
     insert into I_metricas_pais values (idMetrica, tiempo, null, null, top1P, top2P, top3P, null, null, top1E, top2E, null, null, null, null, null, null, null, null, null);
 
+end;
+/
+---------------------Top bodegas por produccion -------------------
+
+Create or replace procedure TransformacionTopBodega(anio number) as
+tiempo number;
+pais number;
+top1 varchar(50);
+top2 varchar(50);
+cont number:=1;
+begin
+    tiempo := buscarTiempo(anio,0);
+    for idpaises in (select p.id, p.nombre, p.continente from I_paisAux p where p.id_tiempoAux = anio) loop
+        pais:=BuscarPais(idpaises.nombre, idpaises.continente);
+        for bodegas in (select f.nombreBod
+        from (Select b.nombre nombreBod, b.produccion prodbod from I_bodega b where b.id_tiempoAux = anio and b.id_paisAux = idpaises.id
+        order by b.produccion DESC) f
+        where rownum<=2) loop
+            if (cont = 1) then
+                top1:=bodegas.nombreBod;
+            else
+                top2:=bodegas.nombreBod;
+            end if;
+            cont:=cont+1;
+        end loop;
+        cont:=1;
+        insert into I_metricas_pais (id, id_tiempo, id_lugar, top1_bodega_prod, top2_bodega_prod) values (seq_Imetricas_pais.nextval, tiempo, pais, top1, top2);
+    end loop;
 end;
 /
