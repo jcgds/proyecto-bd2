@@ -44,10 +44,12 @@ BEGIN
             where id = idBodega
         ) t
         where t.tipovalor.anio = anioDeseado;
-    return exportacion;
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
+
+    if exportacion is null then
         return 0;
+    end if;
+
+    return exportacion;
 END;
 /
 
@@ -131,10 +133,11 @@ BEGIN
     from the (select z.exportacionAnual from MarcaVino z where z.id = idMarca) t
     where t.tipovalor.anio = anioDeseado;
 
-    return exportacion;
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
+    if exportacion is null then
         return 0;
+    end if;
+
+    return exportacion;
 END;
 /
 /*
@@ -401,10 +404,11 @@ begin
     from the (select exportacionAnual from Pais where id = p_idPais) t
     where t.tipovalor.anio = p_anio;
 
+    if exportacionEnElAnio is null then
+        return 0;
+    end if;
+
     return exportacionEnElAnio;
-    EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            return 0;
 end;
 /
 
