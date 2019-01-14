@@ -68,15 +68,15 @@ begin
 
     << catador_loop >>
     for recCatador in (
-        select ca.nombre || ' ' || ca.apellido nombre, ca.pasaporte, 
-           (select count(*) 
-           from Inscripcion i where i.fk_catadoraprendiz = ca.pasaporte 
+        select ca.nombre || ' ' || ca.apellido nombre, ca.pasaporte,
+           (select count(*)
+           from Inscripcion i where i.fk_catadoraprendiz = ca.pasaporte
            and i.premioCatador is not null
            and EXTRACT(year from i.fecha) = anio
            ) nPremios
         from CatadorAprendiz ca
     ) loop
-      
+
         INSERT INTO I_Catador VALUES (seq_Ipais.nextval, anio, recCatador.nombre, recCatador.pasaporte, recCatador.nPremios);
 
     end loop catador_loop;
@@ -84,7 +84,7 @@ begin
     << concurso_loop >>
     for recConcurso in (
         select co.nombre, co.deCatadores, (
-            select count(i.id) 
+            select count(i.id)
             from Edicion e, Inscripcion i
             where e.fk_concurso = co.id
             and i.fk_edicion = e.id
@@ -92,11 +92,11 @@ begin
         ) inscripciones
         from Concurso co
     ) loop
-      
+
         INSERT INTO I_Concurso VALUES (seq_Itipo_concurso.nextval, anio, recConcurso.nombre, recConcurso.inscripciones, recConcurso.deCatadores);
 
     end loop concurso_loop;
-    
+
   end loop anio_loop;
 
 end;
@@ -128,11 +128,16 @@ begin
 end;
 /
 ---------------- Funcion para saber si ese año y bienio existen en el area intermedia y sino que lo cree ----------------
-create or replace function Buscartiempo(p_anio number, p_bienio number)
+create or replace function Buscartiempo(p_anio number)
 return number is
     tiempo number;
     existe number;
+    p_bienio number;
 begin
+    p_bienio := p_anio - 2016;
+    if (p_bienio = 0) then
+        p_bienio := 1;
+    end if;
     select count(*) into existe from I_tiempo t where t.anio = p_anio;
     if (existe = 0) then
         insert into I_tiempo values(seq_Itiempo.nextval, p_anio, p_bienio);
@@ -171,7 +176,7 @@ top2P varchar(50);
 top3P varchar(50);
 begin
 
-    tiempo:=BuscarTiempo(anio,0);
+    tiempo:=BuscarTiempo(anio);
 
     for names in (select p.nombre into name from (select nombre, exportacion from I_paisAux where id_tiempoAux = anio order by exportacion DESC) p where rownum<=2) loop
         if (cont = 1) then
@@ -213,7 +218,7 @@ top1 varchar(50);
 top2 varchar(50);
 cont number:=1;
 begin
-    tiempo := buscarTiempo(anio,0);
+    tiempo := buscarTiempo(anio);
     for idpaises in (select p.id, p.nombre, p.continente from I_paisAux p where p.id_tiempoAux = anio) loop
         pais:=BuscarPais(idpaises.nombre, idpaises.continente);
         for bodegas in (select f.nombreBod
