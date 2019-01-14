@@ -30,4 +30,6 @@ GRANT Productor TO productor1;
 CREATE USER organizador1 IDENTIFIED BY organizador123;
 GRANT Organizador TO organizador1;
 
--- TODO: Crear cuenta ETT
+CREATE USER ETT IDENTIFIED BY ett123;
+GRANT CREATE SESSION TO ETT;
+grant select any table, insert any table, delete any table, update any table to ETT; 
