@@ -32,6 +32,7 @@ create table DW_metricas_pais (
     id number (10),
     id_tiempo number(10),
     id_lugar number(10),
+    id_continente number(10),
     PorcentajeCrecimiento_prod number (3),
     top1_productor_mundial varchar2(50),
     top2_productor_mundial varchar2(50),
@@ -57,6 +58,7 @@ create table DW_metricas_concurso (
     id_tipo_concurso number(10),
     id_tiempo number(10),
     id_lugar number(10),
+    id_continente number(10),
     PorcentajeCrecimiento_TipoConcurso number(3),
     top1_marca_premios varchar(50),
     top2_marca_premios varchar(50),
@@ -77,12 +79,18 @@ create table DW_tiempo (
 /
 create table DW_pais (
     id number (10),
-    id_continente number (10),
     nombre varchar(50) not null,
     continente varchar(50) not null,
     fecha_creacion date not null,
     constraint DW_pais primary key (id)
 );
+/
+create table DW_continente (
+    id number (10),
+    nombre varchar(50) not null unique,
+    fecha_creacion date not null,
+    constraint DW_continente primary key (id)
+)
 /
 create table DW_tipo_concurso (
     id number (10),

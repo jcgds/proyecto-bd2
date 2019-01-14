@@ -1,12 +1,14 @@
 alter table I_metricas_pais add (
     constraint fk_tiempo_IMpais foreign key (id_tiempo) references I_tiempo (id),
-    constraint fk_lugar_IMpais foreign key (id_lugar) references I_pais (id)
+    constraint fk_lugar_IMpais foreign key (id_lugar) references I_pais (id),
+    constraint fk_continente_IMpais foreign key (id_continente) references I_continente (id)
 );
 
 alter table I_metricas_concurso add (
     constraint fk_tiempo_IMconcurso foreign key (id_tiempo) references I_tiempo (id),
     constraint fk_lugar_IMconcurso foreign key (id_lugar) references I_pais (id),
-    constraint fk_tipoConcurso_IMconcurso foreign key (id_tipo_concurso) references I_tipo_concurso (id)
+    constraint fk_tipoConcurso_IMconcurso foreign key (id_tipo_concurso) references I_tipo_concurso (id),
+    constraint fk_continente_IMconcurso foreign key (id_continente) references I_continente (id)
 );
 
 alter table I_paisAux add (

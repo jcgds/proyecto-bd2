@@ -150,12 +150,17 @@ end;
 create or replace function BuscarPais(f_nombre varchar, f_continente varchar)
 return number is
 existe number := 0;
+existeE number := 0;
 pais number;
 begin
     select count(*) into existe from I_pais p where p.nombre = f_nombre;
     if (existe = 0) then
-        insert into I_pais values(seq_Ipais.nextval, f_continente, f_nombre, SYSDATE);
-    end if;
+        insert into I_pais values(seq_Ipais.nextval, f_nombre, SYSDATE);
+        select count(*) into existeE from I_continente p where p.nombre = f_continente;
+        if (existeE = 0) THEN
+          insert into I_continente values (seq_Icontinente.nextval, f_continente, SYSDATE);
+        end if;
+     end if;
     select p.id into pais from I_pais p where p.nombre = f_nombre;
     return pais;
 end;
