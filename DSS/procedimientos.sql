@@ -433,5 +433,6 @@ begin
     TransformarTiempo();
     -- TODO: Agregar las demas transformaciones
     TransformarCrecimientoPais();
+    TransformarConcursoMasPopular();
 end;
 /
