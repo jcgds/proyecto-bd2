@@ -430,15 +430,6 @@ begin
 end;
 /
 
-create or replace procedure Transformar as
-begin
-    TransformarTiempo();
-    -- TODO: Agregar las demas transformaciones
-    TransformarCrecimientoPais();
-    TransformarConcursoMasPopular();
-end;
-/
-
 create or replace procedure Transportar as
 fecha_transporte date := sysdate;
 anio number;
@@ -563,7 +554,8 @@ end;
 /
 
 ----- Top 3 marcas por pais (valoracion de criticos) ------
-/*create or replace procedure TransformacionTopMarcaC (anio number) as 
+/*
+create or replace procedure TransformacionTopMarcaC (anio number) as 
 tiempo number;
 pais number;
 top1 varchar(50);
@@ -595,3 +587,19 @@ begin
 end;
 /
 */
+
+create or replace procedure Transformar as
+begin
+    TransformarTiempo();
+    TransformarCrecimientoPais();
+    TransformarConcursoMasPopular();
+
+    -- TODO: Agregar las demas transformaciones
+
+    for recTiempo in (select anio from I_Tiempo) loop    
+        --TransformacionTopProdExpo(recTiempo.anio);
+        --TransformacionTopBodega(recTiempo.anio);
+        --TransformacionTopMarcaTotalP(recTiempo.anio);
+    end loop;
+end;
+/
