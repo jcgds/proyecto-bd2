@@ -36,3 +36,11 @@ From CatadorAprendiz c, Inscripcion i
 Where I.fk_catadoraprendiz = c.pasaporte and EXTRACT(year from i.fecha) = 2018 and i.premiocatador IS NOT NULL
 group by c.nombre;
 ------Inscripciones por concurso--------
+
+
+----- Porcentaje crecimiento produccion por pais -----------
+select p.nombre, t.anio, t.bienio, mp.porcentajecrecimiento_prod
+from i_metricas_pais mp, i_pais p, i_tiempo t
+where  p.nombre = 'Portugal'
+and mp.id_lugar = p.id
+and t.id = mp.id_tiempo
