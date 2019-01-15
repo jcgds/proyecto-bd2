@@ -113,6 +113,41 @@ begin
 end;
 /
 
+/*
+    Basado en la tabla I_TiempoAux, extrae los bienios y llena
+    la dimension tiempo en el modelo estrella del AI
+*/
+create or replace procedure TransformarTiempo as
+ai_anio_min number;
+ai_anio_max number;
+contador number := 1;
+bienio number := 1;
+begin
+    
+    select MIN(anio) into ai_anio_min from I_TiempoAux;
+    select MAX(anio) into ai_anio_max from I_TiempoAux;
+
+    DBMS_OUTPUT.PUT_LINE('Primer anio AI: ' || to_char(ai_anio_min));
+    DBMS_OUTPUT.PUT_LINE('Ultimo anio AI: ' || to_char(ai_anio_max));
+
+    for i in ai_anio_min .. ai_anio_max loop
+      
+        DBMS_OUTPUT.PUT_LINE('I_Tiempo(id, ' || to_char(i) || ', ' || to_char(bienio) || ')');
+        INSERT INTO I_Tiempo VALUES (seq_Itiempo.nextval, i, bienio);
+
+        if contador = 2 then
+            bienio := bienio + 1;
+            DBMS_OUTPUT.PUT_LINE('I_Tiempo(id, ' || to_char(i) || ', ' || to_char(bienio) || ')');
+            INSERT INTO I_Tiempo VALUES (seq_Itiempo.nextval, i, bienio);
+            contador := 1;
+        end if;
+
+        contador := contador + 1;
+    end loop;
+
+end;
+/
+
 create or replace function premios_marca_en(idMarcaOLTP number, anio number)
 return number is
     n_premios number;
