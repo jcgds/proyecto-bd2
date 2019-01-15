@@ -1,6 +1,7 @@
 create or replace procedure Extraer as
-anio_max number := EXTRACT(year from sysdate);
-anio_min number := anio_max - 3;
+-- 2018 porque es el ultimo año con registros, en 2019 todas los numeros dan 0
+anio_max number := 2018; --EXTRACT(year from sysdate);
+anio_min number := anio_max - 2;
 idForPaisAux number;
 idForBodega number;
 idForMarca number;
@@ -275,5 +276,125 @@ begin
         cont:=1;
         insert into I_metricas_pais (id, id_tiempo, id_lugar, top1_bodega_prod, top2_bodega_prod) values (seq_Imetricas_pais.nextval, tiempo, pais, top1, top2);
     end loop;
+end;
+/
+
+/*
+    Devuelve el porcentaje de variacion entre valor inicial y final
+*/
+create or replace function Variacion(p_valor_inicial number, p_valor_final number) 
+return number is
+begin
+    if p_valor_inicial = 0 then
+        return null;
+    end if;
+
+    return ((p_valor_final/p_valor_inicial) - 1) * 100;
+end;
+/
+
+
+create or replace function produccion_pais_en_anio(anio number, nombrePais varchar2) return number is
+produccionN number;
+begin
+  
+    begin
+        select produccion into produccionN from I_PaisAux where nombre = nombrePais and id_tiempoAux = anio;  
+    exception
+        when no_data_found then
+            return 0;
+    end;
+
+    return produccionN;
+end;
+/
+
+/*
+    Devuelve la produccion total del pais en el bienio indicado.
+    Es decir, suma la produccion de los años que conforman el bienio
+*/
+create or replace function produccion_pais_en_bienio(p_bienio number, nombrePais varchar2) return number is
+anio1 number;
+anio2 number;
+begin
+    -- Agarrar anios de bienio en I_Tiempo
+    select MIN(anio) into anio1 from I_Tiempo where bienio = p_bienio;
+    anio2 := anio1 + 1;
+
+    -- Conseguir produccion en I_PaisAux en esos anios
+    return produccion_pais_en_anio(anio1, nombrePais) + produccion_pais_en_anio(anio2, nombrePais);
+end;
+/
+
+/*
+    Depende de que ya se haya llenado la tabla I_Tiempo en el AI.
+*/
+create or replace procedure TransformarCrecimientoPais as
+produccionAnualInicial number;
+produccionAnualFinal number;
+porcentajeAnual number;
+porcentajeBienio number;
+idPaisHolder number;
+begin
+  
+    -- Recorremos los años y bienos que debieron ser previamente calculados
+    -- con el procedimiento TransformarTiempo
+    << time_loop >>
+    for recTiempo in (
+        select id, anio, bienio
+        from i_tiempo
+        order by anio asc, bienio asc
+    ) loop
+        
+        << pais_loop >>
+        for recPaisAux in (
+            select distinct nombre, continente from I_PaisAux
+        ) loop
+            
+            -- Si la dimension Pais no existe, agregar
+            begin 
+                select id into idPaisHolder from I_pais where nombre = recPaisAux.nombre;
+            exception
+              when no_data_found then
+                idPaisHolder := seq_Ipais.nextval;
+                INSERT INTO I_Pais VALUES (idPaisHolder, recPaisAux.nombre, sysdate);
+            end;
+
+            produccionAnualInicial := produccion_pais_en_anio(recTiempo.anio - 1, recPaisAux.nombre);
+            produccionAnualFinal := produccion_pais_en_anio(recTiempo.anio, recPaisAux.nombre);
+
+            -- Si no hay produccion inicial, el crecimiento es infinito
+            if produccionAnualInicial = 0 then
+                porcentajeAnual := null;
+            else
+                porcentajeAnual := variacion(produccionAnualInicial, produccionAnualFinal);
+            end if;
+
+            porcentajeBienio := variacion(
+                produccion_pais_en_bienio(recTiempo.bienio - 1, recPaisAux.nombre),
+                produccion_pais_en_bienio(recTiempo.bienio, recPaisAux.nombre)
+            );
+
+            INSERT INTO I_metricas_pais (id, id_tiempo, id_lugar, PorcCrecimiento_prod_anual, PorcCrecimiento_prod_bienio) 
+            VALUES (
+                seq_Imetricas_pais.nextval,
+                recTiempo.id,
+                idPaisHolder,
+                porcentajeAnual,
+                porcentajeBienio
+            );
+            
+            
+        end loop pais_loop;
+    end loop time_loop;
+
+end;
+/
+
+create or replace procedure Transformar as
+begin
+    TransformarTiempo();
+    -- TODO: Agregar las demas transformaciones
+    TransformarCrecimientoPais();
 end;
 /
