@@ -468,6 +468,26 @@ begin
         from DW_Pais
     ) xx;
 
+    INSERT INTO DW_continente
+    select xx.id, xx.nombre, fecha_transporte
+    from (
+        select id, nombre
+        from I_continente
+        MINUS
+        select id, nombre
+        from DW_continente
+    ) xx;
+
+    INSERT INTO DW_tipo_concurso
+    select xx.id, xx.nombre, fecha_transporte
+    from (
+        select id, nombre
+        from I_tipo_concurso
+        MINUS
+        select id, nombre
+        from DW_tipo_concurso
+    ) xx;
+
     Insert into DW_metricas_pais
     Select *
     From (
@@ -478,16 +498,16 @@ begin
       From DW_metricas_pais
     ) xx;
 
-    for rec in (select * from I_metricas_pais) loop
+    Insert into DW_metricas_concurso
+    Select *
+    From (
+      Select *
+      From I_metricas_concurso
+      MINUS
+      select *
+      From DW_metricas_concurso
+    ) xx;
 
-        -- Aqui pretendia luego hacer un select para conesguir el id del DW_Tiempo para pasarlo al insert
-        select anio, bienio into anio, bienio from I_Tiempo where id = rec.id_tiempo;
-
-
-        INSERT INTO DW_metricas_pais VALUES (
-            seq_metricas_pais.nextval,
-
-        );
 
     end loop;
 end;
