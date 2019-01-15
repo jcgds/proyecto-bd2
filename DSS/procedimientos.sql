@@ -275,6 +275,8 @@ begin
         end loop;
         cont:=1;
         insert into I_metricas_pais (id, id_tiempo, id_lugar, top1_bodega_prod, top2_bodega_prod) values (seq_Imetricas_pais.nextval, tiempo, pais, top1, top2);
+        top1:= '';
+        top2:= '';
     end loop;
 end;
 /
@@ -398,3 +400,116 @@ begin
     TransformarCrecimientoPais();
 end;
 /
+
+-------- Top 5 marcas de vino () ------ 
+Create or replace procedure TransformacionTopMarcaTotalP(anio number) as
+tiempo number;
+pais number;
+top1 varchar(50);
+top2 varchar(50);
+top3 varchar(50);
+top4 varchar(50);
+top5 varchar(50);
+cont number:=1;
+begin
+    tiempo := buscarTiempo(anio);
+    ---- Por Pais ---- 
+    for idpaises in (select p.id, p.nombre, p.continente from I_paisAux p where p.id_tiempoAux = anio) loop
+        pais:=BuscarPais(idpaises.nombre, idpaises.continente);
+        for marcas in (select M.nombre, M.produccion from i_marca M, i_paisaux P,i_bodega B 
+                        where P.id = idPaises.id and P.id_tiempoaux = anio and B.id_paisaux = P.id and B.id = M.id_bodega
+                        order by M.produccion DESC) loop
+            if (cont = 1) then
+                top1:=marcas.nombre;
+            elsif (cont = 2) then
+                top2:=marcas.nombre;
+            elsif (cont = 3) then
+                top3:=marcas.nombre;
+            elsif (cont = 4) then
+                top4:=marcas.nombre;
+            elsif (cont = 5) then
+                top5:=marcas.nombre;      
+            end if;
+            cont:=cont+1;
+        end loop;
+        cont:=1;
+        insert into I_metricas_pais (id, id_tiempo, id_lugar, top1_marcavino_totalprod, top2_marcavino_totalprod,top3_marcavino_totalprod,
+        top4_marcavino_totalprod,top5_marcavino_totalprod) 
+        values (seq_Imetricas_pais.nextval, tiempo, pais, top1, top2,top3,top4,top5);
+        top1:= '';
+        top2:= '';
+        top3:= '';
+        top4:= '';
+        top5:= '';
+    end loop;
+    cont:= 1;
+    top1:= '';
+    top2:= '';
+    top3:= '';
+    top4:= '';
+    top5:= '';
+    --------- Por Continente ----------
+    for continentes in (select id,nombre from i_continente) loop
+        for marcas in (select x.nombre from 
+                    (select M.nombre , M.produccion from i_marca M, i_bodega B, i_paisaux P 
+                    where P.id_tiempoaux = anio and  P.continente = continentes.nombre and P.id = B.id_paisaux and M.id_bodega = B.id
+                    order by M.produccion DESC) x where rownum <=5) loop
+            if (cont = 1) then
+                top1:=marcas.nombre;
+            elsif (cont = 2) then
+                top2:=marcas.nombre;
+            elsif (cont = 3) then
+                top3:=marcas.nombre;
+            elsif (cont = 4) then
+                top4:=marcas.nombre;
+            elsif (cont = 5) then
+                top5:=marcas.nombre;      
+            end if;
+            cont:=cont+1;
+        end loop;
+        cont:=1;
+        insert into I_metricas_pais (id, id_tiempo, id_continente, top1_marcavino_totalprod, top2_marcavino_totalprod,top3_marcavino_totalprod,
+        top4_marcavino_totalprod,top5_marcavino_totalprod) 
+        values (seq_Imetricas_pais.nextval, tiempo, continentes.id, top1, top2,top3,top4,top5);
+        top1:= '';
+        top2:= '';
+        top3:= '';
+        top4:= '';
+        top5:= '';
+    end loop;
+end;
+/
+
+----- Top 3 marcas por pais (valoracion de criticos) ------
+/*create or replace procedure TransformacionTopMarcaC (anio number) as 
+tiempo number;
+pais number;
+top1 varchar(50);
+top2 varchar(50);
+top3 varchar(50);
+cont number:=1;
+begin
+    tiempo := buscarTiempo(anio);
+    for idpaises in (select p.id, p.nombre, p.continente from I_paisAux p where p.id_tiempoAux = anio) loop
+        pais:=BuscarPais(idpaises.nombre, idpaises.continente);
+        for marcas in () loop
+            if (cont = 1) then
+                top1:=marcas.nombre;
+            elsif (cont = 2) then
+                top2:=marcas.nombre;
+            elsif (cont = 3) then
+                top3:=marcas.nombre;    
+            end if;
+            cont:=cont+1;
+        end loop;
+        cont:=1;
+        insert into I_metricas_pais (id, id_tiempo, id_lugar,top1_marcas_criticas,top2_marcas_criticas,top3_marcas_criticas ) 
+        values (seq_Imetricas_pais.nextval, tiempo, pais, top1, top2,top3);
+        top1:= '';
+        top2:= '';
+        top3:= '';
+    end loop;
+         
+end;
+/
+*/
