@@ -72,7 +72,7 @@ create table DW_metricas_concurso (
 /
 create table DW_tiempo (
     id number (10),
-    anio date,
+    anio number,
     bienio number (1) not null,
     constraint DW_tiempo primary key (id)
 )
@@ -80,7 +80,6 @@ create table DW_tiempo (
 create table DW_pais (
     id number (10),
     nombre varchar(50) not null,
-    continente varchar(50) not null,
     fecha_creacion date not null,
     constraint DW_pais primary key (id)
 )

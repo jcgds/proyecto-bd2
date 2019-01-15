@@ -329,6 +329,7 @@ end;
 /
 
 /*
+    Metrica> %crecimientoproducción por país (año y bienios)
     Depende de que ya se haya llenado la tabla I_Tiempo en el AI.
 */
 create or replace procedure TransformarCrecimientoPais as
@@ -393,11 +394,92 @@ begin
 end;
 /
 
+create or replace procedure TransformarConcursoMasPopular as
+nombreConcurso varchar2(200);
+begin
+
+    << time_loop >>
+    for recTiempo in (
+        select id, anio, bienio
+        from i_tiempo
+        order by anio asc, bienio asc
+    ) loop
+        begin
+            select x.nombre into nombreConcurso
+            from (
+                select nombre, inscripciones 
+                from I_Concurso 
+                where id_tiempoAux = recTiempo.anio
+                and tipoConcurso like 'S'
+                order by inscripciones desc
+            ) x
+            where rownum <= 1;
+
+            INSERT INTO I_metricas_concurso (id, id_tiempo, ConcursoMasPopular) VALUES (
+                seq_Imetricas_concurso.nextval,
+                recTiempo.id,
+                nombreConcurso
+            );
+        exception
+          when no_data_found then
+            DBMS_OUTPUT.PUT_LINE('Ningun concurso tuvo inscripciones este año');
+        end;
+
+    end loop time_loop;
+
+end;
+/
+
 create or replace procedure Transformar as
 begin
     TransformarTiempo();
     -- TODO: Agregar las demas transformaciones
     TransformarCrecimientoPais();
+    TransformarConcursoMasPopular();
+end;
+/
+
+create or replace procedure Transportar as
+fecha_transporte date := sysdate;
+anio number;
+bienio number;
+tiempoId number;
+continenteId number;
+paisId number;
+begin
+
+    INSERT INTO DW_Tiempo (id, anio, bienio)
+        select seq_tiempo.nextval, xx.anio, xx.bienio
+        from (
+            select anio, bienio
+            from I_Tiempo
+            MINUS
+            select anio, bienio
+            from DW_Tiempo
+        ) xx;
+
+    INSERT INTO DW_Pais (id, nombre, fecha_creacion)
+    select seq_pais.nextval, xx.nombre, fecha_transporte
+    from (
+        select nombre
+        from I_Pais
+        MINUS
+        select nombre
+        from DW_Pais
+    ) xx;
+
+    for rec in (select * from I_metricas_pais) loop
+        
+        -- Aqui pretendia luego hacer un select para conesguir el id del DW_Tiempo para pasarlo al insert
+        select anio, bienio into anio, bienio from I_Tiempo where id = rec.id_tiempo;
+
+
+        INSERT INTO DW_metricas_pais VALUES (
+            seq_metricas_pais.nextval,
+
+        );
+
+    end loop;
 end;
 /
 
