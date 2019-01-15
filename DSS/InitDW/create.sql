@@ -80,7 +80,6 @@ create table DW_tiempo (
 create table DW_pais (
     id number (10),
     nombre varchar(50) not null,
-    continente varchar(50) not null,
     fecha_creacion date not null,
     constraint DW_pais primary key (id)
 )
