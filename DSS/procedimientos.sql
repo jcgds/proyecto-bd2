@@ -327,6 +327,7 @@ end;
 /
 
 /*
+    Metrica> %crecimientoproducción por país (año y bienios)
     Depende de que ya se haya llenado la tabla I_Tiempo en el AI.
 */
 create or replace procedure TransformarCrecimientoPais as
@@ -386,6 +387,42 @@ begin
             
             
         end loop pais_loop;
+    end loop time_loop;
+
+end;
+/
+
+create or replace procedure TransformarConcursoMasPopular as
+nombreConcurso varchar2(200);
+begin
+
+    << time_loop >>
+    for recTiempo in (
+        select id, anio, bienio
+        from i_tiempo
+        order by anio asc, bienio asc
+    ) loop
+        begin
+            select x.nombre into nombreConcurso
+            from (
+                select nombre, inscripciones 
+                from I_Concurso 
+                where id_tiempoAux = recTiempo.anio
+                and tipoConcurso like 'S'
+                order by inscripciones desc
+            ) x
+            where rownum <= 1;
+
+            INSERT INTO I_metricas_concurso (id, id_tiempo, ConcursoMasPopular) VALUES (
+                seq_Imetricas_concurso.nextval,
+                recTiempo.id,
+                nombreConcurso
+            );
+        exception
+          when no_data_found then
+            DBMS_OUTPUT.PUT_LINE('Ningun concurso tuvo inscripciones este año');
+        end;
+
     end loop time_loop;
 
 end;

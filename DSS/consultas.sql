@@ -44,3 +44,8 @@ from i_metricas_pais mp, i_pais p, i_tiempo t
 where  p.nombre = 'Portugal'
 and mp.id_lugar = p.id
 and t.id = mp.id_tiempo
+
+----- Concurso mas popular ----------------------------------
+select distinct t.anio, mc.concursomaspopular
+from i_metricas_concurso mc, i_tiempo t
+where mc.id_tiempo = t.id
