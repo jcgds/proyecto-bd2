@@ -170,6 +170,7 @@ return number is
     existe number;
     p_bienio number;
 begin
+    /*
     p_bienio := p_anio - 2016;
     if (p_bienio = 0) then
         p_bienio := 1;
@@ -178,7 +179,9 @@ begin
     if (existe = 0) then
         insert into I_tiempo values(seq_Itiempo.nextval, p_anio, p_bienio);
     end if;
-    select t.id into tiempo from I_tiempo t where t.anio = p_anio;
+    */
+
+    select t.id into tiempo from I_tiempo t where t.anio = p_anio and rownum <= 1;
     return tiempo;
 end;
 /
@@ -606,10 +609,11 @@ begin
 
     -- TODO: Agregar las demas transformaciones
 
-    for recTiempo in (select anio from I_Tiempo) loop    
+    for recTiempo in (select anio from I_Tiempo) loop
+        DBMS_OUTPUT.PUT_LINE(to_char(recTiempo.anio)); 
         --TransformacionTopProdExpo(recTiempo.anio);
-        --TransformacionTopBodega(recTiempo.anio);
-        --TransformacionTopMarcaTotalP(recTiempo.anio);
+        TransformacionTopBodega(recTiempo.anio);
+        TransformacionTopMarcaTotalP(recTiempo.anio);
     end loop;
 end;
 /
