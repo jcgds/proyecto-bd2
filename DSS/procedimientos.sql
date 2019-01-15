@@ -436,3 +436,47 @@ begin
     TransformarConcursoMasPopular();
 end;
 /
+
+create or replace procedure Transportar as
+fecha_transporte date := sysdate;
+anio number;
+bienio number;
+tiempoId number;
+continenteId number;
+paisId number;
+begin
+
+    INSERT INTO DW_Tiempo (id, anio, bienio)
+        select seq_tiempo.nextval, xx.anio, xx.bienio
+        from (
+            select anio, bienio
+            from I_Tiempo
+            MINUS
+            select anio, bienio
+            from DW_Tiempo
+        ) xx;
+
+    INSERT INTO DW_Pais (id, nombre, fecha_creacion)
+    select seq_pais.nextval, xx.nombre, fecha_transporte
+    from (
+        select nombre
+        from I_Pais
+        MINUS
+        select nombre
+        from DW_Pais
+    ) xx;
+
+    for rec in (select * from I_metricas_pais) loop
+        
+        -- Aqui pretendia luego hacer un select para conesguir el id del DW_Tiempo para pasarlo al insert
+        select anio, bienio into anio, bienio from I_Tiempo where id = rec.id_tiempo;
+
+
+        INSERT INTO DW_metricas_pais VALUES (
+            seq_metricas_pais.nextval,
+
+        );
+
+    end loop;
+end;
+/
