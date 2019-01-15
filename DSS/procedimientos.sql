@@ -124,7 +124,7 @@ ai_anio_max number;
 contador number := 1;
 bienio number := 1;
 begin
-    
+
     select MIN(anio) into ai_anio_min from I_TiempoAux;
     select MAX(anio) into ai_anio_max from I_TiempoAux;
 
@@ -132,7 +132,7 @@ begin
     DBMS_OUTPUT.PUT_LINE('Ultimo anio AI: ' || to_char(ai_anio_max));
 
     for i in ai_anio_min .. ai_anio_max loop
-      
+
         DBMS_OUTPUT.PUT_LINE('I_Tiempo(id, ' || to_char(i) || ', ' || to_char(bienio) || ')');
         INSERT INTO I_Tiempo VALUES (seq_Itiempo.nextval, i, bienio);
 
@@ -202,7 +202,7 @@ begin
 end;
 /
 --------------- Saca el top de paises exportadores y de paises productores para un año dado -----------------------------
-create or replace procedure TransformacionTopProdExpo (anio number)
+create or replace procedure TransformarTopProdExpo (anio number)
 as
 cont number:=1;
 existe number(1):=0;
@@ -246,13 +246,13 @@ begin
 
 
     idMetrica := seq_Imetricas_pais.nextval;
-    insert into I_metricas_pais values (idMetrica, tiempo, null, null, top1P, top2P, top3P, null, null, top1E, top2E, null, null, null, null, null, null, null, null, null);
+    insert into I_metricas_pais (id, id_tiempo, top1_productor_mundial, top2_productor_mundial, top3_productor_mundial, top1_exportador, top2_exportador )values (idMetrica, tiempo,  top1P, top2P, top3P, top1E, top2E);
 
 end;
 /
 ---------------------Top bodegas por produccion -------------------
 
-Create or replace procedure TransformacionTopBodega(anio number) as
+Create or replace procedure TransformarTopBodega(anio number) as
 tiempo number;
 pais number;
 top1 varchar(50);
@@ -284,7 +284,7 @@ end;
 /*
     Devuelve el porcentaje de variacion entre valor inicial y final
 */
-create or replace function Variacion(p_valor_inicial number, p_valor_final number) 
+create or replace function Variacion(p_valor_inicial number, p_valor_final number)
 return number is
 begin
     if p_valor_inicial = 0 then
@@ -299,9 +299,9 @@ end;
 create or replace function produccion_pais_en_anio(anio number, nombrePais varchar2) return number is
 produccionN number;
 begin
-  
+
     begin
-        select produccion into produccionN from I_PaisAux where nombre = nombrePais and id_tiempoAux = anio;  
+        select produccion into produccionN from I_PaisAux where nombre = nombrePais and id_tiempoAux = anio;
     exception
         when no_data_found then
             return 0;
@@ -339,7 +339,7 @@ porcentajeAnual number;
 porcentajeBienio number;
 idPaisHolder number;
 begin
-  
+
     -- Recorremos los años y bienos que debieron ser previamente calculados
     -- con el procedimiento TransformarTiempo
     << time_loop >>
@@ -348,14 +348,14 @@ begin
         from i_tiempo
         order by anio asc, bienio asc
     ) loop
-        
+
         << pais_loop >>
         for recPaisAux in (
             select distinct nombre, continente from I_PaisAux
         ) loop
-            
+
             -- Si la dimension Pais no existe, agregar
-            begin 
+            begin
                 select id into idPaisHolder from I_pais where nombre = recPaisAux.nombre;
             exception
               when no_data_found then
@@ -378,7 +378,7 @@ begin
                 produccion_pais_en_bienio(recTiempo.bienio, recPaisAux.nombre)
             );
 
-            INSERT INTO I_metricas_pais (id, id_tiempo, id_lugar, PorcCrecimiento_prod_anual, PorcCrecimiento_prod_bienio) 
+            INSERT INTO I_metricas_pais (id, id_tiempo, id_lugar, PorcCrecimiento_prod_anual, PorcCrecimiento_prod_bienio)
             VALUES (
                 seq_Imetricas_pais.nextval,
                 recTiempo.id,
@@ -386,8 +386,8 @@ begin
                 porcentajeAnual,
                 porcentajeBienio
             );
-            
-            
+
+
         end loop pais_loop;
     end loop time_loop;
 
@@ -407,8 +407,8 @@ begin
         begin
             select x.nombre into nombreConcurso
             from (
-                select nombre, inscripciones 
-                from I_Concurso 
+                select nombre, inscripciones
+                from I_Concurso
                 where id_tiempoAux = recTiempo.anio
                 and tipoConcurso like 'S'
                 order by inscripciones desc
@@ -430,15 +430,6 @@ begin
 end;
 /
 
-create or replace procedure Transformar as
-begin
-    TransformarTiempo();
-    -- TODO: Agregar las demas transformaciones
-    TransformarCrecimientoPais();
-    TransformarConcursoMasPopular();
-end;
-/
-
 create or replace procedure Transportar as
 fecha_transporte date := sysdate;
 anio number;
@@ -448,28 +439,38 @@ continenteId number;
 paisId number;
 begin
 
-    INSERT INTO DW_Tiempo (id, anio, bienio)
-        select seq_tiempo.nextval, xx.anio, xx.bienio
-        from (
-            select anio, bienio
-            from I_Tiempo
-            MINUS
-            select anio, bienio
-            from DW_Tiempo
-        ) xx;
+  INSERT INTO DW_Tiempo (id, anio, bienio)
+    select xx.id, xx.anio, xx.bienio
+    from (
+        select id, anio, bienio
+        from I_Tiempo
+        MINUS
+        select id, anio, bienio
+        from DW_Tiempo
+    ) xx;
 
     INSERT INTO DW_Pais (id, nombre, fecha_creacion)
-    select seq_pais.nextval, xx.nombre, fecha_transporte
+    select xx.id, xx.nombre, fecha_transporte
     from (
-        select nombre
+        select id, nombre
         from I_Pais
         MINUS
-        select nombre
+        select id, nombre
         from DW_Pais
     ) xx;
 
+    Insert into DW_metricas_pais
+    Select *
+    From (
+      Select *
+      From I_metricas_pais
+      MINUS
+      select *
+      From DW_metricas_pais
+    ) xx;
+
     for rec in (select * from I_metricas_pais) loop
-        
+
         -- Aqui pretendia luego hacer un select para conesguir el id del DW_Tiempo para pasarlo al insert
         select anio, bienio into anio, bienio from I_Tiempo where id = rec.id_tiempo;
 
@@ -483,7 +484,7 @@ begin
 end;
 /
 
--------- Top 5 marcas de vino () ------ 
+-------- Top 5 marcas de vino () ------
 Create or replace procedure TransformacionTopMarcaTotalP(anio number) as
 tiempo number;
 pais number;
@@ -495,10 +496,10 @@ top5 varchar(50);
 cont number:=1;
 begin
     tiempo := buscarTiempo(anio);
-    ---- Por Pais ---- 
+    ---- Por Pais ----
     for idpaises in (select p.id, p.nombre, p.continente from I_paisAux p where p.id_tiempoAux = anio) loop
         pais:=BuscarPais(idpaises.nombre, idpaises.continente);
-        for marcas in (select M.nombre, M.produccion from i_marca M, i_paisaux P,i_bodega B 
+        for marcas in (select M.nombre, M.produccion from i_marca M, i_paisaux P,i_bodega B
                         where P.id = idPaises.id and P.id_tiempoaux = anio and B.id_paisaux = P.id and B.id = M.id_bodega
                         order by M.produccion DESC) loop
             if (cont = 1) then
@@ -510,13 +511,13 @@ begin
             elsif (cont = 4) then
                 top4:=marcas.nombre;
             elsif (cont = 5) then
-                top5:=marcas.nombre;      
+                top5:=marcas.nombre;
             end if;
             cont:=cont+1;
         end loop;
         cont:=1;
         insert into I_metricas_pais (id, id_tiempo, id_lugar, top1_marcavino_totalprod, top2_marcavino_totalprod,top3_marcavino_totalprod,
-        top4_marcavino_totalprod,top5_marcavino_totalprod) 
+        top4_marcavino_totalprod,top5_marcavino_totalprod)
         values (seq_Imetricas_pais.nextval, tiempo, pais, top1, top2,top3,top4,top5);
         top1:= '';
         top2:= '';
@@ -532,8 +533,8 @@ begin
     top5:= '';
     --------- Por Continente ----------
     for continentes in (select id,nombre from i_continente) loop
-        for marcas in (select x.nombre from 
-                    (select M.nombre , M.produccion from i_marca M, i_bodega B, i_paisaux P 
+        for marcas in (select x.nombre from
+                    (select M.nombre , M.produccion from i_marca M, i_bodega B, i_paisaux P
                     where P.id_tiempoaux = anio and  P.continente = continentes.nombre and P.id = B.id_paisaux and M.id_bodega = B.id
                     order by M.produccion DESC) x where rownum <=5) loop
             if (cont = 1) then
@@ -545,13 +546,13 @@ begin
             elsif (cont = 4) then
                 top4:=marcas.nombre;
             elsif (cont = 5) then
-                top5:=marcas.nombre;      
+                top5:=marcas.nombre;
             end if;
             cont:=cont+1;
         end loop;
         cont:=1;
         insert into I_metricas_pais (id, id_tiempo, id_continente, top1_marcavino_totalprod, top2_marcavino_totalprod,top3_marcavino_totalprod,
-        top4_marcavino_totalprod,top5_marcavino_totalprod) 
+        top4_marcavino_totalprod,top5_marcavino_totalprod)
         values (seq_Imetricas_pais.nextval, tiempo, continentes.id, top1, top2,top3,top4,top5);
         top1:= '';
         top2:= '';
@@ -602,7 +603,23 @@ begin
         top2:= '';
         top3:= '';
     end loop;
-         
+
 end;
 /
+*/
 
+create or replace procedure Transformar as
+begin
+    TransformarTiempo();
+    TransformarCrecimientoPais();
+    TransformarConcursoMasPopular();
+
+    -- TODO: Agregar las demas transformaciones
+
+    for recTiempo in (select anio from I_Tiempo) loop    
+        --TransformacionTopProdExpo(recTiempo.anio);
+        --TransformacionTopBodega(recTiempo.anio);
+        --TransformacionTopMarcaTotalP(recTiempo.anio);
+    end loop;
+end;
+/
