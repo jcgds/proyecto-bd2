@@ -1771,7 +1771,7 @@ INSERT INTO Edicion VALUES  (
     ),
     1
 );
-
+---- concurso
 insert into Juez values (1, 1);
 insert into Juez values (2, 1);
 insert into Juez values (3, 1);
@@ -2161,7 +2161,7 @@ INSERT INTO MuestraCatador VALUES (
 
 INSERT INTO Inscripcion VALUES (
     51,
-    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    TO_DATE('05-05-2018', 'DD-MM-YYYY'),
     null,
     51,
     null,
@@ -2170,7 +2170,7 @@ INSERT INTO Inscripcion VALUES (
 
 INSERT INTO Inscripcion VALUES (
     52,
-    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    TO_DATE('05-05-2018', 'DD-MM-YYYY'),
     null,
     51,
     null,
@@ -2243,6 +2243,194 @@ insert into cataAprendiz values (6, TO_DATE('12/11/2000', 'DD/MM/YYYY'),valoraci
         valoracion('Armonia', 27, null)
 ), 32, 4, 1, 1, 17, 51, 1);
 commit;
+
+------ Inserts de Concursos Extra ------
+INSERT INTO Concurso VALUES (
+    10,
+    'Tchami Catadores',
+    DATOSDECONTACTO(
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@tomelloso.es',
+        'http://www.tomelloso.es/',
+        direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
+        null
+    ),
+    'Comparativa',
+    'S',
+    premio_nt(premio('Catador estrella', 1, null, 'Medalla', null),
+    premio('Catador explorador', 2, null, 'Medalla', null),
+    premio('Catador novato', 3, null, 'Medalla', null)),
+    escala_nt(escala('puntos', 0, 100, 'estandar')),
+    'La práctica totalidad del atlas vinícola escoge a Baco como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
+);
+
+insert into Edicion values(
+70,
+null,
+TO_DATE('07-06-2018', 'DD-MM-YYYY'),
+null,
+TO_DATE('12-06-2018', 'DD-MM-YYYY'),
+TO_DATE('16-06-2018', 'DD-MM-YYYY'),
+null,
+direccion('Hermanus', '7200', '2 Harbour Rd', null),
+costoInscripcion_nt(),
+lugar('test','test2'),
+unidadMonetaria('Rand Sudafricano', 'R'),
+null,
+DATOSDECONTACTO(
+        conj_telefonos(270832355748,4740000787),
+        null,
+        'customerservice@crystallumwines.com',
+        'http://www.crystallumwines.com/',
+        direccion('Hermanus', '7200', '2 Harbour Rd', null),
+        personasDeContacto(personaDeContacto('David','Nel','Sales','steele.nel@gmail.com'))
+),
+10
+);
+
+INSERT INTO CatadorAprendiz VALUES(
+    71,
+    'John',
+    'Wakanda',
+    TO_DATE('01-06-1990', 'DD-MM-YYYY'),
+    'M',
+    lugar('Lisboa', 'Portugal')
+);
+
+INSERT INTO CatadorAprendiz VALUES(
+    72,
+    'Sammy',
+    'Vtrij',
+    TO_DATE('01-06-1990', 'DD-MM-YYYY'),
+    'M',
+    lugar('Lisboa', 'Portugal')
+);
+
+INSERT INTO CatadorAprendiz VALUES(
+    73,
+    'Oliver',
+    'Heldens',
+    TO_DATE('01-06-1990', 'DD-MM-YYYY'),
+    'M',
+    lugar('Lisboa', 'Portugal')
+);
+
+INSERT INTO CatadorAprendiz VALUES(
+    74,
+    'King',
+    'Kong',
+    TO_DATE('01-06-1990', 'DD-MM-YYYY'),
+    'M',
+    lugar('Lisboa', 'Portugal')
+);
+
+INSERT INTO Inscripcion VALUES (
+    70,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    70,
+    null,
+    71
+);
+
+INSERT INTO Inscripcion VALUES (
+    71,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    70,
+    null,
+    72
+);
+
+INSERT INTO Inscripcion VALUES (
+    72,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    70,
+    null,
+    73
+);
+
+INSERT INTO Inscripcion VALUES (
+    73,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    70,
+    null,
+    74
+);
+
+INSERT INTO Concurso VALUES (
+    11,
+    'Malaa Catadores',
+    DATOSDECONTACTO(
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@tomelloso.es',
+        'http://www.tomelloso.es/',
+        direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
+        null
+    ),
+    'Comparativa',
+    'S',
+    premio_nt(premio('Catador estrella', 1, null, 'Medalla', null),
+    premio('Catador explorador', 2, null, 'Medalla', null),
+    premio('Catador novato', 3, null, 'Medalla', null)),
+    escala_nt(escala('puntos', 0, 100, 'estandar')),
+    'La práctica totalidad del atlas vinícola escoge a Baco como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
+);
+
+insert into Edicion values(
+71,
+null,
+TO_DATE('07-06-2018', 'DD-MM-YYYY'),
+null,
+TO_DATE('12-06-2018', 'DD-MM-YYYY'),
+TO_DATE('16-06-2018', 'DD-MM-YYYY'),
+null,
+direccion('Hermanus', '7200', '2 Harbour Rd', null),
+costoInscripcion_nt(),
+lugar('test','test2'),
+unidadMonetaria('Rand Sudafricano', 'R'),
+null,
+DATOSDECONTACTO(
+        conj_telefonos(270832355748,4740000787),
+        null,
+        'customerservice@crystallumwines.com',
+        'http://www.crystallumwines.com/',
+        direccion('Hermanus', '7200', '2 Harbour Rd', null),
+        personasDeContacto(personaDeContacto('David','Nel','Sales','steele.nel@gmail.com'))
+),
+11
+);
+
+INSERT INTO Inscripcion VALUES (
+    75,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    71,
+    null,
+    71
+);
+
+INSERT INTO Inscripcion VALUES (
+    76,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    71,
+    null,
+    72
+);
+
+INSERT INTO Inscripcion VALUES (
+    77,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    71,
+    null,
+    73
+);
 
 ----------Inserts del grupo de Pacheco Cripi---------
 insert into Pais values (
@@ -3449,5 +3637,295 @@ Distribucion_exp_nt(
 
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (520, 520, 2,512, 504, 504, 505, 512);
+
+INSERT INTO Concurso VALUES (
+    12,
+    'Decanter',
+    DATOSDECONTACTO(
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@tomelloso.es',
+        'http://www.tomelloso.es/',
+        direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
+        null
+    ),
+    'Comparativa',
+    'S',
+    premio_nt(premio('Catador estrella', 1, null, 'Medalla', null),
+    premio('Catador explorador', 2, null, 'Medalla', null),
+    premio('Catador novato', 3, null, 'Medalla', null)),
+    escala_nt(escala('puntos', 0, 100, 'estandar')),
+    'La práctica totalidad del atlas vinícola escoge a Baco como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
+);
+
+insert into Edicion values(
+72,
+null,
+TO_DATE('07-06-2018', 'DD-MM-YYYY'),
+null,
+TO_DATE('12-06-2018', 'DD-MM-YYYY'),
+TO_DATE('16-06-2018', 'DD-MM-YYYY'),
+null,
+direccion('Hermanus', '7200', '2 Harbour Rd', null),
+costoInscripcion_nt(),
+lugar('test','test2'),
+unidadMonetaria('Rand Sudafricano', 'R'),
+null,
+DATOSDECONTACTO(
+        conj_telefonos(270832355748,4740000787),
+        null,
+        'customerservice@crystallumwines.com',
+        'http://www.crystallumwines.com/',
+        direccion('Hermanus', '7200', '2 Harbour Rd', null),
+        personasDeContacto(personaDeContacto('David','Nel','Sales','steele.nel@gmail.com'))
+),
+12
+);
+
+INSERT INTO Inscripcion VALUES (
+    78,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    72,
+    null,
+    73
+);
+
+INSERT INTO Inscripcion VALUES (
+    79,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    72,
+    null,
+    73
+);
+
+INSERT INTO Inscripcion VALUES (
+    80,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    72,
+    null,
+    73
+);
+
+INSERT INTO Inscripcion VALUES (
+    81,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    72,
+    null,
+    73
+);
+
+INSERT INTO Inscripcion VALUES (
+    83,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    72,
+    null,
+    73
+);
+
+INSERT INTO Inscripcion VALUES (
+    84,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    72,
+    null,
+    73
+);
+
+INSERT INTO Inscripcion VALUES (
+    85,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    72,
+    null,
+    73
+);
+
+INSERT INTO Concurso VALUES (
+    13,
+    'Decanter',
+    DATOSDECONTACTO(
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@tomelloso.es',
+        'http://www.tomelloso.es/',
+        direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
+        null
+    ),
+    'Comparativa',
+    'S',
+    premio_nt(premio('Catador estrella', 1, null, 'Medalla', null),
+    premio('Catador explorador', 2, null, 'Medalla', null),
+    premio('Catador novato', 3, null, 'Medalla', null)),
+    escala_nt(escala('puntos', 0, 100, 'estandar')),
+    'La práctica totalidad del atlas vinícola escoge a Baco como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
+);
+
+insert into Edicion values(
+73,
+null,
+TO_DATE('07-06-2018', 'DD-MM-YYYY'),
+null,
+TO_DATE('12-06-2018', 'DD-MM-YYYY'),
+TO_DATE('16-06-2018', 'DD-MM-YYYY'),
+null,
+direccion('Hermanus', '7200', '2 Harbour Rd', null),
+costoInscripcion_nt(),
+lugar('test','test2'),
+unidadMonetaria('Rand Sudafricano', 'R'),
+null,
+DATOSDECONTACTO(
+        conj_telefonos(270832355748,4740000787),
+        null,
+        'customerservice@crystallumwines.com',
+        'http://www.crystallumwines.com/',
+        direccion('Hermanus', '7200', '2 Harbour Rd', null),
+        personasDeContacto(personaDeContacto('David','Nel','Sales','steele.nel@gmail.com'))
+),
+13
+);
+
+INSERT INTO Inscripcion VALUES (
+    85,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+
+INSERT INTO Inscripcion VALUES (
+    86,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+INSERT INTO Inscripcion VALUES (
+    87,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+
+INSERT INTO Inscripcion VALUES (
+    88,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+INSERT INTO Inscripcion VALUES (
+    89,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+INSERT INTO Inscripcion VALUES (
+    90,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+INSERT INTO Inscripcion VALUES (
+    91,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+INSERT INTO Inscripcion VALUES (
+    92,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+
+INSERT INTO Inscripcion VALUES (
+    93,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+
+INSERT INTO Inscripcion VALUES (
+    94,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+
+INSERT INTO Inscripcion VALUES (
+    95,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+
+INSERT INTO Inscripcion VALUES (
+    96,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+
+INSERT INTO Inscripcion VALUES (
+    97,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+
+INSERT INTO Inscripcion VALUES (
+    98,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+
+INSERT INTO Inscripcion VALUES (
+    99,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
+
+INSERT INTO Inscripcion VALUES (
+    100,
+    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    null,
+    73,
+    null,
+    71
+);
 
 commit;
