@@ -67,7 +67,7 @@ create table DW_metricas_concurso (
     top1_catador varchar(50),
     top2_catador varchar(50),
     top3_catador varchar(50),
-    top_concursoCatadores varchar(50),
+    ConcursoMasPopular varchar(50),
     constraint DW_metricas_concurso primary key (id)
 )
 /

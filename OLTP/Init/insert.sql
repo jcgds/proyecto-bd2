@@ -123,9 +123,9 @@ insert into MarcaVino values (
         distribucion_exp(tipo_valor(2018, 7200, 'litros'), 'Estados Unidos')
     ),
     calificacion_nt(
-        calificacion('Wine Enthusiast Magazine', tipo_valor(2012, 91, 'puntos')),
-        calificacion('Wine Enthusiast Magazine', tipo_valor(2011, 92, 'puntos')),
-        calificacion('Wine Advocate/Robert Parker', tipo_valor(2011, 90, 'puntos'))
+        calificacion('Wine Enthusiast Magazine', tipo_valor(2016, 91, 'puntos')),
+        calificacion('Wine Enthusiast Magazine', tipo_valor(2017, 92, 'puntos')),
+        calificacion('Wine Advocate/Robert Parker', tipo_valor(2018, 90, 'puntos'))
     ),
     6,
     24,
@@ -229,7 +229,7 @@ insert into MarcaVino values (
         distribucion_exp(tipo_valor(2018, 15000, 'litros'), 'Chile')
     ),
     calificacion_nt(
-        calificacion('Wine Enthusiast Magazine', tipo_valor(2015, 88, 'puntos'))
+        calificacion('Wine Enthusiast Magazine', tipo_valor(2016, 88, 'puntos'))
     ),
     5,
     8,
@@ -495,9 +495,9 @@ insert into MarcaVino values (
         distribucion_exp(tipo_valor(2017,23432,'litros'),'Mexico'),
         distribucion_exp(tipo_valor(2018,23432,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
-        calificacion('Robert Parker Wine Advocate', tipo_valor(2014, 98, 'puntos')),
-        calificacion('James Suckling', tipo_valor(2014, 98, 'puntos')),
-        calificacion('Wine Spectator', tipo_valor(2014, 93, 'puntos'))
+        calificacion('Robert Parker Wine Advocate', tipo_valor(2017, 98, 'puntos')),
+        calificacion('James Suckling', tipo_valor(2017, 98, 'puntos')),
+        calificacion('Wine Spectator', tipo_valor(2017, 93, 'puntos'))
     ),
     18,
     20,
@@ -580,9 +580,9 @@ insert into MarcaVino values (
         distribucion_exp(tipo_valor(2017,13432,'litros'),'Mexico'),
         distribucion_exp(tipo_valor(2018,7432,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
-        calificacion('Robert Parker Wine Advocate', tipo_valor(2015, 91, 'puntos')),
-        calificacion('Jeb Dunnuck', tipo_valor(2015, 93, 'puntos')),
-        calificacion('Wine Spectator', tipo_valor(2015, 92, 'puntos'))
+        calificacion('Robert Parker Wine Advocate', tipo_valor(2018, 91, 'puntos')),
+        calificacion('Jeb Dunnuck', tipo_valor(2018, 93, 'puntos')),
+        calificacion('Wine Spectator', tipo_valor(2017, 92, 'puntos'))
     ),
     18,
     20,
@@ -625,9 +625,9 @@ insert into MarcaVino values (
         distribucion_exp(tipo_valor(2017,2332,'litros'),'Mexico'),
         distribucion_exp(tipo_valor(2018,3232,'litros'),'Colombia')),
     calificacion_nt(
-        calificacion('Robert Parker Wine Advocate', tipo_valor(2015, 97, 'puntos')),
-        calificacion('James Suckling', tipo_valor(2015, 96, 'puntos')),
-        calificacion('Connoisseurs Guide to California Wine', tipo_valor(2015, 97, 'puntos'))
+        calificacion('Robert Parker Wine Advocate', tipo_valor(2016, 97, 'puntos')),
+        calificacion('James Suckling', tipo_valor(2016, 96, 'puntos')),
+        calificacion('Connoisseurs Guide to California Wine', tipo_valor(2016, 97, 'puntos'))
     ),
     24,
     19,
@@ -669,9 +669,9 @@ insert into MarcaVino values (
         distribucion_exp(tipo_valor(2017,3032,'litros'),'Mexico'),
         distribucion_exp(tipo_valor(2018,3732,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
-        calificacion('Robert Parker Wine Advocate', tipo_valor(2015, 90, 'puntos')),
-        calificacion('James Suckling', tipo_valor(2015, 91, 'puntos')),
-        calificacion('Connoisseurs Guide to California Wine', tipo_valor(2015, 89, 'puntos'))
+        calificacion('Robert Parker Wine Advocate', tipo_valor(2017, 90, 'puntos')),
+        calificacion('James Suckling', tipo_valor(2017, 91, 'puntos')),
+        calificacion('Connoisseurs Guide to California Wine', tipo_valor(2017, 89, 'puntos'))
     ),
     21,
     15,
@@ -748,9 +748,9 @@ insert into MarcaVino values (
         distribucion_exp(tipo_valor(2017,53432,'litros'),'Mexico'),
         distribucion_exp(tipo_valor(2018,83432,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
-        calificacion('Wine and Spirits', tipo_valor(2013, 94, 'puntos')),
-        calificacion('Wine Enthusiast', tipo_valor(2011, 90, 'puntos')),
-        calificacion('Connoisseurs Guide to California Wine', tipo_valor(2015, 89, 'puntos'))
+        calificacion('Wine and Spirits', tipo_valor(2016, 94, 'puntos')),
+        calificacion('Wine Enthusiast', tipo_valor(2016, 90, 'puntos')),
+        calificacion('Connoisseurs Guide to California Wine', tipo_valor(2017, 89, 'puntos'))
     ),
     20,
     16,
@@ -793,7 +793,7 @@ insert into MarcaVino values (
         distribucion_exp(tipo_valor(2017,2349,'litros'),'Mexico'),
         distribucion_exp(tipo_valor(2018,9343,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
-        calificacion('Wine Enthusiast', tipo_valor(2011, 90, 'puntos'))
+        calificacion('Wine Enthusiast', tipo_valor(2018, 90, 'puntos'))
     ),
     19,
     16,
@@ -900,9 +900,9 @@ insert into MarcaVino values (
         distribucion_exp(tipo_valor(2017,9343,'litros'),'Mexico'),
         distribucion_exp(tipo_valor(2018,6343,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
-        calificacion('Platters Wine Guide', tipo_valor(2008, 90, 'puntos')),
-        calificacion('Platters Wine Guide', tipo_valor(2009, 91, 'puntos')),
-        calificacion('Platters Wine Guide', tipo_valor(2010, 88, 'puntos'))
+        calificacion('Platters Wine Guide', tipo_valor(2016, 90, 'puntos')),
+        calificacion('Platters Wine Guide', tipo_valor(2017, 91, 'puntos')),
+        calificacion('Platters Wine Guide', tipo_valor(2018, 88, 'puntos'))
     ),
     9,
     16,
@@ -946,8 +946,8 @@ insert into MarcaVino values (
         distribucion_exp(tipo_valor(2017,7432,'litros'),'Mexico'),
         distribucion_exp(tipo_valor(2018,5332,'litros'),'Colombia')), -- TODO: Conseguir o inventar datos de exportacion
     calificacion_nt(
-        calificacion('Wine Advocate', tipo_valor(2012, 93, 'puntos')),
-        calificacion('Platters Wine Guide', tipo_valor(2014, 88, 'puntos'))
+        calificacion('Wine Advocate', tipo_valor(2016, 93, 'puntos')),
+        calificacion('Platters Wine Guide', tipo_valor(2017, 88, 'puntos'))
     ),
     11,
     16,
@@ -991,8 +991,8 @@ insert into MarcaVino values (
         distribucion_exp(tipo_valor(2017,232,'litros'),'Mexico'),
         distribucion_exp(tipo_valor(2018,932,'litros'),'Colombia')),
     calificacion_nt(
-        calificacion('Wine Advocate', tipo_valor(2014, 91, 'puntos')),
-        calificacion('TREVE RING', tipo_valor(2015, 92, 'puntos'))
+        calificacion('Wine Advocate', tipo_valor(2016, 91, 'puntos')),
+        calificacion('TREVE RING', tipo_valor(2017, 92, 'puntos'))
     ),
     8,
     16,
@@ -1069,8 +1069,8 @@ insert into Cosecha values (74, 2018, 'E',107, 107, 107, 104, 104);
           distribucion_exp(tipo_valor(2017,856,'litros'),'India'),
           distribucion_exp(tipo_valor(2018,684,'litros'),'Canada')), -- TODO: Conseguir o inventar datos de exportacion
       calificacion_nt(
-          calificacion('ProWein', tipo_valor(2015, 85, 'puntos')),
-          calificacion('ProWein', tipo_valor(2016, 84, 'puntos'))
+          calificacion('ProWein', tipo_valor(2018, 85, 'puntos')),
+          calificacion('ProWein', tipo_valor(2017, 84, 'puntos'))
       ),
       28,
       12,
@@ -1303,9 +1303,9 @@ insert into Pais values (
             distribucion_exp(tipo_valor(2017,12300,'litros'),'Australia'),
             distribucion_exp(tipo_valor(2018,15000,'litros'),'Rusia')),
         calificacion_nt(
-            calificacion('The red rose', tipo_valor(2008, 87, 'puntos')),
-            calificacion('The red rose', tipo_valor(2009, 90, 'puntos')),
-            calificacion('The red rose', tipo_valor(2010, 89, 'puntos'))
+            calificacion('The red rose', tipo_valor(2018, 87, 'puntos')),
+            calificacion('The red rose', tipo_valor(2017, 90, 'puntos')),
+            calificacion('The red rose', tipo_valor(2016, 89, 'puntos'))
         ),
         12,
         16,
@@ -1347,8 +1347,8 @@ insert into Pais values (
             distribucion_exp(tipo_valor(2017,486,'litros'),'Inglaterra'),
             distribucion_exp(tipo_valor(2018,2028,'litros'),'Italia')), -- TODO: Conseguir o inventar datos de exportacion
         calificacion_nt(
-            calificacion('The Red Rose', tipo_valor(2012, 93, 'puntos')),
-            calificacion('Semeli Aetheria Red', tipo_valor(2014, 92, 'puntos'))
+            calificacion('The Red Rose', tipo_valor(2017, 93, 'puntos')),
+            calificacion('Semeli Aetheria Red', tipo_valor(2018, 92, 'puntos'))
         ),
         16,
         18,
@@ -1629,9 +1629,9 @@ insert into DenominacionDeOrigen values (106,'Regional Wine of Heraklion', null,
           distribucion_exp(tipo_valor(2017,5300,'litros'),'Portugal'),
           distribucion_exp(tipo_valor(2018,8600,'litros'),'Belgica')),
       calificacion_nt(
-          calificacion('ProWein', tipo_valor(2008, 88, 'puntos')),
-          calificacion('ProWein', tipo_valor(2009, 92, 'puntos')),
-          calificacion('ProWein', tipo_valor(2010, 85, 'puntos'))
+          calificacion('ProWein', tipo_valor(2018, 88, 'puntos')),
+          calificacion('ProWein', tipo_valor(2017, 92, 'puntos')),
+          calificacion('ProWein', tipo_valor(2016, 85, 'puntos'))
       ),
       13,
       17,
@@ -1673,7 +1673,7 @@ insert into DenominacionDeOrigen values (106,'Regional Wine of Heraklion', null,
           distribucion_exp(tipo_valor(2017,860,'litros'),'India'),
           distribucion_exp(tipo_valor(2018,752,'litros'),'Canada')), -- TODO: Conseguir o inventar datos de exportacion
       calificacion_nt(
-          calificacion('ProWein', tipo_valor(2015, 91, 'puntos')),
+          calificacion('ProWein', tipo_valor(2017, 91, 'puntos')),
           calificacion('ProWein', tipo_valor(2016, 95, 'puntos'))
       ),
       24,
@@ -2268,10 +2268,10 @@ INSERT INTO Concurso VALUES (
 insert into Edicion values(
 70,
 null,
-TO_DATE('07-06-2018', 'DD-MM-YYYY'),
+TO_DATE('07-06-2017', 'DD-MM-YYYY'),
 null,
-TO_DATE('12-06-2018', 'DD-MM-YYYY'),
-TO_DATE('16-06-2018', 'DD-MM-YYYY'),
+TO_DATE('12-06-2017', 'DD-MM-YYYY'),
+TO_DATE('16-06-2017', 'DD-MM-YYYY'),
 null,
 direccion('Hermanus', '7200', '2 Harbour Rd', null),
 costoInscripcion_nt(),
@@ -2327,7 +2327,7 @@ INSERT INTO CatadorAprendiz VALUES(
 
 INSERT INTO Inscripcion VALUES (
     70,
-    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    TO_DATE('05-06-2017', 'DD-MM-YYYY'),
     null,
     70,
     null,
@@ -2336,7 +2336,7 @@ INSERT INTO Inscripcion VALUES (
 
 INSERT INTO Inscripcion VALUES (
     71,
-    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    TO_DATE('05-06-2017', 'DD-MM-YYYY'),
     null,
     70,
     null,
@@ -2345,7 +2345,7 @@ INSERT INTO Inscripcion VALUES (
 
 INSERT INTO Inscripcion VALUES (
     72,
-    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    TO_DATE('05-06-2017', 'DD-MM-YYYY'),
     null,
     70,
     null,
@@ -2354,7 +2354,7 @@ INSERT INTO Inscripcion VALUES (
 
 INSERT INTO Inscripcion VALUES (
     73,
-    TO_DATE('05-06-2018', 'DD-MM-YYYY'),
+    TO_DATE('05-06-2017', 'DD-MM-YYYY'),
     null,
     70,
     null,
@@ -3042,7 +3042,7 @@ empty_blob(),
 'S',
 'Corcho',
 Calificacion_nt(
-    Calificacion('Robert Parker', Tipo_valor(2012, 93,'puntos')),
+    Calificacion('Robert Parker', Tipo_valor(2016, 93,'puntos')),
     Calificacion('Jeremy Oliver',Tipo_valor(2017, 91,'puntos'))),
 Tipo_valor_nt(
     Tipo_valor(2016,2000,'litros'),
@@ -3983,7 +3983,7 @@ INSERT INTO Edicion VALUES  (
 
 insert into Inscripcion values (
     210,
-    to_date('21-02-2016', 'DD-MM-YYYY'),
+    to_date('19-02-2016', 'DD-MM-YYYY'),
     null,
     76,
     501,
@@ -3999,7 +3999,7 @@ insert into Inscripcion values (
 );
 insert into Inscripcion values (
     212,
-    to_date('21-02-2016', 'DD-MM-YYYY'),
+    to_date('19-02-2016', 'DD-MM-YYYY'),
     null,
     76,
     503,
@@ -4007,7 +4007,7 @@ insert into Inscripcion values (
 );
 insert into Inscripcion values (
     213,
-    to_date('21-02-2016', 'DD-MM-YYYY'),
+    to_date('19-02-2016', 'DD-MM-YYYY'),
     null,
     76,
     512,
