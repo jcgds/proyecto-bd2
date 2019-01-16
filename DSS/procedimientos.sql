@@ -606,7 +606,50 @@ begin
 
 end;
 /
-*/
+----- Top 3 marcas por pais (mas premios ganados) ------
+create or replace procedure TransTopMarcaPremio (anio number) as 
+tiempo number;
+pais number;
+top1 varchar(50);
+top2 varchar(50);
+top3 varchar(50);
+cont number:=1;
+countValues number;
+begin
+    tiempo := buscarTiempo(anio);
+    top1:= '';
+    top2:= '';
+    top3:= '';
+    for idpaises in (select p.id, p.nombre, p.continente from I_paisAux p where p.id_tiempoAux = anio) loop
+        pais:=BuscarPais(idpaises.nombre, idpaises.continente);
+        select count(x.id) into countValues from (select M.id,M.nombre,M.premios from i_marca M, i_paisAux P, i_bodega B where
+                        M.id_bodega = B.id and B.id_paisaux = P.id and M.id_tiempoaux = anio and P.id = idpaises.id and M.premios <> 0
+                        order by M.premios DESC) x;
+        for marcas in (select M.id,M.nombre,M.premios from i_marca M, i_paisAux P, i_bodega B where
+                        M.id_bodega = B.id and B.id_paisaux = P.id and M.id_tiempoaux = anio and P.id = idpaises.id and M.premios <> 0
+                        order by M.premios DESC) loop
+                if (cont = 1) then
+                    top1:=marcas.nombre;
+                elsif (cont = 2) then
+                    top2:=marcas.nombre;
+                elsif (cont = 3) then
+                    top3:=marcas.nombre;    
+                end if;
+                cont:=cont+1;              
+        end loop;
+        cont:=1;
+        if countValues > 0 then
+            insert into I_metricas_concurso (id, id_tiempo, id_lugar,top1_marca_premios,top2_marca_premios,top3_marca_premios ) 
+            values (seq_Imetricas_concurso.nextval, tiempo, pais, top1, top2,top3);
+        end if;
+        top1:= '';
+        top2:= '';
+        top3:= '';
+    end loop;
+
+end;
+/
+
 
 create or replace procedure Transformar as
 begin
