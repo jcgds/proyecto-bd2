@@ -2480,7 +2480,7 @@ insert into Pais values (
     bfilename('mapas_regionales', 'australia.png'),
     null
 );
- 
+
 ---- Espana id: 10 -----
 
 insert into Region values (
@@ -2827,13 +2827,13 @@ insert into Bodega values (
 insert into B_DO (id, fk_do_id, fk_do_variedadvid, fk_do_region, fk_bodega) values
 (512, 504, 504, 505, 512);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,maridaje,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    501, 
+    501,
     'Structura',
     'Cosecha manual a horas tempranas de la mañana. Fermentación: En recipientes de acero inoxidable a bajas temperaturas. La fermentación se realizó por separado en lotes reducidos para cada varietal, y luego se hizo una maceración prolongada.',
     'Color rojo oscuro y profundo. Aromas y sabores a ciruelas, guindas confitadas, moras, trufas, grafito y especias. Vino complejo de mucho cuerpo y taninos redondos que aportan una textura sedosa. Gran equilibrio entre alcohol, acidez y fruta. Final muy prolongado.',
@@ -2846,7 +2846,7 @@ values (
 'S',
 'Corcho',
 calificacion_nt(
-    calificacion('James Suckling', Tipo_valor(2018, 95,'puntos')), 
+    calificacion('James Suckling', Tipo_valor(2018, 95,'puntos')),
     calificacion('Tim Atkin',Tipo_valor(2017, 93,'puntos')),
     calificacion('Stephen Tanzer',Tipo_valor(2017, 90,'puntos'))),
 tipo_valor_nt(tipo_valor(2016,1000,'litros'),tipo_valor(2017,1345,'litros'),tipo_valor(2018,2600,'litros')),
@@ -2866,13 +2866,13 @@ distribucion_exp(tipo_valor(2018, 250,'litros'),'Hungria')),
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (501, 501, 2,501, 501, 501, 501, 501);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    502, 
+    502,
     'Colección Privada',
 'Se elabora con tres tipos de uvas: Cabernet sauvignon que le aporta cuerpo y estructura; Malbec que le otorga dulzura; Merlot que le da un final elegante. Cosecha manual. Fermentación: En tanques de acero inoxidable a bajas temperaturas.',
 'De color rojo intenso. Sabores a moras, membrillo y especias. De cuerpo medio y taninos sedosos. Frutado y de larga persistencia en boca.',
@@ -2884,7 +2884,7 @@ empty_blob(),
 'S',
 'Corcho',
 calificacion_nt(
-    Calificacion('James Suckling', Tipo_valor(2018, 91,'puntos')), 
+    Calificacion('James Suckling', Tipo_valor(2018, 91,'puntos')),
     Calificacion('Tim Atkin',Tipo_valor(2017, 90,'puntos'))),
 tipo_valor_nt(Tipo_valor(2016,1000,'litros'),
 Tipo_valor(2017,1500,'litros'),Tipo_valor(2018,1250,'litros')),
@@ -2905,13 +2905,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (502, 502, 2,501, 501, 501, 501, 501);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    503, 
+    503,
     'Medalla ',
 'Elaborado con uvas cosechadas a mano, de gran estructura y complejidad.',
 'Este vino posee un color rojo intenso con tonos violetas. Expresa aromas complejos con notas de mermelada de ciruela, pimientos verdes, pasas de uva, tabaco y un delicado toque de roble. De sabor redondo, en boca es muy persistente, con taninos suaves y maduros.',
@@ -2923,7 +2923,7 @@ empty_blob(),
 'S',
 'Corcho',
 calificacion_nt(
-    Calificacion('Robert Parker', Tipo_valor(2016, 92,'puntos')), 
+    Calificacion('Robert Parker', Tipo_valor(2016, 92,'puntos')),
     Calificacion('Campbell Mattinson',Tipo_valor(2017, 90,'puntos'))),
 tipo_valor_nt(Tipo_valor(2016,1000,'litros'),
 Tipo_valor(2017,1690,'litros'),Tipo_valor(2018,2000,'litros')),
@@ -2944,13 +2944,13 @@ distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (503, 503, 2,503, 501, 501, 501, 503);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    504, 
+    504,
     'Alaris',
 'Alaris Chardonnay es un monovarietal elaborado con viñedos de Cruz de Piedra, plantados a una altitud de 720 m.s.n.m, con más de 90 años de antigüedad.',
 'De color amarillo brillante con tintes verdosos, este vino entrega aromas frutales de manzanas rojas y ananá maduro. En boca su sabor es suave, con una fresca acidez y un prolongado final.',
@@ -2962,7 +2962,7 @@ empty_blob(),
 'N',
 'Corcho',
 Calificacion_nt(
-    Calificacion('Tyson Stelzer', Tipo_valor(2016, 93,'puntos')), 
+    Calificacion('Tyson Stelzer', Tipo_valor(2016, 93,'puntos')),
     Calificacion('Huon Hooke',Tipo_valor(2017, 92,'puntos'))),
 Tipo_valor_nt(Tipo_valor(2016,600,'litros'),
 Tipo_valor(2017,720,'litros'),Tipo_valor(2018,600,'litros')),
@@ -2983,13 +2983,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (504, 504, 1,503, 501, 501, 501, 503);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    505, 
+    505,
     'Luis Mora',
 'Despalillado y presionado de los granos con descarga por desnivel sobre boca de pileta, tendiente a un tratamiento cuidadoso de las uvas. Se utilizan piletas de pequeño tamaño (150 HLTS), para lograr una intensa maceración de los orujos. La fermentación alcohólica se realiza a temperaturas que oscilan entre 24° y 28°C, con levaduras seleccionadas, para asegurar una fermentación efectiva y controlada. El tiempo total de contacto con los orujos oscila entre 15 a 20 días, tiempos que se deciden por degustación, buscando extraer colores intensos y taninos dulces poco agresivos.',
 'Rojo bordó intenso. Aroma a frutos rojos maduros, mermelada de ciruelas, y toques de pasas de uva, con notas vainilla y tabaco aportadas por el roble.  Entrada en boca dulce, cuerpo intenso, se percibe un perfecto equilibrio entre la fruta y el roble, dejando un agradable y persistente final en boca.',
@@ -3001,7 +3001,7 @@ empty_blob(),
 'S',
 'Corcho',
 Calificacion_nt(
-    Calificacion('Nick Stock', Tipo_valor(2016, 90,'puntos')), 
+    Calificacion('Nick Stock', Tipo_valor(2016, 90,'puntos')),
     Calificacion('Jeremy Oliver',Tipo_valor(2017, 90,'puntos'))),
 Tipo_valor_nt(
     Tipo_valor(2016,450,'litros'),
@@ -3024,13 +3024,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (505, 505, 2,502, 501, 501, 501, 502);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    506, 
+    506,
     'Les Tourelles de Longueville',
 '30% en barriles nuevos, 70% en barriles de una cosecha durante 12 meses.',
 'El Tourelles de Longueville ofrece un color rubí fino fino. La nariz está marcada por las bayas de grosella, cereza negra, fresa silvestre y especias suaves. El ataque es fresco, elegante y sutil. La estructura se despliega y crece en poder. El final es armonioso, completo y bien equilibrado. Este vino está lleno de encanto y gracia.',
@@ -3042,7 +3042,7 @@ empty_blob(),
 'S',
 'Corcho',
 Calificacion_nt(
-    Calificacion('Robert Parker', Tipo_valor(2012, 93,'puntos')), 
+    Calificacion('Robert Parker', Tipo_valor(2012, 93,'puntos')),
     Calificacion('Jeremy Oliver',Tipo_valor(2017, 91,'puntos'))),
 Tipo_valor_nt(
     Tipo_valor(2016,2000,'litros'),
@@ -3065,13 +3065,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (506, 506, 2,507, 503, 503, 502, 507);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    507, 
+    507,
     'Les Griffon Pichon Baron',
 '40% en barriles nuevos, 60% en barriles de una cosecha durante 12 meses.',
 'El color es oscuro; Un granate rojo intenso. La nariz está realzada por fruta fresca, crema de grosella negra y Arándanos con una elegante nota a roble. En boca es suave y aterciopelado con taninos delicados y precisos.',
@@ -3083,7 +3083,7 @@ empty_blob(),
 'S',
 'Corcho',
 Calificacion_nt(
-    Calificacion('Nick Stock', Tipo_valor(2017, 92,'puntos')), 
+    Calificacion('Nick Stock', Tipo_valor(2017, 92,'puntos')),
     Calificacion('Jeremy Oliver',Tipo_valor(2018, 91,'puntos'))),
 Tipo_valor_nt(
     Tipo_valor(2016,1350,'litros'),
@@ -3106,13 +3106,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (507, 507, 2,507, 503, 503, 502, 507);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    508, 
+    508,
     'Legende Bordeaux Rougue',
 'Objeto de los mayores cuidados por parte de los viñateros, el viñedo bordelés concita unanimidad absoluta respecto de un punto: produce vinos frescos y elegantes que, si bien son testimonio de una gran cultura y una civilización única, se beben con especial agrado. ',
 'Nariz: intensa y muy expresiva, con predominancia de aromas de fruta fresca (grosella y frambuesa) que se mezclan con leves notas de madera. Boca: estructurada, redonda y agradable, con un suave dejo de madera, taninos firmes pero aterciopelados y un largo final fresco y frutal',
@@ -3124,7 +3124,7 @@ empty_blob(),
 'S',
 'Corcho',
 Calificacion_nt(
-    Calificacion('Nick Stock', Tipo_valor(2016, 93,'puntos')), 
+    Calificacion('Nick Stock', Tipo_valor(2016, 93,'puntos')),
     Calificacion('Robert Parker',Tipo_valor(2017, 91,'puntos'))),
 Tipo_valor_nt(
     Tipo_valor(2016,1360,'litros'),
@@ -3147,13 +3147,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (508, 508, 2,509, 503, 503, 502, 509);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    509, 
+    509,
     'Carruades de Lafite',
 'Objeto de los mayores cuidados por parte de los viñateros, el viñedo bordelés concita unanimidad absoluta respecto de un punto: produce vinos frescos y elegantes que, si bien son testimonio de una gran cultura y una civilización única, se beben con especial agrado. ',
 'De color rubí, con reflejos ciruela. En nariz aromas de grosella y notas de vainilla. En boca de cuerpo medio, notas de suelo y de frutas.',
@@ -3187,13 +3187,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (509, 509, 2,509, 503, 503, 502, 509);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    510, 
+    510,
     'L Excellence',
 'Viticultura integrada, adelgazamiento de las hojas realizado por mano, cosecha verde. Fermentación maloláctica en barricas de roble francés. Vinificación en cubas de hormigón termo regulado',
 'Este Saint-Emilion es un trato absoluto con su sutil Mezcla de Merlot y Cabernet. L Excellence Clos des Menuts es un buen mantenimiento bien equilibrado y afrutado. Vino, con sutiles taninos.',
@@ -3228,13 +3228,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (510, 510, 2,508, 503, 503, 502, 508);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    511, 
+    511,
 'Plexux',
 'Fermentación con tapa sumergida y pequeños fermentadores abiertos de acero inoxidable.',
 'Un poco más de cuerpo medio, con un núcleo oscuro de Frutos concentrados, maduros, rojos y negros. Amplia Estructura proporcionada por taninos finos y suaves. Acidez brillante. Acabados largos y picantes',
@@ -3246,8 +3246,8 @@ empty_blob(),
 'S',
 'Corcho',
 Calificacion_nt(
-    Calificacion('James Halliday', Tipo_valor(2017, 95,'puntos')), 
-    Calificacion('Huon Hooke',Tipo_valor(2017, 92,'puntos')), 
+    Calificacion('James Halliday', Tipo_valor(2017, 95,'puntos')),
+    Calificacion('Huon Hooke',Tipo_valor(2017, 92,'puntos')),
     Calificacion('Mike Bennie',Tipo_valor(2016, 93,'puntos'))),
 Tipo_valor_nt(
     Tipo_valor(2016,600,'litros'),
@@ -3270,13 +3270,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (511, 511, 2,504, 502, 502, 504, 504);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    512, 
+    512,
 'Entity Shiraz',
 'Fermentación con tapa sumergida y pequeños fermentadores abiertos de acero inoxidable.',
 'De cuerpo completo y con una gran variedad de frutos oscuros concentrados. Suculenta, equilibrada y largo sabor en la boca.',
@@ -3288,8 +3288,8 @@ empty_blob(),
 'S',
 'Corcho',
 Calificacion_nt(
-    Calificacion('James Halliday', Tipo_valor(2017, 97,'puntos')), 
-    Calificacion('Campbell Mattinson',Tipo_valor(2017, 95,'puntos')), 
+    Calificacion('James Halliday', Tipo_valor(2017, 97,'puntos')),
+    Calificacion('Campbell Mattinson',Tipo_valor(2017, 95,'puntos')),
     Calificacion('Tim White',Tipo_valor(2016, 96,'puntos'))),
 Tipo_valor_nt(
     Tipo_valor(2016,2500,'litros'),
@@ -3312,13 +3312,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (512, 512, 2,504, 502, 502, 504, 504);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    513, 
+    513,
 'Grand Tokay',
 'Como los componentes vintage de Tokay se maduran por separado en barriles de roble viejos, la mezcla final DP57 es el resultado de un riguroso programa de selección.',
 'Como néctar, con viscosidad de relleno bucal, caramelo y especias exóticas.',
@@ -3352,13 +3352,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (513, 513, 2,505, 502, 502, 504, 505);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    514, 
+    514,
 'Master Muscat',
 'Como los componentes vintage de Muscat se maduran por separado en barriles de roble viejos, la mezcla final DP63 es el resultado de un riguroso programa de selección.',
 'Como néctar, con viscosidad de relleno bucal, caramelo y especias exóticas.',
@@ -3393,13 +3393,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (514, 514, 2,505, 502, 502, 504, 505);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    515, 
+    515,
 'Noble One',
 'Cada uno de los viñedos especialmente seleccionados se cosechó, fermentó y maduró por separado, y cada viñedo proporcionó su propio carácter único, lo que contribuyó a la riqueza y complejidad de este vino. Madurado en 37% de barricas nuevas de roble francés, 62% en barricas de uno y dos años y 25% sin cocción para conservar los sabores de frutas jóvenes en la mezcla.',
 'Brillante medio dorado. Aromas gloriosos de membrillo, nectarina, ralladura de naranja y nuez de roble vanilense. Un banquete sensual de ricas frutas de hueso blanco, cítricos, un toque de mermelada y roble bellamente integrado. Una espiga picante de acidez equilibra la dulzura de este vino dando un toque de frescura al final.',
@@ -3434,13 +3434,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (515, 515, 1,506, 502, 502, 504, 506);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    516, 
+    516,
 'Crianza',
 'Fermentación alcohólica durante 10 días, seguida de maceración por contacto con la piel durante 18 días. La fermentación se realizó a 28ºC con malolácticos en depósitos de acero inoxidable.',
 'En boca es sedoso, agradable y envolvente, largo, equilibrado, con muy buenos taninos.',
@@ -3475,13 +3475,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (516, 516, 2,510, 504, 504, 505, 510);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    517, 
+    517,
 'Verdejo',
 'Fermentación alcohólica durante 10 días a 28ºC, con maceración por contacto con la piel durante 20 días. Fermentación maloláctica en depósitos de acero inoxidable a 18ºC.',
 'Untuoso, aterciopelado y equilibrado en boca, con una buena estructura tánica de alta calidad.',
@@ -3516,13 +3516,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (517, 517, 2,510, 504, 504, 505, 510);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    519, 
+    519,
 'Roble',
 'Cosecha manual en cajas de 20 kg. Tabla de clasificación. Maceración por contacto con la piel y fermentación durante 15 días a 24 ºC.',
 'Sabroso, afrutado, tostado con taninos redondos y buen final.',
@@ -3557,13 +3557,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (519, 519, 2,511, 504, 504, 505, 511);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    518, 
+    518,
 'Reserva',
 'Cosecha nocturna. Maceración por contacto con la piel de 4/5 horas a 10 ºC. Fermentación a 13.5 ºC.',
 'Aroma franco, fresco, balsámico, aromas cítricos, de lima, con gran carga de fruta tropical y sensaciones florales. Una acidez marcada, con recuerdos cítricos vinculados a las sensaciones aromáticas.',
@@ -3598,13 +3598,13 @@ Distribucion_exp_nt(
 insert into MarcaVino_B_DO (id, fk_marcavino, fk_clasificacionvinos, fk_b_do,fk_denominaciondeorigen,fk_do_variedadvid, fk_do_region,fk_bodega) values
 (518, 518, 1,511, 504, 504, 505, 511);
 
-insert into MarcaVino 
+insert into MarcaVino
 (id,nombre,descripcionElaboracion,descripcionCata,
 temperaturaDeServicio,ventanaDeConsumoMeses,gradoAlcohol,acidez,
 foto,contactoConMadera,tipoTapon,criticas,produccionAnual,
 exportacionAnual,tiempoDeMaduracionMeses,fk_clasificacionvinos)
 values (
-    520, 
+    520,
 'Vega Ibor Viura',
 'Recolección en un momento óptimo de madurez. Maceración en frío durante 10 horas, tras dicha maceración se realiza el prensado y se separan las diferentes fracciones del mismo, siendo el mosto yema el que se utiliza para la elaboración de este vino',
 'Aroma franco, fresco, balsámico, aromas cítricos, de lima, con gran carga de fruta tropical y sensaciones florales. Una acidez marcada, con recuerdos cítricos vinculados a las sensaciones aromáticas.',
@@ -3764,6 +3764,346 @@ INSERT INTO Concurso VALUES (
     escala_nt(escala('puntos', 0, 100, 'estandar')),
     'La práctica totalidad del atlas vinícola escoge a Baco como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
 );
+
+INSERT INTO Concurso VALUES (
+    20,
+    'Bodegaswine',
+    DATOSDECONTACTO(
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@tomelloso.es',
+        'http://www.tomelloso.es/',
+        direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
+        null
+    ),
+    'Comparativa',
+    'N',
+    premio_nt(premio('Gran Bodegaswine inter oro', 1, null, 'Medalla', null),
+    premio('Gran Bodegaswine inter plata', 2, null, 'Medalla', null),
+    premio('Gran Bodegaswine inter bronze', 3, null, 'Medalla', null)),
+    escala_nt(escala('puntos', 0, 100, 'estandar')),
+    'La práctica totalidad del atlas vinícola escoge a Baco como escaparate inmejorable de sus elaboraciones. Los cinco continentes vinícolas: Europa, América, África, Asia y Oceanía cuentan año tras año con numerosos representantes en este encuentro global en el que se convierte Bacchus. Una prueba más del prestigio y repercusión que alcanza a nivel internacional la gran cita española con el mundo del vino.'
+);
+
+INSERT INTO Edicion VALUES  (
+    75,
+    null,
+    to_date('20-02-2017', 'DD-MM-YYYY'),
+    to_date('22-02-2017', 'DD-MM-YYYY'),
+    to_date('07-03-2017', 'DD-MM-YYYY'),
+    to_date('11-03-2017', 'DD-MM-YYYY'),
+    128,
+    direccion(
+        'Madrid',
+        '28320',
+        'C/ Alcotanes 22 – Polígono Industrial La Estación',
+        '28320 PINTO (Madrid), Espana'
+    ),
+    costoInscripcion_nt(
+        costoInscripcion(1,150,'Espana'),
+        costoInscripcion(2,298,'Espana'),
+        costoInscripcion(3,443,'Espana'),
+        costoInscripcion(1,124,'Resto de Europa'),
+        costoInscripcion(2,246,'Resto de Europa'),
+        costoInscripcion(3,366,'Resto de Europa')
+    ),
+    lugar('Madrid', 'Espana'),
+    unidadMonetaria('Euro', 'EUR'),
+    'info@uec.es',
+    DATOSDECONTACTO(
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@uec.es',
+        'http://www.concursobacchus.com/',
+        direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
+        null
+    ),
+    20
+);
+
+
+
+insert into Inscripcion values (
+    200,
+    to_date('21-02-2017', 'DD-MM-YYYY'),
+    null,
+    75,
+    501,
+    null
+);
+insert into Inscripcion values (
+    201,
+    to_date('21-02-2017', 'DD-MM-YYYY'),
+    null,
+    75,
+    502,
+    null
+);
+insert into Inscripcion values (
+    202,
+    to_date('21-02-2017', 'DD-MM-YYYY'),
+    null,
+    75,
+    503,
+    null
+);
+insert into Inscripcion values (
+    203,
+    to_date('21-02-2017', 'DD-MM-YYYY'),
+    null,
+    75,
+    512,
+    null
+);
+
+insert into MuestraCompite values (
+    201,
+    501,
+    2,
+    200,
+    2017,
+    premio_nt()
+);
+insert into MuestraCompite values (
+    202,
+    502,
+    2,
+    201,
+    2017,
+    premio_nt()
+);
+insert into MuestraCompite values (
+    203,
+    503,
+    2,
+    202,
+    2017,
+    premio_nt()
+);
+insert into MuestraCompite values (
+    204,
+    505,
+    2,
+    203,
+    2017,
+    premio_nt()
+);
+insert into Juez values (1, 75);
+insert into Juez values (2, 75);
+insert into Juez values (3, 75);
+
+insert into CataExperto values (
+    200,
+    to_date('10-03-2017', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 9, null),
+        valoracion('Fase olfativa', 32, null),
+        valoracion('Fase gustativa', 38, null),
+        valoracion('Armonia', 25, null)
+    ),
+    null,
+    1,
+    201
+);
+insert into CataExperto values (
+    201,
+    to_date('10-03-2017', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 12, null),
+        valoracion('Fase olfativa', 45, null),
+        valoracion('Fase gustativa', 27, null),
+        valoracion('Armonia', 10, null)
+    ),
+    null,
+    3,
+    202
+);
+insert into CataExperto values (
+    202,
+    to_date('10-03-2017', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 28, null),
+        valoracion('Fase olfativa', 46, null),
+        valoracion('Fase gustativa', 15, null),
+        valoracion('Armonia', 12, null)
+    ),
+    null,
+    2,
+    203
+);
+insert into CataExperto values (
+    203,
+    to_date('10-03-2017', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 32, null),
+        valoracion('Fase olfativa', 25, null),
+        valoracion('Fase gustativa', 18, null),
+        valoracion('Armonia', 28, null)
+    ),
+    null,
+    2,
+    204
+);
+
+INSERT INTO Edicion VALUES  (
+    76,
+    null,
+    to_date('20-02-2016', 'DD-MM-YYYY'),
+    to_date('22-02-2016', 'DD-MM-YYYY'),
+    to_date('07-03-2016', 'DD-MM-YYYY'),
+    to_date('11-03-2016', 'DD-MM-YYYY'),
+    128,
+    direccion(
+        'Madrid',
+        '28320',
+        'C/ Alcotanes 22 – Polígono Industrial La Estación',
+        '28320 PINTO (Madrid), Espana'
+    ),
+    costoInscripcion_nt(
+        costoInscripcion(1,150,'Espana'),
+        costoInscripcion(2,298,'Espana'),
+        costoInscripcion(3,443,'Espana'),
+        costoInscripcion(1,124,'Resto de Europa'),
+        costoInscripcion(2,246,'Resto de Europa'),
+        costoInscripcion(3,366,'Resto de Europa')
+    ),
+    lugar('Madrid', 'Espana'),
+    unidadMonetaria('Euro', 'EUR'),
+    'info@uec.es',
+    DATOSDECONTACTO(
+        conj_telefonos(34914293477, 34914291238),
+        null,
+        'info@uec.es',
+        'http://www.concursobacchus.com/',
+        direccion('Madrid', '28014', 'C/ Lope de Vega, 27, Madrid, España', null),
+        null
+    ),
+    20
+);
+
+insert into Inscripcion values (
+    210,
+    to_date('21-02-2016', 'DD-MM-YYYY'),
+    null,
+    76,
+    501,
+    null
+);
+insert into Inscripcion values (
+    211,
+    to_date('21-02-2016', 'DD-MM-YYYY'),
+    null,
+    76,
+    502,
+    null
+);
+insert into Inscripcion values (
+    212,
+    to_date('21-02-2016', 'DD-MM-YYYY'),
+    null,
+    76,
+    503,
+    null
+);
+insert into Inscripcion values (
+    213,
+    to_date('21-02-2016', 'DD-MM-YYYY'),
+    null,
+    76,
+    512,
+    null
+);
+
+insert into MuestraCompite values (
+    210,
+    501,
+    2,
+    210,
+    2016,
+    premio_nt()
+);
+insert into MuestraCompite values (
+    211,
+    502,
+    2,
+    211,
+    2016,
+    premio_nt()
+);
+insert into MuestraCompite values (
+    212,
+    503,
+    2,
+    212,
+    2016,
+    premio_nt()
+);
+insert into MuestraCompite values (
+    213,
+    505,
+    2,
+    213,
+    2016,
+    premio_nt()
+);
+insert into Juez values (1, 76);
+insert into Juez values (2, 76);
+insert into Juez values (3, 76);
+
+insert into CataExperto values (
+    210,
+    to_date('10-03-2016', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 38, null),
+        valoracion('Fase olfativa', 42, null),
+        valoracion('Fase gustativa', 29, null),
+        valoracion('Armonia', 30, null)
+    ),
+    null,
+    1,
+    210
+);
+insert into CataExperto values (
+    211,
+    to_date('10-03-2016', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 22, null),
+        valoracion('Fase olfativa', 35, null),
+        valoracion('Fase gustativa', 12, null),
+        valoracion('Armonia', 15, null)
+    ),
+    null,
+    3,
+    211
+);
+insert into CataExperto values (
+    212,
+    to_date('10-03-2016', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 28, null),
+        valoracion('Fase olfativa', 46, null),
+        valoracion('Fase gustativa', 15, null),
+        valoracion('Armonia', 12, null)
+    ),
+    null,
+    2,
+    212
+);
+insert into CataExperto values (
+    213,
+    to_date('10-03-2016', 'DD-MM-YYYY'),
+    valoracion_nt(
+        valoracion('Fase visual', 28, null),
+        valoracion('Fase olfativa', 16, null),
+        valoracion('Fase gustativa', 32, null),
+        valoracion('Armonia', 12, null)
+    ),
+    null,
+    2,
+    213
+);
+
+
 
 insert into Edicion values(
 73,
@@ -3930,6 +4270,7 @@ INSERT INTO Inscripcion VALUES (
 
 commit;
 
+
 execute CalcularProduccionTotal();
 execute CalcularExportacionTotal();
 
@@ -3939,5 +4280,7 @@ execute resultados_concurso(70);
 execute resultados_concurso(71);
 execute resultados_concurso(72);
 execute resultados_concurso(73);
+execute resultados_concurso(75);
+execute resultados_concurso(76);
 
 commit;

@@ -691,6 +691,7 @@ begin
         TransformarTopProdExpo(recTiempo.anio);
         TransformacionTopMarcaTotalP(recTiempo.anio);
         TransformacionTopMarcaC(recTiempo.anio);
+        TransTopMarcaPremio(recTiempo.anio);
     end loop;
 
     TransformarCrecimientoPais();
