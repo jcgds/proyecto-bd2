@@ -170,6 +170,7 @@ return number is
     existe number;
     p_bienio number;
 begin
+    /*
     p_bienio := p_anio - 2016;
     if (p_bienio = 0) then
         p_bienio := 1;
@@ -178,7 +179,9 @@ begin
     if (existe = 0) then
         insert into I_tiempo values(seq_Itiempo.nextval, p_anio, p_bienio);
     end if;
-    select t.id into tiempo from I_tiempo t where t.anio = p_anio;
+    */
+
+    select t.id into tiempo from I_tiempo t where t.anio = p_anio and rownum <= 1;
     return tiempo;
 end;
 /
@@ -430,15 +433,6 @@ begin
 end;
 /
 
-create or replace procedure Transformar as
-begin
-    TransformarTiempo();
-    -- TODO: Agregar las demas transformaciones
-    TransformarCrecimientoPais();
-    TransformarConcursoMasPopular();
-end;
-/
-
 create or replace procedure Transportar as
 fecha_transporte date := sysdate;
 anio number;
@@ -593,30 +587,41 @@ end;
 /
 
 ----- Top 3 marcas por pais (valoracion de criticos) ------
-/*create or replace procedure TransformacionTopMarcaC (anio number) as
+create or replace procedure TransformacionTopMarcaC (anio number) as 
 tiempo number;
 pais number;
 top1 varchar(50);
 top2 varchar(50);
 top3 varchar(50);
 cont number:=1;
+countValues number;
 begin
     tiempo := buscarTiempo(anio);
+    top1:= '';
+    top2:= '';
+    top3:= '';
     for idpaises in (select p.id, p.nombre, p.continente from I_paisAux p where p.id_tiempoAux = anio) loop
         pais:=BuscarPais(idpaises.nombre, idpaises.continente);
-        for marcas in () loop
-            if (cont = 1) then
-                top1:=marcas.nombre;
-            elsif (cont = 2) then
-                top2:=marcas.nombre;
-            elsif (cont = 3) then
-                top3:=marcas.nombre;
-            end if;
-            cont:=cont+1;
+        select count(x.id) into countValues from (select M.id,M.nombre ,AVG(C.valor) AS prom from i_marca M, i_paisAux P, i_bodega B, i_critica C where
+                        M.id_bodega = B.id and B.id_paisaux = P.id and C.id_marca = M.id and M.id_tiempoaux = anio and P.id = idpaises.id
+                        group by M.id,M.nombre order by prom DESC) x where rownum <=3;
+        for marcas in (select x.nombre from (select M.id,M.nombre ,AVG(C.valor) AS prom from i_marca M, i_paisAux P, i_bodega B, i_critica C where
+                        M.id_bodega = B.id and B.id_paisaux = P.id and C.id_marca = M.id and M.id_tiempoaux = anio and P.id = idpaises.id
+                        group by M.id,M.nombre order by prom DESC) x where rownum <=3) loop
+                if (cont = 1) then
+                    top1:=marcas.nombre;
+                elsif (cont = 2) then
+                    top2:=marcas.nombre;
+                elsif (cont = 3) then
+                    top3:=marcas.nombre;    
+                end if;
+                cont:=cont+1;              
         end loop;
         cont:=1;
-        insert into I_metricas_pais (id, id_tiempo, id_lugar,top1_marcas_criticas,top2_marcas_criticas,top3_marcas_criticas )
-        values (seq_Imetricas_pais.nextval, tiempo, pais, top1, top2,top3);
+        if countValues > 0 then
+            insert into I_metricas_pais (id, id_tiempo, id_lugar,top1_marcas_criticas,top2_marcas_criticas,top3_marcas_criticas ) 
+            values (seq_Imetricas_pais.nextval, tiempo, pais, top1, top2,top3);
+        end if;
         top1:= '';
         top2:= '';
         top3:= '';
@@ -625,3 +630,20 @@ begin
 end;
 /
 */
+
+create or replace procedure Transformar as
+begin
+    TransformarTiempo();
+    TransformarCrecimientoPais();
+    TransformarConcursoMasPopular();
+
+    -- TODO: Agregar las demas transformaciones
+
+    for recTiempo in (select anio from I_Tiempo) loop
+        DBMS_OUTPUT.PUT_LINE(to_char(recTiempo.anio)); 
+        --TransformacionTopProdExpo(recTiempo.anio);
+        TransformacionTopBodega(recTiempo.anio);
+        TransformacionTopMarcaTotalP(recTiempo.anio);
+    end loop;
+end;
+/

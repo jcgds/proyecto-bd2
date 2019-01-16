@@ -3929,3 +3929,15 @@ INSERT INTO Inscripcion VALUES (
 );
 
 commit;
+
+execute CalcularProduccionTotal();
+execute CalcularExportacionTotal();
+
+execute resultados_concurso(1);
+execute resultados_concurso(51);
+execute resultados_concurso(70);
+execute resultados_concurso(71);
+execute resultados_concurso(72);
+execute resultados_concurso(73);
+
+commit;
