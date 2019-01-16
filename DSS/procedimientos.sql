@@ -681,6 +681,7 @@ begin
         TransformarTopProdExpo(recTiempo.anio);
         TransformarTopBodega(recTiempo.anio);
         TransformacionTopMarcaTotalP(recTiempo.anio);
+        TransformacionTopMarcaC(recTiempo.anio);
     end loop;
 end;
 /
