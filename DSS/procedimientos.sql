@@ -94,7 +94,9 @@ begin
         from Concurso co
     ) loop
 
-        INSERT INTO I_Concurso VALUES (seq_Itipo_concurso.nextval, anio, recConcurso.nombre, recConcurso.inscripciones, recConcurso.deCatadores);
+        if recConcurso.inscripciones != 0 then
+            INSERT INTO I_Concurso VALUES (seq_Itipo_concurso.nextval, anio, recConcurso.nombre, recConcurso.inscripciones, recConcurso.deCatadores);
+        end if;
 
     end loop concurso_loop;
 
@@ -357,8 +359,9 @@ begin
             select distinct nombre, continente from I_PaisAux
         ) loop
 
+            DBMS_OUTPUT.PUT_LINE('Anio: ' || to_char(recTiempo.anio) || ' Pais: ' || to_char(recPaisAux.nombre));
             -- Si la dimension Pais no existe, agregar
-            /*
+            
             begin
                 select id into idPaisHolder from I_pais where nombre = recPaisAux.nombre;
             exception
@@ -366,9 +369,9 @@ begin
                 idPaisHolder := seq_Ipais.nextval;
                 INSERT INTO I_Pais VALUES (idPaisHolder, recPaisAux.nombre, sysdate);
             end;
-            */
-
-            idPaisHolder := BuscarPais(recPaisAux.nombre, recPaisAux.continente);
+            
+            DBMS_OUTPUT.PUT_LINE('Id pais en I_Pais: ' || to_char(idPaisHolder));
+            --idPaisHolder := BuscarPais(recPaisAux.nombre, recPaisAux.continente);
 
             produccionAnualInicial := produccion_pais_en_anio(recTiempo.anio - 1, recPaisAux.nombre);
             produccionAnualFinal := produccion_pais_en_anio(recTiempo.anio, recPaisAux.nombre);
@@ -678,8 +681,6 @@ end;
 create or replace procedure Transformar as
 begin
     TransformarTiempo();
-    TransformarCrecimientoPais();
-    TransformarConcursoMasPopular();
 
     for recTiempo in (select anio from I_Tiempo) loop
         TransformarTopBodega(recTiempo.anio);
@@ -687,5 +688,8 @@ begin
         TransformacionTopMarcaTotalP(recTiempo.anio);
         TransformacionTopMarcaC(recTiempo.anio);
     end loop;
+
+    TransformarCrecimientoPais();
+    TransformarConcursoMasPopular();
 end;
 /
