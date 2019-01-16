@@ -67,6 +67,7 @@ create table I_metricas_concurso (
     id_lugar number(10),
     id_continente number(10),
     PorcenCrecimiento_TipoConcurso number(3),
+    PorcCrecimiento_tipo_bienio number (5, 2),
     top1_marca_premios varchar(50),
     top2_marca_premios varchar(50),
     top3_marca_premios varchar(50),
