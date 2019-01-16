@@ -21,11 +21,11 @@ or mp.top2_exportador is not null
 or mp.top3_exportador is not null)
 
 -- Top 5 Marcas de Vino por produccion por pais
-select mp.top1_marcavino_totalprod, mp.top2_marcavino_totalprod, mp.top3_marcavino_totalprod, mp.top4_marcavino_totalprod, mp.top5_marcavino_totalprod
+select mp.top1_marcavino_totalprod "Posición 1", mp.top2_marcavino_totalprod "Posición 2", mp.top3_marcavino_totalprod "Posición 3", mp.top4_marcavino_totalprod "Posición 4", mp.top5_marcavino_totalprod "Posición 5"
 from system.dw_metricas_pais mp, system.DW_Tiempo t, system.DW_Pais p
-where t.anio = :INP_ANIO_4
+where t.anio = :INP_5_ANIO
 and mp.id_tiempo = t.id
-and p.nombre = :INP_NOMBRE_PAIS_2
+and p.nombre = :INP_5_PAIS
 and p.id = mp.id_lugar
 and (mp.top1_marcavino_totalprod is not null
 or mp.top2_marcavino_totalprod is not null
@@ -36,11 +36,11 @@ or mp.top5_marcavino_totalprod is not null
 and rownum <= 1
 
 -- Top 5 Marcas de Vino por produccion por continente
-select mp.top1_marcavino_totalprod, mp.top2_marcavino_totalprod, mp.top3_marcavino_totalprod, mp.top4_marcavino_totalprod, mp.top5_marcavino_totalprod
+select mp.top1_marcavino_totalprod "Posición 1", mp.top2_marcavino_totalprod "Posición 2", mp.top3_marcavino_totalprod "Posición 3", mp.top4_marcavino_totalprod "Posición 4", mp.top5_marcavino_totalprod "Posición 5"
 from system.dw_metricas_pais mp, system.DW_Tiempo t
-where t.anio = :INP_ANIO_4
+where t.anio = :INP_5_ANIO
 and mp.id_tiempo = t.id
-and mp.id_continente = 72
+and mp.id_continente = :INP_5_CONT
 and (mp.top1_marcavino_totalprod is not null
 or mp.top2_marcavino_totalprod is not null
 or mp.top3_marcavino_totalprod is not null
@@ -74,6 +74,48 @@ and t.anio = :INP_P_ANIO
 and mc.id_tiempo = t.id
 and p.nombre = :INP_P_PAIS
 and mc.id_lugar = p.id
+and rownum <= 1
+
+
+-- Porcentaje de crecimiento por pais anual
+select distinct t.anio as "Año", mp.porccrecimiento_prod_anual as "% Crecimiento", system.litros_a_hectolitros(paux.produccion) as "Producción (hl)"
+from system.dw_metricas_pais mp, system.dw_pais p, system.dw_tiempo t, system.I_paisAux paux
+where  p.nombre = :INP_NOMBRE_PAIS
+and mp.id_lugar = p.id
+and t.id = mp.id_tiempo
+and paux.id_tiempoaux = t.anio
+and paux.nombre = :INP_NOMBRE_PAIS
+and mp.porccrecimiento_prod_anual is not null
+order by t.anio asc
+
+-- Porcentaje de crecimiento por pais bienio
+select distinct to_char((select MIN(anio) from system.DW_Tiempo where bienio = t.bienio)) || '/' || to_char((select MAX(anio) from system.DW_Tiempo where bienio = t.bienio)) "Bienio", t.bienio "Número de Bienio",
+mp.porccrecimiento_prod_bienio "% Crecimiento"
+from system.dw_metricas_pais mp, system.dw_Pais p, system.dw_Tiempo t
+where  p.nombre = :INP_NOMBRE_PAIS
+and mp.id_lugar = p.id
+and t.id = mp.id_tiempo
+and mp.porccrecimiento_prod_bienio is not null
+order by "Número de Bienio" asc
+
+-- Concurso de catadores mas popular
+select distinct mc.ConcursoMasPopular "Nombre", ic.inscripciones
+from system.DW_metricas_concurso mc, system.DW_Tiempo t, system.I_Concurso ic
+where t.anio = :INP_ANIO_P2
+and mc.id_tiempo = t.id
+and mc.concursomaspopular is not null
+and ic.nombre = mc.concursomaspopular
+and ic.id_tiempoaux = t.anio
+and rownum <=1
+
+-- Top 2 Bodegas produccion nacional
+select mp.top1_bodega_prod "Posición 1", mp.top2_bodega_prod "Posición 2"
+from system.dw_metricas_pais mp, system.DW_tiempo t, system.DW_Pais p
+where mp.top1_bodega_prod is not null
+and t.anio = :INP_BOD_ANIO
+and mp.id_tiempo = t.id
+and p.nombre = :INP_BOD_PAIS
+and mp.id_lugar = p.id
 and rownum <= 1
 
 
