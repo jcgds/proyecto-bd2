@@ -1,3 +1,25 @@
+-- Top 3 Paises por produccion 
+select distinct mp.top1_productor_mundial || ' - Produccion: '|| x1.produccion "Posición 1", mp.top2_productor_mundial || ' - Produccion: '|| x2.produccion "Posición 2", mp.top3_productor_mundial || ' - Produccion: '|| x3.produccion "Posición 3"
+from system.dw_tiempo t, system.dw_metricas_pais mp , (select produccion,nombre from system.i_paisaux where id_tiempoaux = :INP_ANIO_2) x1,(select produccion,nombre from system.i_paisaux where id_tiempoaux = :INP_ANIO_2) x2,
+(select produccion,nombre from system.i_paisaux where id_tiempoaux = :INP_ANIO_2) x3
+where t.anio = :INP_ANIO_2
+and mp.id_tiempo = t.id and x1.nombre = mp.top1_productor_mundial and x2.nombre = mp.top2_productor_mundial and x3.nombre = mp.top3_productor_mundial
+and (mp.top1_productor_mundial is not null
+or mp.top2_productor_mundial is not null
+or mp.top3_productor_mundial is not null)
+
+-- Top 3 Paises por exportacion
+select distinct mp.top1_exportador || ' - Exportacion: '|| x1.exportacion "Posición 1", mp.top2_exportador || ' - Exportacion: '|| x2.exportacion "Posición 2", mp.top3_exportador || ' - Exportacion: '|| x3.exportacion "Posición 3"
+from system.dw_tiempo t, system.dw_metricas_pais mp , 
+(select exportacion,nombre from system.i_paisaux where id_tiempoaux = :INP_ANIO_2) x1,
+(select exportacion,nombre from system.i_paisaux where id_tiempoaux = :INP_ANIO_2) x2,
+(select exportacion,nombre from system.i_paisaux where id_tiempoaux = :INP_ANIO_2) x3
+where t.anio = :INP_ANIO_2
+and mp.id_tiempo = t.id and x1.nombre = mp.top1_exportador and x2.nombre = mp.top2_exportador and x3.nombre = mp.top3_exportador
+and (mp.top1_exportador is not null
+or mp.top2_exportador is not null
+or mp.top3_exportador is not null)
+
 -- Top 5 Marcas de Vino por produccion por pais
 select mp.top1_marcavino_totalprod, mp.top2_marcavino_totalprod, mp.top3_marcavino_totalprod, mp.top4_marcavino_totalprod, mp.top5_marcavino_totalprod
 from system.dw_metricas_pais mp, system.DW_Tiempo t, system.DW_Pais p
@@ -28,13 +50,20 @@ or mp.top5_marcavino_totalprod is not null
 and rownum <= 1
 
 -- Top 3 Marcas de vino por critica promedio y pais
-select mp.top1_marcas_criticas, mp.top2_marcas_criticas, mp.top3_marcas_criticas
-from system.dw_metricas_pais mp, system.dw_pais p, system.dw_tiempo t
+select mp.top1_marcas_criticas ||  ' - Promedio de las criticas: '|| x1.valor "Posición 1", mp.top2_marcas_criticas || ' - Promedio de las criticas: '|| x2.valor "Posición 2", mp.top3_marcas_criticas || ' - Promedio de las criticas: '|| x3.valor "Posición 3"
+from system.dw_metricas_pais mp, system.dw_pais p, system.dw_tiempo t, 
+(select M.id, M.nombre, AVG(C.valor) as valor from system.i_marca M, system.i_bodega B, system.i_paisAux P, system.i_critica C where 
+M.id_bodega = B.id and B.id_paisaux = P.id and P.id_tiempoaux = :INP_C_ANIO and P.nombre = :INP_C_PAIS and C.id_marca = M.id group by M.id,M.nombre) x1,
+(select M.id, M.nombre, AVG(C.valor) as valor from system.i_marca M, system.i_bodega B, system.i_paisAux P, system.i_critica C where 
+M.id_bodega = B.id and B.id_paisaux = P.id and P.id_tiempoaux = :INP_C_ANIO and P.nombre = :INP_C_PAIS and C.id_marca = M.id group by M.id,M.nombre) x2,
+(select M.id, M.nombre, AVG(C.valor) as valor from system.i_marca M, system.i_bodega B, system.i_paisAux P, system.i_critica C where 
+M.id_bodega = B.id and B.id_paisaux = P.id and P.id_tiempoaux = :INP_C_ANIO and P.nombre = :INP_C_PAIS and C.id_marca = M.id group by M.id,M.nombre) x3
 where mp.top1_marcas_criticas is not null
 and t.anio = :INP_C_ANIO
 and mp.id_tiempo = t.id
 and p.nombre = :INP_C_PAIS
 and mp.id_lugar = p.id
+and mp.top1_marcas_criticas = x1.nombre and mp.top2_marcas_criticas = x2.nombre and mp.top3_marcas_criticas = x3.nombre
 and rownum <= 1
 
 -- Top 3 Marcas de vino por premios ganados y pais
