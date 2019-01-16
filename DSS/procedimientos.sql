@@ -628,7 +628,7 @@ begin
 end;
 /
 ----- Top 3 marcas por pais (mas premios ganados) ------
-create or replace procedure TransTopMarcaPremio (anio number) as 
+create or replace procedure TransTopMarcaPremio (anio number) as
 tiempo number;
 pais number;
 top1 varchar(50);
@@ -654,13 +654,13 @@ begin
                 elsif (cont = 2) then
                     top2:=marcas.nombre;
                 elsif (cont = 3) then
-                    top3:=marcas.nombre;    
+                    top3:=marcas.nombre;
                 end if;
-                cont:=cont+1;              
+                cont:=cont+1;
         end loop;
         cont:=1;
         if countValues > 0 then
-            insert into I_metricas_concurso (id, id_tiempo, id_lugar,top1_marca_premios,top2_marca_premios,top3_marca_premios ) 
+            insert into I_metricas_concurso (id, id_tiempo, id_lugar,top1_marca_premios,top2_marca_premios,top3_marca_premios )
             values (seq_Imetricas_concurso.nextval, tiempo, pais, top1, top2,top3);
         end if;
         top1:= '';
@@ -680,7 +680,6 @@ begin
     for recTiempo in (select anio from I_Tiempo) loop
         TransformarTopProdExpo(recTiempo.anio);
         TransformarTopBodega(recTiempo.anio);
-        TransformacionTopBodega(recTiempo.anio);
         TransformacionTopMarcaTotalP(recTiempo.anio);
     end loop;
 end;
