@@ -181,7 +181,7 @@ begin
     end if;
     */
 
-    select t.id into tiempo from I_tiempo t where t.anio = p_anio and rownum <= 1;
+    select t.id into tiempo from I_tiempo t where t.anio = p_anio and rownum = 1;
     return tiempo;
 end;
 /
