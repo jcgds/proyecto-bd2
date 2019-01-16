@@ -217,6 +217,7 @@ export number(10):=0;
 idMetrica number;
 top1E varchar(50);
 top2E varchar(50);
+top3E varchar(50);
 top1P varchar(50);
 top2P varchar(50);
 top3P varchar(50);
@@ -224,12 +225,15 @@ begin
 
     tiempo:=BuscarTiempo(anio);
 
-    for names in (select p.nombre into name from (select nombre, exportacion from I_paisAux where id_tiempoAux = anio order by exportacion DESC) p where rownum<=2) loop
+    for names in (select p.nombre into name from (select nombre, exportacion from I_paisAux where id_tiempoAux = anio order by exportacion DESC) p where rownum<=3) loop
         if (cont = 1) then
             top1E:=names.nombre;
         end if;
         if (cont = 2) then
             top2E:=names.nombre;
+        end if;
+        if (cont = 3) then
+            top3E:=names.nombre;
         end if;
         cont:=cont+1;
     end loop;
@@ -251,7 +255,7 @@ begin
 
 
     idMetrica := seq_Imetricas_pais.nextval;
-    insert into I_metricas_pais (id, id_tiempo, top1_productor_mundial, top2_productor_mundial, top3_productor_mundial, top1_exportador, top2_exportador )values (idMetrica, tiempo,  top1P, top2P, top3P, top1E, top2E);
+    insert into I_metricas_pais (id, id_tiempo, top1_productor_mundial, top2_productor_mundial, top3_productor_mundial, top1_exportador, top2_exportador, top3_exportador )values (idMetrica, tiempo,  top1P, top2P, top3P, top1E, top2E, top3E);
 
 end;
 /
@@ -361,7 +365,7 @@ begin
 
             DBMS_OUTPUT.PUT_LINE('Anio: ' || to_char(recTiempo.anio) || ' Pais: ' || to_char(recPaisAux.nombre));
             -- Si la dimension Pais no existe, agregar
-            
+
             begin
                 select id into idPaisHolder from I_pais where nombre = recPaisAux.nombre;
             exception
@@ -369,7 +373,7 @@ begin
                 idPaisHolder := seq_Ipais.nextval;
                 INSERT INTO I_Pais VALUES (idPaisHolder, recPaisAux.nombre, sysdate);
             end;
-            
+
             DBMS_OUTPUT.PUT_LINE('Id pais en I_Pais: ' || to_char(idPaisHolder));
             --idPaisHolder := BuscarPais(recPaisAux.nombre, recPaisAux.continente);
 
