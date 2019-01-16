@@ -358,6 +358,7 @@ begin
         ) loop
 
             -- Si la dimension Pais no existe, agregar
+            /*
             begin
                 select id into idPaisHolder from I_pais where nombre = recPaisAux.nombre;
             exception
@@ -365,6 +366,9 @@ begin
                 idPaisHolder := seq_Ipais.nextval;
                 INSERT INTO I_Pais VALUES (idPaisHolder, recPaisAux.nombre, sysdate);
             end;
+            */
+
+            idPaisHolder := BuscarPais(recPaisAux.nombre, recPaisAux.continente);
 
             produccionAnualInicial := produccion_pais_en_anio(recTiempo.anio - 1, recPaisAux.nombre);
             produccionAnualFinal := produccion_pais_en_anio(recTiempo.anio, recPaisAux.nombre);
@@ -678,8 +682,8 @@ begin
     TransformarConcursoMasPopular();
 
     for recTiempo in (select anio from I_Tiempo) loop
-        TransformarTopProdExpo(recTiempo.anio);
         TransformarTopBodega(recTiempo.anio);
+        TransformarTopProdExpo(recTiempo.anio);
         TransformacionTopMarcaTotalP(recTiempo.anio);
         TransformacionTopMarcaC(recTiempo.anio);
     end loop;
