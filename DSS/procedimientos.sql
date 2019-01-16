@@ -609,7 +609,6 @@ begin
 
 end;
 /
-*/
 
 create or replace procedure Transformar as
 begin
@@ -617,11 +616,9 @@ begin
     TransformarCrecimientoPais();
     TransformarConcursoMasPopular();
 
-    -- TODO: Agregar las demas transformaciones
-
     for recTiempo in (select anio from I_Tiempo) loop
-        DBMS_OUTPUT.PUT_LINE(to_char(recTiempo.anio)); 
-        --TransformacionTopProdExpo(recTiempo.anio);
+        TransformarTopProdExpo(recTiempo.anio);
+        TransformarTopBodega(recTiempo.anio);
         TransformacionTopBodega(recTiempo.anio);
         TransformacionTopMarcaTotalP(recTiempo.anio);
     end loop;
