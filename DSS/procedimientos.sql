@@ -502,8 +502,6 @@ begin
       From DW_metricas_concurso
     ) xx;
 
-
-    end loop;
 end;
 /
 
@@ -587,7 +585,7 @@ end;
 /
 
 ----- Top 3 marcas por pais (valoracion de criticos) ------
-create or replace procedure TransformacionTopMarcaC (anio number) as 
+create or replace procedure TransformacionTopMarcaC (anio number) as
 tiempo number;
 pais number;
 top1 varchar(50);
@@ -613,13 +611,13 @@ begin
                 elsif (cont = 2) then
                     top2:=marcas.nombre;
                 elsif (cont = 3) then
-                    top3:=marcas.nombre;    
+                    top3:=marcas.nombre;
                 end if;
-                cont:=cont+1;              
+                cont:=cont+1;
         end loop;
         cont:=1;
         if countValues > 0 then
-            insert into I_metricas_pais (id, id_tiempo, id_lugar,top1_marcas_criticas,top2_marcas_criticas,top3_marcas_criticas ) 
+            insert into I_metricas_pais (id, id_tiempo, id_lugar,top1_marcas_criticas,top2_marcas_criticas,top3_marcas_criticas )
             values (seq_Imetricas_pais.nextval, tiempo, pais, top1, top2,top3);
         end if;
         top1:= '';
@@ -640,7 +638,7 @@ begin
     -- TODO: Agregar las demas transformaciones
 
     for recTiempo in (select anio from I_Tiempo) loop
-        DBMS_OUTPUT.PUT_LINE(to_char(recTiempo.anio)); 
+        DBMS_OUTPUT.PUT_LINE(to_char(recTiempo.anio));
         --TransformacionTopProdExpo(recTiempo.anio);
         TransformacionTopBodega(recTiempo.anio);
         TransformacionTopMarcaTotalP(recTiempo.anio);
